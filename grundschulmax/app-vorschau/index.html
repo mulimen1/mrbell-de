@@ -7202,6 +7202,35 @@ body.fsvon #ov input:focus{border-color:#1d2a57;box-shadow:0 0 0 3px rgba(29,42,
 .les.fxl .lesquit .lqend:hover{color:#c0392b!important}
 .lesend .leet.fxseal{width:96px!important;height:96px;margin:0 auto 4px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 30% 25%,#f5e2a8,#e3c67a 55%,#c9a24e);box-shadow:0 14px 30px -14px rgba(160,120,40,.7),inset 0 0 0 4px rgba(255,255,255,.45);color:#1d2a57;animation:leehop 1.2s cubic-bezier(.3,1.6,.5,1) .2s both}
 .lesend .leet.fxseal svg{width:46px;height:46px}
+/* ---- Übersicht: eine Karte, die zwischen Internet- und KI-Führerschein wechselt ---- */
+.fxhero2{display:flex;flex-direction:column;align-items:center;gap:18px;margin:6px 0 30px}
+.fxsw{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;padding:5px;border-radius:999px;background:#ece7de;box-shadow:inset 0 1px 2px rgba(20,24,50,.08)}
+.fxsw>button,.fxsw>a{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:190px;height:44px;padding:0 20px;border:0;border-radius:999px;background:none;font:700 15px/1.1 G,system-ui,sans-serif;color:#585d6c;cursor:pointer;text-decoration:none;transition:color .3s}
+.fxsw>button.on{color:#fff}
+.fxsw>a small{font-size:11px;font-weight:600;color:#c2501c;margin-top:2px}
+.fxswi{position:absolute;z-index:0;top:5px;bottom:5px;left:5px;width:calc(50% - 5px);border-radius:999px;background:#1d2a57;box-shadow:0 8px 18px -10px rgba(29,42,87,.9);transform:translateX(calc(var(--x) * 100%));transition:transform .45s cubic-bezier(.5,0,.2,1),background .45s}
+.fxsw:has(button[data-c=k].on) .fxswi{background:#3b2d78}
+.fxstage{width:100%;max-width:620px;transition:opacity .16s,transform .16s}
+.fxstage.out{opacity:0;transform:scale(.97)}
+.fxstage .fxlic{width:100%;min-height:250px;padding:26px 28px;cursor:default;view-transition-name:fxcard;animation:fxcin .5s cubic-bezier(.3,.8,.3,1)}
+.fxstage .fxlic.on{box-shadow:0 0 0 3px #f7f4ef,0 0 0 5px var(--gd),0 40px 70px -36px rgba(10,15,40,.85)}
+.fxstage .fxlic.fxl-k{background:radial-gradient(120% 140% at 0% 0%,#5a49b0 0%,#3b2d78 45%,#1d1645 100%)}
+.fxstage .fxlic ul{gap:10px 22px}
+.fxstage .fxlic li{font-size:14.5px}
+@keyframes fxcin{from{opacity:.4;transform:translateY(8px) scale(.985)}to{opacity:1;transform:none}}
+::view-transition-old(fxcard),::view-transition-new(fxcard){animation-duration:.55s;animation-timing-function:cubic-bezier(.5,0,.2,1)}
+::view-transition-group(fxcard){animation-duration:.55s;animation-timing-function:cubic-bezier(.5,0,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.25s}
+@media(max-width:720px){.fxsw>button,.fxsw>a{min-width:0;height:42px;padding:0 14px;font-size:13.5px}.fxsw{width:100%}.fxstage .fxlic{min-height:0;padding:20px}.fxstage .fxlic ul{grid-template-columns:1fr 1fr}}
+.fxswi{view-transition-name:fxswi}
+::view-transition-group(fxswi){animation-duration:.45s;animation-timing-function:cubic-bezier(.5,0,.2,1)}
+.fxdash .fxhi{flex-direction:column!important;align-items:center!important;text-align:center!important;gap:6px!important;margin-bottom:18px!important}
+.fxdash .fxhi p{max-width:560px;text-align:center!important;margin:0!important}
+/* ---- Szenenbilder immer ganz zeigen (nichts Wichtiges abschneiden, z. B. Schulname, Gewinnspiel-Text) ---- */
+.spc{width:min(430px,100%,calc(100vh - 330px))!important}
+.spim{height:auto!important;aspect-ratio:1/1;background-size:cover!important;background-position:50% 50%!important}
+.svpl,.svpl.th{max-height:none!important;width:min(100%,calc(46vh * 16 / 9))!important;margin:0 auto!important;aspect-ratio:16/9!important;background-size:cover!important;background-position:50% 50%!important}
+.lesend.fxend,.lesend.fxend *{text-shadow:none!important}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7795,6 +7824,6 @@ body.fsvon #ov input:focus{border-color:#1d2a57;box-shadow:0 0 0 3px rgba(29,42,
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-3ccdfd2b.js"></script>
+<script defer src="/grundschulmax/gjs/app-e61aadbb.js"></script>
 </body>
 </html>
