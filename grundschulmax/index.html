@@ -7231,6 +7231,25 @@ body.fsvon #ov input:focus{border-color:#1d2a57;box-shadow:0 0 0 3px rgba(29,42,
 .spim{height:auto!important;aspect-ratio:1/1;background-size:cover!important;background-position:50% 50%!important}
 .svpl,.svpl.th{max-height:none!important;width:min(100%,calc(46vh * 16 / 9))!important;margin:0 auto!important;aspect-ratio:16/9!important;background-size:cover!important;background-position:50% 50%!important}
 .lesend.fxend,.lesend.fxend *{text-shadow:none!important}
+/* ---- Führerschein: Rückmeldung nach jeder Antwort, ruhig und klar (Erklärung immer sichtbar) ---- */
+.les.fxl[data-state=ok] .lesfw,.les.fxl[data-state=no] .lesfw{background:#fff!important;border:1px solid #e5dfd5!important;border-radius:20px!important;box-shadow:0 24px 50px -24px rgba(16,22,48,.45)!important;position:relative;overflow:hidden;padding:18px 20px 18px 26px!important;gap:16px!important}
+.les.fxl[data-state=ok] .lesfw::before,.les.fxl[data-state=no] .lesfw::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:#1f9d63}
+.les.fxl[data-state=no] .lesfw::before{background:#d9534f}
+.les.fxl[data-state=ok] .lesfw::after,.les.fxl[data-state=no] .lesfw::after{display:none!important}
+.les.fxl .lesmsg{font-family:G,system-ui,sans-serif!important}
+.les.fxl[data-state=ok] .lesmsg>div>b,.les.fxl[data-state=no] .lesmsg>div>b{display:block;font-size:19px!important;font-weight:800!important;letter-spacing:-.01em;margin-bottom:4px}
+.les.fxl[data-state=ok] .lesmsg>div>b{color:#137a4b!important}
+.les.fxl[data-state=no] .lesmsg>div>b{color:#b8322e!important}
+.les.fxl .lesmsg .lmt{color:#3b3f4f!important;font-weight:500!important;font-size:15px!important;line-height:1.5!important}
+.les.fxl .lesmsg .lmt b{color:#16181f!important;font-weight:700!important}
+.les.fxl .lesmsg .lmt i{display:block;font-style:normal;color:#3b3f4f!important;font-weight:500!important;margin-top:4px}
+.les.fxl[data-state=no] .lesmsg .lmt>b{display:inline;background:#e9f8f0;color:#0e4535!important;padding:1px 6px;border-radius:6px}
+.les.fxl .lesmsg .lmi{width:34px!important;height:34px!important;border-radius:50%!important;box-shadow:none!important;flex:none}
+.les.fxl[data-state=ok] .lesmsg .lmi{background:#e3f6ec!important;color:#1f9d63!important}
+.les.fxl[data-state=no] .lesmsg .lmi{background:#fbe7e6!important;color:#d9534f!important}
+.les.fxl .lesmsg .lmi svg{width:18px!important;height:18px!important}
+.les.fxl .lhb.why{background:#f3f0ea!important;border:0!important}
+.les.fxl[data-state=ok] .lesbtn{animation:none!important}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
