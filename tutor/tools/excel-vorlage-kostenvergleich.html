@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Kostenvergleichsrechnung – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Zwei Anlagen im Vergleich: kalkulatorische AfA, Zinsen, Stückkosten und kritische Menge. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 17 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-kostenvergleich">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Kostenvergleichsrechnung (Excel-Vorlage)","description":"Zwei Anlagen im Vergleich: kalkulatorische AfA, Zinsen, Stückkosten und kritische Menge.","url":"https://www.bwlmax.de/tools/excel-vorlage-kostenvergleich","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Investition","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Investition</p>
+<h1>Excel-Vorlage: Kostenvergleichsrechnung</h1>
+<p class="lead">Zwei Anlagen im Vergleich: kalkulatorische AfA, Zinsen, Stückkosten und kritische Menge. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>14</b> Eingabefelder</li><li><b>17</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="kostenvergleich">
+<div class="xl-keys"><div class="xl-key"><small>Günstigere Anlage</small><b>Anlage A</b></div><div class="xl-key"><small>Kritische Menge (Stück)</small><b>3.761,90</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Kostenvergleichsrechnung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Kostenvergleich“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:266px"><col style="width:141px"><col style="width:141px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="3">Kostenvergleichsrechnung</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="3">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="3">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th"></td><td class="xs-th">Anlage A</td><td class="xs-th">Anlage B</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Anschaffungskosten</td><td class="xs-in num">120.000,00 €</td><td class="xs-in num">90.000,00 €</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Restwert (höchstens Anschaffungskosten)</td><td class="xs-in num">10.000,00 €</td><td class="xs-in num">5.000,00 €</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Nutzungsdauer (Jahre)</td><td class="xs-in num">8</td><td class="xs-in num">6</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Kalkulationszinssatz</td><td class="xs-in num">6,00 %</td><td class="xs-in num">6,00 %</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Sonstige Fixkosten p. a.</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">6.000,00 €</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Variable Kosten je Stück</td><td class="xs-in num">2,50 €</td><td class="xs-in num">3,20 €</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Leistungsmenge p. a. (Stück)</td><td class="xs-in num">20.000</td><td class="xs-in num">20.000</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-sec" colspan="3">Kosten pro Jahr</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Kalkulatorische Abschreibung</td><td class="xs-out num">13.750,00 €</td><td class="xs-out num">14.166,67 €</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Kalkulatorische Zinsen</td><td class="xs-out num">3.900,00 €</td><td class="xs-out num">2.850,00 €</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Sonstige Fixkosten</td><td class="xs-out num">8.000,00 €</td><td class="xs-out num">6.000,00 €</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">= Fixkosten gesamt</td><td class="xs-tot num">25.650,00 €</td><td class="xs-tot num">23.016,67 €</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Variable Kosten</td><td class="xs-out num">50.000,00 €</td><td class="xs-out num">64.000,00 €</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">= Gesamtkosten</td><td class="xs-res num">75.650,00 €</td><td class="xs-res num">87.016,67 €</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Kosten je Stück</td><td class="xs-out num">3,78 €</td><td class="xs-out num">4,35 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-sec" colspan="3">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Günstigere Anlage</td><td class="xs-res" colspan="2">Anlage A</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Kostenvorteil pro Jahr</td><td class="xs-out num">11.366,67 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Kritische Menge (Stück)</td><td class="xs-res num">3.761,90</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-note" colspan="3">Kritische Menge: Ab hier kippt der Kostenvorteil (bei ganzen Stück: aufrunden). Der Vergleich setzt gleiche Leistungsmenge und Qualität voraus. Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital (AK + Restwert) / 2.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Kostenvergleich“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Zwei Anlagen im Vergleich: kalkulatorische AfA, Zinsen, Stückkosten und kritische Menge. Die Vorlage gehört zum Bereich Investition und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 14 Werte ein; die Datei berechnet daraus unter anderem „Günstigere Anlage“ und „Kritische Menge (Stück)“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Kritische Menge: Ab hier kippt der Kostenvorteil (bei ganzen Stück: aufrunden). Der Vergleich setzt gleiche Leistungsmenge und Qualität voraus. Kalkulatorische Zinsen auf das durchschnittlich gebundene Kapital (AK + Restwert) / 2.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anschaffungskosten · Anlage A</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">120.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Anschaffungskosten · Anlage B</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">90.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Restwert (höchstens Anschaffungskosten) · Anlage A</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">10.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Restwert (höchstens Anschaffungskosten) · Anlage B</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">5.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Nutzungsdauer (Jahre) · Anlage A</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">8</td><td>1 bis 100, ganze Zahl</td></tr>
+<tr><td>Nutzungsdauer (Jahre) · Anlage B</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">6</td><td>ab 1, ganze Zahl</td></tr>
+<tr><td>Kalkulationszinssatz · Anlage A</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">6,00 %</td><td>ab 0,00 %</td></tr>
+<tr><td>Kalkulationszinssatz · Anlage B</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">6,00 %</td><td>ab 0,00 %</td></tr>
+<tr><td>Sonstige Fixkosten p. a. · Anlage A</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Fixkosten p. a. · Anlage B</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">6.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Variable Kosten je Stück · Anlage A</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">2,50 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Variable Kosten je Stück · Anlage B</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">3,20 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Leistungsmenge p. a. (Stück) · Anlage A</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">20.000</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Leistungsmenge p. a. (Stück) · Anlage B</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">20.000</td><td>ab 0, ganze Zahl</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Günstigere Anlage</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">Anlage A</b></td></tr>
+<tr><td>Kritische Menge (Stück)</td><td><code>B26</code></td><td class="xlw-v"><b data-xv="B26">3.761,90</b></td></tr>
+<tr><td>Gesamtkosten – Anlage A</td><td><code>B20</code></td><td class="xlw-v"><b data-xv="B20">75.650,00 €</b></td></tr>
+<tr><td>Gesamtkosten – Anlage B</td><td><code>C20</code></td><td class="xlw-v"><b data-xv="C20">87.016,67 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 17 Formeln des Blatts „Kostenvergleich“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B15</td><td>Kalkulatorische Abschreibung</td><td class="xlw-f">=(B6-B7)/B8</td><td><small>Kalkulatorische AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.</small></td></tr>
+<tr><td>C15</td><td>Kalkulatorische Abschreibung</td><td class="xlw-f">=(C6-C7)/C8</td><td></td></tr>
+<tr><td>B16</td><td>Kalkulatorische Zinsen</td><td class="xlw-f">=(B6+B7)/2*B9</td><td><small>Kalkulatorische Zinsen = (AK + Restwert) / 2 × Zinssatz.</small></td></tr>
+<tr><td>C16</td><td>Kalkulatorische Zinsen</td><td class="xlw-f">=(C6+C7)/2*C9</td><td></td></tr>
+<tr><td>B17</td><td>Sonstige Fixkosten</td><td class="xlw-f">=B10</td><td></td></tr>
+<tr><td>C17</td><td>Sonstige Fixkosten</td><td class="xlw-f">=C10</td><td></td></tr>
+<tr><td>B18</td><td>= Fixkosten gesamt</td><td class="xlw-f">=B15+B16+B17</td><td></td></tr>
+<tr><td>C18</td><td>= Fixkosten gesamt</td><td class="xlw-f">=C15+C16+C17</td><td></td></tr>
+<tr><td>B19</td><td>Variable Kosten</td><td class="xlw-f">=B11*B12</td><td></td></tr>
+<tr><td>C19</td><td>Variable Kosten</td><td class="xlw-f">=C11*C12</td><td></td></tr>
+<tr><td>B20</td><td>= Gesamtkosten</td><td class="xlw-f">=B18+B19</td><td></td></tr>
+<tr><td>C20</td><td>= Gesamtkosten</td><td class="xlw-f">=C18+C19</td><td></td></tr>
+<tr><td>B21</td><td>Kosten je Stück</td><td class="xlw-f">=WENNFEHLER(B20/B12;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C21</td><td>Kosten je Stück</td><td class="xlw-f">=WENNFEHLER(C20/C12;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B24</td><td>Günstigere Anlage</td><td class="xlw-f">=WENN(ODER(B7&gt;B6;C7&gt;C6);&quot;Eingaben prüfen – Restwert über Anschaffungskosten&quot;;WENN(B20&lt;C20;&quot;Anlage A&quot;;WENN(C20&lt;B20;&quot;Anlage B&quot;;&quot;Beide gleich teuer&quot;)))</td><td></td></tr>
+<tr><td>B25</td><td>Kostenvorteil pro Jahr</td><td class="xlw-f">=ABS(B20-C20)</td><td></td></tr>
+<tr><td>B26</td><td>Kritische Menge (Stück)</td><td class="xlw-f">=WENN(B11=C11;&quot;keine – gleiche variable Kosten&quot;;WENN((C18-B18)/(B11-C11)&lt;0;&quot;keine – eine Anlage ist immer günstiger&quot;;(C18-B18)/(B11-C11)))</td><td><small>Menge, bei der beide Anlagen gleich viel kosten: (Fix_B − Fix_A) / (kv_A − kv_B).</small></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>357 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 17 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>84 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Gesamtkosten (B20), Günstigere Anlage (B24), Kritische Menge (Stück) (B26), Gesamtkosten (C20).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 17 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 17 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>357 Formelergebnisse in LibreOffice neu berechnet, 84 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Investition</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-kapitalwert">Kapitalwert &amp; interner Zinsfuß</a><p>Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-amortisation">Amortisationsrechnung (statisch &amp; dynamisch)</a><p>Nach wie vielen Jahren ist das Geld zurück – mit und ohne Abzinsung, auf zwei Nachkommastellen.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnvergleich">Gewinnvergleichsrechnung</a><p>Zwei Anlagen im Vergleich: Durchschnittsgewinn, Gewinnschwelle und kritische Menge.</p></li>
+<li><a href="/tools/excel-vorlage-rentabilitaet">Rentabilitätsvergleichsrechnung</a><p>Zwei Anlagen: Gewinn, Ø gebundenes Kapital und Rentabilität – mit Vergleich zur Mindestverzinsung.</p></li>
+<li><a href="/tools/excel-vorlage-annuitaetenmethode">Annuitätenmethode</a><p>Kapitalwert × Wiedergewinnungsfaktor: Annuität der Investition, Kapitaldienst und Entscheidung.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalwertvergleich">Kapitalwertvergleich zweier Alternativen</a><p>Zwei Investitionen bis 8 Jahre: Kapitalwerte, IZF, Differenzinvestition und Entscheidung.</p></li>
+<li><a href="/tools/excel-vorlage-dcf">Unternehmensbewertung (DCF, vereinfacht)</a><p>Free Cashflows 5 Jahre + Terminal Value (Gordon Growth): Enterprise Value und Equity Value.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

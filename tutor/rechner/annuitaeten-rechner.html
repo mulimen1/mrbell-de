@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Annuitäten-Rechner mit Tilgungsplan: Rate, Zins und Tilgung | BWL Max</title>
 <meta name="description" content="Annuität berechnen: Rate, Kapitalwiedergewinnungsfaktor und vollständiger Tilgungsplan mit Zins und Tilgung je Jahr – exakt gerechnet, kostenlos.">
@@ -113,8 +113,23 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  a{color:#000;text-decoration:none}
  footer{margin-top:1em}
 }
+.bmw-weg .fx.steps{display:flex}
+.bmw-ueb table.num{width:auto;min-width:min(100%,360px)}
+.bmw-weg .tw{margin:.5em 0 .3em}
+.ueb-typ{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:.6em 0 0;font-size:.9rem;color:var(--muted)}
+.ueb-typ select{width:auto;max-width:100%}
+.druckkopf{display:none}
+@media print{
+ html.bmw-printing .druckkopf{display:block;font-weight:700;font-size:12pt;margin:0 0 .5em}
+ html.bmw-printing #h-rechner,html.bmw-printing #rechner>p.small{display:none}
+ .ueb-typ{display:none}
+ .steps,.d{overflow:visible}
+ .card.main,.out{break-inside:auto}
+ .out .big,.out .steps,.bmw-weg>li{break-inside:avoid}
+ tfoot{display:table-row-group}
+}
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -125,23 +140,26 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <header>
 <h1>Annuitäten-Rechner mit Tilgungsplan</h1>
 <p class="lead">Kreditbetrag, Zinssatz und Laufzeit eingeben: Der Rechner zeigt den Annuitätenfaktor (Kapitalwiedergewinnungsfaktor), die gleichbleibende jährliche Rate mit eingesetzter Formel und den vollständigen Tilgungsplan mit Restschuld, Zins und Tilgung je Jahr samt Summen. Gedacht für Finanzierung, Investitionsrechnung (Annuitätenmethode) und Finanzmathematik im Studium.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übung: selbst rechnen</a></li>
 <li><a href="#formeln">Formeln</a></li>
 <li><a href="#beispiele">Klausurbeispiele mit Lösung</a></li>
 <li><a href="#grundlagen">Grundlagen</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
 <li><a href="#hinweise">Hinweise</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
 <section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
+<p class="druckkopf">Annuitäten-Rechner · www.bwlmax.de/rechner/annuitaeten-rechner</p>
 <p class="small">Betrag in Euro, Zinssatz in Prozent pro Jahr, Laufzeit in ganzen Jahren (1 bis 100). Komma und Punkt als Dezimalzeichen sind erlaubt, Tausenderpunkte auch. Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-an" onsubmit="return false">
 <div class="row">
@@ -151,6 +169,13 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </div>
 <div class="out" id="a-out" aria-live="polite"></div>
 </form>
+</section>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übung: selbst rechnen</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen: Annuität mit Zins- und Tilgungsanteil, Restschuld nach einigen Jahren oder die Annuitätenmethode der Investitionsrechnung. Du rechnest selbst, das Werkzeug prüft dein Ergebnis und zeigt auf Wunsch den vollständigen Lösungsweg.</p>
+<label class="ueb-typ" for="a-ueb-typ">Aufgabentyp <select id="a-ueb-typ" data-bmw-nicht="1"><option value="mix">gemischt</option><option value="rate">Annuität, Zins und Tilgung im 1. Jahr</option><option value="rest">Restschuld und Zinsen im Jahr k</option><option value="methode">Annuitätenmethode (Investition)</option></select></label>
+<div id="a-ueb"></div>
 </section>
 
 <section id="formeln" aria-labelledby="h-formeln">
@@ -232,6 +257,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </ul>
 </section>
 
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Alle Formeln stehen im Abschnitt <a href="#formeln">Formeln</a>, der Rechenweg zeigt jede Zahl eingesetzt. Gerechnet wird nachschüssig mit ungerundetem Annuitätenfaktor, siehe <a href="#hinweise">Hinweise</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung in Python (Dezimalarithmetik mit hoher Stellenzahl) getestet: 415 zufällige und Randfälle samt vollständigem Tilgungsplan und 1.200 erzeugte Übungsaufgaben, ohne Abweichung.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
 </div>
 
@@ -278,12 +314,14 @@ var ANR = (function () {
     n = Math.round(n);
     need(n >= 1 && n <= 100, 'Die Laufzeit muss zwischen 1 und 100 Jahren liegen.');
     var g = qn1(i, n), qn = g + 1, kwf = i === 0 ? 1 / n : i * qn / g, A = K * kwf;
-    var plan = [], rs = K, sz = 0, st = 0;
+    // Restschuld geschlossen statt Zeile für Zeile: K_t = K0 · (q^n − q^t) / (q^n − 1).
+    // Die Rekursion K_t = K_(t−1) − T_t verstärkt Rundungsfehler mit q^t (bei hohen Zinsen und langen Laufzeiten sichtbar).
+    var L = Math.log1p(i), rest = function (t) { return t >= n ? 0 : i === 0 ? K * (n - t) / n : K * Math.exp(t * L) * Math.expm1((n - t) * L) / g; };
+    var plan = [], sz = 0, st = 0;
     for (var t = 1; t <= n; t++) {
-      var z = rs * i, tg = A - z, ende = rs - tg;
-      if (t === n || Math.abs(ende) < 0.005) { if (Math.abs(ende) < Math.max(0.005, Math.abs(K) * 1e-9)) ende = 0; }
+      var rs = rest(t - 1), ende = rest(t), z = rs * i, tg = rs - ende;
       plan.push({ jahr: t, restschuld_anfang: rs, zinsen: z, tilgung: tg, annuitaet: A, restschuld_ende: ende });
-      sz += z; st += tg; rs = rs - tg;
+      sz += z; st += tg;
     }
     return { i: i, n: n, q: 1 + i, qn: qn, kwf: kwf, rbf: 1 / kwf, annuitaet: A, plan: plan,
       summe_zinsen: n * A - K, summe_tilgung: K, summe_annuitaet: n * A, summe_zinsen_zeilen: sz, summe_tilgung_zeilen: st };
@@ -298,7 +336,33 @@ var ANR = (function () {
     if (r === 0) r = 0;
     return new Intl.NumberFormat('de-DE', { maximumFractionDigits: max || 8 }).format(r).replace('-', '−');
   }
-  return { R: R, zahl: zahl, annuitaet: annuitaet, nfmt: nfmt, nvar: nvar };
+  // ---------- Übungsaufgaben (klausurtypische Zufallszahlen) ----------
+  function zuf(rnd, a, b, s) { s = s || 1; return +(a + Math.floor(rnd() * (Math.floor((b - a) / s + 1e-9) + 1)) * s).toFixed(10); }
+  function wahl(rnd, arr) { return arr[Math.floor(rnd() * arr.length)]; }
+  var TOLF = 2e-6;   // Toleranz Annuitätenfaktor (sechs Nachkommastellen, auch mit gerundetem q^n gerechnet)
+  function aufgabe(typ, rnd) {
+    rnd = rnd || Math.random;
+    if (['rate', 'rest', 'methode'].indexOf(typ) < 0) typ = wahl(rnd, ['rate', 'rest', 'methode']);
+    var ip = zuf(rnd, 2, 9, 0.5), i = ip / 100;
+    if (typ === 'methode') {
+      for (var v = 0; v < 1000; v++) {
+        var I0 = zuf(rnd, 5, 30) * 10000, n = zuf(rnd, 4, 10), ipm = zuf(rnd, 4, 10), r0 = annuitaet(I0, ipm, n);
+        var CF = Math.round(r0.annuitaet * (0.85 + 0.35 * rnd()) / 500) * 500, A = CF - r0.annuitaet;
+        if (Math.abs(A) < Math.max(150, 0.002 * I0)) continue;
+        var rbf = 1 / r0.kwf, C0 = -I0 + CF * rbf;
+        return { typ: typ, I0: I0, i: ipm, n: n, cf: CF, kwf: r0.kwf, rbf: rbf, c0: C0, a: A, urteil: A > 0 ? 'vorteilhaft' : 'nicht vorteilhaft',
+          tolF: TOLF, tolA: 0.05 + TOLF * I0 + 5e-5 * CF * r0.kwf };
+      }
+      throw new Error('Keine passende Aufgabe gefunden.');
+    }
+    var K = zuf(rnd, 2, 50) * 5000, nn = typ === 'rest' ? zuf(rnd, 5, 12) : zuf(rnd, 3, 10), r = annuitaet(K, ip, nn), tA = 0.01 + TOLF * K;
+    var o = { typ: typ, K: K, i: ip, n: nn, kwf: r.kwf, a: r.annuitaet, plan: r.plan, tolF: TOLF, tolA: tA };
+    if (typ === 'rate') { o.z1 = r.plan[0].zinsen; o.t1 = r.plan[0].tilgung; o.tolZ = 0.01; o.tolT = tA; return o; }
+    var k = zuf(rnd, 2, Math.min(nn - 1, 5)), s = function (j) { return Math.expm1(j * Math.log1p(i)) / i; }, tK = function (j) { return 0.01 * j + tA * s(j); };
+    o.k = k; o.zk = r.plan[k - 1].zinsen; o.rk = r.plan[k - 1].restschuld_ende; o.tolZ = 0.01 + tK(k - 1) * i; o.tolR = tK(k);
+    return o;
+  }
+  return { R: R, zahl: zahl, annuitaet: annuitaet, nfmt: nfmt, nvar: nvar, aufgabe: aufgabe };
 })();
 // MATH-END
 
@@ -343,15 +407,12 @@ var ANR = (function () {
       mark($(/Laufzeit/.test(ex.message) ? 'a-n' : /Zinssatz/.test(ex.message) ? 'a-zins' : 'a-k'), true);
       $('a-out').innerHTML = err(ex.message); return;
     }
-    var K = pk.v, ip = pz.v, n = r.n, i = r.i, qs = tv(r.q, 8), is = tv(i, 10);
+    var K = pk.v, ip = pz.v, n = r.n, i = r.i, qs = tv(r.q, 8);
     var formel = ['A=K_0\\cdot\\text{KWF}', '\\text{KWF}=\\dfrac{q^n\\cdot i}{q^n-1}', 'q=1+i=' + qs];
-    var weg;
-    if (i === 0) weg = ['\\text{KWF}=\\dfrac{1}{n}=\\dfrac{1}{' + n + '}', '=' + tn(r.kwf, 6)];
-    else weg = ['\\text{KWF}=\\dfrac{' + qs + '^{' + n + '}\\cdot ' + tp(is) + '}{' + qs + '^{' + n + '}-1}', '=\\dfrac{' + tn(r.qn, 6) + '\\cdot ' + tp(is) + '}{' + tn(r.qn - 1, 6) + '}', (M.R(r.kwf, 6) === r.kwf ? '=' : '\\approx ') + tn(r.kwf, 6)];
-    var weg2 = ['A=' + tm(K) + '\\cdot ' + tn(r.kwf, 6), '\\approx ' + tn(r.annuitaet)];
-    var tb = '<div class="tw"><table class="num"><thead><tr><th scope="col">Jahr</th><th scope="col">Restschuld Anfang</th><th scope="col">Zinsen</th><th scope="col">Tilgung</th><th scope="col">Annuität</th><th scope="col">Restschuld Ende</th></tr></thead><tbody>';
+    var aw = annWeg(K, r), weg = aw.weg, weg2 = aw.weg2;
+    var tb = '<div class="tw"><table class="num"><caption>Tilgungsplan</caption><thead><tr><th scope="col">Jahr</th><th scope="col">Restschuld Anfang</th><th scope="col">Zinsen</th><th scope="col">Tilgung</th><th scope="col">Annuität</th><th scope="col">Restschuld Ende</th></tr></thead><tbody>';
     r.plan.forEach(function (p) {
-      tb += '<tr><td>' + p.jahr + '</td><td>' + eur(p.restschuld_anfang) + '</td><td>' + eur(p.zinsen) + '</td><td>' + eur(p.tilgung) + '</td><td>' + eur(p.annuitaet) + '</td><td>' + eur(p.restschuld_ende) + '</td></tr>';
+      tb += '<tr><th scope="row">' + p.jahr + '</th><td>' + eur(p.restschuld_anfang) + '</td><td>' + eur(p.zinsen) + '</td><td>' + eur(p.tilgung) + '</td><td>' + eur(p.annuitaet) + '</td><td>' + eur(p.restschuld_ende) + '</td></tr>';
     });
     tb += '</tbody><tfoot><tr><td>Summe</td><td></td><td>' + eur(r.summe_zinsen) + '</td><td>' + eur(r.summe_tilgung) + '</td><td>' + eur(r.summe_annuitaet) + '</td><td></td></tr></tfoot></table></div>';
     var p1 = r.plan[0];
@@ -363,12 +424,19 @@ var ANR = (function () {
       big('Zinsen insgesamt', eur(r.summe_zinsen)) +
       big('Gesamtzahlung (n · A)', eur(r.summe_annuitaet)) +
       '<p class="small">Im ersten Jahr: ' + eur(p1.zinsen) + ' Zinsen (' + tmTxt(K) + ' · ' + M.nvar(i, 10) + ') und ' + eur(p1.tilgung) + ' Tilgung (Annuität minus Zinsen). Rentenbarwertfaktor 1 / KWF = ' + M.nfmt(r.rbf, 6) + '.</p>' +
-      '<div class="lbl">Tilgungsplan</div>' + tb +
+      tb +
       '<p class="small">Gerechnet wird ungerundet, angezeigt auf Cent. Die Summe der gerundeten Zeilen kann deshalb um einen Cent von der Summenzeile abweichen.</p>';
     $('a-out').innerHTML = h;
     fillSteps('a-f', formel);
     fillSteps('a-w1', weg);
     fillSteps('a-w2', weg2);
+  }
+  // Rechenweg: Annuitätenfaktor mit eingesetzten Werten, dann A = K0 · KWF
+  function annWeg(K, r) {
+    var n = r.n, i = r.i, qs = tv(r.q, 8), is = tv(i, 10), weg;
+    if (i === 0) weg = ['\\text{KWF}=\\dfrac{1}{n}=\\dfrac{1}{' + n + '}', '=' + tn(r.kwf, 6)];
+    else weg = ['\\text{KWF}=\\dfrac{' + qs + '^{' + n + '}\\cdot ' + tp(is) + '}{' + qs + '^{' + n + '}-1}', '=\\dfrac{' + tn(r.qn, 6) + '\\cdot ' + tp(is) + '}{' + tn(r.qn - 1, 6) + '}', (M.R(r.kwf, 6) === r.kwf ? '=' : '\\approx ') + tn(r.kwf, 6)];
+    return { weg: weg, weg2: ['A=' + tm(K) + '\\cdot ' + tn(r.kwf, 6), '\\approx ' + tn(r.annuitaet)] };
   }
   function tmTxt(x) { return M.nfmt(x, Number.isInteger(M.R(x, 2)) ? 0 : 2) + ' €'; }
 
@@ -409,6 +477,83 @@ var ANR = (function () {
       $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // ---------- Link teilen und Drucken ----------
+  if (!window.BMW || !BMW.leiste) return;
+  BMW.leiste($('c-an'), { teilen: BMW.teilen({ key: 'an', root: $('c-an'), run: calc }), drucken: true, druckScope: $('rechner') });
+
+  // ---------- Übungsmodus ----------
+  function ea(x) { return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function fx(parts) { return '<span class="fx steps" data-tex="' + ea(JSON.stringify(parts)) + '"></span>'; }
+  function texIn(el) { el.querySelectorAll('[data-tex]').forEach(function (s) { fillSteps(s, JSON.parse(s.getAttribute('data-tex'))); }); }
+  function zins(x) { return M.nvar(x, 4) + '\u00a0%'; }
+  function ab(x) { return Math.ceil(x * 100 - 1e-6) / 100; }
+  function ab6(x) { return Math.ceil(x * 1e6 - 1e-6) / 1e6; }
+  function planTab(plan, bis) {
+    var h = '<div class="tw"><table class="num"><caption>Tilgungsplan (Ausschnitt)</caption><thead><tr><th scope="col">Jahr</th><th scope="col">Restschuld Anfang</th><th scope="col">Zinsen</th><th scope="col">Tilgung</th><th scope="col">Annuität</th><th scope="col">Restschuld Ende</th></tr></thead><tbody>';
+    plan.slice(0, bis).forEach(function (p) { h += '<tr><th scope="row">' + p.jahr + '</th><td>' + eur(p.restschuld_anfang) + '</td><td>' + eur(p.zinsen) + '</td><td>' + eur(p.tilgung) + '</td><td>' + eur(p.annuitaet) + '</td><td>' + eur(p.restschuld_ende) + '</td></tr>'; });
+    return h + '</tbody></table></div>';
+  }
+  function kwfSchritt(K, ip, n) {
+    var r = M.annuitaet(K, ip, n), w = annWeg(K, r);
+    return { r: r, li: '<li>Annuitätenfaktor (Kapitalwiedergewinnungsfaktor) mit q = 1 + i = ' + M.nvar(r.q, 4) + ' und n = ' + n + ':' + fx(['\\text{KWF}=\\dfrac{q^n\\cdot i}{q^n-1}']) + fx(w.weg) + '</li>', w: w };
+  }
+  function neu() {
+    var a = M.aufgabe($('a-ueb-typ').value), tolF = ab6(a.tolF), tolA = ab(a.tolA), hin = '<p class="small">Akzeptiert werden kleine Rundungsdifferenzen: ±' + M.nfmt(tolF, 6).replace(/0+$/, '') + ' beim Faktor, ±' + M.nfmt(tolA, 2) + ' € bei der Annuität';
+    if (a.typ === 'methode') {
+      var km = kwfSchritt(a.I0, a.i, a.n), rbfS = tn(a.rbf, 6);
+      return {
+        text: '<p>Eine Investition erfordert eine Anschaffungsauszahlung von ' + tmTxt(a.I0) + ' und bringt über ' + a.n + ' Jahre gleichbleibende Einzahlungsüberschüsse von ' + tmTxt(a.cf) + ' am Ende jedes Jahres. Der Kalkulationszins beträgt ' + zins(a.i) + '.</p>' +
+          '<p><b>Aufgabe:</b> Beurteile die Investition mit der Annuitätenmethode. Gib den Annuitätenfaktor auf sechs und die Annuität der Investition auf zwei Nachkommastellen an.</p>' + hin + '.</p>',
+        felder: [
+          { key: 'kwf', label: 'Annuitätenfaktor (KWF)', wert: a.kwf, tol: tolF },
+          { key: 'a', label: 'Annuität der Investition', einheit: '€', wert: a.a, tol: tolA },
+          { key: 'u', label: 'Die Investition ist …', wahl: ['vorteilhaft', 'nicht vorteilhaft'], wert: a.urteil }
+        ],
+        loesung: '<ol class="bmw-weg">' + km.li +
+          '<li>Die Anschaffungsauszahlung auf die Laufzeit verrenten und vom jährlichen Überschuss abziehen:' +
+          fx(['A=CF-I_0\\cdot\\text{KWF}', '=' + tm(a.cf) + '-' + tm(a.I0) + '\\cdot ' + tn(a.kwf, 6), '\\approx ' + tn(a.a)]) + '</li>' +
+          '<li>Gleichwertig über den Kapitalwert (Rentenbarwertfaktor RBF = 1/KWF = ' + M.nfmt(a.rbf, 6) + '):' +
+          fx(['C_0=-I_0+CF\\cdot\\text{RBF}', '=-' + tm(a.I0) + '+' + tm(a.cf) + '\\cdot ' + rbfS, '\\approx ' + tn(a.c0)]) + fx(['A=C_0\\cdot\\text{KWF}', '=' + tp(tn(a.c0)) + '\\cdot ' + tn(a.kwf, 6), '\\approx ' + tn(a.a)]) + '</li>' +
+          '<li>Beurteilung: Die Annuität ist ' + (a.a > 0 ? 'positiv, die Investition ist <b>vorteilhaft</b>. Sie bringt jedes Jahr ' + eur(a.a) + ' mehr als die Anlage zum Kalkulationszins.' : 'negativ, die Investition ist <b>nicht vorteilhaft</b>. Ihr fehlen jedes Jahr ' + eur(-a.a) + ' zur Verzinsung mit dem Kalkulationszins.') + '</li></ol>'
+      };
+    }
+    var ks = kwfSchritt(a.K, a.i, a.n), intro = '<p>Ein Unternehmen nimmt ein Annuitätendarlehen über ' + tmTxt(a.K) + ' auf. Der Zinssatz beträgt ' + zins(a.i) + ' p. a., die Laufzeit ' + a.n + ' Jahre; die gleichbleibende Rate (Annuität) wird jeweils am Jahresende gezahlt.</p>';
+    var annLi = '<li>Annuität:' + fx(['A=K_0\\cdot\\text{KWF}'].concat(ks.w.weg2.slice(0, 1).map(function (x) { return '=' + x.slice(2); }), ks.w.weg2.slice(1))) + '</li>';
+    if (a.typ === 'rate') {
+      var p1 = a.plan[0];
+      return {
+        text: intro + '<p><b>Aufgabe:</b> Berechne den Annuitätenfaktor (sechs Nachkommastellen) und die Annuität. Wie hoch sind Zins- und Tilgungsanteil im ersten Jahr? Beträge auf zwei Nachkommastellen.</p>' + hin + ' und Tilgung.</p>',
+        felder: [
+          { key: 'kwf', label: 'Annuitätenfaktor (KWF)', wert: a.kwf, tol: tolF },
+          { key: 'a', label: 'Annuität A', einheit: '€', wert: a.a, tol: tolA },
+          { key: 'z', label: 'Zinsen im 1. Jahr', einheit: '€', wert: a.z1, tol: ab(a.tolZ) },
+          { key: 't', label: 'Tilgung im 1. Jahr', einheit: '€', wert: a.t1, tol: ab(a.tolT) }
+        ],
+        loesung: '<ol class="bmw-weg">' + ks.li + annLi +
+          '<li>Zinsen im 1. Jahr auf die volle Kreditsumme:' + fx(['Z_1=K_0\\cdot i', '=' + tm(a.K) + '\\cdot ' + tv(a.i / 100, 6), '=' + tn(p1.zinsen)]) + '</li>' +
+          '<li>Tilgung ist der Rest der Annuität:' + fx(['T_1=A-Z_1', '=' + tn(a.a) + '-' + tn(p1.zinsen), '=' + tn(M.R(a.a, 2) - M.R(p1.zinsen, 2))]) + '</li></ol>'
+      };
+    }
+    var k = a.k, pk = a.plan[k - 1], q = 1 + a.i / 100, sk = Math.expm1(k * Math.log1p(a.i / 100)) / (a.i / 100);
+    return {
+      text: intro + '<p><b>Aufgabe:</b> Berechne die Annuität. Wie viel Zinsen sind im ' + k + '. Jahr zu zahlen und wie hoch ist die Restschuld am Ende des ' + k + '. Jahres? Beträge auf zwei Nachkommastellen.</p>' + hin.replace(/±[\d,]+ beim Faktor, /, '') + ', ±' + M.nfmt(ab(a.tolZ), 2) + ' € bei den Zinsen und ±' + M.nfmt(ab(a.tolR), 2) + ' € bei der Restschuld (Rundung im Tilgungsplan).</p>',
+      felder: [
+        { key: 'a', label: 'Annuität A', einheit: '€', wert: a.a, tol: tolA },
+        { key: 'z', label: 'Zinsen im ' + k + '. Jahr', einheit: '€', wert: a.zk, tol: ab(a.tolZ) },
+        { key: 'r', label: 'Restschuld Ende Jahr ' + k, einheit: '€', wert: a.rk, tol: ab(a.tolR) }
+      ],
+      loesung: '<ol class="bmw-weg">' + ks.li + annLi +
+        '<li>Tilgungsplan Zeile für Zeile: Zinsen = Restschuld am Jahresanfang · i, Tilgung = A − Zinsen, neue Restschuld = alte Restschuld − Tilgung.' + planTab(a.plan, k) + '</li>' +
+        '<li>Zinsen im ' + k + '. Jahr auf die Restschuld am Ende von Jahr ' + (k - 1) + ':' + fx(['Z_{' + k + '}=K_{' + (k - 1) + '}\\cdot i', '=' + tn(pk.restschuld_anfang) + '\\cdot ' + tv(a.i / 100, 6), '\\approx ' + tn(a.zk)]) + '</li>' +
+        '<li>Kontrolle der Restschuld mit der geschlossenen Formel (aufgezinste Kreditsumme minus Endwert der gezahlten Raten):' +
+        fx(['K_{' + k + '}=K_0\\cdot q^{' + k + '}-A\\cdot\\dfrac{q^{' + k + '}-1}{i}', '=' + tm(a.K) + '\\cdot ' + tv(q, 6) + '^{' + k + '}-' + tn(a.a) + '\\cdot ' + tn(sk, 6), '\\approx ' + tn(a.rk)]) + '</li></ol>'
+    };
+  }
+  var ueb = BMW.uebung($('a-ueb'), { titel: 'Übungsaufgabe', neu: neu, nachher: texIn });
+  // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form> und löst dort nichts aus → per form-Attribut ans Formular binden
+  (function () { var f = $('a-ueb').querySelector('.bmw-ueb-form'), b = $('a-ueb').querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'a-ueb-form'; b.setAttribute('form', f.id); } })();
+  $('a-ueb-typ').addEventListener('change', function () { ueb.neu(); });
 })();
 </script>
 </body>

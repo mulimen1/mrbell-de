@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Preis-Absatz-Funktion, Cournot-Punkt &amp; Preiselastizität – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Lineare PAF im Monopol: Erlösmaximum, Cournot-Punkt, Gewinnschwellen und Preiselastizität (Punkt/Bogen). Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 86 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-preisabsatz">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Preis-Absatz-Funktion, Cournot-Punkt & Preiselastizität (Excel-Vorlage)","description":"Lineare PAF im Monopol: Erlösmaximum, Cournot-Punkt, Gewinnschwellen und Preiselastizität (Punkt/Bogen).","url":"https://www.bwlmax.de/tools/excel-vorlage-preisabsatz","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Marketing & Absatz","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Marketing &amp; Absatz</p>
+<h1>Excel-Vorlage: Preis-Absatz-Funktion, Cournot-Punkt &amp; Preiselastizität</h1>
+<p class="lead">Lineare PAF im Monopol: Erlösmaximum, Cournot-Punkt, Gewinnschwellen und Preiselastizität (Punkt/Bogen). Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>9</b> Eingabefelder</li><li><b>86</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="preisabsatz">
+<div class="xl-keys"><div class="xl-key"><small>Gewinnmaximale Menge x_C</small><b>80,00</b></div><div class="xl-key"><small>Cournot-Preis p_C</small><b>60,00 €</b></div><div class="xl-key"><small>Maximaler Gewinn</small><b>2.200,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Preis-Absatz-Funktion_Cournot_Elastizitaet.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Preis-Absatz“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:311px"><col style="width:118px"><col style="width:118px"><col style="width:118px"><col style="width:118px"><col style="width:118px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="6">Preis-Absatz-Funktion, Cournot-Punkt &amp; Preiselastizität</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="6">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="6">Eingaben: p(x) = a − b · x und K(x) = Kf + kv · x</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Höchstpreis a (Prohibitivpreis)</td><td class="xs-in num">100,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Steigung b (Preissenkung je Stück)</td><td class="xs-in num">0,5000</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Fixkosten Kf</td><td class="xs-in num">1.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Variable Stückkosten kv</td><td class="xs-in num">20,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-sec" colspan="6">Erlösmaximum</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Sättigungsmenge (p = 0)</td><td class="xs-out num">200,00</td><td class="xs-txt" colspan="4">x = a / b</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Erlösmaximale Menge</td><td class="xs-out num">100,00</td><td class="xs-txt" colspan="4">E'(x) = a − 2bx = 0  →  x = a / 2b</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Erlösmaximaler Preis</td><td class="xs-out num">50,00 €</td><td class="xs-txt" colspan="4">p = a / 2</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Maximaler Umsatzerlös</td><td class="xs-out num">5.000,00 €</td><td class="xs-txt" colspan="4">E = p · x</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-sec" colspan="6">Gewinnmaximum (Cournot-Punkt)</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Gewinnmaximale Menge x_C</td><td class="xs-res num">80,00</td><td class="xs-txt" colspan="4">Grenzerlös = Grenzkosten: a − 2bx = kv</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">Cournot-Preis p_C</td><td class="xs-res num">60,00 €</td><td class="xs-txt" colspan="4">p_C = a − b · x_C</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Umsatzerlös im Cournot-Punkt</td><td class="xs-out num">4.800,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Gesamtkosten im Cournot-Punkt</td><td class="xs-out num">2.600,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Maximaler Gewinn</td><td class="xs-res num">2.200,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Gewinnschwelle (untere Menge)</td><td class="xs-out num">13,67</td><td class="xs-txt" colspan="4">G(x) = 0: x = [(a − kv) ∓ √((a − kv)² − 4b·Kf)] / 2b</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Gewinngrenze (obere Menge)</td><td class="xs-out num">146,33</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-sec" colspan="6">Preiselastizität der Nachfrage</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Preis für die Punktelastizität</td><td class="xs-in num">60,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Menge bei diesem Preis (aus der PAF)</td><td class="xs-out num">80,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Punktelastizität ε = −p / (a − p)</td><td class="xs-res num">-1,50</td><td class="xs-out" colspan="4">elastisch (|ε| &gt; 1)</td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Punktelastizität im Cournot-Punkt</td><td class="xs-out num">-1,50</td><td class="xs-out" colspan="4">elastisch (|ε| &gt; 1)</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-th">Bogenelastizität (Marktbeobachtung)</td><td class="xs-th">Preis</td><td class="xs-th">Menge</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Ausgangssituation (1)</td><td class="xs-in num">10,00 €</td><td class="xs-in num">1.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-lab">Neue Situation (2)</td><td class="xs-in num">12,00 €</td><td class="xs-in num">900,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-lab">Elastizität (Basis Ausgangswerte)</td><td class="xs-out num">-0,50</td><td class="xs-out" colspan="4">unelastisch (|ε| &lt; 1)</td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-lab">Bogenelastizität (Mittelwertformel)</td><td class="xs-res num">-0,58</td><td class="xs-out" colspan="4">unelastisch (|ε| &lt; 1)</td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-sec" colspan="6">Wertetabelle</td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-th">Menge x</td><td class="xs-th">Preis p</td><td class="xs-th">Umsatzerlös</td><td class="xs-th">Gesamtkosten</td><td class="xs-th">Gewinn</td><td class="xs-th">Grenzerlös</td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-out num">0,00</td><td class="xs-out num">100,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">1.000,00 €</td><td class="xs-out num neg">-1.000,00 €</td><td class="xs-out num">100,00 €</td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-out num">20,00</td><td class="xs-out num">90,00 €</td><td class="xs-out num">1.800,00 €</td><td class="xs-out num">1.400,00 €</td><td class="xs-out num">400,00 €</td><td class="xs-out num">80,00 €</td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-out num">40,00</td><td class="xs-out num">80,00 €</td><td class="xs-out num">3.200,00 €</td><td class="xs-out num">1.800,00 €</td><td class="xs-out num">1.400,00 €</td><td class="xs-out num">60,00 €</td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-out num">60,00</td><td class="xs-out num">70,00 €</td><td class="xs-out num">4.200,00 €</td><td class="xs-out num">2.200,00 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">40,00 €</td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-out num">80,00</td><td class="xs-out num">60,00 €</td><td class="xs-out num">4.800,00 €</td><td class="xs-out num">2.600,00 €</td><td class="xs-out num">2.200,00 €</td><td class="xs-out num">20,00 €</td></tr><tr><th class="xl-rh" scope="row">44</th><td class="xs-out num">100,00</td><td class="xs-out num">50,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">45</th><td class="xs-out num">120,00</td><td class="xs-out num">40,00 €</td><td class="xs-out num">4.800,00 €</td><td class="xs-out num">3.400,00 €</td><td class="xs-out num">1.400,00 €</td><td class="xs-out num neg">-20,00 €</td></tr><tr><th class="xl-rh" scope="row">46</th><td class="xs-out num">140,00</td><td class="xs-out num">30,00 €</td><td class="xs-out num">4.200,00 €</td><td class="xs-out num">3.800,00 €</td><td class="xs-out num">400,00 €</td><td class="xs-out num neg">-40,00 €</td></tr><tr><th class="xl-rh" scope="row">47</th><td class="xs-out num">160,00</td><td class="xs-out num">20,00 €</td><td class="xs-out num">3.200,00 €</td><td class="xs-out num">4.200,00 €</td><td class="xs-out num neg">-1.000,00 €</td><td class="xs-out num neg">-60,00 €</td></tr><tr><th class="xl-rh" scope="row">48</th><td class="xs-out num">180,00</td><td class="xs-out num">10,00 €</td><td class="xs-out num">1.800,00 €</td><td class="xs-out num">4.600,00 €</td><td class="xs-out num neg">-2.800,00 €</td><td class="xs-out num neg">-80,00 €</td></tr><tr><th class="xl-rh" scope="row">49</th><td class="xs-out num">200,00</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num neg">-5.000,00 €</td><td class="xs-out num neg">-100,00 €</td></tr><tr><th class="xl-rh" scope="row">50</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">51</th><td class="xs-note" colspan="6">Im Monopol setzt der Anbieter den Preis entlang der Preis-Absatz-Funktion. Gewinnmaximum, wo Grenzerlös = Grenzkosten. Elastizitäten sind negativ (Preis rauf → Menge runter); bewertet wird der Betrag.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Preis-Absatz“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Lineare PAF im Monopol: Erlösmaximum, Cournot-Punkt, Gewinnschwellen und Preiselastizität (Punkt/Bogen). Die Vorlage gehört zum Bereich Marketing &amp; Absatz und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 9 Werte ein; die Datei berechnet daraus unter anderem „Gewinnmaximale Menge x_C“, „Cournot-Preis p_C“ und „Maximaler Gewinn“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Im Monopol setzt der Anbieter den Preis entlang der Preis-Absatz-Funktion. Gewinnmaximum, wo Grenzerlös = Grenzkosten. Elastizitäten sind negativ (Preis rauf → Menge runter); bewertet wird der Betrag.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Höchstpreis a (Prohibitivpreis)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">100,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Steigung b (Preissenkung je Stück)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">0,5000</td><td>ab 0,0001</td></tr>
+<tr><td>Fixkosten Kf</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">1.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Variable Stückkosten kv</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">20,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Preis für die Punktelastizität</td><td><code>B26</code></td><td class="xlw-v" data-xi="B26">60,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Ausgangssituation (1) · Preis</td><td><code>B32</code></td><td class="xlw-v" data-xi="B32">10,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Ausgangssituation (1) · Menge</td><td><code>C32</code></td><td class="xlw-v" data-xi="C32">1.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Neue Situation (2) · Preis</td><td><code>B33</code></td><td class="xlw-v" data-xi="B33">12,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Neue Situation (2) · Menge</td><td><code>C33</code></td><td class="xlw-v" data-xi="C33">900,00</td><td>ab 0,00</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Gewinnmaximale Menge x_C</td><td><code>B17</code></td><td class="xlw-v"><b data-xv="B17">80,00</b></td></tr>
+<tr><td>Cournot-Preis p_C</td><td><code>B18</code></td><td class="xlw-v"><b data-xv="B18">60,00 €</b></td></tr>
+<tr><td>Maximaler Gewinn</td><td><code>B21</code></td><td class="xlw-v"><b data-xv="B21">2.200,00 €</b></td></tr>
+<tr><td>Punktelastizität ε = −p / (a − p)</td><td><code>B28</code></td><td class="xlw-v"><b data-xv="B28">-1,50</b></td></tr>
+<tr><td>Bogenelastizität (Mittelwertformel)</td><td><code>B35</code></td><td class="xlw-v"><b data-xv="B35">-0,58</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 86 Formeln des Blatts „Preis-Absatz“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B11</td><td>Sättigungsmenge (p = 0)</td><td class="xlw-f">=B5/B6</td><td></td></tr>
+<tr><td>B12</td><td>Erlösmaximale Menge</td><td class="xlw-f">=B5/(2*B6)</td><td></td></tr>
+<tr><td>B13</td><td>Erlösmaximaler Preis</td><td class="xlw-f">=B5-B6*B12</td><td></td></tr>
+<tr><td>B14</td><td>Maximaler Umsatzerlös</td><td class="xlw-f">=B13*B12</td><td></td></tr>
+<tr><td>B17</td><td>Gewinnmaximale Menge x_C</td><td class="xlw-f">=WENN(B5&gt;B8;(B5-B8)/(2*B6);0)</td><td><small>Gewinn G = (a − bx)·x − Kf − kv·x; G'(x) = a − 2bx − kv = 0 → x = (a − kv) / 2b.</small></td></tr>
+<tr><td>B18</td><td>Cournot-Preis p_C</td><td class="xlw-f">=WENN(B5&gt;B8;B5-B6*B17;&quot;entfällt – kv ≥ Höchstpreis, kein Absatz&quot;)</td><td></td></tr>
+<tr><td>B19</td><td>Umsatzerlös im Cournot-Punkt</td><td class="xlw-f">=WENN(B5&gt;B8;B18*B17;0)</td><td></td></tr>
+<tr><td>B20</td><td>Gesamtkosten im Cournot-Punkt</td><td class="xlw-f">=WENN(B5&gt;B8;B7+B8*B17;B7)</td><td></td></tr>
+<tr><td>B21</td><td>Maximaler Gewinn</td><td class="xlw-f">=B19-B20</td><td></td></tr>
+<tr><td>B22</td><td>Gewinnschwelle (untere Menge)</td><td class="xlw-f">=WENN(UND(B5&gt;B8;(B5-B8)^2-4*B6*B7&gt;=0);((B5-B8)-WURZEL((B5-B8)^2-4*B6*B7))/(2*B6);&quot;keine&quot;)</td><td></td></tr>
+<tr><td>B23</td><td>Gewinngrenze (obere Menge)</td><td class="xlw-f">=WENN(UND(B5&gt;B8;(B5-B8)^2-4*B6*B7&gt;=0);((B5-B8)+WURZEL((B5-B8)^2-4*B6*B7))/(2*B6);&quot;keine&quot;)</td><td></td></tr>
+<tr><td>B27</td><td>Menge bei diesem Preis (aus der PAF)</td><td class="xlw-f">=WENN(B26&gt;=B5;0;(B5-B26)/B6)</td><td></td></tr>
+<tr><td>B28</td><td>Punktelastizität ε = −p / (a − p)</td><td class="xlw-f">=WENN(B26&gt;=B5;&quot;–&quot;;-B26/(B5-B26))</td><td><small>Punktelastizität = (dx/dp) · (p/x) = −(1/b) · p / x; bei linearer PAF −p / (a − p).</small></td></tr>
+<tr><td>C28</td><td>Punktelastizität ε = −p / (a − p)</td><td class="xlw-f">=WENN(B28=&quot;–&quot;;&quot;&quot;;WENN(RUNDEN(ABS(B28);10)&gt;1;&quot;elastisch (|ε| &gt; 1)&quot;;WENN(RUNDEN(ABS(B28);10)&lt;1;&quot;unelastisch (|ε| &lt; 1)&quot;;&quot;proportional elastisch (|ε| = 1)&quot;)))</td><td></td></tr>
+<tr><td>B29</td><td>Punktelastizität im Cournot-Punkt</td><td class="xlw-f">=WENN(B5&gt;B8;-B18/(B5-B18);&quot;–&quot;)</td><td></td></tr>
+<tr><td>C29</td><td>Punktelastizität im Cournot-Punkt</td><td class="xlw-f">=WENN(B29=&quot;–&quot;;&quot;&quot;;WENN(RUNDEN(ABS(B29);10)&gt;1;&quot;elastisch (|ε| &gt; 1)&quot;;WENN(RUNDEN(ABS(B29);10)&lt;1;&quot;unelastisch (|ε| &lt; 1)&quot;;&quot;proportional elastisch (|ε| = 1)&quot;)))</td><td></td></tr>
+<tr><td>B34</td><td>Elastizität (Basis Ausgangswerte)</td><td class="xlw-f">=WENNFEHLER(((C33-C32)/C32)/((B33-B32)/B32);&quot;–&quot;)</td><td></td></tr>
+<tr><td>C34</td><td>Elastizität (Basis Ausgangswerte)</td><td class="xlw-f">=WENN(B34=&quot;–&quot;;&quot;&quot;;WENN(RUNDEN(ABS(B34);10)&gt;1;&quot;elastisch (|ε| &gt; 1)&quot;;WENN(RUNDEN(ABS(B34);10)&lt;1;&quot;unelastisch (|ε| &lt; 1)&quot;;&quot;proportional elastisch (|ε| = 1)&quot;)))</td><td></td></tr>
+<tr><td>B35</td><td>Bogenelastizität (Mittelwertformel)</td><td class="xlw-f">=WENNFEHLER(((C33-C32)/((C32+C33)/2))/((B33-B32)/((B32+B33)/2));&quot;–&quot;)</td><td><small>Bogenelastizität mit Mittelwerten: relative Mengenänderung / relative Preisänderung, jeweils bezogen auf den Durchschnitt.</small></td></tr>
+<tr><td>C35</td><td>Bogenelastizität (Mittelwertformel)</td><td class="xlw-f">=WENN(B35=&quot;–&quot;;&quot;&quot;;WENN(RUNDEN(ABS(B35);10)&gt;1;&quot;elastisch (|ε| &gt; 1)&quot;;WENN(RUNDEN(ABS(B35);10)&lt;1;&quot;unelastisch (|ε| &lt; 1)&quot;;&quot;proportional elastisch (|ε| = 1)&quot;)))</td><td></td></tr>
+<tr><td>A39</td><td>Menge x (Zeile 39)</td><td class="xlw-f">=$B$11/10*0</td><td></td></tr>
+<tr><td>B39</td><td>Preis p (Zeile 39)</td><td class="xlw-f">=$B$5-$B$6*A39</td><td></td></tr>
+<tr><td>C39</td><td>Umsatzerlös (Zeile 39)</td><td class="xlw-f">=A39*B39</td><td></td></tr>
+<tr><td>D39</td><td>Gesamtkosten (Zeile 39)</td><td class="xlw-f">=$B$7+$B$8*A39</td><td></td></tr>
+<tr><td>E39</td><td>Gewinn (Zeile 39)</td><td class="xlw-f">=C39-D39</td><td></td></tr>
+<tr><td>F39</td><td>Grenzerlös (Zeile 39)</td><td class="xlw-f">=$B$5-2*$B$6*A39</td><td></td></tr>
+<tr><td>A40</td><td>Menge x (Zeile 40)</td><td class="xlw-f">=$B$11/10*1</td><td></td></tr>
+<tr><td>B40</td><td>Preis p (Zeile 40)</td><td class="xlw-f">=$B$5-$B$6*A40</td><td></td></tr>
+<tr><td>C40</td><td>Umsatzerlös (Zeile 40)</td><td class="xlw-f">=A40*B40</td><td></td></tr>
+<tr><td>D40</td><td>Gesamtkosten (Zeile 40)</td><td class="xlw-f">=$B$7+$B$8*A40</td><td></td></tr>
+<tr><td>E40</td><td>Gewinn (Zeile 40)</td><td class="xlw-f">=C40-D40</td><td></td></tr>
+<tr><td>F40</td><td>Grenzerlös (Zeile 40)</td><td class="xlw-f">=$B$5-2*$B$6*A40</td><td></td></tr>
+<tr><td>A41</td><td>Menge x (Zeile 41)</td><td class="xlw-f">=$B$11/10*2</td><td></td></tr>
+<tr><td>B41</td><td>Preis p (Zeile 41)</td><td class="xlw-f">=$B$5-$B$6*A41</td><td></td></tr>
+<tr><td>C41</td><td>Umsatzerlös (Zeile 41)</td><td class="xlw-f">=A41*B41</td><td></td></tr>
+<tr><td>D41</td><td>Gesamtkosten (Zeile 41)</td><td class="xlw-f">=$B$7+$B$8*A41</td><td></td></tr>
+<tr><td>E41</td><td>Gewinn (Zeile 41)</td><td class="xlw-f">=C41-D41</td><td></td></tr>
+<tr><td>F41</td><td>Grenzerlös (Zeile 41)</td><td class="xlw-f">=$B$5-2*$B$6*A41</td><td></td></tr>
+<tr><td>A42</td><td>Menge x (Zeile 42)</td><td class="xlw-f">=$B$11/10*3</td><td></td></tr>
+<tr><td>B42</td><td>Preis p (Zeile 42)</td><td class="xlw-f">=$B$5-$B$6*A42</td><td></td></tr>
+<tr><td>C42</td><td>Umsatzerlös (Zeile 42)</td><td class="xlw-f">=A42*B42</td><td></td></tr>
+<tr><td>D42</td><td>Gesamtkosten (Zeile 42)</td><td class="xlw-f">=$B$7+$B$8*A42</td><td></td></tr>
+<tr><td>E42</td><td>Gewinn (Zeile 42)</td><td class="xlw-f">=C42-D42</td><td></td></tr>
+<tr><td>F42</td><td>Grenzerlös (Zeile 42)</td><td class="xlw-f">=$B$5-2*$B$6*A42</td><td></td></tr>
+<tr><td>A43</td><td>Menge x (Zeile 43)</td><td class="xlw-f">=$B$11/10*4</td><td></td></tr>
+<tr><td>B43</td><td>Preis p (Zeile 43)</td><td class="xlw-f">=$B$5-$B$6*A43</td><td></td></tr>
+<tr><td>C43</td><td>Umsatzerlös (Zeile 43)</td><td class="xlw-f">=A43*B43</td><td></td></tr>
+<tr><td>D43</td><td>Gesamtkosten (Zeile 43)</td><td class="xlw-f">=$B$7+$B$8*A43</td><td></td></tr>
+<tr><td>E43</td><td>Gewinn (Zeile 43)</td><td class="xlw-f">=C43-D43</td><td></td></tr>
+<tr><td>F43</td><td>Grenzerlös (Zeile 43)</td><td class="xlw-f">=$B$5-2*$B$6*A43</td><td></td></tr>
+<tr><td>A44</td><td>Menge x (Zeile 44)</td><td class="xlw-f">=$B$11/10*5</td><td></td></tr>
+<tr><td>B44</td><td>Preis p (Zeile 44)</td><td class="xlw-f">=$B$5-$B$6*A44</td><td></td></tr>
+<tr><td>C44</td><td>Umsatzerlös (Zeile 44)</td><td class="xlw-f">=A44*B44</td><td></td></tr>
+<tr><td>D44</td><td>Gesamtkosten (Zeile 44)</td><td class="xlw-f">=$B$7+$B$8*A44</td><td></td></tr>
+<tr><td>E44</td><td>Gewinn (Zeile 44)</td><td class="xlw-f">=C44-D44</td><td></td></tr>
+<tr><td>F44</td><td>Grenzerlös (Zeile 44)</td><td class="xlw-f">=$B$5-2*$B$6*A44</td><td></td></tr>
+<tr><td>A45</td><td>Menge x (Zeile 45)</td><td class="xlw-f">=$B$11/10*6</td><td></td></tr>
+<tr><td>B45</td><td>Preis p (Zeile 45)</td><td class="xlw-f">=$B$5-$B$6*A45</td><td></td></tr>
+<tr><td>C45</td><td>Umsatzerlös (Zeile 45)</td><td class="xlw-f">=A45*B45</td><td></td></tr>
+<tr><td>D45</td><td>Gesamtkosten (Zeile 45)</td><td class="xlw-f">=$B$7+$B$8*A45</td><td></td></tr>
+<tr><td>E45</td><td>Gewinn (Zeile 45)</td><td class="xlw-f">=C45-D45</td><td></td></tr>
+<tr><td>F45</td><td>Grenzerlös (Zeile 45)</td><td class="xlw-f">=$B$5-2*$B$6*A45</td><td></td></tr>
+<tr><td>A46</td><td>Menge x (Zeile 46)</td><td class="xlw-f">=$B$11/10*7</td><td></td></tr>
+<tr><td>B46</td><td>Preis p (Zeile 46)</td><td class="xlw-f">=$B$5-$B$6*A46</td><td></td></tr>
+<tr><td>C46</td><td>Umsatzerlös (Zeile 46)</td><td class="xlw-f">=A46*B46</td><td></td></tr>
+<tr><td>D46</td><td>Gesamtkosten (Zeile 46)</td><td class="xlw-f">=$B$7+$B$8*A46</td><td></td></tr>
+<tr><td>E46</td><td>Gewinn (Zeile 46)</td><td class="xlw-f">=C46-D46</td><td></td></tr>
+<tr><td>F46</td><td>Grenzerlös (Zeile 46)</td><td class="xlw-f">=$B$5-2*$B$6*A46</td><td></td></tr>
+<tr><td>A47</td><td>Menge x (Zeile 47)</td><td class="xlw-f">=$B$11/10*8</td><td></td></tr>
+<tr><td>B47</td><td>Preis p (Zeile 47)</td><td class="xlw-f">=$B$5-$B$6*A47</td><td></td></tr>
+<tr><td>C47</td><td>Umsatzerlös (Zeile 47)</td><td class="xlw-f">=A47*B47</td><td></td></tr>
+<tr><td>D47</td><td>Gesamtkosten (Zeile 47)</td><td class="xlw-f">=$B$7+$B$8*A47</td><td></td></tr>
+<tr><td>E47</td><td>Gewinn (Zeile 47)</td><td class="xlw-f">=C47-D47</td><td></td></tr>
+<tr><td>F47</td><td>Grenzerlös (Zeile 47)</td><td class="xlw-f">=$B$5-2*$B$6*A47</td><td></td></tr>
+<tr><td>A48</td><td>Menge x (Zeile 48)</td><td class="xlw-f">=$B$11/10*9</td><td></td></tr>
+<tr><td>B48</td><td>Preis p (Zeile 48)</td><td class="xlw-f">=$B$5-$B$6*A48</td><td></td></tr>
+<tr><td>C48</td><td>Umsatzerlös (Zeile 48)</td><td class="xlw-f">=A48*B48</td><td></td></tr>
+<tr><td>D48</td><td>Gesamtkosten (Zeile 48)</td><td class="xlw-f">=$B$7+$B$8*A48</td><td></td></tr>
+<tr><td>E48</td><td>Gewinn (Zeile 48)</td><td class="xlw-f">=C48-D48</td><td></td></tr>
+<tr><td>F48</td><td>Grenzerlös (Zeile 48)</td><td class="xlw-f">=$B$5-2*$B$6*A48</td><td></td></tr>
+<tr><td>A49</td><td>Menge x (Zeile 49)</td><td class="xlw-f">=$B$11/10*10</td><td></td></tr>
+<tr><td>B49</td><td>Preis p (Zeile 49)</td><td class="xlw-f">=$B$5-$B$6*A49</td><td></td></tr>
+<tr><td>C49</td><td>Umsatzerlös (Zeile 49)</td><td class="xlw-f">=A49*B49</td><td></td></tr>
+<tr><td>D49</td><td>Gesamtkosten (Zeile 49)</td><td class="xlw-f">=$B$7+$B$8*A49</td><td></td></tr>
+<tr><td>E49</td><td>Gewinn (Zeile 49)</td><td class="xlw-f">=C49-D49</td><td></td></tr>
+<tr><td>F49</td><td>Grenzerlös (Zeile 49)</td><td class="xlw-f">=$B$5-2*$B$6*A49</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.806 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 86 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Gewinnmaximale Menge x_C (B17), Cournot-Preis p_C (B18), Maximaler Gewinn (B21).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 86 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 86 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.806 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Marketing &amp; Absatz</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-marketingkennzahlen">Marketing-Kennzahlen &amp; Customer Lifetime Value</a><p>Marktanteil, relativer Marktanteil, Sättigungsgrad, CAC, ROAS und Customer Lifetime Value mit Abzinsung.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

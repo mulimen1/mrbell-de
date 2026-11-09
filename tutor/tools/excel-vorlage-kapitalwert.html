@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Kapitalwert &amp; interner Zinsfuß – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 79 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-kapitalwert">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Kapitalwert & interner Zinsfuß (Excel-Vorlage)","description":"Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre.","url":"https://www.bwlmax.de/tools/excel-vorlage-kapitalwert","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Investition","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Investition</p>
+<h1>Excel-Vorlage: Kapitalwert &amp; interner Zinsfuß</h1>
+<p class="lead">Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>10</b> Eingabefelder</li><li><b>79</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="kapitalwert">
+<div class="xl-keys"><div class="xl-key"><small>Kapitalwert C₀</small><b>9.890,65 €</b></div><div class="xl-key"><small>Interner Zinsfuß</small><b>15,24 %</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Kapitalwert_Interner_Zinsfuss.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Kapitalwert“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:252px"><col style="width:133px"><col style="width:133px"><col style="width:133px"><col style="width:163px"><col style="width:54px"><col style="width:104px"><col style="width:178px"><col style="width:118px"><col style="width:54px"><col style="width:207px"><col style="width:118px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th><th class="xl-ch" scope="col">I</th><th class="xl-ch" scope="col">J</th><th class="xl-ch" scope="col">K</th><th class="xl-ch" scope="col">L</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="5">Kapitalwert &amp; interner Zinsfuß</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="5">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="5">Eingaben</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Anschaffungsauszahlung (t = 0)</td><td class="xs-in num">50.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Kalkulationszinssatz</td><td class="xs-in num">8,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-sec" colspan="5">Zahlungsreihe</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-th">Jahr</td><td class="xs-th">Zahlung</td><td class="xs-th">Abzinsungsfaktor</td><td class="xs-th">Barwert</td><td class="xs-th">Kumulierter Barwert</td><td class="xs-empty"></td><td class="xs-th">Vorzeichen (ohne Nullen)</td><td class="xs-th">Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6)</td><td class="xs-th">Skalierte Zahlung</td><td class="xs-th"></td><td class="xs-th">Hilfswert IZF</td><td class="xs-th">Wert</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-txt">0</td><td class="xs-out num neg">-50.000,00 €</td><td class="xs-out num">1,0000</td><td class="xs-out num neg">-50.000,00 €</td><td class="xs-out num neg">-50.000,00 €</td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-out num">1</td><td class="xs-out num">-50.000,00</td><td class="xs-empty"></td><td class="xs-lab">Anzahl Vorzeichenwechsel</td><td class="xs-out num">1</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-txt">1</td><td class="xs-in num">15.000,00 €</td><td class="xs-out num">0,9259</td><td class="xs-out num">13.888,89 €</td><td class="xs-out num neg">-36.111,11 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">15.000,00</td><td class="xs-empty"></td><td class="xs-lab">Rasterpunkte unter 1 + IZF</td><td class="xs-out num">13</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-txt">2</td><td class="xs-in num">15.000,00 €</td><td class="xs-out num">0,8573</td><td class="xs-out num">12.860,08 €</td><td class="xs-out num neg">-23.251,03 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">15.000,00</td><td class="xs-empty"></td><td class="xs-lab">Skalierungsfaktor q (Untergrenze 1 + IZF)</td><td class="xs-out num">1,0000</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-txt">3</td><td class="xs-in num">15.000,00 €</td><td class="xs-out num">0,7938</td><td class="xs-out num">11.907,48 €</td><td class="xs-out num neg">-11.343,55 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">15.000,00</td><td class="xs-empty"></td><td class="xs-lab">IZF (Hilfswert)</td><td class="xs-out num">15,24 %</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-txt">4</td><td class="xs-in num">15.000,00 €</td><td class="xs-out num">0,7350</td><td class="xs-out num">11.025,45 €</td><td class="xs-out num neg">-318,10 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">15.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-txt">5</td><td class="xs-in num">15.000,00 €</td><td class="xs-out num">0,6806</td><td class="xs-out num">10.208,75 €</td><td class="xs-out num">9.890,65 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">15.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-txt">6</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,6302</td><td class="xs-out num">0,00 €</td><td class="xs-out num">9.890,65 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">0,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-txt">7</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,5835</td><td class="xs-out num">0,00 €</td><td class="xs-out num">9.890,65 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">0,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-txt">8</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,5403</td><td class="xs-out num">0,00 €</td><td class="xs-out num">9.890,65 €</td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-out num">1</td><td class="xs-out num">0,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-sec" colspan="5">Ergebnis</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Summe der Barwerte (Jahr 1 – 8)</td><td class="xs-out num">59.890,65 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Kapitalwert C₀</td><td class="xs-res num">9.890,65 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Interner Zinsfuß</td><td class="xs-res num">15,24 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Entscheidung</td><td class="xs-res" colspan="4">Vorteilhaft (C₀ &gt; 0)</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-note" colspan="5">Jahre ohne Rückfluss einfach auf 0 lassen. Ein Restwert gehört in die Zahlung des letzten Jahres.</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-note" colspan="5">IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel). Bei mehreren Vorzeichenwechseln kann es keinen, einen oder mehrere Zinsfüße geben – solche Reihen untersucht die Vorlage nicht. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">-1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Kapitalwert“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Lohnt sich die Investition? Barwerte, Kapitalwert, IZF und Entscheidung – bis 8 Jahre. Die Vorlage gehört zum Bereich Investition und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 10 Werte ein; die Datei berechnet daraus unter anderem „Kapitalwert C₀“ und „Interner Zinsfuß“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Jahre ohne Rückfluss einfach auf 0 lassen. Ein Restwert gehört in die Zahlung des letzten Jahres.</li><li>IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel). Bei mehreren Vorzeichenwechseln kann es keinen, einen oder mehrere Zinsfüße geben – solche Reihen untersucht die Vorlage nicht. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anschaffungsauszahlung (t = 0)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kalkulationszinssatz</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">8,00 %</td><td>-50,00 % bis 100,00 %</td></tr>
+<tr><td>Zahlung (Zeile 11)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 12)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 13)</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 14)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 15)</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 16)</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">0,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 17)</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">0,00 €</td><td>beliebig</td></tr>
+<tr><td>Zahlung (Zeile 18)</td><td><code>B18</code></td><td class="xlw-v" data-xi="B18">0,00 €</td><td>beliebig</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Kapitalwert C₀</td><td><code>B22</code></td><td class="xlw-v"><b data-xv="B22">9.890,65 €</b></td></tr>
+<tr><td>Interner Zinsfuß</td><td><code>B23</code></td><td class="xlw-v"><b data-xv="B23">15,24 %</b></td></tr>
+<tr><td>Entscheidung</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">Vorteilhaft (C₀ &gt; 0)</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 79 Formeln des Blatts „Kapitalwert“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B10</td><td>Zahlung (Zeile 10)</td><td class="xlw-f">=-B5</td><td></td></tr>
+<tr><td>C10</td><td>Abzinsungsfaktor (Zeile 10)</td><td class="xlw-f">=1/(1+$B$6)^A10</td><td><small>Abzinsungsfaktor (1 + i)^−t</small></td></tr>
+<tr><td>D10</td><td>Barwert (Zeile 10)</td><td class="xlw-f">=B10*C10</td><td></td></tr>
+<tr><td>E10</td><td>Kumulierter Barwert (Zeile 10)</td><td class="xlw-f">=D10</td><td></td></tr>
+<tr><td>G10</td><td>Vorzeichen (ohne Nullen) (Zeile 10)</td><td class="xlw-f">=VORZEICHEN(B10)</td><td></td></tr>
+<tr><td>H10</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 10)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-6)-1;B11:B18))</td><td></td></tr>
+<tr><td>I10</td><td>Skalierte Zahlung (Zeile 10)</td><td class="xlw-f">=WENNFEHLER(B10/$L$12^A10;&quot;–&quot;)</td><td></td></tr>
+<tr><td>L10</td><td>Anzahl Vorzeichenwechsel</td><td class="xlw-f">=(SUMMENPRODUKT(G10:G17;G10:G17)-SUMMENPRODUKT(G10:G17;G11:G18))/2</td><td></td></tr>
+<tr><td>C11</td><td>Abzinsungsfaktor (Zeile 11)</td><td class="xlw-f">=1/(1+$B$6)^A11</td><td></td></tr>
+<tr><td>D11</td><td>Barwert (Zeile 11)</td><td class="xlw-f">=B11*C11</td><td></td></tr>
+<tr><td>E11</td><td>Kumulierter Barwert (Zeile 11)</td><td class="xlw-f">=E10+D11</td><td></td></tr>
+<tr><td>G11</td><td>Vorzeichen (ohne Nullen) (Zeile 11)</td><td class="xlw-f">=WENN(B11=0;G10;VORZEICHEN(B11))</td><td></td></tr>
+<tr><td>H11</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 11)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-5,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>I11</td><td>Skalierte Zahlung (Zeile 11)</td><td class="xlw-f">=WENNFEHLER(B11/$L$12^A11;&quot;–&quot;)</td><td></td></tr>
+<tr><td>L11</td><td>Rasterpunkte unter 1 + IZF</td><td class="xlw-f">=WENN(G18&gt;0;ZÄHLENWENN(H10:H34;&quot;&gt;0&quot;);ZÄHLENWENN(H10:H34;&quot;&lt;0&quot;))</td><td></td></tr>
+<tr><td>C12</td><td>Abzinsungsfaktor (Zeile 12)</td><td class="xlw-f">=1/(1+$B$6)^A12</td><td></td></tr>
+<tr><td>D12</td><td>Barwert (Zeile 12)</td><td class="xlw-f">=B12*C12</td><td></td></tr>
+<tr><td>E12</td><td>Kumulierter Barwert (Zeile 12)</td><td class="xlw-f">=E11+D12</td><td></td></tr>
+<tr><td>G12</td><td>Vorzeichen (ohne Nullen) (Zeile 12)</td><td class="xlw-f">=WENN(B12=0;G11;VORZEICHEN(B12))</td><td></td></tr>
+<tr><td>H12</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 12)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-5)-1;B11:B18))</td><td></td></tr>
+<tr><td>I12</td><td>Skalierte Zahlung (Zeile 12)</td><td class="xlw-f">=WENNFEHLER(B12/$L$12^A12;&quot;–&quot;)</td><td></td></tr>
+<tr><td>L12</td><td>Skalierungsfaktor q (Untergrenze 1 + IZF)</td><td class="xlw-f">=POTENZ(10;(L11-1)/2-6)</td><td></td></tr>
+<tr><td>C13</td><td>Abzinsungsfaktor (Zeile 13)</td><td class="xlw-f">=1/(1+$B$6)^A13</td><td></td></tr>
+<tr><td>D13</td><td>Barwert (Zeile 13)</td><td class="xlw-f">=B13*C13</td><td></td></tr>
+<tr><td>E13</td><td>Kumulierter Barwert (Zeile 13)</td><td class="xlw-f">=E12+D13</td><td></td></tr>
+<tr><td>G13</td><td>Vorzeichen (ohne Nullen) (Zeile 13)</td><td class="xlw-f">=WENN(B13=0;G12;VORZEICHEN(B13))</td><td></td></tr>
+<tr><td>H13</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 13)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-4,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>I13</td><td>Skalierte Zahlung (Zeile 13)</td><td class="xlw-f">=WENNFEHLER(B13/$L$12^A13;&quot;–&quot;)</td><td></td></tr>
+<tr><td>L13</td><td>IZF (Hilfswert)</td><td class="xlw-f">=WENN(L10&lt;&gt;1;&quot;–&quot;;WENNFEHLER(WENN(L12*(1+IKV(I10:I18;-0,01))-1&gt;-1;L12*(1+IKV(I10:I18;-0,01))-1;1/0);WENNFEHLER(WENN(L12*(1+IKV(I10:I18;0,5))-1&gt;-1;L12*(1+IKV(I10:I18;0,5))-1;1/0);&quot;nicht bestimmbar&quot;)))</td><td></td></tr>
+<tr><td>C14</td><td>Abzinsungsfaktor (Zeile 14)</td><td class="xlw-f">=1/(1+$B$6)^A14</td><td></td></tr>
+<tr><td>D14</td><td>Barwert (Zeile 14)</td><td class="xlw-f">=B14*C14</td><td></td></tr>
+<tr><td>E14</td><td>Kumulierter Barwert (Zeile 14)</td><td class="xlw-f">=E13+D14</td><td></td></tr>
+<tr><td>G14</td><td>Vorzeichen (ohne Nullen) (Zeile 14)</td><td class="xlw-f">=WENN(B14=0;G13;VORZEICHEN(B14))</td><td></td></tr>
+<tr><td>H14</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 14)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-4)-1;B11:B18))</td><td></td></tr>
+<tr><td>I14</td><td>Skalierte Zahlung (Zeile 14)</td><td class="xlw-f">=WENNFEHLER(B14/$L$12^A14;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C15</td><td>Abzinsungsfaktor (Zeile 15)</td><td class="xlw-f">=1/(1+$B$6)^A15</td><td></td></tr>
+<tr><td>D15</td><td>Barwert (Zeile 15)</td><td class="xlw-f">=B15*C15</td><td></td></tr>
+<tr><td>E15</td><td>Kumulierter Barwert (Zeile 15)</td><td class="xlw-f">=E14+D15</td><td></td></tr>
+<tr><td>G15</td><td>Vorzeichen (ohne Nullen) (Zeile 15)</td><td class="xlw-f">=WENN(B15=0;G14;VORZEICHEN(B15))</td><td></td></tr>
+<tr><td>H15</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 15)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-3,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>I15</td><td>Skalierte Zahlung (Zeile 15)</td><td class="xlw-f">=WENNFEHLER(B15/$L$12^A15;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C16</td><td>Abzinsungsfaktor (Zeile 16)</td><td class="xlw-f">=1/(1+$B$6)^A16</td><td></td></tr>
+<tr><td>D16</td><td>Barwert (Zeile 16)</td><td class="xlw-f">=B16*C16</td><td></td></tr>
+<tr><td>E16</td><td>Kumulierter Barwert (Zeile 16)</td><td class="xlw-f">=E15+D16</td><td></td></tr>
+<tr><td>G16</td><td>Vorzeichen (ohne Nullen) (Zeile 16)</td><td class="xlw-f">=WENN(B16=0;G15;VORZEICHEN(B16))</td><td></td></tr>
+<tr><td>H16</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 16)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-3)-1;B11:B18))</td><td></td></tr>
+<tr><td>I16</td><td>Skalierte Zahlung (Zeile 16)</td><td class="xlw-f">=WENNFEHLER(B16/$L$12^A16;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C17</td><td>Abzinsungsfaktor (Zeile 17)</td><td class="xlw-f">=1/(1+$B$6)^A17</td><td></td></tr>
+<tr><td>D17</td><td>Barwert (Zeile 17)</td><td class="xlw-f">=B17*C17</td><td></td></tr>
+<tr><td>E17</td><td>Kumulierter Barwert (Zeile 17)</td><td class="xlw-f">=E16+D17</td><td></td></tr>
+<tr><td>G17</td><td>Vorzeichen (ohne Nullen) (Zeile 17)</td><td class="xlw-f">=WENN(B17=0;G16;VORZEICHEN(B17))</td><td></td></tr>
+<tr><td>H17</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 17)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-2,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>I17</td><td>Skalierte Zahlung (Zeile 17)</td><td class="xlw-f">=WENNFEHLER(B17/$L$12^A17;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C18</td><td>Abzinsungsfaktor (Zeile 18)</td><td class="xlw-f">=1/(1+$B$6)^A18</td><td></td></tr>
+<tr><td>D18</td><td>Barwert (Zeile 18)</td><td class="xlw-f">=B18*C18</td><td></td></tr>
+<tr><td>E18</td><td>Kumulierter Barwert (Zeile 18)</td><td class="xlw-f">=E17+D18</td><td></td></tr>
+<tr><td>G18</td><td>Vorzeichen (ohne Nullen) (Zeile 18)</td><td class="xlw-f">=WENN(B18=0;G17;VORZEICHEN(B18))</td><td></td></tr>
+<tr><td>H18</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 18)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-2)-1;B11:B18))</td><td></td></tr>
+<tr><td>I18</td><td>Skalierte Zahlung (Zeile 18)</td><td class="xlw-f">=WENNFEHLER(B18/$L$12^A18;&quot;–&quot;)</td><td></td></tr>
+<tr><td>H19</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 19)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-1,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H20</td><td>Ergebnis</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-1)-1;B11:B18))</td><td></td></tr>
+<tr><td>B21</td><td>Summe der Barwerte (Jahr 1 – 8)</td><td class="xlw-f">=SUMME(D11:D18)</td><td></td></tr>
+<tr><td>H21</td><td>Summe der Barwerte (Jahr 1 – 8)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;-0,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>B22</td><td>Kapitalwert C₀</td><td class="xlw-f">=NBW(B6;B11:B18)+B10</td><td><small>NBW zinst ab Jahr 1 ab – deshalb wird die Zahlung aus t = 0 (negativ) separat addiert. C₀ &gt; 0: Investition lohnt sich.</small></td></tr>
+<tr><td>H22</td><td>Kapitalwert C₀</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;0)-1;B11:B18))</td><td></td></tr>
+<tr><td>B23</td><td>Interner Zinsfuß</td><td class="xlw-f">=WENN(L10=0;&quot;kein IZF (kein Vorzeichenwechsel)&quot;;WENN(L10&gt;1;&quot;nicht eindeutig (mehrere Vorzeichenwechsel)&quot;;L13))</td><td><small>Der Zinssatz, bei dem der Kapitalwert genau 0 ist. Bei einer Normalinvestition (erst Auszahlung, danach nur Rückflüsse) gilt: Liegt er über dem Kalkulationszins, ist der Kapitalwert positiv und die Investition vorteilhaft.</small></td></tr>
+<tr><td>H23</td><td>Interner Zinsfuß</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;0,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>B24</td><td>Entscheidung</td><td class="xlw-f">=WENN(B22&gt;0;&quot;Vorteilhaft (C₀ &gt; 0)&quot;;WENN(B22&lt;0;&quot;Nicht vorteilhaft (C₀ &lt; 0)&quot;;&quot;Indifferent (C₀ = 0)&quot;))</td><td></td></tr>
+<tr><td>H24</td><td>Entscheidung</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;1)-1;B11:B18))</td><td></td></tr>
+<tr><td>H25</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 25)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;1,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H26</td><td>Jahre ohne Rückfluss einfach auf 0 lassen. Ein Restwert gehört in die Zahlung des letzten Jahres.</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;2)-1;B11:B18))</td><td></td></tr>
+<tr><td>H27</td><td>IZF nur bei Normalinvestition (genau ein Vorzeichenwechsel). Bei mehreren Vorzeichenwechseln kann es keinen, einen oder mehrere Zinsfüße geben – solche Reihen untersucht die Vorlage nicht. Hilfsrechnung rechts (Spalten G–L): Vorzeichenwechsel zählen, IZF per Kapitalwert bei 1 + i = 10^k auf eine halbe Zehnerpotenz eingrenzen (Untergrenze q) und Reihe mit q skalieren, damit Excel auch extreme IZF findet (IZF = q · (1 + IKV der skalierten Reihe) − 1).</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;2,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H28</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 28)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;3)-1;B11:B18))</td><td></td></tr>
+<tr><td>H29</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 29)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;3,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H30</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 30)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;4)-1;B11:B18))</td><td></td></tr>
+<tr><td>H31</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 31)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;4,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H32</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 32)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H33</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 33)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;5,5)-1;B11:B18))</td><td></td></tr>
+<tr><td>H34</td><td>Vorzeichen C₀ bei 1 + i = 10^k (k = −6; −5,5; … 6) (Zeile 34)</td><td class="xlw-f">=VORZEICHEN(B10+NBW(POTENZ(10;6)-1;B11:B18))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.659 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 79 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Kapitalwert C₀ (B22), Interner Zinsfuß (B23).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 79 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 79 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.659 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Investition</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-amortisation">Amortisationsrechnung (statisch &amp; dynamisch)</a><p>Nach wie vielen Jahren ist das Geld zurück – mit und ohne Abzinsung, auf zwei Nachkommastellen.</p></li>
+<li><a href="/tools/excel-vorlage-kostenvergleich">Kostenvergleichsrechnung</a><p>Zwei Anlagen im Vergleich: kalkulatorische AfA, Zinsen, Stückkosten und kritische Menge.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnvergleich">Gewinnvergleichsrechnung</a><p>Zwei Anlagen im Vergleich: Durchschnittsgewinn, Gewinnschwelle und kritische Menge.</p></li>
+<li><a href="/tools/excel-vorlage-rentabilitaet">Rentabilitätsvergleichsrechnung</a><p>Zwei Anlagen: Gewinn, Ø gebundenes Kapital und Rentabilität – mit Vergleich zur Mindestverzinsung.</p></li>
+<li><a href="/tools/excel-vorlage-annuitaetenmethode">Annuitätenmethode</a><p>Kapitalwert × Wiedergewinnungsfaktor: Annuität der Investition, Kapitaldienst und Entscheidung.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalwertvergleich">Kapitalwertvergleich zweier Alternativen</a><p>Zwei Investitionen bis 8 Jahre: Kapitalwerte, IZF, Differenzinvestition und Entscheidung.</p></li>
+<li><a href="/tools/excel-vorlage-dcf">Unternehmensbewertung (DCF, vereinfacht)</a><p>Free Cashflows 5 Jahre + Terminal Value (Gordon Growth): Enterprise Value und Equity Value.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

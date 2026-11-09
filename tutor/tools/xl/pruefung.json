@@ -1,0 +1,986 @@
+{
+ "stand": "2026-11-09",
+ "vorlagen": 60,
+ "libreoffice": "LibreOffice 24.2.7.2",
+ "toleranzLO": 1e-09,
+ "toleranzRef": 1e-07,
+ "gesamt": {
+  "dateien": 1260,
+  "formelVergleiche": 60711,
+  "loAbweichungen": 0,
+  "ladefehler": 0,
+  "dateienOk": 1260,
+  "xmlTeile": 13860,
+  "refVergleiche": 3906,
+  "refAbweichungen": 0,
+  "formelzellenVorlagen": 2891
+ },
+ "je": {
+  "kapitalwert": {
+   "formeln": 79,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1659,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B22",
+    "B23"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "amortisation": {
+   "formeln": 52,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1092,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B10",
+    "B9"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "kostenvergleich": {
+   "formeln": 17,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 357,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B20",
+    "B24",
+    "B26",
+    "C20"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "gewinnvergleich": {
+   "formeln": 24,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 504,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B23",
+    "B28",
+    "B30",
+    "C23"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "rentabilitaet": {
+   "formeln": 15,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 315,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B19",
+    "B22",
+    "C19"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "annuitaetenmethode": {
+   "formeln": 38,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 798,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B26",
+    "B30"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "kapitalwertvergleich": {
+   "formeln": 187,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 3927,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B23",
+    "B24",
+    "B26",
+    "C23",
+    "C24"
+   ],
+   "refVergleiche": 105,
+   "refAbweichungen": 0
+  },
+  "dcf": {
+   "formeln": 18,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 378,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B23",
+    "B25"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "annuitaet": {
+   "formeln": 124,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2604,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B10",
+    "B11"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "ratendarlehen": {
+   "formeln": 125,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2625,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B10",
+    "B11"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "sparplan": {
+   "formeln": 208,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 4368,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B15",
+    "B17"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "rentenrechnung": {
+   "formeln": 7,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 147,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "C12",
+    "C13",
+    "C14"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "effektivzins": {
+   "formeln": 8,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 168,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B15",
+    "B23"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "skonto": {
+   "formeln": 9,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 189,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B16",
+    "B19",
+    "B20"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "leverage": {
+   "formeln": 63,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1323,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "B20"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "wacc": {
+   "formeln": 9,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 189,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B18",
+    "B26"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "kapitalbedarf": {
+   "formeln": 21,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 441,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B33",
+    "B40"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "breakeven": {
+   "formeln": 85,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1785,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B14",
+    "B16"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "deckungsbeitrag": {
+   "formeln": 23,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 483,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "E18"
+   ],
+   "refVergleiche": 21,
+   "refAbweichungen": 0
+  },
+  "zuschlag": {
+   "formeln": 15,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 315,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "C16",
+    "C23"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "bab": {
+   "formeln": 58,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1218,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B29",
+    "B30",
+    "B31",
+    "B32"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "divisionskalkulation": {
+   "formeln": 12,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 252,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B13",
+    "B19",
+    "B23",
+    "B27"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "aequivalenzziffern": {
+   "formeln": 23,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 483,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "E10",
+    "E8",
+    "E9"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "maschinenstundensatz": {
+   "formeln": 22,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 462,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B29",
+    "B32"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "kuppelkalkulation": {
+   "formeln": 38,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 798,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "D20",
+    "E24",
+    "E25",
+    "E26"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "handelvorwaerts": {
+   "formeln": 17,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 357,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "C20",
+    "C23",
+    "C24",
+    "C25"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "handelrueckwaerts": {
+   "formeln": 17,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 357,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "C14",
+    "C20"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "makeorbuy": {
+   "formeln": 15,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 315,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B21",
+    "B23",
+    "B24"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "preisuntergrenze": {
+   "formeln": 9,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 189,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "B18",
+    "B26",
+    "B27"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "kostenaufloesung": {
+   "formeln": 53,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1113,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B23",
+    "B24",
+    "B30",
+    "C28",
+    "C29"
+   ],
+   "refVergleiche": 105,
+   "refAbweichungen": 0
+  },
+  "prozesskosten": {
+   "formeln": 37,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 777,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "D22",
+    "F22",
+    "H6"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "plankosten": {
+   "formeln": 16,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 336,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B19",
+    "B24",
+    "B25",
+    "B26"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "produktionsprogramm": {
+   "formeln": 76,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1596,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B23",
+    "B24"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "cashcycle": {
+   "formeln": 7,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 147,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B16",
+    "B17",
+    "B21"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "ebitda": {
+   "formeln": 10,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 210,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B21",
+    "B22",
+    "B24",
+    "C22"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "produktivitaet": {
+   "formeln": 12,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 252,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B20",
+    "B21",
+    "B22",
+    "B23",
+    "B25",
+    "B27",
+    "B28",
+    "B29"
+   ],
+   "refVergleiche": 168,
+   "refAbweichungen": 0
+  },
+  "nutzwertanalyse": {
+   "formeln": 42,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 882,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B20",
+    "B21",
+    "B22",
+    "B24"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "liquiditaetsplan": {
+   "formeln": 100,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2100,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B41",
+    "B43",
+    "B44"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "sollist": {
+   "formeln": 54,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1134,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B27",
+    "D25",
+    "E25"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "personalbedarf": {
+   "formeln": 13,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 273,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B27",
+    "B28"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "mehrproduktbe": {
+   "formeln": 50,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1050,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "B18"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "abschreibung": {
+   "formeln": 107,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2247,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B12",
+    "B13"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "kennzahlen": {
+   "formeln": 23,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 483,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B20",
+    "B21",
+    "B22",
+    "B23",
+    "B24",
+    "B25",
+    "B26",
+    "B27",
+    "B28",
+    "B29",
+    "B30",
+    "B31",
+    "B32"
+   ],
+   "refVergleiche": 273,
+   "refAbweichungen": 0
+  },
+  "umsatzsteuer": {
+   "formeln": 17,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 357,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B24",
+    "B25"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "guvverfahren": {
+   "formeln": 45,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 945,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B37",
+    "B53",
+    "B57"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "cashflow": {
+   "formeln": 25,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 525,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B27",
+    "B42",
+    "B44"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "leistungsafa": {
+   "formeln": 45,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 945,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B10",
+    "B12"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "vorratsbewertung": {
+   "formeln": 39,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 819,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "E21",
+    "E22"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "gewinnverteilung": {
+   "formeln": 39,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 819,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B22",
+    "B26",
+    "C22",
+    "D22",
+    "E22",
+    "F22"
+   ],
+   "refVergleiche": 126,
+   "refAbweichungen": 0
+  },
+  "rechnungsabgrenzung": {
+   "formeln": 9,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 189,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "B18",
+    "B19",
+    "B21"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "bewegungsbilanz": {
+   "formeln": 98,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2058,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B34",
+    "B35",
+    "C34"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "anlagenspiegel": {
+   "formeln": 55,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1155,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "G21"
+   ],
+   "refVergleiche": 21,
+   "refAbweichungen": 0
+  },
+  "inventar": {
+   "formeln": 14,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 294,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B33",
+    "C25"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "bestellmenge": {
+   "formeln": 107,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2247,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B13",
+    "B20"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "abcanalyse": {
+   "formeln": 192,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 4032,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B46",
+    "E46",
+    "F46"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "lagerkennzahlen": {
+   "formeln": 6,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 126,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B26",
+    "B28",
+    "B29",
+    "B31"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  },
+  "meldebestand": {
+   "formeln": 8,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 168,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B19",
+    "B20"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "losgroesse": {
+   "formeln": 107,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 2247,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B13",
+    "B20"
+   ],
+   "refVergleiche": 42,
+   "refAbweichungen": 0
+  },
+  "preisabsatz": {
+   "formeln": 86,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1806,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B17",
+    "B18",
+    "B21"
+   ],
+   "refVergleiche": 63,
+   "refAbweichungen": 0
+  },
+  "marketingkennzahlen": {
+   "formeln": 61,
+   "saetze": 21,
+   "zufall": 20,
+   "loVergleiche": 1281,
+   "loAbweichungen": 0,
+   "dateienOk": 21,
+   "dateien": 21,
+   "refZellen": [
+    "B11",
+    "B12",
+    "B21",
+    "B43"
+   ],
+   "refVergleiche": 84,
+   "refAbweichungen": 0
+  }
+ }
+}

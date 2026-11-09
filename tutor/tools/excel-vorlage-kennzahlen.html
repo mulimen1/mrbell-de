@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Bilanzkennzahlen &amp; Rentabilität – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 23 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-kennzahlen">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Bilanzkennzahlen & Rentabilität (Excel-Vorlage)","description":"Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.","url":"https://www.bwlmax.de/tools/excel-vorlage-kennzahlen","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Bilanzkennzahlen &amp; Rentabilität</h1>
+<p class="lead">Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>10</b> Eingabefelder</li><li><b>23</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="kennzahlen">
+<div class="xl-keys"><div class="xl-key"><small>Eigenkapitalquote</small><b>39,06 %</b></div><div class="xl-key"><small>Eigenkapitalrentabilität</small><b>18,00 %</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Bilanzkennzahlen_Rentabilitaet.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Kennzahlen“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:237px"><col style="width:126px"><col style="width:296px"><col style="width:222px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="4">Bilanzkennzahlen &amp; Rentabilität</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="4">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="4">Bilanz</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Aktiva</td><td class="xs-th">Betrag</td><td class="xs-th">Passiva</td><td class="xs-th">Betrag</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Anlagevermögen</td><td class="xs-in num">400.000,00 €</td><td class="xs-lab">Eigenkapital</td><td class="xs-in num">250.000,00 €</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Vorräte</td><td class="xs-in num">120.000,00 €</td><td class="xs-lab">Langfristiges Fremdkapital</td><td class="xs-in num">200.000,00 €</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Forderungen</td><td class="xs-in num">80.000,00 €</td><td class="xs-lab">Kurzfristiges Fremdkapital</td><td class="xs-in num">190.000,00 €</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Liquide Mittel</td><td class="xs-in num">40.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Summe Aktiva</td><td class="xs-tot num">640.000,00 €</td><td class="xs-lab">Summe Passiva</td><td class="xs-tot num">640.000,00 €</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Bilanz ausgeglichen?</td><td class="xs-out" colspan="3">✓ Aktiva = Passiva</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-sec" colspan="4">Werte aus der GuV</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Umsatzerlöse</td><td class="xs-in num">900.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Jahresüberschuss</td><td class="xs-in num">45.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Zinsaufwand</td><td class="xs-in num">12.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-sec" colspan="4">Kennzahlen</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-th">Kennzahl</td><td class="xs-th">Wert</td><td class="xs-th">Formel</td><td class="xs-th">Einschätzung</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Eigenkapitalquote</td><td class="xs-res num">39,06 %</td><td class="xs-txt">Eigenkapital / Gesamtkapital</td><td class="xs-out">solide (≥ 30 %)</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Fremdkapitalquote</td><td class="xs-res num">60,94 %</td><td class="xs-txt">Fremdkapital / Gesamtkapital</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Verschuldungsgrad</td><td class="xs-res num">1,56</td><td class="xs-txt">Fremdkapital / Eigenkapital</td><td class="xs-out">vertretbar (≤ 2)</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Anlagendeckungsgrad I</td><td class="xs-res num">62,50 %</td><td class="xs-txt">Eigenkapital / Anlagevermögen</td><td class="xs-out">unter 100 %</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Anlagendeckungsgrad II</td><td class="xs-res num">112,50 %</td><td class="xs-txt">(EK + langfr. FK) / Anlagevermögen</td><td class="xs-out">goldene Bilanzregel erfüllt</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Liquidität 1. Grades</td><td class="xs-res num">21,05 %</td><td class="xs-txt">Liquide Mittel / kurzfr. FK</td><td class="xs-out">ok (≥ 20 %)</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Liquidität 2. Grades</td><td class="xs-res num">63,16 %</td><td class="xs-txt">(Liquide Mittel + Forderungen) / kurzfr. FK</td><td class="xs-out">kritisch (&lt; 100 %)</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Liquidität 3. Grades</td><td class="xs-res num">126,32 %</td><td class="xs-txt">Umlaufvermögen / kurzfr. FK</td><td class="xs-out">ok (≥ 120 %)</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Eigenkapitalrentabilität</td><td class="xs-res num">18,00 %</td><td class="xs-txt">Jahresüberschuss / Eigenkapital</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Gesamtkapitalrentabilität</td><td class="xs-res num">8,91 %</td><td class="xs-txt">(Jahresüberschuss + Zinsaufwand) / Gesamtkapital</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">Umsatzrentabilität</td><td class="xs-res num">5,00 %</td><td class="xs-txt">Jahresüberschuss / Umsatzerlöse</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">Kapitalumschlag</td><td class="xs-res num">1,41</td><td class="xs-txt">Umsatzerlöse / Gesamtkapital</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Return on Investment (ROI)</td><td class="xs-res num">7,03 %</td><td class="xs-txt">Umsatzrentabilität × Kapitalumschlag (= JÜ / Gesamtkapital)</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-note" colspan="4">Richtwerte sind Faustregeln aus der Literatur – je nach Branche weichen sie ab.</td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-note" colspan="4">Gesamtkapital = Summe Passiva (EK + FK). Weichen Aktiva und Passiva ab (Zeile 11 ✗), erst die Bilanz korrigieren – sonst sind die Kennzahlen nicht aussagekräftig. „–“ = nicht definiert (Division durch 0).</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Kennzahlen“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 10 Werte ein; die Datei berechnet daraus unter anderem „Eigenkapitalquote“ und „Eigenkapitalrentabilität“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Richtwerte sind Faustregeln aus der Literatur – je nach Branche weichen sie ab.</li><li>Gesamtkapital = Summe Passiva (EK + FK). Weichen Aktiva und Passiva ab (Zeile 11 ✗), erst die Bilanz korrigieren – sonst sind die Kennzahlen nicht aussagekräftig. „–“ = nicht definiert (Division durch 0).</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anlagevermögen</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">400.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Eigenkapital</td><td><code>D6</code></td><td class="xlw-v" data-xi="D6">250.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Vorräte</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">120.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Langfristiges Fremdkapital</td><td><code>D7</code></td><td class="xlw-v" data-xi="D7">200.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Forderungen</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">80.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kurzfristiges Fremdkapital</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">190.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Liquide Mittel</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Umsatzerlöse</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">900.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Jahresüberschuss</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">45.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zinsaufwand</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">12.000,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Eigenkapitalquote</td><td><code>B20</code></td><td class="xlw-v"><b data-xv="B20">39,06 %</b></td></tr>
+<tr><td>Eigenkapitalrentabilität</td><td><code>B28</code></td><td class="xlw-v"><b data-xv="B28">18,00 %</b></td></tr>
+<tr><td>Fremdkapitalquote</td><td><code>B21</code></td><td class="xlw-v"><b data-xv="B21">60,94 %</b></td></tr>
+<tr><td>Verschuldungsgrad</td><td><code>B22</code></td><td class="xlw-v"><b data-xv="B22">1,56</b></td></tr>
+<tr><td>Anlagendeckungsgrad I</td><td><code>B23</code></td><td class="xlw-v"><b data-xv="B23">62,50 %</b></td></tr>
+<tr><td>Anlagendeckungsgrad II</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">112,50 %</b></td></tr>
+<tr><td>Liquidität 1. Grades</td><td><code>B25</code></td><td class="xlw-v"><b data-xv="B25">21,05 %</b></td></tr>
+<tr><td>Liquidität 2. Grades</td><td><code>B26</code></td><td class="xlw-v"><b data-xv="B26">63,16 %</b></td></tr>
+<tr><td>Liquidität 3. Grades</td><td><code>B27</code></td><td class="xlw-v"><b data-xv="B27">126,32 %</b></td></tr>
+<tr><td>Gesamtkapitalrentabilität</td><td><code>B29</code></td><td class="xlw-v"><b data-xv="B29">8,91 %</b></td></tr>
+<tr><td>Umsatzrentabilität</td><td><code>B30</code></td><td class="xlw-v"><b data-xv="B30">5,00 %</b></td></tr>
+<tr><td>Kapitalumschlag</td><td><code>B31</code></td><td class="xlw-v"><b data-xv="B31">1,41</b></td></tr>
+<tr><td>Return on Investment (ROI)</td><td><code>B32</code></td><td class="xlw-v"><b data-xv="B32">7,03 %</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 23 Formeln des Blatts „Kennzahlen“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B10</td><td>Summe Aktiva</td><td class="xlw-f">=SUMME(B6:B9)</td><td></td></tr>
+<tr><td>D10</td><td>Summe Passiva</td><td class="xlw-f">=SUMME(D6:D8)</td><td></td></tr>
+<tr><td>B11</td><td>Bilanz ausgeglichen?</td><td class="xlw-f">=WENN(RUNDEN(B10-D10;2)=0;&quot;✓ Aktiva = Passiva&quot;;&quot;✗ Aktiva und Passiva weichen ab&quot;)</td><td></td></tr>
+<tr><td>B20</td><td>Eigenkapitalquote</td><td class="xlw-f">=WENNFEHLER(D6/D10;&quot;–&quot;)</td><td><small>Anteil des Eigenkapitals am Gesamtkapital.</small></td></tr>
+<tr><td>D20</td><td>Eigenkapital / Gesamtkapital</td><td class="xlw-f">=WENN(D10=0;&quot;nicht bestimmbar (kein Kapital)&quot;;WENN(B20&gt;=0,3;&quot;solide (≥ 30 %)&quot;;&quot;eher niedrig (&lt; 30 %)&quot;))</td><td></td></tr>
+<tr><td>B21</td><td>Fremdkapitalquote</td><td class="xlw-f">=WENNFEHLER((D7+D8)/D10;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B22</td><td>Verschuldungsgrad</td><td class="xlw-f">=WENNFEHLER((D7+D8)/D6;&quot;–&quot;)</td><td></td></tr>
+<tr><td>D22</td><td>Fremdkapital / Eigenkapital</td><td class="xlw-f">=WENN(D6=0;WENN(D7+D8=0;&quot;nicht bestimmbar (kein Kapital)&quot;;&quot;nicht definiert – kein Eigenkapital&quot;);WENN(B22&lt;=2;&quot;vertretbar (≤ 2)&quot;;&quot;hoch (&gt; 2)&quot;))</td><td></td></tr>
+<tr><td>B23</td><td>Anlagendeckungsgrad I</td><td class="xlw-f">=WENNFEHLER(D6/B6;&quot;–&quot;)</td><td></td></tr>
+<tr><td>D23</td><td>Eigenkapital / Anlagevermögen</td><td class="xlw-f">=WENN(B6=0;&quot;nicht bestimmbar (kein Anlagevermögen)&quot;;WENN(B23&gt;=1;&quot;AV voll durch EK gedeckt&quot;;&quot;unter 100 %&quot;))</td><td></td></tr>
+<tr><td>B24</td><td>Anlagendeckungsgrad II</td><td class="xlw-f">=WENNFEHLER((D6+D7)/B6;&quot;–&quot;)</td><td><small>Goldene Bilanzregel: langfristiges Vermögen langfristig finanziert.</small></td></tr>
+<tr><td>D24</td><td>(EK + langfr. FK) / Anlagevermögen</td><td class="xlw-f">=WENN(B6=0;&quot;nicht bestimmbar (kein Anlagevermögen)&quot;;WENN(B24&gt;=1;&quot;goldene Bilanzregel erfüllt&quot;;&quot;goldene Bilanzregel verletzt&quot;))</td><td></td></tr>
+<tr><td>B25</td><td>Liquidität 1. Grades</td><td class="xlw-f">=WENNFEHLER(B9/D8;&quot;–&quot;)</td><td></td></tr>
+<tr><td>D25</td><td>Liquide Mittel / kurzfr. FK</td><td class="xlw-f">=WENN(D8=0;&quot;nicht bestimmbar (kein kurzfr. FK)&quot;;WENN(B25&gt;=0,2;&quot;ok (≥ 20 %)&quot;;&quot;knapp (&lt; 20 %)&quot;))</td><td></td></tr>
+<tr><td>B26</td><td>Liquidität 2. Grades</td><td class="xlw-f">=WENNFEHLER((B9+B8)/D8;&quot;–&quot;)</td><td></td></tr>
+<tr><td>D26</td><td>(Liquide Mittel + Forderungen) / kurzfr. FK</td><td class="xlw-f">=WENN(D8=0;&quot;nicht bestimmbar (kein kurzfr. FK)&quot;;WENN(B26&gt;=1;&quot;ok (≥ 100 %)&quot;;&quot;kritisch (&lt; 100 %)&quot;))</td><td></td></tr>
+<tr><td>B27</td><td>Liquidität 3. Grades</td><td class="xlw-f">=WENNFEHLER((B7+B8+B9)/D8;&quot;–&quot;)</td><td></td></tr>
+<tr><td>D27</td><td>Umlaufvermögen / kurzfr. FK</td><td class="xlw-f">=WENN(D8=0;&quot;nicht bestimmbar (kein kurzfr. FK)&quot;;WENN(B27&gt;=1,2;&quot;ok (≥ 120 %)&quot;;&quot;knapp (&lt; 120 %)&quot;))</td><td></td></tr>
+<tr><td>B28</td><td>Eigenkapitalrentabilität</td><td class="xlw-f">=WENNFEHLER(B15/D6;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B29</td><td>Gesamtkapitalrentabilität</td><td class="xlw-f">=WENNFEHLER((B15+B16)/D10;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B30</td><td>Umsatzrentabilität</td><td class="xlw-f">=WENNFEHLER(B15/B14;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>Kapitalumschlag</td><td class="xlw-f">=WENNFEHLER(B14/D10;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B32</td><td>Return on Investment (ROI)</td><td class="xlw-f">=WENNFEHLER(B30*B31;WENNFEHLER(B15/D10;&quot;–&quot;))</td><td><small>ROI nach DuPont: Umsatzrentabilität × Kapitalumschlag = Jahresüberschuss / Gesamtkapital.</small></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>483 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 23 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>273 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Eigenkapitalquote (B20), Fremdkapitalquote (B21), Verschuldungsgrad (B22), Anlagendeckungsgrad I (B23), Anlagendeckungsgrad II (B24), Liquidität 1. Grades (B25), Liquidität 2. Grades (B26), Liquidität 3. Grades (B27), Eigenkapitalrentabilität (B28), Gesamtkapitalrentabilität (B29), Umsatzrentabilität (B30), Kapitalumschlag (B31), Return on Investment (ROI) (B32).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 23 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 23 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>483 Formelergebnisse in LibreOffice neu berechnet, 273 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-abschreibung">Abschreibung: linear vs. degressiv</a><p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-cashflow">Kapitalflussrechnung (Cashflow indirekt)</a><p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-vorratsbewertung">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</a><p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-bewegungsbilanz">Strukturbilanz &amp; Bewegungsbilanz</a><p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.</p></li>
+<li><a href="/tools/excel-vorlage-anlagenspiegel">Anlagenspiegel (Anlagengitter)</a><p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

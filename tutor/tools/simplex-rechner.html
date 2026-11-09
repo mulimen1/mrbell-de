@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="color-scheme" content="light">
 <title>Simplex-Rechner mit Rechenweg – Tableaus, Zwei-Phasen-Methode, Schattenpreise</title>
@@ -81,8 +81,18 @@ details{margin:10px 0}
 summary{cursor:pointer;font-weight:600}
 footer{max-width:1000px;margin:0 auto;padding:18px 16px 30px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line)}
 footer a{color:var(--muted)}
+.druckkopf{display:none}
+.ops{margin:.2rem 0 .6rem;padding-left:1.3em}
+.ops li{margin:.15rem 0}
+.ablesen{font-variant-numeric:tabular-nums}
+table.ueb-tab{border-collapse:collapse;margin:.4rem 0 .6rem;font-variant-numeric:tabular-nums}
+table.ueb-tab th,table.ueb-tab td{border:1px solid var(--line);padding:4px 10px;text-align:right}
+table.ueb-tab th[scope=row],table.ueb-tab thead th:first-child{text-align:left}
+table.ueb-tab caption{text-align:left;font-size:.9rem;color:var(--muted);padding:0 0 .3rem}
+.bmw-ueb-los .step{margin-top:12px}
+.bmw-ueb-los .step h4{margin:4px 0 2px;font-size:1rem}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-@media (max-width:600px){h1{font-size:1.45rem}table.tab{font-size:.85rem}table.tab th,table.tab td{padding:4px 6px}}
+@media (max-width:600px){h1{font-size:1.45rem}table.tab{font-size:.85rem}table.tab th,table.tab td{padding:4px 6px}input.cf{width:3.1em;padding:6px 4px}table.inp td,table.inp th{padding:4px 2px}table.inp th{font-size:.8rem;white-space:normal;hyphens:auto;-webkit-hyphens:auto;max-width:4.6em;overflow-wrap:anywhere}table.inp select{padding-left:4px;padding-right:0}}
 @media print{
   body{font-size:11pt;background:#fff;color:#000}
   main{max-width:none;padding:0}
@@ -95,9 +105,18 @@ footer a{color:var(--muted)}
   table.tab td.pe{background:#ccc!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   a{color:#000}
   @page{size:A4;margin:15mm}
+  #eingabe,#uebung{display:none!important}
+  .druckkopf{display:block;margin:0 0 3mm;font-size:9pt;color:#333}
+  #out h2{font-size:13pt;margin:4mm 0 2mm}
+  #out h2:first-child{margin-top:0}
+  .msg{border:1px solid #999;border-left-width:4px;background:none}
+  svg.g{max-width:95mm;break-after:avoid}
+  .sw,svg.g{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .legend{break-before:avoid}
+  .bmw-trust{break-inside:avoid}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <main>
@@ -108,6 +127,7 @@ footer a{color:var(--muted)}
 <h1>Simplex-Rechner mit Rechenweg</h1>
 <p class="lead">Dieser Rechner löst lineare Optimierungsprobleme mit dem Simplex-Verfahren und zeigt jedes Tableau mit Pivotspalte, Quotiententest und kurzer Erklärung – auch die Zwei-Phasen-Methode bei ≥- und =-Nebenbedingungen. Gerechnet wird exakt mit Brüchen. Gedacht für Operations Research und Wirtschaftsmathematik im Studium.</p>
 
+<div id="rechner">
 <section class="card" id="eingabe" aria-labelledby="h-eingabe">
 <h2 id="h-eingabe" style="margin-top:0">Eingabe</h2>
 <div class="row">
@@ -146,7 +166,16 @@ footer a{color:var(--muted)}
 </fieldset>
 </section>
 
+<div id="leiste"></div>
+<p class="druckkopf">Simplex-Rechner · bwlmax.de/tools/simplex-rechner</p>
 <div id="out" aria-live="polite"></div>
+</div>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übungsmodus: selbst rechnen</h2>
+<p class="hint">Produktionsprogramm-Aufgaben wie in der Klausur mit zufälligen, gut rechenbaren Zahlen (zwei Produkte, drei Engpässe). Rechne mit Papier und Stift, trage die Ergebnisse ein und lass sie prüfen. Der Lösungsweg zeigt alle Tableaus.</p>
+<div id="ueb-simplex"></div>
+</section>
 
 <section aria-labelledby="h-konv">
 <h2 id="h-konv">Konventionen dieses Rechners</h2>
@@ -158,6 +187,17 @@ footer a{color:var(--muted)}
 <li><strong>Zwei-Phasen-Methode:</strong> Phase 1 maximiert h = −(Summe der künstlichen Variablen). Ist das Optimum h = 0, gibt es eine zulässige Lösung und Phase 2 startet mit der ursprünglichen Zielfunktion; ist h &lt; 0, ist das Problem unzulässig.</li>
 <li><strong>Schattenpreise</strong> (duale Werte) geben an, um wie viel sich der optimale Zielwert ändert, wenn die rechte Seite einer Nebenbedingung um eine Einheit steigt – gültig nur, solange die optimale Basis gleich bleibt.</li>
 </ul>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Pivotregeln, Vorzeichenkonvention der Zielfunktionszeile, Zwei-Phasen-Methode und Schattenpreise stehen im Abschnitt <a href="#h-konv">Konventionen dieses Rechners</a>. Gerechnet wird exakt mit Brüchen, ohne Rundungsfehler.</span></li>
+<li><b>Gegengerechnet</b><span>Der Rechenkern ist automatisch gegen ein unabhängiges Optimierungsprogramm (scipy, HiGHS-Löser) getestet: 608 Probleme mit ≤, ≥ und = sowie Max und Min, darunter unzulässige und unbeschränkte. Status, Zielwert und – wo eindeutig – Schattenpreise stimmen in allen Fällen überein. Ebenso geprüft: 400 zufällig erzeugte Übungsaufgaben.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 </main>
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -579,11 +619,12 @@ footer a{color:var(--muted)}
     h += xn.join(', ') + ' ≥ 0</div>';
     return h;
   }
-  function standardHTML(res) {
+  function standardHTML(res, model) {
+    model = model || lastModel;
     const names = res.vars.map(vname);
     let h = '<div class="eq">';
-    if (res.tau < 0) h += 'max z′ = −z = ' + term(res.vars.map((v, j) => j < res.n ? lastModel.c[j].neg() : Q.of(0)), names) + '<br>';
-    else h += 'max z = ' + term(res.vars.map((v, j) => j < res.n ? lastModel.c[j] : Q.of(0)), names) + '<br>';
+    if (res.tau < 0) h += 'max z′ = −z = ' + term(res.vars.map((v, j) => j < res.n ? model.c[j].neg() : Q.of(0)), names) + '<br>';
+    else h += 'max z = ' + term(res.vars.map((v, j) => j < res.n ? model.c[j] : Q.of(0)), names) + '<br>';
     const T0 = res.steps[0].T, b0 = res.rows.map(r => r.b);
     // Ausgangssystem aus den normierten Zeilen
     res.rows.forEach((r, i) => {
@@ -659,7 +700,8 @@ footer a{color:var(--muted)}
       const obj = st.phase === 1 ? st.h : st.d;
       s += '<p><strong>Pivotspalte:</strong> ' + kv + ', denn ' + fmt(obj[st.k]) + (st.bland ? ' ist der erste negative Eintrag (Regel von Bland)' : ' ist der kleinste (negativste) Eintrag der ' + rowName) + (st.colTie && !st.bland ? '; Gleichstand, daher kleinster Index' : '') + '.</p>';
       s += '<p><strong>Quotiententest:</strong> rechte Seite ÷ positiver Koeffizient der Pivotspalte. Kleinster Quotient ' + fmt(st.theta) + ' in der Zeile von ' + names[st.basis[st.r]] + (st.rowTie ? ' (Gleichstand, daher Basisvariable mit kleinstem Index)' : '') + ' → ' + names[st.basis[st.r]] + ' verlässt die Basis, ' + kv + ' wird aufgenommen.</p>';
-      s += '<p><strong>Pivotelement:</strong> ' + fmt(st.T[st.r][st.k]) + '. Pivotzeile durch das Pivotelement teilen; in allen anderen Zeilen (auch Zielzeilen) die Pivotspalte durch Subtraktion eines Vielfachen der neuen Pivotzeile auf 0 bringen.</p>';
+      s += '<p><strong>Pivotelement:</strong> ' + fmt(st.T[st.r][st.k]) + ' – Pivotzeile durch das Pivotelement teilen; in allen anderen Zeilen (auch Zielzeilen) die Pivotspalte durch Subtraktion eines Vielfachen der neuen Pivotzeile auf 0 bringen.</p>';
+      s += zeilenOps(st, res, names);
       if (st.degen) s += '<p class="msg warn">Degenerierter Schritt: Der kleinste Quotient ist 0. Die Basis wechselt, die Ecke und der Zielwert bleiben aber gleich.</p>';
     } else if (st.type === 'end1') {
       if (st.hr.isZero()) s += '<p class="msg ok">Phase 1 beendet: Kein negativer Eintrag in der h-Zeile und h = 0. Alle künstlichen Variablen sind 0 – eine zulässige Basislösung ist gefunden.</p>';
@@ -670,11 +712,41 @@ footer a{color:var(--muted)}
       s += '<p>' + names[st.basis[st.r]] + ' bleibt mit Wert 0 in der Basis, und die Zeile enthält außer künstlichen Variablen nur Nullen: Nebenbedingung (' + (st.r + 1) + ') ist <strong>redundant</strong> (Linearkombination anderer Gleichungen) und wird in Phase 2 weggelassen.</p>';
     } else if (st.type === 'opt') {
       s += '<p class="msg ok">Optimal: Die ' + rowName + ' enthält keinen negativen Eintrag mehr. Werte der Basisvariablen stehen in der Spalte RS, alle Nichtbasisvariablen sind 0.</p>';
+      s += ablesen(st, res, names);
     } else if (st.type === 'unb') {
       s += '<p class="msg bad">' + names[st.k] + ' hat in der ' + rowName + ' den negativen Eintrag ' + fmt(st.d[st.k]) + ', aber in ihrer Spalte keinen positiven Koeffizienten. Der Quotiententest findet keine Grenze: ' + names[st.k] + ' kann beliebig wachsen, ohne dass eine Basisvariable negativ wird. Die Zielfunktion ist <strong>unbeschränkt</strong>.</p>';
     }
     void idx;
     return s;
+  }
+  // Zeilenoperationen eines Pivotschritts in Klausurnotation (neue Zeile = alte Zeile − Faktor · neue Pivotzeile)
+  function zeilenOps(st, res, names) {
+    const k = st.k, r = st.r, p = st.T[r][k], neu = names[k], alt = names[st.basis[r]];
+    const op = (lab, f) => {
+      if (f.isZero()) return '<li>' + lab + ': bleibt unverändert (Eintrag in der Pivotspalte ist schon 0)</li>';
+      const neg = f.sign() < 0, a = neg ? f.neg() : f;
+      return '<li>' + lab + ' neu = ' + lab + ' alt ' + (neg ? '+ ' : '− ') + (a.eq(Q.of(1)) ? '' : fmt(a) + ' · ') + 'neue Zeile ' + neu + '</li>';
+    };
+    let h = '<p><strong>Zeilenoperationen:</strong></p><ul class="ops">';
+    h += '<li>Neue Zeile ' + neu + ' = Zeile ' + alt + (p.eq(Q.of(1)) ? ' (Pivotelement ist schon 1, Zeile bleibt)' : ' : ' + fmt(p)) + '</li>';
+    for (let i = 0; i < res.m; i++) {
+      if (i === r || st.redundant.indexOf(i) >= 0) continue;
+      h += op('Zeile ' + names[st.basis[i]], st.T[i][k]);
+    }
+    h += op(res.tau < 0 ? 'z′-Zeile' : 'z-Zeile', st.d[k]);
+    if (st.phase === 1 && st.h) h += op('h-Zeile', st.h[k]);
+    return h + '</ul>';
+  }
+  // Lösung aus dem optimalen Tableau ablesen
+  function ablesen(st, res, names) {
+    const basic = [], non = [];
+    res.vars.forEach((v, j) => {
+      if (v.kind === 'a') return;
+      const i = st.basis.indexOf(j);
+      if (i >= 0 && st.redundant.indexOf(i) < 0) basic.push(names[j] + ' = ' + fmt(st.rhs[i])); else if (i < 0) non.push(names[j]);
+    });
+    const zl = res.tau < 0 ? 'z′ = ' + fmt(st.zr) + ', also z = −z′ = ' + fmt(st.zr.neg()) : 'z = ' + fmt(st.zr);
+    return '<p class="ablesen"><strong>Ablesen:</strong> Basisvariablen ' + basic.join(', ') + '; Nichtbasisvariablen ' + (non.length ? non.join(' = ') + ' = 0' : '–') + '; ' + zl + '.</p>';
   }
   function stepTitle(st, num) {
     const ph = st.phase === 1 ? 'Phase 1' : (lastRes.hasArt ? 'Phase 2' : '');
@@ -847,6 +919,104 @@ footer a{color:var(--muted)}
   document.querySelectorAll('input[name=fmt]').forEach(r => r.addEventListener('change', () => { if (lastRes) render(); }));
   loadExample('prod');
   $('bsp').value = 'prod';
+
+  // ---------- Link teilen / Drucken ----------
+  function setModel(v) {
+    const n = Math.min(8, Math.max(2, +v.n || 2)), m = Math.min(10, Math.max(1, +v.m || 1));
+    state.sense = v.s === 'min' ? 'min' : 'max'; state.n = n; state.m = m;
+    state.c = (v.c || []).map(String); state.A = (v.A || []).map(r => (r || []).map(String));
+    state.op = (v.op || []).map(o => ['<=', '>=', '='].indexOf(o) >= 0 ? o : '<='); state.b = (v.b || []).map(String);
+    $('sense').value = state.sense; $('nvar').value = n; $('ncon').value = m;
+    const f = document.querySelector('input[name=fmt][value="' + (v.f === 'dec' ? 'dec' : 'frac') + '"]'); if (f) f.checked = true;
+    exInfo = ''; $('bsp').value = '';
+    buildTable();
+  }
+  if (window.BMW) {
+    const teilen = BMW.teilen({
+      key: 'simplex', root: $('rechner'), run: calculate,
+      get: () => { readInputs(); return { s: state.sense, n: state.n, m: state.m, c: state.c.slice(0, state.n), A: state.A.slice(0, state.m).map(r => (r || []).slice(0, state.n)), op: state.op.slice(0, state.m), b: state.b.slice(0, state.m), f: document.querySelector('input[name=fmt]:checked').value }; },
+      set: setModel
+    });
+    BMW.leiste($('leiste'), { teilen: teilen, druckScope: $('rechner') });
+  }
+
+  // ---------- Übungsmodus: Produktionsprogramm ----------
+  const RES = ['Maschine A', 'Maschine B', 'Montage'];
+  function zz(a, b) { return BMW.zufall(a, b); }
+  // Zufallsaufgabe: ganzzahliges, eindeutiges, nicht degeneriertes Optimum, 2–3 Pivotschritte ohne Gleichstand, Brüche mit Nenner ≤ 6
+  function uebModell() {
+    for (let t = 0; t < 5000; t++) {
+      const x = [zz(2, 12), zz(2, 12)], mult = BMW.wahl([1, 5, 10]);
+      const c = [zz(2, 9) * mult, zz(2, 9) * mult]; if (c[0] === c[1]) continue;
+      const A = [];
+      while (A.length < 3) { const r = [zz(0, 5), zz(0, 5)]; if (r[0] || r[1]) A.push(r); }
+      let prop = false;
+      for (let i = 0; i < 3; i++) for (let j = i + 1; j < 3; j++) if (A[i][0] * A[j][1] === A[i][1] * A[j][0]) prop = true;
+      if (prop) continue;
+      const lose = zz(0, 2), b = A.map((r, i) => r[0] * x[0] + r[1] * x[1] + (i === lose ? zz(2, 15) : 0));
+      if (b.some(v => v > 200)) continue;
+      const model = { sense: 'max', c: c.map(v => Q.of(v)), rows: A.map((r, i) => ({ a: r.map(v => Q.of(v)), op: '<=', b: Q.of(b[i]) })) };
+      let res; try { res = solveLP(model); } catch (e) { continue; }
+      if (res.status !== 'optimal' || !res.x[0].eq(Q.of(x[0])) || !res.x[1].eq(Q.of(x[1]))) continue;
+      if (res.alternative || res.zeroCols.length || res.degenerateStep || res.degenerateFinal || res.blandUsed) continue;
+      const piv = res.steps.filter(s => s.type === 'pivot');
+      if (piv.length < 2 || piv.length > 3 || piv.some(s => s.colTie || s.rowTie)) continue;
+      let maxD = 1n;
+      res.steps.forEach(s => { s.T.forEach(r => r.forEach(v => { if (v.d > maxD) maxD = v.d; })); s.rhs.concat(s.d).forEach(v => { if (v.d > maxD) maxD = v.d; }); });
+      if (maxD > 6n) continue;
+      return { c, A, b, x, model, res };
+    }
+    // Rückfall (kommt praktisch nicht vor): Beispiel „Produktionsprogramm“
+    const c = [40, 30], A = [[1, 1], [2, 1], [0, 1]], b = [40, 60, 30];
+    const model = { sense: 'max', c: c.map(v => Q.of(v)), rows: A.map((r, i) => ({ a: r.map(v => Q.of(v)), op: '<=', b: Q.of(b[i]) })) };
+    const res = solveLP(model);
+    return { c, A, b, x: res.x.map(v => v.toNumber()), model, res };
+  }
+  function uebAufgabe() {
+    const u = uebModell(), res = u.res, names = res.vars.map(vname), first = res.steps[0];
+    const tab = '<table class="ueb-tab"><caption>Bedarf je Stück und Kapazität</caption><thead><tr><th scope="col">Engpass</th><th scope="col">Produkt P' + '<sub>1</sub></th><th scope="col">Produkt P<sub>2</sub></th><th scope="col">Kapazität</th></tr></thead><tbody>' +
+      u.A.map((r, i) => '<tr><th scope="row">' + RES[i] + '</th><td>' + r[0] + ' h</td><td>' + r[1] + ' h</td><td>' + u.b[i] + ' h</td></tr>').join('') + '</tbody></table>';
+    const text = '<p>Ein Betrieb fertigt zwei Produkte P<sub>1</sub> und P<sub>2</sub> mit Deckungsbeiträgen von ' + u.c[0] + ' € bzw. ' + u.c[1] + ' € je Stück. Die Fertigung beansprucht drei Engpässe:</p>' + tab +
+      '<p>Bestimme das deckungsbeitragsmaximale Produktionsprogramm mit dem Simplex-Verfahren. Verwende die Schlupfvariablen s<sub>1</sub>, s<sub>2</sub>, s<sub>3</sub> (in der Reihenfolge der Tabelle) und wähle als Pivotspalte den kleinsten (negativsten) Eintrag der Zielfunktionszeile.</p>';
+    let los = '<ol class="bmw-weg">';
+    los += '<li><b>Modell aufstellen</b> (x<sub>1</sub>, x<sub>2</sub> = Stückzahlen)' + modelHTML(u.model, res) + '</li>';
+    los += '<li><b>Standardform:</b> Schlupfvariablen addieren, im Starttableau sind sie die Basisvariablen.' + standardHTML(res, u.model) + '</li>';
+    let num = 0;
+    res.steps.forEach(st => {
+      num++;
+      const titel = st.type === 'opt' ? 'Tableau ' + num + ' – optimal' : 'Tableau ' + num;
+      los += '<li><b>' + titel + '</b>' + tableauHTML(st, res) + explain(st, res, 0) + '</li>';
+    });
+    los += '<li><b>Ergebnis:</b> x<sub>1</sub> = ' + fmt(res.x[0]) + ' Stück, x<sub>2</sub> = ' + fmt(res.x[1]) + ' Stück. Probe: z = ' + u.c[0] + ' · ' + fmt(res.x[0]) + ' + ' + u.c[1] + ' · ' + fmt(res.x[1]) + ' = <b>' + fmt(res.z) + ' €</b>.</li>';
+    los += '</ol><p class="noprint"><button type="button" class="ueb-in-rechner">Diese Aufgabe in den Rechner übernehmen</button></p>';
+    return {
+      text: text,
+      felder: [
+        { key: 'ein', label: 'Pivotspalte im 1. Schritt (eintretende Variable)', wahl: ['x₁', 'x₂'], wert: ['x₁', 'x₂'][first.k] },
+        { key: 'aus', label: 'Pivotzeile im 1. Schritt (austretende Variable)', wahl: ['s₁', 's₂', 's₃'], wert: ['s₁', 's₂', 's₃'][first.basis[first.r] - 2] },
+        { key: 'x1', label: 'optimale Menge x₁', einheit: 'Stück', wert: res.x[0].toNumber(), nk: 2 },
+        { key: 'x2', label: 'optimale Menge x₂', einheit: 'Stück', wert: res.x[1].toNumber(), nk: 2 },
+        { key: 'z', label: 'maximaler Deckungsbeitrag', einheit: '€', wert: res.z.toNumber(), nk: 2 }
+      ],
+      loesung: los,
+      nachherLoesung: el => {
+        const btn = el.querySelector('.ueb-in-rechner'); if (!btn) return;
+        btn.addEventListener('click', () => {
+          setModel({ s: 'max', n: 2, m: 3, c: u.c, A: u.A, op: ['<=', '<=', '<='], b: u.b, f: document.querySelector('input[name=fmt]:checked').value });
+          calculate();
+          $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      },
+      _u: u
+    };
+  }
+  if (window.BMW && $('ueb-simplex')) {
+    BMW.uebung($('ueb-simplex'), { titel: 'Übung: Produktionsprogramm mit dem Simplex-Verfahren', hinweis: 'Neue Aufgabe würfeln, Tableaus auf Papier rechnen, Ergebnisse eintragen und prüfen lassen. Mengen und Deckungsbeitrag sind ganzzahlig.', neu: uebAufgabe });
+    // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form>: per form-Attribut verbinden
+    const f = $('ueb-simplex').querySelector('.bmw-ueb-form'), btn = $('ueb-simplex').querySelector('.bmw-ueb-btns button[type=submit]');
+    if (f && btn && !btn.form) { f.id = f.id || 'uf-simplex'; btn.setAttribute('form', f.id); }
+  }
+  window.SIMPLEX_UEB = { uebAufgabe: uebAufgabe };
 })();
 </script>
 </body>

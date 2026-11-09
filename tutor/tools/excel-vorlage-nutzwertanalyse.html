@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Nutzwertanalyse – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 42 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-nutzwertanalyse">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Nutzwertanalyse (Excel-Vorlage)","description":"Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.","url":"https://www.bwlmax.de/tools/excel-vorlage-nutzwertanalyse","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Nutzwertanalyse</h1>
+<p class="lead">Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>43</b> Eingabefelder</li><li><b>42</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="nutzwertanalyse">
+<div class="xl-keys"><div class="xl-key"><small>Beste Alternative</small><b>Lieferant B</b></div><div class="xl-key"><small>Lieferant A – Nutzwert</small><b>7,00</b></div><div class="xl-key"><small>Lieferant B – Nutzwert</small><b>7,05</b></div><div class="xl-key"><small>Lieferant C – Nutzwert</small><b>6,95</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Nutzwertanalyse.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Nutzwertanalyse“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:222px"><col style="width:89px"><col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:96px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Nutzwertanalyse</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">1. Kriterien, Gewichte und Punkte (Skala 0 – 10)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Kriterium</td><td class="xs-th">Gewicht</td><td class="xs-th">Punkte</td><td class="xs-th">Punkte</td><td class="xs-th">Punkte</td><td class="xs-th">Gewichtet</td><td class="xs-th">Gewichtet</td><td class="xs-th">Gewichtet</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Alternative →</td><td class="xs-empty"></td><td class="xs-in">Lieferant A</td><td class="xs-in">Lieferant B</td><td class="xs-in">Lieferant C</td><td class="xs-out">Lieferant A</td><td class="xs-out">Lieferant B</td><td class="xs-out">Lieferant C</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-in">Preis</td><td class="xs-in num">30,0 %</td><td class="xs-in num">6,00</td><td class="xs-in num">9,00</td><td class="xs-in num">7,00</td><td class="xs-out num">1,80</td><td class="xs-out num">2,70</td><td class="xs-out num">2,10</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Qualität</td><td class="xs-in num">25,0 %</td><td class="xs-in num">9,00</td><td class="xs-in num">6,00</td><td class="xs-in num">7,00</td><td class="xs-out num">2,25</td><td class="xs-out num">1,50</td><td class="xs-out num">1,75</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Service</td><td class="xs-in num">15,0 %</td><td class="xs-in num">7,00</td><td class="xs-in num">5,00</td><td class="xs-in num">8,00</td><td class="xs-out num">1,05</td><td class="xs-out num">0,75</td><td class="xs-out num">1,20</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Lieferzeit</td><td class="xs-in num">10,0 %</td><td class="xs-in num">5,00</td><td class="xs-in num">8,00</td><td class="xs-in num">7,00</td><td class="xs-out num">0,50</td><td class="xs-out num">0,80</td><td class="xs-out num">0,70</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">Umweltverträglichkeit</td><td class="xs-in num">10,0 %</td><td class="xs-in num">8,00</td><td class="xs-in num">6,00</td><td class="xs-in num">7,00</td><td class="xs-out num">0,80</td><td class="xs-out num">0,60</td><td class="xs-out num">0,70</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in">Zahlungsbedingungen</td><td class="xs-in num">10,0 %</td><td class="xs-in num">6,00</td><td class="xs-in num">7,00</td><td class="xs-in num">5,00</td><td class="xs-out num">0,60</td><td class="xs-out num">0,70</td><td class="xs-out num">0,50</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Summe / Nutzwert</td><td class="xs-tot num">100,0 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">7,00</td><td class="xs-tot num">7,05</td><td class="xs-tot num">6,95</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Prüfung Gewichte</td><td class="xs-out" colspan="4">✓ 100 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-sec" colspan="8">2. Ergebnis</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-th">Alternative</td><td class="xs-th">Nutzwert</td><td class="xs-th">Rang</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-out">Lieferant A</td><td class="xs-res num">7,00</td><td class="xs-out num">2</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-out">Lieferant B</td><td class="xs-res num">7,05</td><td class="xs-out num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-out">Lieferant C</td><td class="xs-res num">6,95</td><td class="xs-out num">3</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Beste Alternative</td><td class="xs-res" colspan="4">Lieferant B</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-note" colspan="8">Nutzwert = Σ (Gewicht × Punkte). Die Gewichte müssen zusammen 100 % ergeben. Gleiche Nutzwerte bekommen denselben Rang. Freie Kriterienzeilen einfach leer lassen.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Nutzwertanalyse“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 43 Werte ein; die Datei berechnet daraus unter anderem „Beste Alternative“, „Lieferant A – Nutzwert“, „Lieferant B – Nutzwert“ und „Lieferant C – Nutzwert“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Nutzwert = Σ (Gewicht × Punkte). Die Gewichte müssen zusammen 100 % ergeben. Gleiche Nutzwerte bekommen denselben Rang. Freie Kriterienzeilen einfach leer lassen.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Alternative →</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">Lieferant A</td><td>Text</td></tr>
+<tr><td>Lieferant A</td><td><code>D6</code></td><td class="xlw-v" data-xi="D6">Lieferant B</td><td>Text</td></tr>
+<tr><td>Lieferant B</td><td><code>E6</code></td><td class="xlw-v" data-xi="E6">Lieferant C</td><td>Text</td></tr>
+<tr><td>Kriterium (Zeile 7)</td><td><code>A7</code></td><td class="xlw-v" data-xi="A7">Preis</td><td>Text</td></tr>
+<tr><td>Preis · Gewicht</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">30,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Preis · Punkte</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">6,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Preis · Punkte</td><td><code>D7</code></td><td class="xlw-v" data-xi="D7">9,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Preis · Punkte</td><td><code>E7</code></td><td class="xlw-v" data-xi="E7">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Qualität</td><td>Text</td></tr>
+<tr><td>Qualität · Gewicht</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">25,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Qualität · Punkte</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">9,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Qualität · Punkte</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">6,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Qualität · Punkte</td><td><code>E8</code></td><td class="xlw-v" data-xi="E8">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Service</td><td>Text</td></tr>
+<tr><td>Service · Gewicht</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">15,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Service · Punkte</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Service · Punkte</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">5,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Service · Punkte</td><td><code>E9</code></td><td class="xlw-v" data-xi="E9">8,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Lieferzeit</td><td>Text</td></tr>
+<tr><td>Lieferzeit · Gewicht</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Lieferzeit · Punkte</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">5,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Lieferzeit · Punkte</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">8,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Lieferzeit · Punkte</td><td><code>E10</code></td><td class="xlw-v" data-xi="E10">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">Umweltverträglichkeit</td><td>Text</td></tr>
+<tr><td>Umweltverträglichkeit · Gewicht</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Umweltverträglichkeit · Punkte</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">8,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Umweltverträglichkeit · Punkte</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">6,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Umweltverträglichkeit · Punkte</td><td><code>E11</code></td><td class="xlw-v" data-xi="E11">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">Zahlungsbedingungen</td><td>Text</td></tr>
+<tr><td>Zahlungsbedingungen · Gewicht</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Zahlungsbedingungen · Punkte</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">6,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Zahlungsbedingungen · Punkte</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">7,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Zahlungsbedingungen · Punkte</td><td><code>E12</code></td><td class="xlw-v" data-xi="E12">5,00</td><td>0,00 bis 10,00</td></tr>
+<tr><td>Kriterium (Zeile 13)</td><td><code>A13</code></td><td class="xlw-v" data-xi="A13">(leer)</td><td>Text</td></tr>
+<tr><td>Gewicht (Zeile 13)</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">(leer)</td><td>0,0 % bis 100,0 %; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 13) · Punkte</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 13) · Punkte</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 13) · Punkte</td><td><code>E13</code></td><td class="xlw-v" data-xi="E13">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+<tr><td>Kriterium (Zeile 14)</td><td><code>A14</code></td><td class="xlw-v" data-xi="A14">(leer)</td><td>Text</td></tr>
+<tr><td>Gewicht (Zeile 14)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">(leer)</td><td>0,0 % bis 100,0 %; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 14) · Punkte</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 14) · Punkte</td><td><code>D14</code></td><td class="xlw-v" data-xi="D14">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+<tr><td>Punkte (Zeile 14) · Punkte</td><td><code>E14</code></td><td class="xlw-v" data-xi="E14">(leer)</td><td>0,00 bis 10,00; darf leer bleiben</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Beste Alternative</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">Lieferant B</b></td></tr>
+<tr><td>Lieferant A – Nutzwert</td><td><code>B20</code></td><td class="xlw-v"><b data-xv="B20">7,00</b></td></tr>
+<tr><td>Lieferant B – Nutzwert</td><td><code>B21</code></td><td class="xlw-v"><b data-xv="B21">7,05</b></td></tr>
+<tr><td>Lieferant C – Nutzwert</td><td><code>B22</code></td><td class="xlw-v"><b data-xv="B22">6,95</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 42 Formeln des Blatts „Nutzwertanalyse“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>F6</td><td>Lieferant C</td><td class="xlw-f">=C6</td><td></td></tr>
+<tr><td>G6</td><td>Lieferant C</td><td class="xlw-f">=D6</td><td></td></tr>
+<tr><td>H6</td><td>Lieferant C</td><td class="xlw-f">=E6</td><td></td></tr>
+<tr><td>F7</td><td>Preis</td><td class="xlw-f">=WENN(ANZAHL(B7)=0;&quot;&quot;;B7*C7)</td><td><small>Teilnutzwert = Gewicht des Kriteriums × vergebene Punkte.</small></td></tr>
+<tr><td>G7</td><td>Preis</td><td class="xlw-f">=WENN(ANZAHL(B7)=0;&quot;&quot;;B7*D7)</td><td></td></tr>
+<tr><td>H7</td><td>Preis</td><td class="xlw-f">=WENN(ANZAHL(B7)=0;&quot;&quot;;B7*E7)</td><td></td></tr>
+<tr><td>F8</td><td>Qualität</td><td class="xlw-f">=WENN(ANZAHL(B8)=0;&quot;&quot;;B8*C8)</td><td></td></tr>
+<tr><td>G8</td><td>Qualität</td><td class="xlw-f">=WENN(ANZAHL(B8)=0;&quot;&quot;;B8*D8)</td><td></td></tr>
+<tr><td>H8</td><td>Qualität</td><td class="xlw-f">=WENN(ANZAHL(B8)=0;&quot;&quot;;B8*E8)</td><td></td></tr>
+<tr><td>F9</td><td>Service</td><td class="xlw-f">=WENN(ANZAHL(B9)=0;&quot;&quot;;B9*C9)</td><td></td></tr>
+<tr><td>G9</td><td>Service</td><td class="xlw-f">=WENN(ANZAHL(B9)=0;&quot;&quot;;B9*D9)</td><td></td></tr>
+<tr><td>H9</td><td>Service</td><td class="xlw-f">=WENN(ANZAHL(B9)=0;&quot;&quot;;B9*E9)</td><td></td></tr>
+<tr><td>F10</td><td>Lieferzeit</td><td class="xlw-f">=WENN(ANZAHL(B10)=0;&quot;&quot;;B10*C10)</td><td></td></tr>
+<tr><td>G10</td><td>Lieferzeit</td><td class="xlw-f">=WENN(ANZAHL(B10)=0;&quot;&quot;;B10*D10)</td><td></td></tr>
+<tr><td>H10</td><td>Lieferzeit</td><td class="xlw-f">=WENN(ANZAHL(B10)=0;&quot;&quot;;B10*E10)</td><td></td></tr>
+<tr><td>F11</td><td>Umweltverträglichkeit</td><td class="xlw-f">=WENN(ANZAHL(B11)=0;&quot;&quot;;B11*C11)</td><td></td></tr>
+<tr><td>G11</td><td>Umweltverträglichkeit</td><td class="xlw-f">=WENN(ANZAHL(B11)=0;&quot;&quot;;B11*D11)</td><td></td></tr>
+<tr><td>H11</td><td>Umweltverträglichkeit</td><td class="xlw-f">=WENN(ANZAHL(B11)=0;&quot;&quot;;B11*E11)</td><td></td></tr>
+<tr><td>F12</td><td>Zahlungsbedingungen</td><td class="xlw-f">=WENN(ANZAHL(B12)=0;&quot;&quot;;B12*C12)</td><td></td></tr>
+<tr><td>G12</td><td>Zahlungsbedingungen</td><td class="xlw-f">=WENN(ANZAHL(B12)=0;&quot;&quot;;B12*D12)</td><td></td></tr>
+<tr><td>H12</td><td>Zahlungsbedingungen</td><td class="xlw-f">=WENN(ANZAHL(B12)=0;&quot;&quot;;B12*E12)</td><td></td></tr>
+<tr><td>F13</td><td>Gewichtet (Zeile 13)</td><td class="xlw-f">=WENN(ANZAHL(B13)=0;&quot;&quot;;B13*C13)</td><td></td></tr>
+<tr><td>G13</td><td>Gewichtet (Zeile 13)</td><td class="xlw-f">=WENN(ANZAHL(B13)=0;&quot;&quot;;B13*D13)</td><td></td></tr>
+<tr><td>H13</td><td>Gewichtet (Zeile 13)</td><td class="xlw-f">=WENN(ANZAHL(B13)=0;&quot;&quot;;B13*E13)</td><td></td></tr>
+<tr><td>F14</td><td>Gewichtet (Zeile 14)</td><td class="xlw-f">=WENN(ANZAHL(B14)=0;&quot;&quot;;B14*C14)</td><td></td></tr>
+<tr><td>G14</td><td>Gewichtet (Zeile 14)</td><td class="xlw-f">=WENN(ANZAHL(B14)=0;&quot;&quot;;B14*D14)</td><td></td></tr>
+<tr><td>H14</td><td>Gewichtet (Zeile 14)</td><td class="xlw-f">=WENN(ANZAHL(B14)=0;&quot;&quot;;B14*E14)</td><td></td></tr>
+<tr><td>B15</td><td>Summe / Nutzwert</td><td class="xlw-f">=SUMME(B7:B14)</td><td></td></tr>
+<tr><td>F15</td><td>Summe / Nutzwert</td><td class="xlw-f">=RUNDEN(SUMME(F7:F14);6)</td><td><small>Nutzwert der Alternative = Summe der Teilnutzwerte.</small></td></tr>
+<tr><td>G15</td><td>Summe / Nutzwert</td><td class="xlw-f">=RUNDEN(SUMME(G7:G14);6)</td><td></td></tr>
+<tr><td>H15</td><td>Summe / Nutzwert</td><td class="xlw-f">=RUNDEN(SUMME(H7:H14);6)</td><td></td></tr>
+<tr><td>B16</td><td>Prüfung Gewichte</td><td class="xlw-f">=WENN(RUNDEN(B15;6)=1;&quot;✓ 100 %&quot;;&quot;≠ 100 % – Gewichte anpassen&quot;)</td><td></td></tr>
+<tr><td>A20</td><td>Alternative (Zeile 20)</td><td class="xlw-f">=C6</td><td></td></tr>
+<tr><td>B20</td><td>Nutzwert (Zeile 20)</td><td class="xlw-f">=F15</td><td></td></tr>
+<tr><td>C20</td><td>Rang (Zeile 20)</td><td class="xlw-f">=1+ZÄHLENWENN($B$20:$B$22;&quot;&gt;&quot;&amp;B20)</td><td><small>Rang = 1 + Anzahl Alternativen mit höherem Nutzwert.</small></td></tr>
+<tr><td>A21</td><td>Alternative (Zeile 21)</td><td class="xlw-f">=D6</td><td></td></tr>
+<tr><td>B21</td><td>Nutzwert (Zeile 21)</td><td class="xlw-f">=G15</td><td></td></tr>
+<tr><td>C21</td><td>Rang (Zeile 21)</td><td class="xlw-f">=1+ZÄHLENWENN($B$20:$B$22;&quot;&gt;&quot;&amp;B21)</td><td></td></tr>
+<tr><td>A22</td><td>Alternative (Zeile 22)</td><td class="xlw-f">=E6</td><td></td></tr>
+<tr><td>B22</td><td>Nutzwert (Zeile 22)</td><td class="xlw-f">=H15</td><td></td></tr>
+<tr><td>C22</td><td>Rang (Zeile 22)</td><td class="xlw-f">=1+ZÄHLENWENN($B$20:$B$22;&quot;&gt;&quot;&amp;B22)</td><td></td></tr>
+<tr><td>B24</td><td>Beste Alternative</td><td class="xlw-f">=WENN(RUNDEN(B15;6)&lt;&gt;1;&quot;Gewichte ergeben nicht 100 % – bitte prüfen&quot;;WENN(ZÄHLENWENN(B20:B22;MAX(B20:B22))&gt;1;&quot;Gleichstand – keine eindeutige Entscheidung&quot;;INDEX(A20:A22;VERGLEICH(MAX(B20:B22);B20:B22;0))))</td><td><small>Die Alternative mit dem höchsten Nutzwert – nur wenn die Gewichte 100 % ergeben und kein Gleichstand vorliegt.</small></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>882 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 42 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>84 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Nutzwert (Zeile 20) (B20), Nutzwert (Zeile 21) (B21), Nutzwert (Zeile 22) (B22), Beste Alternative (B24).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 42 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 42 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>882 Formelergebnisse in LibreOffice neu berechnet, 84 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-produktionsprogramm">Optimales Produktionsprogramm (ein Engpass)</a><p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-liquiditaetsplan">Liquiditätsplan (12 Monate)</a><p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.</p></li>
+<li><a href="/tools/excel-vorlage-sollist">Soll-Ist-Vergleich (Budgetabweichung)</a><p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.</p></li>
+<li><a href="/tools/excel-vorlage-personalbedarf">Personalbedarfsplanung</a><p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.</p></li>
+<li><a href="/tools/excel-vorlage-mehrproduktbe">Break-even im Mehrproduktunternehmen</a><p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

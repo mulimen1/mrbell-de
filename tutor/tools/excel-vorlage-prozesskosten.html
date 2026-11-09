@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Prozesskostenrechnung – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 37 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-prozesskosten">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Prozesskostenrechnung (Excel-Vorlage)","description":"Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt.","url":"https://www.bwlmax.de/tools/excel-vorlage-prozesskosten","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Kosten- & Leistungsrechnung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Kosten- &amp; Leistungsrechnung</p>
+<h1>Excel-Vorlage: Prozesskostenrechnung</h1>
+<p class="lead">Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>30</b> Eingabefelder</li><li><b>37</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="prozesskosten">
+<div class="xl-keys"><div class="xl-key"><small>Material bestellen – Gesamtprozesskostensatz</small><b>110,00 €</b></div><div class="xl-key"><small>Prozesskosten je Stück – Prozesskosten A</small><b>3,88 €</b></div><div class="xl-key"><small>Prozesskosten je Stück – Prozesskosten B</small><b>14,25 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Prozesskostenrechnung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Prozesskosten“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:222px"><col style="width:118px"><col style="width:163px"><col style="width:118px"><col style="width:118px"><col style="width:133px"><col style="width:118px"><col style="width:133px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Prozesskostenrechnung</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">1. Teilprozesse und Prozesskostensätze</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Teilprozess</td><td class="xs-th">Art (lmi / lmn)</td><td class="xs-th">Kostentreiber</td><td class="xs-th">Prozessmenge</td><td class="xs-th">Prozesskosten</td><td class="xs-th">Prozesskostensatz (lmi)</td><td class="xs-th">Umlagesatz (lmn)</td><td class="xs-th">Gesamtprozesskostensatz</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-in">Material bestellen</td><td class="xs-in">lmi</td><td class="xs-in">Anzahl Bestellungen</td><td class="xs-in num">500,00</td><td class="xs-in num">50.000,00 €</td><td class="xs-out num">100,00 €</td><td class="xs-out num">10,00 €</td><td class="xs-res num">110,00 €</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-in">Material annehmen</td><td class="xs-in">lmi</td><td class="xs-in">Anzahl Lieferungen</td><td class="xs-in num">400,00</td><td class="xs-in num">30.000,00 €</td><td class="xs-out num">75,00 €</td><td class="xs-out num">7,50 €</td><td class="xs-out num">82,50 €</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Lieferanten betreuen</td><td class="xs-in">lmi</td><td class="xs-in">Anzahl Lieferanten</td><td class="xs-in num">50,00</td><td class="xs-in num">20.000,00 €</td><td class="xs-out num">400,00 €</td><td class="xs-out num">40,00 €</td><td class="xs-out num">440,00 €</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Abteilung leiten</td><td class="xs-in">lmn</td><td class="xs-in">–</td><td class="xs-in num">0,00</td><td class="xs-in num">10.000,00 €</td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Summe Prozesskosten</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">110.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">davon leistungsmengeninduziert (lmi) / -neutral (lmn)</td><td class="xs-out num">100.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Umlagefaktor (lmn-Kosten / lmi-Kosten)</td><td class="xs-out num">10,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-sec" colspan="8">2. Prozesskosten je Produkt</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-th">Teilprozess (lmi)</td><td class="xs-th">Gesamtprozesskostensatz</td><td class="xs-th">Prozessmenge Produkt A</td><td class="xs-th">Prozesskosten A</td><td class="xs-th">Prozessmenge Produkt B</td><td class="xs-th">Prozesskosten B</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-out">Material bestellen</td><td class="xs-out num">110,00 €</td><td class="xs-in num">200,00</td><td class="xs-out num">22.000,00 €</td><td class="xs-in num">300,00</td><td class="xs-out num">33.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-out">Material annehmen</td><td class="xs-out num">82,50 €</td><td class="xs-in num">150,00</td><td class="xs-out num">12.375,00 €</td><td class="xs-in num">250,00</td><td class="xs-out num">20.625,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-out">Lieferanten betreuen</td><td class="xs-out num">440,00 €</td><td class="xs-in num">10,00</td><td class="xs-out num">4.400,00 €</td><td class="xs-in num">40,00</td><td class="xs-out num">17.600,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-in num">0,00</td><td class="xs-out num"></td><td class="xs-in num">0,00</td><td class="xs-out num"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Summe Prozesskosten je Produkt</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">38.775,00 €</td><td class="xs-empty"></td><td class="xs-tot num">71.225,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Produktionsmenge (Stück)</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-in num">10.000</td><td class="xs-empty"></td><td class="xs-in num">5.000</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Prozesskosten je Stück</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-res num">3,88 €</td><td class="xs-empty"></td><td class="xs-res num">14,25 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Nicht auf A oder B verrechnete Prozesskosten</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-note" colspan="8">Art genau „lmi“ oder „lmn“ eintragen. lmn-Kosten werden im Verhältnis der lmi-Prozesskosten umgelegt. Prozessmengen in Teil 2 gelten nur für lmi-Prozesse; nutzen A und B alle Prozessmengen, ist Zeile 23 = 0.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Prozesskosten“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt. Die Vorlage gehört zum Bereich Kosten- &amp; Leistungsrechnung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 30 Werte ein; die Datei berechnet daraus unter anderem „Material bestellen – Gesamtprozesskostensatz“, „Prozesskosten je Stück – Prozesskosten A“ und „Prozesskosten je Stück – Prozesskosten B“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Art genau „lmi“ oder „lmn“ eintragen. lmn-Kosten werden im Verhältnis der lmi-Prozesskosten umgelegt. Prozessmengen in Teil 2 gelten nur für lmi-Prozesse; nutzen A und B alle Prozessmengen, ist Zeile 23 = 0.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Teilprozess (Zeile 6)</td><td><code>A6</code></td><td class="xlw-v" data-xi="A6">Material bestellen</td><td>Text</td></tr>
+<tr><td>Material bestellen</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">lmi</td><td>Text</td></tr>
+<tr><td>lmi · Kostentreiber</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">Anzahl Bestellungen</td><td>Text</td></tr>
+<tr><td>Anzahl Bestellungen · Prozessmenge</td><td><code>D6</code></td><td class="xlw-v" data-xi="D6">500,00</td><td>ab 0,00</td></tr>
+<tr><td>Anzahl Bestellungen · Prozesskosten</td><td><code>E6</code></td><td class="xlw-v" data-xi="E6">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Teilprozess (Zeile 7)</td><td><code>A7</code></td><td class="xlw-v" data-xi="A7">Material annehmen</td><td>Text</td></tr>
+<tr><td>Material annehmen</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">lmi</td><td>Text</td></tr>
+<tr><td>lmi · Kostentreiber</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">Anzahl Lieferungen</td><td>Text</td></tr>
+<tr><td>Anzahl Lieferungen · Prozessmenge</td><td><code>D7</code></td><td class="xlw-v" data-xi="D7">400,00</td><td>ab 0,00</td></tr>
+<tr><td>Anzahl Lieferungen · Prozesskosten</td><td><code>E7</code></td><td class="xlw-v" data-xi="E7">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Teilprozess (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Lieferanten betreuen</td><td>Text</td></tr>
+<tr><td>Lieferanten betreuen</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">lmi</td><td>Text</td></tr>
+<tr><td>lmi · Kostentreiber</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">Anzahl Lieferanten</td><td>Text</td></tr>
+<tr><td>Anzahl Lieferanten · Prozessmenge</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">50,00</td><td>ab 0,00</td></tr>
+<tr><td>Anzahl Lieferanten · Prozesskosten</td><td><code>E8</code></td><td class="xlw-v" data-xi="E8">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Teilprozess (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Abteilung leiten</td><td>Text</td></tr>
+<tr><td>Abteilung leiten</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">lmn</td><td>Text</td></tr>
+<tr><td>lmn</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">–</td><td>Text</td></tr>
+<tr><td>– · Prozessmenge</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">0,00</td><td>ab 0,00</td></tr>
+<tr><td>– · Prozesskosten</td><td><code>E9</code></td><td class="xlw-v" data-xi="E9">10.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Prozessmenge Produkt A (Zeile 16)</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">200,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt B (Zeile 16)</td><td><code>E16</code></td><td class="xlw-v" data-xi="E16">300,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt A (Zeile 17)</td><td><code>C17</code></td><td class="xlw-v" data-xi="C17">150,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt B (Zeile 17)</td><td><code>E17</code></td><td class="xlw-v" data-xi="E17">250,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt A (Zeile 18)</td><td><code>C18</code></td><td class="xlw-v" data-xi="C18">10,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt B (Zeile 18)</td><td><code>E18</code></td><td class="xlw-v" data-xi="E18">40,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt A (Zeile 19)</td><td><code>C19</code></td><td class="xlw-v" data-xi="C19">0,00</td><td>ab 0,00</td></tr>
+<tr><td>Prozessmenge Produkt B (Zeile 19)</td><td><code>E19</code></td><td class="xlw-v" data-xi="E19">0,00</td><td>ab 0,00</td></tr>
+<tr><td>Produktionsmenge (Stück) · Prozesskosten A</td><td><code>D21</code></td><td class="xlw-v" data-xi="D21">10.000</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Produktionsmenge (Stück) · Prozesskosten B</td><td><code>F21</code></td><td class="xlw-v" data-xi="F21">5.000</td><td>ab 0, ganze Zahl</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Material bestellen – Gesamtprozesskostensatz</td><td><code>H6</code></td><td class="xlw-v"><b data-xv="H6">110,00 €</b></td></tr>
+<tr><td>Prozesskosten je Stück – Prozesskosten A</td><td><code>D22</code></td><td class="xlw-v"><b data-xv="D22">3,88 €</b></td></tr>
+<tr><td>Prozesskosten je Stück – Prozesskosten B</td><td><code>F22</code></td><td class="xlw-v"><b data-xv="F22">14,25 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 37 Formeln des Blatts „Prozesskosten“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>F6</td><td>Anzahl Bestellungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;WENN(D6=0;&quot;–&quot;;E6/D6);&quot;&quot;)</td><td><small>Prozesskostensatz (lmi) = Prozesskosten / Prozessmenge.</small></td></tr>
+<tr><td>G6</td><td>Anzahl Bestellungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;WENN(ODER(D6=0;$B$11=0);&quot;–&quot;;F6*$B$12);&quot;&quot;)</td><td><small>Umlagesatz = lmi-Satz × lmn-Kosten / lmi-Kosten.</small></td></tr>
+<tr><td>H6</td><td>Anzahl Bestellungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;WENN(ODER(D6=0;$B$11=0);&quot;–&quot;;F6+G6);&quot;&quot;)</td><td></td></tr>
+<tr><td>F7</td><td>Anzahl Lieferungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;WENN(D7=0;&quot;–&quot;;E7/D7);&quot;&quot;)</td><td></td></tr>
+<tr><td>G7</td><td>Anzahl Lieferungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;WENN(ODER(D7=0;$B$11=0);&quot;–&quot;;F7*$B$12);&quot;&quot;)</td><td></td></tr>
+<tr><td>H7</td><td>Anzahl Lieferungen</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;WENN(ODER(D7=0;$B$11=0);&quot;–&quot;;F7+G7);&quot;&quot;)</td><td></td></tr>
+<tr><td>F8</td><td>Anzahl Lieferanten</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;WENN(D8=0;&quot;–&quot;;E8/D8);&quot;&quot;)</td><td></td></tr>
+<tr><td>G8</td><td>Anzahl Lieferanten</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;WENN(ODER(D8=0;$B$11=0);&quot;–&quot;;F8*$B$12);&quot;&quot;)</td><td></td></tr>
+<tr><td>H8</td><td>Anzahl Lieferanten</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;WENN(ODER(D8=0;$B$11=0);&quot;–&quot;;F8+G8);&quot;&quot;)</td><td></td></tr>
+<tr><td>F9</td><td>–</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;WENN(D9=0;&quot;–&quot;;E9/D9);&quot;&quot;)</td><td></td></tr>
+<tr><td>G9</td><td>–</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;WENN(ODER(D9=0;$B$11=0);&quot;–&quot;;F9*$B$12);&quot;&quot;)</td><td></td></tr>
+<tr><td>H9</td><td>–</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;WENN(ODER(D9=0;$B$11=0);&quot;–&quot;;F9+G9);&quot;&quot;)</td><td></td></tr>
+<tr><td>E10</td><td>Summe Prozesskosten</td><td class="xlw-f">=SUMME(E6:E9)</td><td></td></tr>
+<tr><td>B11</td><td>davon leistungsmengeninduziert (lmi) / -neutral (lmn)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;E6;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;E7;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;E8;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;E9;0)</td><td></td></tr>
+<tr><td>C11</td><td>davon leistungsmengeninduziert (lmi) / -neutral (lmn)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmn&quot;;B6;0);0)=1;E6;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmn&quot;;B7;0);0)=1;E7;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmn&quot;;B8;0);0)=1;E8;0)+WENN(WENNFEHLER(VERGLEICH(&quot;lmn&quot;;B9;0);0)=1;E9;0)</td><td></td></tr>
+<tr><td>B12</td><td>Umlagefaktor (lmn-Kosten / lmi-Kosten)</td><td class="xlw-f">=WENN(B11=0;&quot;–&quot;;C11/B11)</td><td></td></tr>
+<tr><td>A16</td><td>Teilprozess (lmi) (Zeile 16)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;A6;&quot;&quot;)</td><td></td></tr>
+<tr><td>B16</td><td>Gesamtprozesskostensatz (Zeile 16)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;H6;&quot;&quot;)</td><td></td></tr>
+<tr><td>D16</td><td>Prozesskosten A (Zeile 16)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;WENN(B16=&quot;–&quot;;&quot;–&quot;;C16*B16);&quot;&quot;)</td><td></td></tr>
+<tr><td>F16</td><td>Prozesskosten B (Zeile 16)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B6;0);0)=1;WENN(B16=&quot;–&quot;;&quot;–&quot;;E16*B16);&quot;&quot;)</td><td></td></tr>
+<tr><td>A17</td><td>Teilprozess (lmi) (Zeile 17)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;A7;&quot;&quot;)</td><td></td></tr>
+<tr><td>B17</td><td>Gesamtprozesskostensatz (Zeile 17)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;H7;&quot;&quot;)</td><td></td></tr>
+<tr><td>D17</td><td>Prozesskosten A (Zeile 17)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;WENN(B17=&quot;–&quot;;&quot;–&quot;;C17*B17);&quot;&quot;)</td><td></td></tr>
+<tr><td>F17</td><td>Prozesskosten B (Zeile 17)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B7;0);0)=1;WENN(B17=&quot;–&quot;;&quot;–&quot;;E17*B17);&quot;&quot;)</td><td></td></tr>
+<tr><td>A18</td><td>Teilprozess (lmi) (Zeile 18)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;A8;&quot;&quot;)</td><td></td></tr>
+<tr><td>B18</td><td>Gesamtprozesskostensatz (Zeile 18)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;H8;&quot;&quot;)</td><td></td></tr>
+<tr><td>D18</td><td>Prozesskosten A (Zeile 18)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;WENN(B18=&quot;–&quot;;&quot;–&quot;;C18*B18);&quot;&quot;)</td><td></td></tr>
+<tr><td>F18</td><td>Prozesskosten B (Zeile 18)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B8;0);0)=1;WENN(B18=&quot;–&quot;;&quot;–&quot;;E18*B18);&quot;&quot;)</td><td></td></tr>
+<tr><td>A19</td><td>Teilprozess (lmi) (Zeile 19)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;A9;&quot;&quot;)</td><td></td></tr>
+<tr><td>B19</td><td>Gesamtprozesskostensatz (Zeile 19)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;H9;&quot;&quot;)</td><td></td></tr>
+<tr><td>D19</td><td>Prozesskosten A (Zeile 19)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;WENN(B19=&quot;–&quot;;&quot;–&quot;;C19*B19);&quot;&quot;)</td><td></td></tr>
+<tr><td>F19</td><td>Prozesskosten B (Zeile 19)</td><td class="xlw-f">=WENN(WENNFEHLER(VERGLEICH(&quot;lmi&quot;;B9;0);0)=1;WENN(B19=&quot;–&quot;;&quot;–&quot;;E19*B19);&quot;&quot;)</td><td></td></tr>
+<tr><td>D20</td><td>Summe Prozesskosten je Produkt</td><td class="xlw-f">=WENN(ZÄHLENWENN(H6:H9;&quot;–&quot;)&gt;0;&quot;–&quot;;SUMME(D16:D19))</td><td></td></tr>
+<tr><td>F20</td><td>Summe Prozesskosten je Produkt</td><td class="xlw-f">=WENN(ZÄHLENWENN(H6:H9;&quot;–&quot;)&gt;0;&quot;–&quot;;SUMME(F16:F19))</td><td></td></tr>
+<tr><td>D22</td><td>Prozesskosten je Stück</td><td class="xlw-f">=WENN(ODER(D20=&quot;–&quot;;D21=0);&quot;–&quot;;D20/D21)</td><td><small>Prozesskosten je Stück = Σ (Prozessmenge × Gesamtprozesskostensatz) / Stückzahl.</small></td></tr>
+<tr><td>F22</td><td>Prozesskosten je Stück</td><td class="xlw-f">=WENN(ODER(F20=&quot;–&quot;;F21=0);&quot;–&quot;;F20/F21)</td><td></td></tr>
+<tr><td>D23</td><td>Nicht auf A oder B verrechnete Prozesskosten</td><td class="xlw-f">=WENN(D20=&quot;–&quot;;&quot;–&quot;;E10-D20-F20)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>777 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 37 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Prozesskosten je Stück (D22), Prozesskosten je Stück (F22), Anzahl Bestellungen (H6).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 37 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 37 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>777 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Kosten- &amp; Leistungsrechnung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-breakeven">Break-even-Analyse</a><p>Gewinnschwelle in Stück und Euro, Sicherheitsabstand und Gewinn-Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-deckungsbeitrag">Mehrstufige Deckungsbeitragsrechnung</a><p>3 Produkte, 2 Erzeugnisgruppen: DB I, II, III bis zum Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-zuschlag">Zuschlagskalkulation (Industrie)</a><p>Vom Material bis zum Listenverkaufspreis – mit Skonto, Provision und Rabatt im Hundert.</p></li>
+<li><a href="/tools/excel-vorlage-bab">Betriebsabrechnungsbogen (BAB)</a><p>Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln.</p></li>
+<li><a href="/tools/excel-vorlage-divisionskalkulation">Divisionskalkulation (einstufig &amp; zweistufig)</a><p>Selbstkosten je Stück ein- und zweistufig, Lagerbestandsveränderung zu Herstellkosten und Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-aequivalenzziffern">Äquivalenzziffernkalkulation</a><p>Bis 6 Sorten: Recheneinheiten, Kosten je Recheneinheit, Stückkosten und Sortenkosten je Sorte.</p></li>
+<li><a href="/tools/excel-vorlage-maschinenstundensatz">Maschinenstundensatzrechnung</a><p>Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt.</p></li>
+<li><a href="/tools/excel-vorlage-kuppelkalkulation">Kuppelkalkulation (Restwert- &amp; Verteilungsmethode)</a><p>Herstellkosten des Hauptprodukts per Restwertmethode und Kostenverteilung nach Marktwerten.</p></li>
+<li><a href="/tools/excel-vorlage-handelvorwaerts">Handelskalkulation (Vorwärtskalkulation)</a><p>Vom Listeneinkaufspreis zum Listenverkaufspreis – mit Kalkulationszuschlag, -faktor und Handelsspanne.</p></li>
+<li><a href="/tools/excel-vorlage-handelrueckwaerts">Handelskalkulation (Rückwärtskalkulation)</a><p>Vom erzielbaren Listenverkaufspreis zurück zum höchstens zahlbaren Listeneinkaufspreis.</p></li>
+<li><a href="/tools/excel-vorlage-makeorbuy">Make-or-Buy (kurzfristig)</a><p>Eigenfertigung oder Fremdbezug? Relevante Kosten, kritische Menge und Preisobergrenze für den Zukauf.</p></li>
+<li><a href="/tools/excel-vorlage-preisuntergrenze">Preisuntergrenze &amp; Zusatzauftrag</a><p>Kurz- und langfristige Preisuntergrenze und ob sich ein Zusatzauftrag lohnt – auch bei knapper Kapazität.</p></li>
+<li><a href="/tools/excel-vorlage-kostenaufloesung">Kostenauflösung &amp; Kostenfunktion</a><p>Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

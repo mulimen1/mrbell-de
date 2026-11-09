@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Abschreibungsrechner: linear, degressiv mit Wechsel, leistungsabhängig | BWL Max</title>
 <meta name="description" content="Abschreibung berechnen mit Abschreibungsplan: linear, geometrisch-degressiv mit Wechsel zur linearen AfA, digital und leistungsabhängig – Stand 2026.">
@@ -114,8 +114,23 @@ table.dec.plan th:first-child{white-space:nowrap}
  a{color:#000;text-decoration:none}
  footer{margin-top:1em}
 }
+.bmw-weg .fx.steps{display:flex}
+.bmw-ueb table.dec{width:auto;min-width:min(100%,360px)}
+.bmw-weg .tw,.bmw-ueb-auf .tw{margin:.5em 0 .3em}
+.ueb-typ{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:.6em 0 0;font-size:.9rem;color:var(--muted)}
+.ueb-typ select{width:auto;max-width:100%}
+.druckkopf{display:none}
+@media print{
+ html.bmw-printing .druckkopf{display:block;font-weight:700;font-size:12pt;margin:0 0 .5em}
+ html.bmw-printing #h-rechner,html.bmw-printing #rechner>p.small{display:none}
+ .ueb-typ{display:none}
+ .steps,.d{overflow:visible}
+ .card.main,.out{break-inside:auto}
+ .out .big,.out .steps,.bmw-weg>li{break-inside:avoid}
+ tfoot{display:table-row-group}
+}
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -126,23 +141,26 @@ table.dec.plan th:first-child{white-space:nowrap}
 <header>
 <h1>Abschreibungsrechner: linear, degressiv, leistungsabhängig</h1>
 <p class="lead">Der Rechner erstellt den vollständigen Abschreibungsplan mit Buchwert am Jahresanfang, Abschreibungsbetrag und Buchwert am Jahresende – linear, geometrisch-degressiv mit optimalem Wechsel zur linearen Abschreibung, arithmetisch-degressiv (digital) oder leistungsabhängig. Restwert und zeitanteilige Abschreibung im ersten Jahr sind möglich, der Rechenweg wird mit eingesetzten Zahlen gezeigt. Gedacht für Buchführung, Jahresabschluss und Kostenrechnung im Studium.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übung: selbst rechnen</a></li>
 <li><a href="#methoden">Methoden und Formeln</a></li>
 <li><a href="#wechsel">Optimaler Wechsel von degressiv zu linear</a></li>
 <li><a href="#beispiele">Beispiele mit Lösung</a></li>
 <li><a href="#steuer">Hinweis zum Steuerrecht</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
-<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
+<p class="druckkopf">Abschreibungsrechner · www.bwlmax.de/rechner/abschreibungsrechner</p>
 <p class="small">Beträge in Euro. Komma oder Punkt als Dezimaltrennzeichen, Tausenderpunkte sind erlaubt (60.000 = sechzigtausend). Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-afa" onsubmit="return false">
 <div class="grid">
@@ -165,10 +183,18 @@ table.dec.plan th:first-child{white-space:nowrap}
 </form>
 </section>
 
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übung: selbst rechnen</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen: lineare Abschreibung mit zeitanteiligem ersten Jahr, geometrisch-degressive Abschreibung mit optimalem Wechsel, digitale und leistungsabhängige Abschreibung. Du rechnest selbst, das Werkzeug prüft dein Ergebnis und zeigt auf Wunsch den vollständigen Lösungsweg.</p>
+<label class="ueb-typ" for="afa-ueb-typ">Aufgabentyp <select id="afa-ueb-typ" data-bmw-nicht="1"><option value="mix">gemischt</option><option value="linear">linear, zeitanteilig</option><option value="geo">geometrisch-degressiv mit Wechsel</option><option value="digital">arithmetisch-degressiv (digital)</option><option value="leistung">leistungsabhängig</option></select></label>
+<div id="afa-ueb"></div>
+</section>
+
 <section id="methoden" aria-labelledby="h-methoden">
 <h2 id="h-methoden">Methoden und Formeln</h2>
 <p>Abkürzungen: AK = Anschaffungs- oder Herstellungskosten, RW = Restwert am Ende der Nutzung, ND oder N = Nutzungsdauer in Jahren, RBW = Restbuchwert, RND = Restnutzungsdauer, s = degressiver Abschreibungssatz.</p>
 <div class="tw"><table class="dec">
+<caption>Abschreibungsmethoden im Überblick</caption>
 <thead><tr><th scope="col">Methode</th><th scope="col">Formel</th><th scope="col">Verlauf</th></tr></thead>
 <tbody>
 <tr><th scope="row">linear</th><td><span class="m">AfA=\dfrac{AK-RW}{ND}</span></td><td>gleich hohe Beträge in jedem Jahr</td></tr>
@@ -244,6 +270,17 @@ table.dec.plan th:first-child{white-space:nowrap}
 <p>Der Rechner rechnet intern mit voller Genauigkeit und rundet erst bei der Anzeige auf Cent. Die gerundeten Einzelbeträge können sich deshalb um einen Cent von der gerundeten Summe unterscheiden.</p>
 <h3>Wann ist die leistungsabhängige Abschreibung sinnvoll?</h3>
 <p>Wenn der Wertverlust vor allem von der Nutzung abhängt, etwa bei Fahrzeugen (Kilometer) oder Maschinen (Betriebsstunden, Stückzahl). Die Nutzungsdauer in Jahren spielt dann keine Rolle, es zählt die Gesamtleistung.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Alle Formeln stehen im Abschnitt <a href="#methoden">Methoden und Formeln</a>, die Wechselregel im Abschnitt <a href="#wechsel">Optimaler Wechsel</a>. Der Rechenweg zeigt jede Zahl eingesetzt. Gerechnet wird betriebswirtschaftlich, zu den steuerlichen Grenzen siehe <a href="#steuer">Hinweis zum Steuerrecht</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung in Python (exakte Bruchrechnung) getestet: 612 zufällige und Randfälle aller vier Methoden samt vollständigem Plan und 1.250 erzeugte Übungsaufgaben, ohne Abweichung.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -384,6 +421,40 @@ function abschreibung(a) {
     return { methode: met, plan: rows, S: S, D: D, m1: m1, N: N, rest: bw };
   }
   throw new BM.Fehler('methode', 'Unbekannte Methode.');
+}
+// Übungsaufgaben mit klausurtypischen Zufallszahlen; Lösungswerte kommen aus abschreibung()
+function afaAufgabe(typ, rnd) {
+  rnd = rnd || Math.random;
+  function zuf(a, b, s) { s = s || 1; return +(a + Math.floor(rnd() * (Math.floor((b - a) / s + 1e-9) + 1)) * s).toFixed(10); }
+  function wahl(arr) { return arr[Math.floor(rnd() * arr.length)]; }
+  if (['linear', 'geo', 'digital', 'leistung'].indexOf(typ) < 0) typ = wahl(['linear', 'geo', 'digital', 'leistung']);
+  var a, r;
+  if (typ === 'linear') {
+    var AK = zuf(12, 240) * 1000, ND = zuf(3, 10), RW = rnd() < 0.35 ? zuf(1, 10) * 500 : 0, monat = rnd() < 0.3 ? 1 : zuf(2, 12);
+    if (RW > AK / 5) RW = 0;
+    a = { methode: 'linear', ak: AK, nd: ND, rw: RW, m1: 13 - monat };
+    r = abschreibung(a);
+    return { typ: typ, a: a, monat: monat, afa1: r.plan[0].afa, afa: r.afaJahr, bw2: r.plan[1].bwE, tol: 0.02 };
+  }
+  if (typ === 'geo') {
+    var s = wahl([30, 35, 40]), k = Math.floor(100 / s), nd = zuf(k + 2, 10);
+    a = { methode: 'geo', ak: zuf(4, 60) * 5000, nd: nd, satz: s, wechsel: true };
+    r = abschreibung(a);
+    return { typ: typ, a: a, afa2: r.plan[1].afa, wj: r.w.jahr, lin: r.w.lin, bwW: r.w.bw, tol: 0.03 };
+  }
+  if (typ === 'digital') {
+    var N = zuf(4, 8), S = N * (N + 1) / 2, D = zuf(1, 40) * 250, RWd = rnd() < 0.35 ? zuf(1, 10) * 1000 : 0, kk = zuf(2, N);
+    a = { methode: 'digital', ak: D * S + RWd, nd: N, rw: RWd };
+    r = abschreibung(a);
+    return { typ: typ, a: a, k: kk, D: r.D, S: S, afa1: r.plan[0].afa, afak: r.plan[kk - 1].afa, bwk: r.plan[kk - 1].bwE, tol: 0.01 };
+  }
+  // [Einheit, Anlage, Wort, Gesamtleistung von, bis, Schritt, Satz €/Einheit von, bis, Schritt]
+  var e = wahl([['km', 'Lkw', 'Fahrleistung', 100000, 600000, 10000, 0.1, 0.6, 0.01], ['Betriebsstunden', 'Maschine', 'Laufzeit', 10000, 40000, 500, 2, 10, 0.5], ['Stück', 'Stanzmaschine', 'Ausbringung', 100000, 1000000, 10000, 0.05, 0.5, 0.01]]);
+  var G = zuf(e[3] / e[5], e[4] / e[5]) * e[5], satz = zuf(e[6], e[7], e[8]), RWl = rnd() < 0.35 ? zuf(1, 10) * 1000 : 0;
+  var L1 = Math.round(G * (0.15 + 0.15 * rnd()) / e[5] * 10) * e[5] / 10, L2 = Math.round(G * (0.15 + 0.15 * rnd()) / e[5] * 10) * e[5] / 10;
+  a = { methode: 'leistung', ak: Math.round((satz * G + RWl) * 100) / 100, rw: RWl, lg: G, lj: [L1, L2] };
+  r = abschreibung(a);
+  return { typ: typ, a: a, einheit: e[0], ding: e[1], wort: e[2], satz: r.satzEinheit, afa2: r.plan[1].afa, bw2: r.plan[1].bwE, tol: 0.01 };
 }
 // MATH-END
 
@@ -534,10 +605,10 @@ var UI = (function () {
     var hasL = met === 'leistung', hasArt = met === 'geo';
     var th = '<tr><th scope="col">Jahr</th>' + (hasL ? '<th scope="col" class="n">Leistung</th>' : '') + '<th scope="col" class="n">Buchwert Anfang (€)</th><th scope="col" class="n">Abschrei&shy;bung (€)</th><th scope="col" class="n">Buchwert Ende (€)</th>' + (hasArt ? '<th scope="col">Methode</th>' : '') + '</tr>';
     var tb = r.plan.map(function (z) {
-      return '<tr' + (r.w && z.jahr === r.w.jahr ? ' class="sw"' : '') + '><td>' + z.jahr + '</td>' + (hasL ? '<td class="n">' + fmt(z.leistung, 0, 2) + '</td>' : '') +
+      return '<tr' + (r.w && z.jahr === r.w.jahr ? ' class="sw"' : '') + '><th scope="row">' + z.jahr + '</th>' + (hasL ? '<td class="n">' + fmt(z.leistung, 0, 2) + '</td>' : '') +
         '<td class="n">' + fmt(z.bwA, 2) + '</td><td class="n">' + fmt(z.afa, 2) + '</td><td class="n">' + fmt(z.bwE, 2) + '</td>' + (hasArt ? '<td>' + z.art + '</td>' : '') + '</tr>';
     }).join('');
-    o.add('<div class="lbl">Abschreibungsplan</div><div class="tw"><table class="dec plan" id="afa-plan"><thead>' + th + '</thead><tbody>' + tb + '</tbody></table></div>');
+    o.add('<div class="tw"><table class="dec plan" id="afa-plan"><caption>Abschreibungsplan</caption><thead>' + th + '</thead><tbody>' + tb + '</tbody></table></div>');
     o.render(out);
   }
   ['afa-ak', 'afa-rw', 'afa-nd', 'afa-m1', 'afa-satz', 'afa-lg', 'afa-lj'].forEach(function (id) { $(id).addEventListener('input', calc); });
@@ -554,6 +625,81 @@ var UI = (function () {
   });
   UI.renderStatic();
   calc();
+
+  // ---------- Link teilen und Drucken ----------
+  if (!window.BMW || !BMW.leiste) return;
+  BMW.leiste($('c-afa'), { teilen: BMW.teilen({ key: 'afa', root: $('c-afa'), run: calc }), drucken: true, druckScope: $('rechner') });
+
+  // ---------- Übungsmodus ----------
+  function ea(x) { return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function fx(src) { return '<span class="fx steps" data-tex="' + ea(src) + '"></span>'; }
+  function texIn(el) { el.querySelectorAll('[data-tex]').forEach(function (b) { UI.fillSteps(b, UI.splitEq(b.getAttribute('data-tex'))); }); }
+  function betr(x) { return fmt(x, BM.istGanz(BM.R(x, 2)) ? 0 : 2, 2) + '\u00a0€'; }
+  var MON = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  function planTab(plan, bis, extra) {
+    var h = '<div class="tw"><table class="dec plan"><caption>Abschreibungsplan (Ausschnitt)</caption><thead><tr><th scope="col">Jahr</th>' + (extra ? '<th scope="col" class="n">' + extra + '</th>' : '') + '<th scope="col" class="n">Buchwert Anfang (€)</th><th scope="col" class="n">Abschreibung (€)</th><th scope="col" class="n">Buchwert Ende (€)</th>' + (plan[0].art ? '<th scope="col">Methode</th>' : '') + '</tr></thead><tbody>';
+    plan.slice(0, bis).forEach(function (z) { h += '<tr><th scope="row">' + z.jahr + '</th>' + (extra ? '<td class="n">' + fmt(z.leistung, 0, 2) + '</td>' : '') + '<td class="n">' + fmt(z.bwA, 2) + '</td><td class="n">' + fmt(z.afa, 2) + '</td><td class="n">' + fmt(z.bwE, 2) + '</td>' + (z.art ? '<td>' + z.art + '</td>' : '') + '</tr>'; });
+    return h + '</tbody></table></div>';
+  }
+  function neu() {
+    var u = afaAufgabe($('afa-ueb-typ').value), a = u.a, r = abschreibung(a), AK = tn(a.ak, 0, 2), RW = tn(a.rw || 0), basis = a.rw ? '(' + AK + '-' + RW + ')' : AK;
+    var rwSatz = a.rw ? ' Am Ende der Nutzungsdauer wird ein Restwert von ' + betr(a.rw) + ' erwartet.' : ' Ein Restwert wird nicht erwartet.';
+    if (u.typ === 'linear') {
+      var m1 = a.m1, z2 = r.plan[1];
+      return {
+        text: '<p>Ein Unternehmen schafft im ' + MON[u.monat - 1] + ' eine Maschine für ' + betr(a.ak) + ' an. Die Nutzungsdauer beträgt ' + a.nd + ' Jahre.' + rwSatz + ' Abgeschrieben wird linear und im Anschaffungsjahr zeitanteilig (monatsgenau, der Anschaffungsmonat zählt voll).</p>' +
+          '<p><b>Aufgabe:</b> Wie hoch ist die Abschreibung im ersten Jahr und wie hoch ist der Buchwert am Ende des zweiten Jahres? Beträge auf zwei Nachkommastellen.</p>',
+        felder: [{ key: 'a1', label: 'Abschreibung im 1. Jahr', einheit: '€', wert: u.afa1, tol: u.tol }, { key: 'b2', label: 'Buchwert Ende 2. Jahr', einheit: '€', wert: u.bw2, tol: u.tol }],
+        loesung: '<ol class="bmw-weg">' +
+          '<li>Jährlicher Abschreibungsbetrag:' + fx('AfA=\\dfrac{AK-RW}{ND}=\\dfrac{' + AK + '-' + RW + '}{' + a.nd + '}' + teq(u.afa, 0, 2)) + '</li>' +
+          '<li>Nutzungsmonate im 1. Jahr: ' + MON[u.monat - 1] + ' bis Dezember = ' + m1 + ' Monate.' + (m1 < 12 ? fx('AfA_1=AfA\\cdot\\dfrac{' + m1 + '}{12}=' + tn(u.afa, 0, 4) + '\\cdot\\dfrac{' + m1 + '}{12}' + teq(u.afa1, 0, 2)) : ' Es wird also im 1. Jahr voll abgeschrieben.') + '</li>' +
+          '<li>Buchwert am Ende des 2. Jahres:' + fx('BW_2=AK-AfA_1-AfA=' + AK + '-' + tn(u.afa1, 0, 2) + '-' + tn(u.afa, 0, 2) + teq(z2.bwE, 0, 2)) + '</li>' +
+          (m1 < 12 ? '<li>Weil im 1. Jahr nur ' + m1 + ' Monate abgeschrieben werden, endet der Plan erst im Jahr ' + (a.nd + 1) + ' mit dem Rest von ' + betr(r.plan[r.plan.length - 1].afa) + '.</li>' : '') + '</ol>'
+      };
+    }
+    if (u.typ === 'geo') {
+      var p = a.satz / 100, w = r.w, rnd = w.restM / 12, k = Math.floor(100 / a.satz);
+      return {
+        text: '<p>Eine Maschine wird zu Beginn des Jahres für ' + betr(a.ak) + ' angeschafft (Nutzungsdauer ' + a.nd + ' Jahre, kein Restwert). Sie wird geometrisch-degressiv mit ' + a.satz + ' % abgeschrieben; zum optimalen Zeitpunkt wird auf die lineare Abschreibung des Restbuchwerts gewechselt.</p>' +
+          '<p><b>Aufgabe:</b> Berechne die Abschreibung im 2. Jahr, bestimme das Jahr des Wechsels und den jährlichen linearen Abschreibungsbetrag nach dem Wechsel. Beträge auf zwei Nachkommastellen.</p>',
+        felder: [{ key: 'a2', label: 'Abschreibung im 2. Jahr', einheit: '€', wert: u.afa2, tol: u.tol }, { key: 'wj', label: 'Wechsel im Jahr', wert: u.wj, tol: 0 }, { key: 'lin', label: 'Lineare AfA nach dem Wechsel', einheit: '€', wert: u.lin, tol: u.tol }],
+        loesung: '<ol class="bmw-weg">' +
+          '<li>Degressiv: jedes Jahr ' + a.satz + ' % vom Restbuchwert.' + fx('AfA_1=' + AK + '\\cdot ' + tn(a.satz) + '\\,\\%' + teq(r.plan[0].afa, 0, 2)) + fx('AfA_2=' + tn(r.plan[1].bwA, 0, 2) + '\\cdot ' + tn(a.satz) + '\\,\\%' + teq(u.afa2, 0, 2)) + '</li>' +
+          '<li>Wechselbedingung ohne Restwert: Gewechselt wird, sobald die lineare Verteilung des Restbuchwerts mindestens so hoch ist wie der degressive Betrag, also sobald' + fx('RND\\le\\dfrac{1}{s}=\\dfrac{1}{' + tn(p, 0, 2) + '}' + teq(1 / p, 0, 2)) + 'Das ist bei einer Restnutzungsdauer von ' + k + ' Jahren der Fall, also zu Beginn von Jahr ' + a.nd + ' + 1 − ' + k + ' = <b>' + w.jahr + '</b>.</li>' +
+          '<li>Probe im Jahr ' + w.jahr + ' (Restbuchwert ' + betr(w.bw) + ', Restnutzungsdauer ' + fmt(rnd, 0, 2) + ' Jahre):' + fx('\\text{linear: }\\dfrac{' + tn(w.bw, 0, 2) + '}{' + fmt(rnd, 0, 2) + '}' + teq(w.lin, 0, 2)) + fx('\\text{degressiv: }' + tn(w.bw, 0, 2) + '\\cdot ' + tn(a.satz) + '\\,\\%' + teq(w.deg, 0, 2)) +
+          (w.jahr > 2 ? 'Im Vorjahr war linear noch kleiner: ' + betr(r.plan[w.jahr - 2].bwA / (rnd + 1)) + ' &lt; ' + betr(r.plan[w.jahr - 2].afa) + '.' : '') + '</li>' +
+          '<li>Ab Jahr ' + w.jahr + ' wird jedes Jahr ' + betr(w.lin) + ' abgeschrieben, bis der Buchwert am Ende von Jahr ' + a.nd + ' null ist.' + planTab(r.plan, r.plan.length) + '</li></ol>'
+      };
+    }
+    if (u.typ === 'digital') {
+      var N = a.nd, kk = u.k, zk = r.plan[kk - 1], summeBis = r.plan.slice(0, kk).reduce(function (s0, z) { return s0 + z.afa; }, 0);
+      return {
+        text: '<p>Eine Anlage wird zu Beginn des Jahres für ' + betr(a.ak) + ' angeschafft und über ' + N + ' Jahre arithmetisch-degressiv (digital) abgeschrieben.' + rwSatz + '</p>' +
+          '<p><b>Aufgabe:</b> Berechne die Abschreibung im 1. Jahr und im ' + kk + '. Jahr sowie den Buchwert am Ende des ' + kk + '. Jahres. Beträge auf zwei Nachkommastellen.</p>',
+        felder: [{ key: 'a1', label: 'Abschreibung im 1. Jahr', einheit: '€', wert: u.afa1, tol: u.tol }, { key: 'ak', label: 'Abschreibung im ' + kk + '. Jahr', einheit: '€', wert: u.afak, tol: u.tol }, { key: 'bk', label: 'Buchwert Ende ' + kk + '. Jahr', einheit: '€', wert: u.bwk, tol: u.tol }],
+        loesung: '<ol class="bmw-weg">' +
+          '<li>Summe der Jahresziffern:' + fx('S=\\dfrac{N\\cdot(N+1)}{2}=\\dfrac{' + N + '\\cdot ' + (N + 1) + '}{2}=' + u.S) + '</li>' +
+          '<li>Degressionsbetrag (Abschreibung je Jahresziffer):' + fx('D=\\dfrac{AK-RW}{S}=\\dfrac{' + AK + '-' + RW + '}{' + u.S + '}' + teq(u.D, 0, 2)) + '</li>' +
+          '<li>Abschreibung im Jahr t ist D mal die rückwärts gezählte Jahresziffer N − t + 1:' + fx('AfA_1=D\\cdot ' + N + '=' + tn(u.D, 0, 2) + '\\cdot ' + N + teq(u.afa1, 0, 2)) + fx('AfA_{' + kk + '}=D\\cdot(' + N + '-' + kk + '+1)=' + tn(u.D, 0, 2) + '\\cdot ' + (N - kk + 1) + teq(u.afak, 0, 2)) + '</li>' +
+          '<li>Buchwert am Ende von Jahr ' + kk + ': Anschaffungskosten minus die Abschreibungen der Jahre 1 bis ' + kk + ' (' + betr(summeBis) + '):' + fx('BW_{' + kk + '}=' + AK + '-' + tn(summeBis, 0, 2) + teq(zk.bwE, 0, 2)) + planTab(r.plan, kk) + '</li></ol>'
+      };
+    }
+    var e = u.einheit, z1 = r.plan[0], zz2 = r.plan[1];
+    return {
+      text: '<p>Ein' + (u.ding === 'Maschine' || u.ding === 'Stanzmaschine' ? 'e ' : ' ') + u.ding + ' wird für ' + betr(a.ak) + ' angeschafft. Die erwartete Gesamt' + (e === 'km' ? 'fahrleistung' : e === 'Stück' ? 'ausbringung' : 'laufzeit') + ' beträgt ' + fmt(a.lg, 0, 0) + ' ' + e + '.' + rwSatz +
+        ' Im 1. Jahr fallen ' + fmt(a.lj[0], 0, 2) + ' ' + e + ' an, im 2. Jahr ' + fmt(a.lj[1], 0, 2) + ' ' + e + '. Abgeschrieben wird leistungsabhängig.</p>' +
+        '<p><b>Aufgabe:</b> Berechne den Abschreibungsbetrag je ' + (e === 'km' ? 'km' : e === 'Stück' ? 'Stück' : 'Betriebsstunde') + ' (in €, vier Nachkommastellen), die Abschreibung im 2. Jahr und den Buchwert am Ende des 2. Jahres (zwei Nachkommastellen).</p>',
+      felder: [{ key: 'a', label: 'Abschreibung je ' + (e === 'Betriebsstunden' ? 'Stunde' : e), einheit: '€', wert: u.satz, nk: 4 }, { key: 'a2', label: 'Abschreibung im 2. Jahr', einheit: '€', wert: u.afa2, tol: u.tol }, { key: 'b2', label: 'Buchwert Ende 2. Jahr', einheit: '€', wert: u.bw2, tol: u.tol }],
+      loesung: '<ol class="bmw-weg">' +
+        '<li>Abschreibungsbetrag je Leistungseinheit:' + fx('a=\\dfrac{AK-RW}{\\text{Gesamtleistung}}=\\dfrac{' + AK + '-' + RW + '}{' + tn(a.lg) + '}' + teq(u.satz, 0, 4)) + '</li>' +
+        '<li>Abschreibung je Jahr = a mal tatsächliche Leistung:' + fx('AfA_1=' + tn(u.satz, 0, 4) + '\\cdot ' + tn(a.lj[0]) + teq(z1.afa, 0, 2)) + fx('AfA_2=' + tn(u.satz, 0, 4) + '\\cdot ' + tn(a.lj[1]) + teq(u.afa2, 0, 2)) + '</li>' +
+        '<li>Buchwert am Ende des 2. Jahres:' + fx('BW_2=' + AK + '-' + tn(z1.afa, 0, 2) + '-' + tn(u.afa2, 0, 2) + teq(u.bw2, 0, 2)) + planTab(r.plan, 2, 'Leistung') + '</li></ol>'
+    };
+  }
+  var ueb = BMW.uebung($('afa-ueb'), { titel: 'Übungsaufgabe', neu: neu, nachher: texIn });
+  // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form> und löst dort nichts aus → per form-Attribut ans Formular binden
+  (function () { var f = $('afa-ueb').querySelector('.bmw-ueb-form'), b = $('afa-ueb').querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'afa-ueb-form'; b.setAttribute('form', f.id); } })();
+  $('afa-ueb-typ').addEventListener('change', function () { ueb.neu(); });
 })();
 </script>
 </body>

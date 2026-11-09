@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Formelsammlung Statistik I und II (Wirtschaftswissenschaften)</title>
 <meta name="description" content="Druckbare Formelsammlung für Statistik I und II im Wirtschaftsstudium: Lage- und Streuungsmaße, Konzentration, Korrelation, Regression, Indexzahlen, Wahrscheinlichkeit, Verteilungen, Schätzen und Testen – mit Hinweisen auf abweichende Lehrbuch-Konventionen.">
@@ -48,6 +48,11 @@ table.t thead th{background:var(--soft)}
 .tw{overflow-x:auto}
 .small{font-size:.85rem;color:var(--muted)}
 .hidden{display:none!important}
+caption.sr,.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+table.at{border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums;margin:.3em 0 .6em}
+table.at th,table.at td{border:1px solid var(--line);padding:4px 8px;text-align:right;white-space:nowrap}
+table.at thead th,table.at tfoot th,table.at tfoot td{background:var(--soft);font-weight:600}
+table.at tbody th{text-align:left;font-weight:600}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}.d{font-size:.94em;column-gap:1.4em}.blk{padding:10px 11px}}
 @media print{
@@ -76,7 +81,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  footer{margin-top:3mm;padding-top:1mm;font-size:6.5pt;break-inside:avoid}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -106,6 +111,8 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <li><a href="#k12">Zentraler Grenzwertsatz</a></li>
 <li><a href="#k13">Schätzen</a><span class="sub"><a href="#ki">Konfidenzintervalle</a></span></li>
 <li><a href="#k14">Testen</a><span class="sub"><a href="#tests">Gauß-, t-, Anteilstest</a> · <a href="#chitest">χ²-Test</a> · <a href="#pwert">p-Wert</a></span></li>
+<li><a href="#ueben">Üben: Formel wählen und anwenden</a><span class="sub"><a href="#ueb-vert">Verteilungen</a> · <a href="#ueb-test">Schätzen und Testen</a> · <a href="#ueb-index">Indexzahlen</a></span></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
@@ -132,12 +139,13 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <div class="blk">
 <h3>Skalenniveaus</h3>
 <div class="tw"><table class="t">
-<thead><tr><th>Skala</th><th>sinnvolle Aussagen</th><th>Beispiel</th><th>zulässige Lagemaße</th></tr></thead>
+<caption class="sr">Skalenniveaus und zulässige Lagemaße</caption>
+<thead><tr><th scope="col">Skala</th><th scope="col">sinnvolle Aussagen</th><th scope="col">Beispiel</th><th scope="col">zulässige Lagemaße</th></tr></thead>
 <tbody>
-<tr><td>Nominal</td><td>gleich / ungleich</td><td>Rechtsform, Geschlecht</td><td>Modus</td></tr>
-<tr><td>Ordinal</td><td>+ Rangfolge</td><td>Ratingnote, Schulnote</td><td>+ Median, Quantile</td></tr>
-<tr><td>Intervall (metrisch)</td><td>+ Differenzen</td><td>Temperatur in °C, Jahreszahl</td><td>+ arithmetisches Mittel</td></tr>
-<tr><td>Verhältnis (metrisch)</td><td>+ Quotienten, natürlicher Nullpunkt</td><td>Umsatz, Preis, Alter</td><td>+ geometrisches / harmonisches Mittel, Variationskoeffizient</td></tr>
+<tr><th scope="row">Nominal</th><td>gleich / ungleich</td><td>Rechtsform, Geschlecht</td><td>Modus</td></tr>
+<tr><th scope="row">Ordinal</th><td>+ Rangfolge</td><td>Ratingnote, Schulnote</td><td>+ Median, Quantile</td></tr>
+<tr><th scope="row">Intervall (metrisch)</th><td>+ Differenzen</td><td>Temperatur in °C, Jahreszahl</td><td>+ arithmetisches Mittel</td></tr>
+<tr><th scope="row">Verhältnis (metrisch)</th><td>+ Quotienten, natürlicher Nullpunkt</td><td>Umsatz, Preis, Alter</td><td>+ geometrisches / harmonisches Mittel, Variationskoeffizient</td></tr>
 </tbody></table></div>
 </div>
 </section>
@@ -369,10 +377,11 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <h3>Kombinatorik</h3>
 <p>Auswahl von <span class="m">k</span> aus <span class="m">n</span> Elementen:</p>
 <div class="tw"><table class="t">
-<thead><tr><th></th><th>ohne Zurücklegen</th><th>mit Zurücklegen</th></tr></thead>
+<caption class="sr">Anzahl der Möglichkeiten, k aus n Elementen auszuwählen</caption>
+<thead><tr><td></td><th scope="col">ohne Zurücklegen</th><th scope="col">mit Zurücklegen</th></tr></thead>
 <tbody>
-<tr><th>mit Reihenfolge</th><td><span class="m">\dfrac{n!}{(n-k)!}</span></td><td><span class="m">n^k</span></td></tr>
-<tr><th>ohne Reihenfolge</th><td><span class="m">\dbinom{n}{k}</span></td><td><span class="m">\dbinom{n+k-1}{k}</span></td></tr>
+<tr><th scope="row">mit Reihenfolge</th><td><span class="m">\dfrac{n!}{(n-k)!}</span></td><td><span class="m">n^k</span></td></tr>
+<tr><th scope="row">ohne Reihenfolge</th><td><span class="m">\dbinom{n}{k}</span></td><td><span class="m">\dbinom{n+k-1}{k}</span></td></tr>
 </tbody></table></div>
 <div class="d">\binom{n}{k}=\frac{n!}{k!\,(n-k)!}\qquad 0!=1</div>
 <p>Permutationen von <span class="m">n</span> Elementen: <span class="m">n!</span>; mit <span class="m">r</span> Gruppen gleicher Elemente (Größen <span class="m">n_1,\dots,n_r</span>): <span class="m">\dfrac{n!}{n_1!\,n_2!\cdots n_r!}</span>.</p>
@@ -454,7 +463,8 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <h3>χ²-, t- und F-Verteilung</h3>
 <p><span class="m">Z,Z_1,\dots,Z_n</span> unabhängig <span class="m">N(0;1)</span>; <span class="m">V\sim\chi^2(n)</span>, <span class="m">V_1\sim\chi^2(m)</span>, <span class="m">V_2\sim\chi^2(n)</span> jeweils unabhängig; <span class="m">\Gamma</span> = Gammafunktion.</p>
 <div class="tw"><table class="t">
-<thead><tr><th>Verteilung</th><th>Konstruktion und Dichte</th><th>E, Var</th></tr></thead>
+<caption class="sr">χ²-, t- und F-Verteilung: Konstruktion, Dichte, Erwartungswert und Varianz</caption>
+<thead><tr><th scope="col">Verteilung</th><th scope="col">Konstruktion und Dichte</th><th scope="col">E, Var</th></tr></thead>
 <tbody>
 <tr><td><span class="m">\chi^2(n)</span></td><td><span class="m">\sum_{i=1}^{n}Z_i^2</span>;<br><span class="m">f(x)=\dfrac{x^{n/2-1}e^{-x/2}}{2^{n/2}\,\Gamma(n/2)},\ x\gt 0</span></td><td><span class="m">E=n</span><br><span class="m">\operatorname{Var}=2n</span></td></tr>
 <tr><td><span class="m">t(n)</span></td><td><span class="m">\dfrac{Z}{\sqrt{V/n}}</span>;<br><span class="m">f(t)=\dfrac{\Gamma\bigl(\frac{n+1}{2}\bigr)}{\sqrt{n\pi}\,\Gamma\bigl(\frac n2\bigr)}\Bigl(1+\dfrac{t^2}{n}\Bigr)^{-\frac{n+1}{2}}</span></td><td><span class="m">E=0\ (n\gt 1)</span><br><span class="m">\operatorname{Var}=\frac{n}{n-2}\ (n\gt 2)</span></td></tr>
@@ -523,17 +533,19 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <h3>Hypothesen und Fehlerarten</h3>
 <p>Zweiseitig: <span class="m">H_0:\mu=\mu_0</span> gegen <span class="m">H_1:\mu\ne\mu_0</span>. Rechtsseitig: <span class="m">H_0:\mu\le\mu_0</span> gegen <span class="m">H_1:\mu\gt\mu_0</span>. Linksseitig: <span class="m">H_0:\mu\ge\mu_0</span> gegen <span class="m">H_1:\mu\lt\mu_0</span>. Die zu belegende Aussage gehört in <span class="m">H_1</span>.</p>
 <div class="tw"><table class="t">
-<thead><tr><th>Entscheidung</th><th><span class="m">H_0</span> wahr</th><th><span class="m">H_1</span> wahr</th></tr></thead>
+<caption class="sr">Testentscheidung und Fehlerarten</caption>
+<thead><tr><th scope="col">Entscheidung</th><th scope="col"><span class="m">H_0</span> wahr</th><th scope="col"><span class="m">H_1</span> wahr</th></tr></thead>
 <tbody>
-<tr><th><span class="m">H_0</span> nicht ablehnen</th><td>richtig (<span class="m">1-\alpha</span>)</td><td>Fehler 2. Art (<span class="m">\beta</span>)</td></tr>
-<tr><th><span class="m">H_0</span> ablehnen</th><td>Fehler 1. Art (<span class="m">\le\alpha</span>)</td><td>richtig (Güte, Power <span class="m">1-\beta</span>)</td></tr>
+<tr><th scope="row"><span class="m">H_0</span> nicht ablehnen</th><td>richtig (<span class="m">1-\alpha</span>)</td><td>Fehler 2. Art (<span class="m">\beta</span>)</td></tr>
+<tr><th scope="row"><span class="m">H_0</span> ablehnen</th><td>Fehler 1. Art (<span class="m">\le\alpha</span>)</td><td>richtig (Güte, Power <span class="m">1-\beta</span>)</td></tr>
 </tbody></table></div>
 <p><span class="m">\alpha</span> = Signifikanzniveau (Höchstwahrscheinlichkeit für den Fehler 1. Art). Bei festem <span class="m">n</span> sinkt <span class="m">\beta</span>, wenn <span class="m">\alpha</span> steigt, und umgekehrt.</p>
 </div>
 <div class="blk" id="tests">
 <h3>Gauß-Test, t-Test, Anteilstest (eine Stichprobe)</h3>
 <div class="tw"><table class="t">
-<thead><tr><th>Test</th><th>Teststatistik</th><th>Verteilung unter <span class="m">H_0</span></th></tr></thead>
+<caption class="sr">Teststatistiken für Gauß-, t- und Anteilstest</caption>
+<thead><tr><th scope="col">Test</th><th scope="col">Teststatistik</th><th scope="col">Verteilung unter <span class="m">H_0</span></th></tr></thead>
 <tbody>
 <tr><td>Gauß-Test (σ bekannt)</td><td><span class="m">Z=\dfrac{\bar X-\mu_0}{\sigma/\sqrt n}</span></td><td><span class="m">N(0;1)</span></td></tr>
 <tr><td>t-Test (σ unbekannt, Normalvert.)</td><td><span class="m">T=\dfrac{\bar X-\mu_0}{S/\sqrt n}</span></td><td><span class="m">t(n-1)</span></td></tr>
@@ -541,7 +553,8 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </tbody></table></div>
 <p><b>Entscheidungsregel</b> (Ablehnung von <span class="m">H_0</span>; beim t-Test <span class="m">t_{n-1;\cdot}</span> statt <span class="m">z_{\cdot}</span>):</p>
 <div class="tw"><table class="t">
-<thead><tr><th><span class="m">H_1</span></th><th>Ablehnbereich</th><th>p-Wert (Gauß-Test)</th></tr></thead>
+<caption class="sr">Ablehnbereich und p-Wert je nach Alternativhypothese</caption>
+<thead><tr><th scope="col"><span class="m">H_1</span></th><th scope="col">Ablehnbereich</th><th scope="col">p-Wert (Gauß-Test)</th></tr></thead>
 <tbody>
 <tr><td><span class="m">\mu\ne\mu_0</span></td><td><span class="m">\lvert z\rvert\gt z_{1-\alpha/2}</span></td><td><span class="m">2\bigl(1-\Phi(\lvert z\rvert)\bigr)</span></td></tr>
 <tr><td><span class="m">\mu\gt\mu_0</span></td><td><span class="m">z\gt z_{1-\alpha}</span></td><td><span class="m">1-\Phi(z)</span></td></tr>
@@ -565,6 +578,25 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </ol>
 <p><b>p-Wert</b>: Wahrscheinlichkeit, unter <span class="m">H_0</span> einen mindestens so extremen Wert der Teststatistik (in Richtung <span class="m">H_1</span>) zu beobachten wie den tatsächlich beobachteten. Entscheidung: <span class="m">H_0</span> ablehnen, wenn <span class="m">p\text{-Wert}\le\alpha</span>. Nicht-Ablehnung ist kein Beweis für <span class="m">H_0</span>.</p>
 </div>
+</section>
+
+<section id="ueben" class="noprint" aria-labelledby="h-ueben">
+<h2 id="h-ueben">Üben: Formel wählen und anwenden</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen: erst die passende Formel aus der Sammlung wählen, dann einsetzen und rechnen. Der Lösungsweg zeigt jeden Schritt. Wahrscheinlichkeiten und Grenzen werden mit einer kleinen Toleranz geprüft, damit gerundete Zwischenergebnisse oder Tabellenwerte nicht als Fehler zählen.</p>
+<div id="ueb-vert"></div>
+<div id="ueb-test"></div>
+<div id="ueb-index"></div>
+</section>
+
+<section class="bmw-trust noprint" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Läuft nur in deinem Browser</b><span>Suche und Übungen funktionieren ohne Übertragung: Deine Eingaben werden nicht gesendet und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Wo Lehrbücher unterschiedliche Konventionen verwenden (n oder n − 1, Quantilsdefinitionen, N(μ; σ²) oder N(μ; σ), Gini normiert oder nicht), steht das als Hinweis direkt bei der Formel. Maßgeblich bleibt die Notation deiner Vorlesung.</span></li>
+<li><b>Gegengerechnet</b><span>Zentrale Formeln (Streuungsmaße und ihre Kurzformen, Gini-Koeffizient, Regression und Bestimmtheitsmaß, Indexzahlen, Kombinatorik, Wahrscheinlichkeits- und Dichtefunktionen, Erwartungswerte und Varianzen der Verteilungen, z-Quantile) sind automatisch gegen eine unabhängige Referenzrechnung in Python (NumPy/SciPy) nachgerechnet. Die Übungsaufgaben ebenso (3.000 zufällig erzeugte Aufgaben).</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -642,6 +674,220 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
   q.addEventListener('input', filter);
   document.getElementById('qx').addEventListener('click', function () { q.value = ''; filter(); q.focus(); });
 })();
+</script>
+<script>
+// UEB-START
+var FSU = (function () {
+  'use strict';
+  function Z(a, b, s) { return BMW.zufall(a, b, s); }
+  function W(a) { return BMW.wahl(a); }
+  function f(x, nk) { return BMW.fmt(x, nk == null ? 4 : nk); }
+  function fz(x, nk) { var s = new Intl.NumberFormat('de-DE', { minimumFractionDigits: nk, maximumFractionDigits: nk }).format(x); return /^-0(,0*)?$/.test(s) ? s.slice(1) : s; }
+  function T(s) { return String(s).replace(/\./g, '{.}').replace(/,/g, '{,}'); }
+  function tn(x, nk) { return T(f(x, nk)); }
+  function tz(x, nk) { return T(fz(x, nk)); }
+  function ex(x, nk) { return Math.abs(Number(x.toFixed(nk)) - x) < 1e-9; }
+  function gl(x, nk) { return ex(x, nk) ? '=' + tn(x, nk) : '\\approx ' + tz(x, nk); }
+  function K(t) {
+    if (typeof katex !== 'undefined') { try { return katex.renderToString(t, { throwOnError: true, strict: 'ignore' }); } catch (e) { if (typeof console !== 'undefined') console.error(e.message); } }
+    return t;
+  }
+  function fx(t) { return '<span class="fx">' + K(t) + '</span>'; }
+  function sum(a) { return a.reduce(function (p, q) { return p + q; }, 0); }
+  function bin(n, k) { var r = 1; for (var i = 1; i <= k; i++) r = r * (n - k + i) / i; return Math.round(r); }
+  function fak(n) { var r = 1; for (var i = 2; i <= n; i++) r *= i; return r; }
+  // Standardnormalverteilung über die Reihe der Fehlerfunktion (für |z| ≤ 4 auf ~1e-14 genau)
+  function Phi(z) {
+    var x = Math.abs(z) / Math.SQRT2, t = x, s = x, n = 0;
+    while (Math.abs(t) > 1e-17 * Math.abs(s) && n < 200) { n++; t *= -x * x / n; s += t / (2 * n + 1); }
+    var erf = 2 / Math.sqrt(Math.PI) * s;
+    return z >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf);
+  }
+  var VERT = ['Binomialverteilung', 'Hypergeometrische Verteilung', 'Poissonverteilung', 'Normalverteilung'];
+  var ZQ = { 90: 1.645, 95: 1.96, 99: 2.576 };   // z_{1-α/2} wie in der Formelsammlung
+
+  /* ---------- Übung 1: Verteilung erkennen und Wahrscheinlichkeit berechnen ---------- */
+  function vert() {
+    var typ = W(['B', 'H', 'P', 'N']), P, text, l, felder, p = {};
+    if (typ === 'B') {
+      var c = W([
+        { t: function (n, q) { return 'Ein Bauteil ist unabhängig von den anderen mit Wahrscheinlichkeit ' + f(q) + ' defekt. Aus der laufenden Produktion werden ' + n + ' Teile geprüft.'; }, x: 'Anzahl der defekten Teile', ps: [0.05, 0.1, 0.15, 0.2] },
+        { t: function (n) { return 'Ein Test besteht aus ' + n + ' Multiple-Choice-Fragen mit je vier Antworten, von denen genau eine richtig ist. Eine Person rät bei jeder Frage zufällig.'; }, x: 'Anzahl der richtigen Antworten', ps: [0.25] },
+        { t: function (n, q) { return 'Ein Kunde reagiert mit Wahrscheinlichkeit ' + f(q) + ' auf ein Angebot, unabhängig von den anderen Kunden. Das Angebot geht an ' + n + ' Kunden.'; }, x: 'Anzahl der reagierenden Kunden', ps: [0.2, 0.3, 0.4] }
+      ]);
+      var n, q, k, kum;
+      do { n = Z(5, 12); q = W(c.ps); k = Z(0, Math.min(n, 4)); kum = Math.random() < 0.4 && k >= 1;
+        P = 0; for (var i = kum ? 0 : k; i <= k; i++) P += bin(n, i) * Math.pow(q, i) * Math.pow(1 - q, n - i);
+      } while (P < 0.01 || P > 0.99);
+      p = { typ: 'B', n: n, p: q, k: k, kum: kum };
+      text = '<p>' + c.t(n, q) + ' X sei die ' + c.x + '.</p><p>Welche Verteilung hat X? Berechne ' + (kum ? 'P(X ≤ ' + k + ')' : 'P(X = ' + k + ')') + ' auf vier Nachkommastellen.</p>';
+      var terms = [];
+      for (var j = kum ? 0 : k; j <= k; j++) terms.push('\\binom{' + n + '}{' + j + '}\\,' + tn(q) + '^{' + j + '}\\,' + tn(1 - q) + '^{' + (n - j) + '}');
+      l = '<ol class="bmw-weg"><li>Verteilung: ' + n + ' unabhängige Versuche mit gleicher Erfolgswahrscheinlichkeit p = ' + f(q) + ' (wie Ziehen mit Zurücklegen), gezählt werden die Erfolge.' + fx('X\\sim B(n;p)=B(' + n + ';' + tn(q) + ')') + '</li>' +
+        '<li>Formel (Abschnitt Binomialverteilung)' + fx('P(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}') + '</li>' +
+        '<li>Einsetzen' + (kum ? ' (P(X ≤ ' + k + ') ist die Summe der Einzelwahrscheinlichkeiten für 0 bis ' + k + ')' : '') +
+        terms.map(function (t, i) { return fx((i ? '+' : 'P(X' + (kum ? '\\le ' : '=') + k + ')=') + t); }).join('') + '</li>' +
+        (kum ? '<li>Einzelwerte' + fx(Array.apply(null, Array(k + 1)).map(function (_, j) { return tz(bin(n, j) * Math.pow(q, j) * Math.pow(1 - q, n - j), 4); }).join('+')) + '</li>' : '') +
+        '<li>Ergebnis' + fx('P(X' + (kum ? '\\le ' : '=') + k + ')' + gl(P, 4)) + '</li></ol>';
+    } else if (typ === 'H') {
+      var c2 = W([
+        { t: function (N, M, n) { return 'Eine Lieferung enthält ' + N + ' Geräte, davon sind ' + M + ' defekt. Für eine Eingangskontrolle werden ' + n + ' Geräte zufällig und ohne Zurücklegen entnommen.'; }, x: 'Anzahl der defekten Geräte in der Stichprobe' },
+        { t: function (N, M, n) { return 'Von ' + N + ' Bewerbungen erfüllen ' + M + ' alle Anforderungen. Eine Personalerin zieht zufällig ' + n + ' verschiedene Bewerbungen.'; }, x: 'Anzahl der gezogenen Bewerbungen, die alle Anforderungen erfüllen' }
+      ]);
+      var N, M, n2, k2;
+      do { N = Z(10, 25); M = Z(2, 6); n2 = Z(3, 6); k2 = Z(0, Math.min(M, n2));
+        P = n2 - k2 <= N - M ? bin(M, k2) * bin(N - M, n2 - k2) / bin(N, n2) : 0;
+      } while (P < 0.01 || P > 0.99);
+      p = { typ: 'H', N: N, M: M, n: n2, k: k2 };
+      text = '<p>' + c2.t(N, M, n2) + ' X sei die ' + c2.x + '.</p><p>Welche Verteilung hat X? Berechne P(X = ' + k2 + ') auf vier Nachkommastellen.</p>';
+      var z1 = bin(M, k2), z2 = bin(N - M, n2 - k2), nn = bin(N, n2);
+      l = '<ol class="bmw-weg"><li>Verteilung: Ziehen <b>ohne</b> Zurücklegen aus einer kleinen Gesamtheit (N = ' + N + ', M = ' + M + ' mit der Eigenschaft, n = ' + n2 + '); die Binomialverteilung wäre hier nur eine grobe Näherung, weil n/N = ' + f(n2 / N, 2) + ' nicht klein ist.' + fx('X\\sim H(N;M;n)=H(' + N + ';' + M + ';' + n2 + ')') + '</li>' +
+        '<li>Formel (Abschnitt Hypergeometrische Verteilung)' + fx('P(X=k)=\\frac{\\binom{M}{k}\\binom{N-M}{n-k}}{\\binom{N}{n}}') + '</li>' +
+        '<li>Einsetzen' + fx('P(X=' + k2 + ')=\\frac{\\binom{' + M + '}{' + k2 + '}\\binom{' + (N - M) + '}{' + (n2 - k2) + '}}{\\binom{' + N + '}{' + n2 + '}}=\\frac{' + tn(z1) + '\\cdot ' + tn(z2) + '}{' + tn(nn) + '}=\\frac{' + tn(z1 * z2) + '}{' + tn(nn) + '}') + '</li>' +
+        '<li>Ergebnis' + fx('P(X=' + k2 + ')' + gl(P, 4)) + '</li></ol>';
+    } else if (typ === 'P') {
+      var c3 = W([
+        { t: 'Bei einer Service-Hotline gehen im Durchschnitt {l} Anrufe pro Minute ein; die Anrufe kommen unabhängig voneinander.', x: 'Anzahl der Anrufe in einer bestimmten Minute' },
+        { t: 'In einem Manuskript finden sich im Durchschnitt {l} Tippfehler pro Seite, zufällig und unabhängig verteilt.', x: 'Anzahl der Tippfehler auf einer bestimmten Seite' },
+        { t: 'An einer Kasse kommen zur Mittagszeit im Durchschnitt {l} Kunden pro Minute an, unabhängig voneinander.', x: 'Anzahl der Kunden in einer bestimmten Minute' }
+      ]);
+      var lam, k3, kum3;
+      do { lam = W([0.5, 1, 1.5, 2, 2.5, 3, 4]); k3 = Z(0, 5); kum3 = Math.random() < 0.4 && k3 >= 1 && k3 <= 3;
+        P = 0; for (var i3 = kum3 ? 0 : k3; i3 <= k3; i3++) P += Math.pow(lam, i3) / fak(i3) * Math.exp(-lam);
+      } while (P < 0.01 || P > 0.99);
+      p = { typ: 'P', lam: lam, k: k3, kum: kum3 };
+      text = '<p>' + (lam === 1 ? c3.t.replace('gehen im Durchschnitt {l} Anrufe', 'geht im Durchschnitt 1 Anruf').replace('kommen zur Mittagszeit im Durchschnitt {l} Kunden', 'kommt zur Mittagszeit im Durchschnitt 1 Kunde') : c3.t).replace('{l}', f(lam)) + ' X sei die ' + c3.x + '.</p><p>Welche Verteilung hat X? Berechne ' + (kum3 ? 'P(X ≤ ' + k3 + ')' : 'P(X = ' + k3 + ')') + ' auf vier Nachkommastellen.</p>';
+      var tt = [];
+      for (var j3 = kum3 ? 0 : k3; j3 <= k3; j3++) tt.push('\\frac{' + tn(lam) + '^{' + j3 + '}}{' + j3 + '!}e^{-' + tn(lam) + '}');
+      l = '<ol class="bmw-weg"><li>Verteilung: Anzahl seltener, unabhängiger Ereignisse pro Zeit- bzw. Flächeneinheit mit bekanntem Durchschnitt λ = ' + f(lam) + '.' + fx('X\\sim\\mathrm{Po}(\\lambda)=\\mathrm{Po}(' + tn(lam) + ')') + '</li>' +
+        '<li>Formel (Abschnitt Poissonverteilung)' + fx('P(X=k)=\\frac{\\lambda^k}{k!}e^{-\\lambda}') + '</li>' +
+        '<li>Einsetzen' + (kum3 ? ' (Summe der Einzelwahrscheinlichkeiten für 0 bis ' + k3 + ')' : '') + tt.map(function (t, i) { return fx((i ? '+' : 'P(X' + (kum3 ? '\\le ' : '=') + k3 + ')=') + t); }).join('') + fx('e^{-' + tn(lam) + '}\\approx ' + tz(Math.exp(-lam), 4)) + '</li>' +
+        '<li>Ergebnis' + fx('P(X' + (kum3 ? '\\le ' : '=') + k3 + ')' + gl(P, 4)) + '</li></ol>';
+    } else {
+      var c4 = W([
+        { t: 'Die Füllmenge einer Abfüllanlage ist normalverteilt mit μ = {m} ml und σ = {s} ml.', e: 'ml', m: [250, 500, 750, 1000], s: [2, 4, 5, 10] },
+        { t: 'Die Bearbeitungszeit eines Auftrags ist normalverteilt mit μ = {m} Minuten und σ = {s} Minuten.', e: 'Minuten', m: [40, 60, 90, 120], s: [5, 10, 20] },
+        { t: 'Das Gewicht eines Brotes ist normalverteilt mit μ = {m} g und σ = {s} g.', e: 'g', m: [500, 750, 1000], s: [10, 20, 25] }
+      ]);
+      var mu = W(c4.m), sg = W(c4.s), zz, xx, gr;
+      do { zz = Math.round(Z(-250, 250) / 5) / 20; xx = Math.round((mu + zz * sg) * 1000) / 1000; } while (Math.abs(zz) < 0.2 || !ex(xx, 1) || xx <= 0);
+      gr = Math.random() < 0.5;
+      var pz = Phi(Math.abs(zz));
+      P = gr ? 1 - Phi(zz) : Phi(zz);
+      p = { typ: 'N', mu: mu, sigma: sg, x: xx, gr: gr };
+      text = '<p>' + c4.t.replace('{m}', f(mu)).replace('{s}', f(sg)) + '</p><p>Welche Verteilung ist anzuwenden? Berechne ' + (gr ? 'P(X > ' + f(xx) + ')' : 'P(X ≤ ' + f(xx) + ')') + ': Gib den standardisierten Wert z (zwei Nachkommastellen) und die Wahrscheinlichkeit (vier Nachkommastellen, Φ aus der Tabelle der Standardnormalverteilung) an.</p>';
+      var schritt = zz >= 0 ? (gr ? 'P(X\\gt ' + tn(xx) + ')=1-\\Phi(' + tz(zz, 2) + ')=1-' + tz(pz, 4) : 'P(X\\le ' + tn(xx) + ')=\\Phi(' + tz(zz, 2) + ')')
+        : (gr ? 'P(X\\gt ' + tn(xx) + ')=1-\\Phi(' + tz(zz, 2) + ')=1-\\bigl(1-\\Phi(' + tz(-zz, 2) + ')\\bigr)=\\Phi(' + tz(-zz, 2) + ')' : 'P(X\\le ' + tn(xx) + ')=\\Phi(' + tz(zz, 2) + ')=1-\\Phi(' + tz(-zz, 2) + ')=1-' + tz(pz, 4));
+      l = '<ol class="bmw-weg"><li>Verteilung: stetiges Merkmal mit gegebenem Erwartungswert und gegebener Standardabweichung.' + fx('X\\sim N(\\mu;\\sigma^2)=N(' + tn(mu) + ';' + tn(sg * sg) + ')') + '</li>' +
+        '<li>Standardisieren (Abschnitt Normalverteilung)' + fx('z=\\frac{x-\\mu}{\\sigma}=\\frac{' + tn(xx) + '-' + tn(mu) + '}{' + tn(sg) + '}=' + tz(zz, 2)) + '</li>' +
+        '<li>' + (zz < 0 ? 'Tabelle enthält nur positive z: Symmetrie ' + K('\\Phi(-z)=1-\\Phi(z)') + ' nutzen. ' : '') + 'Tabellenwert ' + K('\\Phi(' + tz(Math.abs(zz), 2) + ')\\approx ' + tz(pz, 4)) + fx(schritt) + '</li>' +
+        '<li>Ergebnis' + fx((gr ? 'P(X\\gt ' : 'P(X\\le ') + tn(xx) + ')' + gl(P, 4)) + '</li></ol>';
+      felder = [{ key: 'v', label: 'Passende Verteilung', wahl: VERT, wert: VERT[3] }, { key: 'z', label: 'Standardisierter Wert z', wert: zz, nk: 2 }, { key: 'p', label: 'Wahrscheinlichkeit', wert: P, tol: 0.0002 }];
+    }
+    if (!felder) felder = [{ key: 'v', label: 'Passende Verteilung', wahl: VERT, wert: VERT[{ B: 0, H: 1, P: 2 }[typ]] }, { key: 'p', label: 'Wahrscheinlichkeit', wert: P, tol: 0.0002 }];
+    return { text: text, felder: felder, loesung: l, _p: p };
+  }
+
+  /* ---------- Übung 2: Schätzen und Testen ---------- */
+  var ENT = ['H₀ ablehnen', 'H₀ nicht ablehnen'];
+  function test() {
+    var typ = W(['KI', 'KIp', 'G']), text, l, felder, p;
+    if (typ === 'KI') {
+      var c = W([{ t: 'die Abfüllmenge einer Maschine', e: 'ml', m: [250, 500, 1000], s: [3, 4, 5, 6, 8] }, { t: 'die Lieferzeit eines Versandhändlers', e: 'Stunden', m: [24, 36, 48], s: [3, 4, 6] }, { t: 'das Gewicht von Kaffeepackungen', e: 'g', m: [250, 500], s: [2, 3, 4, 5] }]);
+      var sg = W(c.s), n = W([16, 25, 36, 49, 64, 100]), xb = W(c.m) + Z(-30, 30) / 10, niv = W([90, 95, 99]), z = ZQ[niv];
+      var h = z * sg / Math.sqrt(n), u = xb - h, o = xb + h;
+      p = { typ: 'KI', xb: xb, sigma: sg, n: n, niv: niv };
+      text = '<p>Für ' + c.t + ' (in ' + c.e + ') wird eine Normalverteilung mit bekannter Standardabweichung σ = ' + f(sg) + ' ' + c.e + ' angenommen. Eine Stichprobe vom Umfang n = ' + n + ' ergibt den Mittelwert ' + K('\\bar x') + ' = ' + f(xb) + ' ' + c.e + '.</p><p>Bestimme das ' + niv + '-%-Konfidenzintervall für den Erwartungswert μ. Gib das Quantil z<sub>1−α/2</sub> sowie die Grenzen auf zwei Nachkommastellen an.</p>';
+      felder = [{ key: 'z', label: 'Quantil z₁₋α/₂', wert: z, tol: 0.0051 }, { key: 'u', label: 'Untere Grenze', wert: u, tol: 0.01 + Math.abs(z - Math.round(z * 100) / 100) * sg / Math.sqrt(n) }, { key: 'o', label: 'Obere Grenze', wert: o, tol: 0.01 + Math.abs(z - Math.round(z * 100) / 100) * sg / Math.sqrt(n) }];
+      l = '<ol class="bmw-weg"><li>Formel wählen: μ gesucht, σ bekannt, Normalverteilung (Abschnitt Konfidenzintervalle)' + fx('\\bar x\\pm z_{1-\\alpha/2}\\,\\frac{\\sigma}{\\sqrt n}') + '</li>' +
+        '<li>Quantil: 1 − α = ' + f(niv / 100, 2) + ', also α/2 = ' + f((100 - niv) / 200, 3) + fx('z_{1-\\alpha/2}=z_{' + tn(1 - (100 - niv) / 200, 3) + '}=' + tn(z, 3)) + '</li>' +
+        '<li>Halbe Intervallbreite' + fx(tn(z, 3) + '\\cdot\\frac{' + tn(sg) + '}{\\sqrt{' + n + '}}=' + tn(z, 3) + '\\cdot\\frac{' + tn(sg) + '}{' + Math.sqrt(n) + '}' + gl(h, 4)) + '</li>' +
+        '<li>Grenzen' + fx('[\\,' + tn(xb) + '-' + tz(h, 4) + ';\\ ' + tn(xb) + '+' + tz(h, 4) + '\\,]' + (ex(u, 2) && ex(o, 2) ? '=' : '\\approx') + '[\\,' + tz(u, 2) + ';\\ ' + tz(o, 2) + '\\,]') + '</li></ol>' +
+        '<p class="small">Interpretation: Das Verfahren liefert in ' + niv + ' % aller Stichproben ein Intervall, das μ enthält.</p>';
+    } else if (typ === 'KIp') {
+      var n2, X, ph;
+      do { n2 = W([200, 250, 400, 500, 800, 1000]); X = Z(Math.round(n2 * 0.1), Math.round(n2 * 0.6)); ph = X / n2; } while (!(n2 * ph * (1 - ph) > 9) || !ex(ph, 4));
+      var niv2 = W([90, 95, 99]), z2 = ZQ[niv2], se = Math.sqrt(ph * (1 - ph) / n2), u2 = ph - z2 * se, o2 = ph + z2 * se;
+      var cx = W(['Bei einer Umfrage unter {n} zufällig ausgewählten Studierenden geben {x} an, regelmäßig ein Lehrbuch zu kaufen.', 'Von {n} zufällig ausgewählten Online-Bestellungen werden {x} zurückgeschickt.', 'In einer Stichprobe von {n} Haushalten besitzen {x} ein Elektroauto.']);
+      p = { typ: 'KIp', n: n2, X: X, niv: niv2 };
+      text = '<p>' + cx.replace('{n}', f(n2)).replace('{x}', f(X)) + '</p><p>Bestimme den Schätzwert ' + K('\\hat p') + ' und das ' + niv2 + '-%-Konfidenzintervall für den Anteil p in der Grundgesamtheit. Runde auf vier Nachkommastellen.</p>';
+      felder = [{ key: 'ph', label: 'Schätzwert für p', wert: ph, nk: 4 }, { key: 'u', label: 'Untere Grenze', wert: u2, tol: 0.0005 }, { key: 'o', label: 'Obere Grenze', wert: o2, tol: 0.0005 }];
+      l = '<ol class="bmw-weg"><li>Punktschätzer' + fx('\\hat p=\\frac{X}{n}=\\frac{' + tn(X) + '}{' + tn(n2) + '}=' + tn(ph)) + '</li>' +
+        '<li>Faustregel prüfen' + fx('n\\hat p(1-\\hat p)=' + tn(n2) + '\\cdot ' + tn(ph) + '\\cdot ' + tn(1 - ph) + gl(n2 * ph * (1 - ph), 2) + '\\gt 9') + '</li>' +
+        '<li>Formel (Abschnitt Konfidenzintervalle, Anteilswert) mit z = ' + f(z2, 3) + fx('\\hat p\\pm z_{1-\\alpha/2}\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}') + '</li>' +
+        '<li>Standardfehler' + fx('\\sqrt{\\frac{' + tn(ph) + '\\cdot ' + tn(1 - ph) + '}{' + tn(n2) + '}}' + gl(se, 4)) + '</li>' +
+        '<li>Grenzen' + fx(tn(ph) + '\\pm ' + tn(z2, 3) + '\\cdot ' + tz(se, 4) + '\\quad\\Rightarrow\\quad[\\,' + tz(u2, 4) + ';\\ ' + tz(o2, 4) + '\\,]') + '</li></ol>';
+    } else {
+      var seite = W(['zwei', 'rechts', 'links']), al = W([0.05, 0.01]), sg3 = W([4, 5, 6, 8, 10]), n3 = W([16, 25, 36, 64, 100]), mu0 = W([100, 250, 500]);
+      var crit = seite === 'zwei' ? (al === 0.05 ? 1.96 : 2.576) : (al === 0.05 ? 1.645 : 2.326);
+      if (seite === 'links') crit = -crit;
+      var xb3, zt;
+      do {
+        var d = Z(-40, 40) / 10; xb3 = Math.round((mu0 + d) * 10) / 10;
+        zt = (xb3 - mu0) / (sg3 / Math.sqrt(n3));
+      } while (Math.abs(Math.abs(zt) - Math.abs(crit)) < 0.15 || (seite === 'rechts' && zt < -0.5) || (seite === 'links' && zt > 0.5) || zt === 0);
+      var abl = seite === 'zwei' ? Math.abs(zt) > crit : seite === 'rechts' ? zt > crit : zt < crit;
+      p = { typ: 'G', seite: seite, alpha: al, sigma: sg3, n: n3, mu0: mu0, xb: xb3 };
+      var H = { zwei: ['\\mu=' + mu0, '\\mu\\ne ' + mu0], rechts: ['\\mu\\le ' + mu0, '\\mu\\gt ' + mu0], links: ['\\mu\\ge ' + mu0, '\\mu\\lt ' + mu0] }[seite];
+      var kontext = W(['Ein Hersteller gibt für ein Produkt ein Sollgewicht von {m} g an.', 'Eine Anlage soll im Mittel {m} ml abfüllen.', 'Ein Lieferant sichert eine mittlere Reißfestigkeit von {m} N zu.']).replace('{m}', mu0);
+      text = '<p>' + kontext + ' Die Standardabweichung ist mit σ = ' + f(sg3) + ' bekannt, das Merkmal ist normalverteilt. Eine Stichprobe vom Umfang n = ' + n3 + ' ergibt ' + K('\\bar x') + ' = ' + f(xb3) + '.</p>' +
+        '<p>Teste ' + K('H_0: ' + H[0]) + ' gegen ' + K('H_1: ' + H[1]) + ' zum Signifikanzniveau α = ' + f(al * 100) + ' %. Gib die Prüfgröße z (zwei Nachkommastellen), den kritischen Wert' + (seite === 'zwei' ? ' z<sub>1−α/2</sub>' : seite === 'links' ? ' (mit Vorzeichen)' : '') + ' und die Testentscheidung an.</p>';
+      felder = [{ key: 'z', label: 'Prüfgröße z', wert: zt, tol: 0.01 }, { key: 'k', label: 'Kritischer Wert', wert: crit, tol: 0.0051 }, { key: 'e', label: 'Entscheidung', wahl: ENT, wert: abl ? ENT[0] : ENT[1] }];
+      var ab = seite === 'zwei' ? '\\lvert z\\rvert\\gt z_{1-\\alpha/2}=' + tn(Math.abs(crit), 3) : seite === 'rechts' ? 'z\\gt z_{1-\\alpha}=' + tn(crit, 3) : 'z\\lt -z_{1-\\alpha}=' + tn(crit, 3);
+      l = '<ol class="bmw-weg"><li>Test wählen: Hypothese über μ, σ bekannt, Normalverteilung → Gauß-Test (Abschnitt Testen)' + fx('Z=\\frac{\\bar X-\\mu_0}{\\sigma/\\sqrt n}\\sim N(0;1)\\ \\text{unter }H_0') + '</li>' +
+        '<li>Prüfgröße' + fx('z=\\frac{' + tn(xb3) + '-' + tn(mu0) + '}{' + tn(sg3) + '/\\sqrt{' + n3 + '}}=\\frac{' + tn(xb3 - mu0) + '}{' + tn(sg3 / Math.sqrt(n3)) + '}' + gl(zt, 2)) + '</li>' +
+        '<li>' + (seite === 'zwei' ? 'Zweiseitiger' : seite === 'rechts' ? 'Rechtsseitiger' : 'Linksseitiger') + ' Test, Ablehnbereich' + fx(ab) + '</li>' +
+        '<li>Entscheidung: ' + (abl ? 'z liegt im Ablehnbereich, also wird H₀ zum Niveau ' + f(al * 100) + ' % abgelehnt.' : 'z liegt nicht im Ablehnbereich, also wird H₀ nicht abgelehnt (das ist kein Beweis für H₀).') + '</li></ol>';
+    }
+    return { text: text, felder: felder, loesung: l, _p: p };
+  }
+
+  /* ---------- Übung 3: Preisindizes ---------- */
+  var GUETER = [['Brot', 'Stück', [1.5, 4]], ['Milch', 'Liter', [0.8, 2]], ['Kaffee', 'Packung', [4, 9]], ['Butter', 'Stück', [1.5, 3.5]], ['Äpfel', 'kg', [1.5, 4]], ['Strom', '100 kWh', [25, 45]]];
+  function index() {
+    var g = GUETER.slice().sort(function () { return Math.random() - 0.5; }).slice(0, 3);
+    var p0 = [], pt = [], q0 = [], qt = [];
+    g.forEach(function (x) {
+      var a = Math.round(Z(x[2][0] * 10, x[2][1] * 10)) / 10;
+      p0.push(a); pt.push(Math.round(a * (1 + Z(-10, 30) / 100) * 10) / 10);
+      var m = Z(4, 20); q0.push(m); qt.push(Math.max(1, Math.round(m * (1 + Z(-25, 25) / 100))));
+    });
+    var A = sum(p0.map(function (v, i) { return v * q0[i]; })), B = sum(pt.map(function (v, i) { return v * q0[i]; })),
+      C = sum(p0.map(function (v, i) { return v * qt[i]; })), D = sum(pt.map(function (v, i) { return v * qt[i]; }));
+    var PL = B / A * 100, PP = D / C * 100, WI = D / A * 100;
+    var text = '<p>Ein Warenkorb besteht aus drei Gütern. Preise (in €) und Mengen in der Basisperiode 0 und der Berichtsperiode t:</p><div class="tw"><table class="at"><caption class="sr">Preise und Mengen</caption><thead><tr><th scope="col">Gut</th><th scope="col">' + K('p_0') + '</th><th scope="col">' + K('q_0') + '</th><th scope="col">' + K('p_t') + '</th><th scope="col">' + K('q_t') + '</th></tr></thead><tbody>' +
+      g.map(function (x, i) { return '<tr><th scope="row">' + x[0] + ' (' + x[1] + ')</th><td>' + fz(p0[i], 2) + '</td><td>' + q0[i] + '</td><td>' + fz(pt[i], 2) + '</td><td>' + qt[i] + '</td></tr>'; }).join('') +
+      '</tbody></table></div><p>Berechne den Preisindex nach Laspeyres, den Preisindex nach Paasche und den Wertindex (jeweils in Prozent, auf zwei Nachkommastellen).</p>';
+    var felder = [{ key: 'pl', label: 'Laspeyres-Preisindex', einheit: '%', wert: PL, tol: 0.01 }, { key: 'pp', label: 'Paasche-Preisindex', einheit: '%', wert: PP, tol: 0.01 }, { key: 'w', label: 'Wertindex', einheit: '%', wert: WI, tol: 0.01 }];
+    var tab = '<div class="tw"><table class="at"><caption>Arbeitstabelle</caption><thead><tr><th scope="col">Gut</th><th scope="col">' + K('p_0q_0') + '</th><th scope="col">' + K('p_tq_0') + '</th><th scope="col">' + K('p_0q_t') + '</th><th scope="col">' + K('p_tq_t') + '</th></tr></thead><tbody>' +
+      g.map(function (x, i) { return '<tr><th scope="row">' + x[0] + '</th><td>' + fz(p0[i] * q0[i], 2) + '</td><td>' + fz(pt[i] * q0[i], 2) + '</td><td>' + fz(p0[i] * qt[i], 2) + '</td><td>' + fz(pt[i] * qt[i], 2) + '</td></tr>'; }).join('') +
+      '</tbody><tfoot><tr><th scope="row">Σ</th><td>' + fz(A, 2) + '</td><td>' + fz(B, 2) + '</td><td>' + fz(C, 2) + '</td><td>' + fz(D, 2) + '</td></tr></tfoot></table></div>';
+    var l = '<ol class="bmw-weg"><li>Produkte aus Preisen und Mengen bilden' + tab + '</li>' +
+      '<li>Laspeyres: Warenkorb der Basisperiode' + fx('P^L_{0t}=\\frac{\\sum p_t\\,q_0}{\\sum p_0\\,q_0}=\\frac{' + tz(B, 2) + '}{' + tz(A, 2) + '}' + gl(B / A, 4) + '\\;\\widehat{=}\\;' + tz(PL, 2) + '\\,\\%') + '</li>' +
+      '<li>Paasche: Warenkorb der Berichtsperiode' + fx('P^P_{0t}=\\frac{\\sum p_t\\,q_t}{\\sum p_0\\,q_t}=\\frac{' + tz(D, 2) + '}{' + tz(C, 2) + '}' + gl(D / C, 4) + '\\;\\widehat{=}\\;' + tz(PP, 2) + '\\,\\%') + '</li>' +
+      '<li>Wertindex: Ausgaben der Berichtsperiode im Verhältnis zur Basisperiode' + fx('W_{0t}=\\frac{\\sum p_t\\,q_t}{\\sum p_0\\,q_0}=\\frac{' + tz(D, 2) + '}{' + tz(A, 2) + '}' + gl(D / A, 4) + '\\;\\widehat{=}\\;' + tz(WI, 2) + '\\,\\%') + '</li></ol>' +
+      '<p class="small">Die Preise sind nach Laspeyres um ' + fz(Math.abs(PL - 100), 2) + ' % ' + (PL >= 100 ? 'gestiegen' : 'gesunken') + ', nach Paasche um ' + fz(Math.abs(PP - 100), 2) + ' % ' + (PP >= 100 ? 'gestiegen' : 'gesunken') + '.</p>';
+    return { text: text, felder: felder, loesung: l, _p: { typ: 'I', p0: p0, q0: q0, pt: pt, qt: qt } };
+  }
+  return { vert: vert, test: test, index: index, Phi: Phi };
+})();
+// UEB-END
+function bmwPruefFix(mount) {
+  // Notlösung: „Prüfen“ steht in bm-werkzeug.js v3 außerhalb des Formulars – per form-Attribut verbinden
+  var f = mount.querySelector('form.bmw-ueb-form'), k = mount.querySelector('.bmw-ueb-btns button[type=submit]');
+  if (f && k && !k.form) { f.id = f.id || mount.id + '-form'; k.setAttribute('form', f.id); }
+}
+if (window.BMW && BMW.uebung) {
+  [['ueb-vert', 'Übung 1: Verteilung erkennen und Wahrscheinlichkeit berechnen', FSU.vert, 'Neue Aufgabe würfeln, passende Verteilung wählen, rechnen und prüfen. Wahrscheinlichkeiten auf vier Nachkommastellen; eine Abweichung von bis zu 2 in der letzten Stelle (gerundete Zwischenwerte) gilt als richtig.'],
+   ['ueb-test', 'Übung 2: Konfidenzintervall und Gauß-Test', FSU.test, null],
+   ['ueb-index', 'Übung 3: Preisindizes nach Laspeyres und Paasche', FSU.index, null]].forEach(function (u) {
+    var m = document.getElementById(u[0]);
+    var o = { titel: u[1], neu: u[2] }; if (u[3]) o.hinweis = u[3];
+    BMW.uebung(m, o);
+    bmwPruefFix(m);
+  });
+  BMW.leiste(document.querySelector('header'), { drucken: true, druckText: 'Formelsammlung drucken / als PDF' });
+}
 </script>
 </body>
 </html>

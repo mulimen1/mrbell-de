@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Verteilungstabellen: Normalverteilung, t, χ², F – mit Rechner</title>
 <meta name="description" content="Statistik-Tabellen zum Nachschlagen und Drucken: Standardnormalverteilung Φ(z), Quantile der t-, χ²- und F-Verteilung, dazu Rechner für Normal-, Binomial- und Poissonverteilung. Werte mit scipy berechnet.">
@@ -27,7 +27,7 @@ nav.toc{background:var(--soft);border:1px solid var(--line);border-radius:10px;p
 nav.toc ol{margin:.3em 0 0;padding-left:1.3em;columns:2;column-gap:2em}
 nav.toc li{margin:.15em 0;break-inside:avoid}
 .note{background:var(--warn-soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;margin:1em 0;font-size:.95rem}
-.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.calcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px;align-items:start}
 .card{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--bg)}
 .card h3{margin-top:0}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin:.4em 0}
@@ -48,6 +48,17 @@ table.num tbody tr:nth-child(even) td{background:var(--zebra)}
 table.num tbody tr:nth-child(5n) td,table.num tbody tr:nth-child(5n) th{border-bottom:2px solid var(--line)}
 table.num td.txt,table.num th.txt{text-align:left;white-space:normal}
 table.zq{width:auto}
+.druckkopf{display:none}
+.out .rwt{margin:.8em 0 .1em;padding-top:.6em;border-top:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--muted)}
+.out .bmw-weg{margin:.2em 0 0;font-size:.9rem;font-variant-numeric:tabular-nums}
+.out .bmw-weg>li{padding-bottom:4px}
+.out .bmw-weg .fx{overflow-wrap:anywhere}
+.out .rwn{margin:.3em 0 0}
+.bk{display:inline-flex;align-items:center;vertical-align:middle;margin:0 1px}
+.bk::before,.bk::after{font-size:1.9em;font-weight:200;line-height:1}
+.bk::before{content:"("}.bk::after{content:")"}
+.bk-i{display:inline-flex;flex-direction:column;align-items:center;line-height:1.1;font-size:.85em;padding:0 1px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}}
 @media print{
@@ -73,9 +84,20 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  .note{border:1px solid #999;background:none}
  a{color:#000;text-decoration:none}
  footer{margin-top:1em}
+ html.bmw-printing section.noprint:not(.bmw-ph){display:block!important}
+ html.bmw-printing h2{break-before:auto}
+ html.bmw-printing .card{border:1px solid #999;border-radius:6px;padding:10px 12px;max-width:150mm}
+ html.bmw-printing input,html.bmw-printing select{border:1px solid #999;padding:3px 6px}
+ html.bmw-printing .out{background:none;border-top:1px solid #999;border-radius:0;padding:6px 0 0}
+ .druckkopf{display:block;margin:0 0 3mm;font-size:9pt;color:#333}
+ .bmw-trust{break-inside:avoid;margin-top:1.2em}
+ .out .rwt{margin:3mm 0 1mm;font-weight:600}
+ .out .bmw-weg{padding-left:1.4em;margin:0}
+ .out .bmw-weg>li{margin:0 0 1.5mm;break-inside:avoid}
+ .out .bmw-weg .fx{display:block;margin:.5mm 0 0}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -98,7 +120,9 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <li><a href="#chi2">χ²-Verteilung</a></li>
 <li><a href="#f95">F-Verteilung, 0,95-Quantile</a></li>
 <li><a href="#f99">F-Verteilung, 0,99-Quantile</a></li>
+<li><a href="#uebung">Übungsmodus: selbst rechnen</a></li>
 <li><a href="#hinweise">Hinweise zur Notation</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
@@ -108,6 +132,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <div class="calcs">
 
 <form class="card" id="c-norm" onsubmit="return false">
+<p class="druckkopf">Verteilungsrechner: Normalverteilung · bwlmax.de/tools/verteilungstabellen</p>
 <h3>Normalverteilung</h3>
 <div class="row">
 <label>Erwartungswert μ<input id="n-mu" inputmode="decimal" value="0"></label>
@@ -125,6 +150,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </form>
 
 <form class="card" id="c-bin" onsubmit="return false">
+<p class="druckkopf">Verteilungsrechner: Binomialverteilung · bwlmax.de/tools/verteilungstabellen</p>
 <h3>Binomialverteilung B(n; p)</h3>
 <div class="row">
 <label>n (Versuche)<input id="b-n" inputmode="numeric" value="20"></label>
@@ -135,6 +161,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </form>
 
 <form class="card" id="c-poi" onsubmit="return false">
+<p class="druckkopf">Verteilungsrechner: Poissonverteilung · bwlmax.de/tools/verteilungstabellen</p>
 <h3>Poissonverteilung Po(λ)</h3>
 <div class="row">
 <label>λ (Erwartungswert)<input id="p-l" inputmode="decimal" value="3"></label>
@@ -144,6 +171,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </form>
 
 <form class="card" id="c-q" onsubmit="return false">
+<p class="druckkopf">Verteilungsrechner: Quantile t, χ², F · bwlmax.de/tools/verteilungstabellen</p>
 <h3>Quantile: t, χ², F</h3>
 <div class="row">
 <label>Verteilung<select id="q-dist"><option value="t">t-Verteilung</option><option value="chi">χ²-Verteilung</option><option value="f">F-Verteilung</option></select></label>
@@ -193,15 +221,33 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <div class="tw"><table class="num ff"><caption>F-Verteilung, 0,99-Quantile F<sub>m,n;0,99</sub> (Teil 1). Spalten: Zählerfreiheitsgrade m, Zeilen: Nennerfreiheitsgrade n. Unteres Quantil: F<sub>m,n;0,01</sub> = 1 / F<sub>n,m;0,99</sub>.</caption><thead><tr><th scope="col">n \ m</th><th scope="col">1</th><th scope="col">2</th><th scope="col">3</th><th scope="col">4</th><th scope="col">5</th><th scope="col">6</th><th scope="col">7</th><th scope="col">8</th><th scope="col">9</th><th scope="col">10</th></tr></thead><tbody><tr><th scope="row">1</th><td>4.052,18</td><td>4.999,50</td><td>5.403,35</td><td>5.624,58</td><td>5.763,65</td><td>5.858,99</td><td>5.928,36</td><td>5.981,07</td><td>6.022,47</td><td>6.055,85</td></tr><tr><th scope="row">2</th><td>98,50</td><td>99,00</td><td>99,17</td><td>99,25</td><td>99,30</td><td>99,33</td><td>99,36</td><td>99,37</td><td>99,39</td><td>99,40</td></tr><tr><th scope="row">3</th><td>34,12</td><td>30,82</td><td>29,46</td><td>28,71</td><td>28,24</td><td>27,91</td><td>27,67</td><td>27,49</td><td>27,35</td><td>27,23</td></tr><tr><th scope="row">4</th><td>21,20</td><td>18,00</td><td>16,69</td><td>15,98</td><td>15,52</td><td>15,21</td><td>14,98</td><td>14,80</td><td>14,66</td><td>14,55</td></tr><tr><th scope="row">5</th><td>16,26</td><td>13,27</td><td>12,06</td><td>11,39</td><td>10,97</td><td>10,67</td><td>10,46</td><td>10,29</td><td>10,16</td><td>10,05</td></tr><tr><th scope="row">6</th><td>13,75</td><td>10,92</td><td>9,78</td><td>9,15</td><td>8,75</td><td>8,47</td><td>8,26</td><td>8,10</td><td>7,98</td><td>7,87</td></tr><tr><th scope="row">7</th><td>12,25</td><td>9,55</td><td>8,45</td><td>7,85</td><td>7,46</td><td>7,19</td><td>6,99</td><td>6,84</td><td>6,72</td><td>6,62</td></tr><tr><th scope="row">8</th><td>11,26</td><td>8,65</td><td>7,59</td><td>7,01</td><td>6,63</td><td>6,37</td><td>6,18</td><td>6,03</td><td>5,91</td><td>5,81</td></tr><tr><th scope="row">9</th><td>10,56</td><td>8,02</td><td>6,99</td><td>6,42</td><td>6,06</td><td>5,80</td><td>5,61</td><td>5,47</td><td>5,35</td><td>5,26</td></tr><tr><th scope="row">10</th><td>10,04</td><td>7,56</td><td>6,55</td><td>5,99</td><td>5,64</td><td>5,39</td><td>5,20</td><td>5,06</td><td>4,94</td><td>4,85</td></tr><tr><th scope="row">11</th><td>9,65</td><td>7,21</td><td>6,22</td><td>5,67</td><td>5,32</td><td>5,07</td><td>4,89</td><td>4,74</td><td>4,63</td><td>4,54</td></tr><tr><th scope="row">12</th><td>9,33</td><td>6,93</td><td>5,95</td><td>5,41</td><td>5,06</td><td>4,82</td><td>4,64</td><td>4,50</td><td>4,39</td><td>4,30</td></tr><tr><th scope="row">13</th><td>9,07</td><td>6,70</td><td>5,74</td><td>5,21</td><td>4,86</td><td>4,62</td><td>4,44</td><td>4,30</td><td>4,19</td><td>4,10</td></tr><tr><th scope="row">14</th><td>8,86</td><td>6,51</td><td>5,56</td><td>5,04</td><td>4,69</td><td>4,46</td><td>4,28</td><td>4,14</td><td>4,03</td><td>3,94</td></tr><tr><th scope="row">15</th><td>8,68</td><td>6,36</td><td>5,42</td><td>4,89</td><td>4,56</td><td>4,32</td><td>4,14</td><td>4,00</td><td>3,89</td><td>3,80</td></tr><tr><th scope="row">16</th><td>8,53</td><td>6,23</td><td>5,29</td><td>4,77</td><td>4,44</td><td>4,20</td><td>4,03</td><td>3,89</td><td>3,78</td><td>3,69</td></tr><tr><th scope="row">17</th><td>8,40</td><td>6,11</td><td>5,18</td><td>4,67</td><td>4,34</td><td>4,10</td><td>3,93</td><td>3,79</td><td>3,68</td><td>3,59</td></tr><tr><th scope="row">18</th><td>8,29</td><td>6,01</td><td>5,09</td><td>4,58</td><td>4,25</td><td>4,01</td><td>3,84</td><td>3,71</td><td>3,60</td><td>3,51</td></tr><tr><th scope="row">19</th><td>8,18</td><td>5,93</td><td>5,01</td><td>4,50</td><td>4,17</td><td>3,94</td><td>3,77</td><td>3,63</td><td>3,52</td><td>3,43</td></tr><tr><th scope="row">20</th><td>8,10</td><td>5,85</td><td>4,94</td><td>4,43</td><td>4,10</td><td>3,87</td><td>3,70</td><td>3,56</td><td>3,46</td><td>3,37</td></tr><tr><th scope="row">21</th><td>8,02</td><td>5,78</td><td>4,87</td><td>4,37</td><td>4,04</td><td>3,81</td><td>3,64</td><td>3,51</td><td>3,40</td><td>3,31</td></tr><tr><th scope="row">22</th><td>7,95</td><td>5,72</td><td>4,82</td><td>4,31</td><td>3,99</td><td>3,76</td><td>3,59</td><td>3,45</td><td>3,35</td><td>3,26</td></tr><tr><th scope="row">23</th><td>7,88</td><td>5,66</td><td>4,76</td><td>4,26</td><td>3,94</td><td>3,71</td><td>3,54</td><td>3,41</td><td>3,30</td><td>3,21</td></tr><tr><th scope="row">24</th><td>7,82</td><td>5,61</td><td>4,72</td><td>4,22</td><td>3,90</td><td>3,67</td><td>3,50</td><td>3,36</td><td>3,26</td><td>3,17</td></tr><tr><th scope="row">25</th><td>7,77</td><td>5,57</td><td>4,68</td><td>4,18</td><td>3,85</td><td>3,63</td><td>3,46</td><td>3,32</td><td>3,22</td><td>3,13</td></tr><tr><th scope="row">26</th><td>7,72</td><td>5,53</td><td>4,64</td><td>4,14</td><td>3,82</td><td>3,59</td><td>3,42</td><td>3,29</td><td>3,18</td><td>3,09</td></tr><tr><th scope="row">27</th><td>7,68</td><td>5,49</td><td>4,60</td><td>4,11</td><td>3,78</td><td>3,56</td><td>3,39</td><td>3,26</td><td>3,15</td><td>3,06</td></tr><tr><th scope="row">28</th><td>7,64</td><td>5,45</td><td>4,57</td><td>4,07</td><td>3,75</td><td>3,53</td><td>3,36</td><td>3,23</td><td>3,12</td><td>3,03</td></tr><tr><th scope="row">29</th><td>7,60</td><td>5,42</td><td>4,54</td><td>4,04</td><td>3,73</td><td>3,50</td><td>3,33</td><td>3,20</td><td>3,09</td><td>3,00</td></tr><tr><th scope="row">30</th><td>7,56</td><td>5,39</td><td>4,51</td><td>4,02</td><td>3,70</td><td>3,47</td><td>3,30</td><td>3,17</td><td>3,07</td><td>2,98</td></tr><tr><th scope="row">40</th><td>7,31</td><td>5,18</td><td>4,31</td><td>3,83</td><td>3,51</td><td>3,29</td><td>3,12</td><td>2,99</td><td>2,89</td><td>2,80</td></tr><tr><th scope="row">60</th><td>7,08</td><td>4,98</td><td>4,13</td><td>3,65</td><td>3,34</td><td>3,12</td><td>2,95</td><td>2,82</td><td>2,72</td><td>2,63</td></tr><tr><th scope="row">120</th><td>6,85</td><td>4,79</td><td>3,95</td><td>3,48</td><td>3,17</td><td>2,96</td><td>2,79</td><td>2,66</td><td>2,56</td><td>2,47</td></tr><tr><th scope="row">∞</th><td>6,63</td><td>4,61</td><td>3,78</td><td>3,32</td><td>3,02</td><td>2,80</td><td>2,64</td><td>2,51</td><td>2,41</td><td>2,32</td></tr></tbody></table><table class="num ff"><caption>F-Verteilung, 0,99-Quantile F<sub>m,n;0,99</sub> (Teil 2). Spalten: Zählerfreiheitsgrade m, Zeilen: Nennerfreiheitsgrade n. Unteres Quantil: F<sub>m,n;0,01</sub> = 1 / F<sub>n,m;0,99</sub>.</caption><thead><tr><th scope="col">n \ m</th><th scope="col">12</th><th scope="col">15</th><th scope="col">20</th><th scope="col">24</th><th scope="col">30</th><th scope="col">40</th><th scope="col">60</th><th scope="col">120</th><th scope="col">∞</th></tr></thead><tbody><tr><th scope="row">1</th><td>6.106,32</td><td>6.157,28</td><td>6.208,73</td><td>6.234,63</td><td>6.260,65</td><td>6.286,78</td><td>6.313,03</td><td>6.339,39</td><td>6.365,86</td></tr><tr><th scope="row">2</th><td>99,42</td><td>99,43</td><td>99,45</td><td>99,46</td><td>99,47</td><td>99,47</td><td>99,48</td><td>99,49</td><td>99,50</td></tr><tr><th scope="row">3</th><td>27,05</td><td>26,87</td><td>26,69</td><td>26,60</td><td>26,50</td><td>26,41</td><td>26,32</td><td>26,22</td><td>26,13</td></tr><tr><th scope="row">4</th><td>14,37</td><td>14,20</td><td>14,02</td><td>13,93</td><td>13,84</td><td>13,75</td><td>13,65</td><td>13,56</td><td>13,46</td></tr><tr><th scope="row">5</th><td>9,89</td><td>9,72</td><td>9,55</td><td>9,47</td><td>9,38</td><td>9,29</td><td>9,20</td><td>9,11</td><td>9,02</td></tr><tr><th scope="row">6</th><td>7,72</td><td>7,56</td><td>7,40</td><td>7,31</td><td>7,23</td><td>7,14</td><td>7,06</td><td>6,97</td><td>6,88</td></tr><tr><th scope="row">7</th><td>6,47</td><td>6,31</td><td>6,16</td><td>6,07</td><td>5,99</td><td>5,91</td><td>5,82</td><td>5,74</td><td>5,65</td></tr><tr><th scope="row">8</th><td>5,67</td><td>5,52</td><td>5,36</td><td>5,28</td><td>5,20</td><td>5,12</td><td>5,03</td><td>4,95</td><td>4,86</td></tr><tr><th scope="row">9</th><td>5,11</td><td>4,96</td><td>4,81</td><td>4,73</td><td>4,65</td><td>4,57</td><td>4,48</td><td>4,40</td><td>4,31</td></tr><tr><th scope="row">10</th><td>4,71</td><td>4,56</td><td>4,41</td><td>4,33</td><td>4,25</td><td>4,17</td><td>4,08</td><td>4,00</td><td>3,91</td></tr><tr><th scope="row">11</th><td>4,40</td><td>4,25</td><td>4,10</td><td>4,02</td><td>3,94</td><td>3,86</td><td>3,78</td><td>3,69</td><td>3,60</td></tr><tr><th scope="row">12</th><td>4,16</td><td>4,01</td><td>3,86</td><td>3,78</td><td>3,70</td><td>3,62</td><td>3,54</td><td>3,45</td><td>3,36</td></tr><tr><th scope="row">13</th><td>3,96</td><td>3,82</td><td>3,66</td><td>3,59</td><td>3,51</td><td>3,43</td><td>3,34</td><td>3,25</td><td>3,17</td></tr><tr><th scope="row">14</th><td>3,80</td><td>3,66</td><td>3,51</td><td>3,43</td><td>3,35</td><td>3,27</td><td>3,18</td><td>3,09</td><td>3,00</td></tr><tr><th scope="row">15</th><td>3,67</td><td>3,52</td><td>3,37</td><td>3,29</td><td>3,21</td><td>3,13</td><td>3,05</td><td>2,96</td><td>2,87</td></tr><tr><th scope="row">16</th><td>3,55</td><td>3,41</td><td>3,26</td><td>3,18</td><td>3,10</td><td>3,02</td><td>2,93</td><td>2,84</td><td>2,75</td></tr><tr><th scope="row">17</th><td>3,46</td><td>3,31</td><td>3,16</td><td>3,08</td><td>3,00</td><td>2,92</td><td>2,83</td><td>2,75</td><td>2,65</td></tr><tr><th scope="row">18</th><td>3,37</td><td>3,23</td><td>3,08</td><td>3,00</td><td>2,92</td><td>2,84</td><td>2,75</td><td>2,66</td><td>2,57</td></tr><tr><th scope="row">19</th><td>3,30</td><td>3,15</td><td>3,00</td><td>2,92</td><td>2,84</td><td>2,76</td><td>2,67</td><td>2,58</td><td>2,49</td></tr><tr><th scope="row">20</th><td>3,23</td><td>3,09</td><td>2,94</td><td>2,86</td><td>2,78</td><td>2,69</td><td>2,61</td><td>2,52</td><td>2,42</td></tr><tr><th scope="row">21</th><td>3,17</td><td>3,03</td><td>2,88</td><td>2,80</td><td>2,72</td><td>2,64</td><td>2,55</td><td>2,46</td><td>2,36</td></tr><tr><th scope="row">22</th><td>3,12</td><td>2,98</td><td>2,83</td><td>2,75</td><td>2,67</td><td>2,58</td><td>2,50</td><td>2,40</td><td>2,31</td></tr><tr><th scope="row">23</th><td>3,07</td><td>2,93</td><td>2,78</td><td>2,70</td><td>2,62</td><td>2,54</td><td>2,45</td><td>2,35</td><td>2,26</td></tr><tr><th scope="row">24</th><td>3,03</td><td>2,89</td><td>2,74</td><td>2,66</td><td>2,58</td><td>2,49</td><td>2,40</td><td>2,31</td><td>2,21</td></tr><tr><th scope="row">25</th><td>2,99</td><td>2,85</td><td>2,70</td><td>2,62</td><td>2,54</td><td>2,45</td><td>2,36</td><td>2,27</td><td>2,17</td></tr><tr><th scope="row">26</th><td>2,96</td><td>2,81</td><td>2,66</td><td>2,58</td><td>2,50</td><td>2,42</td><td>2,33</td><td>2,23</td><td>2,13</td></tr><tr><th scope="row">27</th><td>2,93</td><td>2,78</td><td>2,63</td><td>2,55</td><td>2,47</td><td>2,38</td><td>2,29</td><td>2,20</td><td>2,10</td></tr><tr><th scope="row">28</th><td>2,90</td><td>2,75</td><td>2,60</td><td>2,52</td><td>2,44</td><td>2,35</td><td>2,26</td><td>2,17</td><td>2,06</td></tr><tr><th scope="row">29</th><td>2,87</td><td>2,73</td><td>2,57</td><td>2,49</td><td>2,41</td><td>2,33</td><td>2,23</td><td>2,14</td><td>2,03</td></tr><tr><th scope="row">30</th><td>2,84</td><td>2,70</td><td>2,55</td><td>2,47</td><td>2,39</td><td>2,30</td><td>2,21</td><td>2,11</td><td>2,01</td></tr><tr><th scope="row">40</th><td>2,66</td><td>2,52</td><td>2,37</td><td>2,29</td><td>2,20</td><td>2,11</td><td>2,02</td><td>1,92</td><td>1,80</td></tr><tr><th scope="row">60</th><td>2,50</td><td>2,35</td><td>2,20</td><td>2,12</td><td>2,03</td><td>1,94</td><td>1,84</td><td>1,73</td><td>1,60</td></tr><tr><th scope="row">120</th><td>2,34</td><td>2,19</td><td>2,03</td><td>1,95</td><td>1,86</td><td>1,76</td><td>1,66</td><td>1,53</td><td>1,38</td></tr><tr><th scope="row">∞</th><td>2,18</td><td>2,04</td><td>1,88</td><td>1,79</td><td>1,70</td><td>1,59</td><td>1,47</td><td>1,32</td><td>1,00</td></tr></tbody></table></div>
 </section>
 
+<section id="uebung" class="noprint" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übungsmodus: selbst rechnen</h2>
+<p class="small">Klausurtypische Aufgaben mit zufälligen Zahlen: kritische Werte in den Tabellen dieser Seite nachschlagen und Wahrscheinlichkeiten berechnen. Die Prüfung akzeptiert Tabellenwerte und kleine Rundungsabweichungen.</p>
+<div id="ueb-quantil"></div>
+<div id="ueb-wahrsch"></div>
+</section>
+
 <section id="hinweise" aria-labelledby="h-hinweise">
 <h2 id="h-hinweise">Hinweise zur Notation</h2>
 <ul>
 <li>Alle Tabellen geben <strong>untere Quantile</strong> an: Das p-Quantil x<sub>p</sub> erfüllt P(X ≤ x<sub>p</sub>) = p. Manche Lehrbücher und Formelsammlungen tabellieren stattdessen obere Quantile mit Überschreitungswahrscheinlichkeit α, dort entspricht x<sub>α</sub> dem Wert x<sub>1−α</sub> dieser Tabellen. Im Zweifel an einem bekannten Wert prüfen, etwa z = 1,96 für p = 0,975.</li>
 <li>Zweiseitige Tests und Konfidenzintervalle zum Niveau α verwenden das Quantil zu p = 1 − α/2, einseitige Tests das Quantil zu p = 1 − α.</li>
 <li>Die Schreibweise der Freiheitsgrade wechselt: t<sub>n;p</sub>, t<sub>p</sub>(n), t<sub>n,1−α</sub> meinen dasselbe. Bei der F-Verteilung steht der Zählerfreiheitsgrad immer zuerst.</li>
-<li>Rundung: Φ(z) und z<sub>p</sub> auf 4, t- und χ²-Quantile auf 3, F-Quantile auf 2 Nachkommastellen. Sehr kleine χ²-Quantile mit 3 signifikanten Stellen.</li>
+<li>Rundung: Φ(z) und z<sub>p</sub> auf 4, t- und χ²-Quantile auf 3, F-Quantile auf 2 Nachkommastellen. χ²-Quantile unter 1 auf 4 Nachkommastellen, sehr kleine (unter 0,01) mit 3 signifikanten Stellen.</li>
 <li>Die Rechner arbeiten mit numerischen Verfahren (Reihen, Kettenbrüche, Intervallhalbierung). Sie wurden an mehreren Tausend Werten gegen scipy geprüft und stimmen mindestens auf 8 signifikante Stellen.</li>
 </ul>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen" class="nb">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Ablesen, Symmetrieregeln und Rundung der Tabellen stehen in den <a href="#hinweise">Hinweisen zur Notation</a>. Die Rechner nutzen Reihen, Kettenbrüche und Intervallhalbierung; jeder Rechner zeigt seinen Rechenweg.</span></li>
+<li><b>Gegengerechnet</b><span>Alle 2.241 Tabellenwerte und die Rechner (2.412 Testfälle, auch extreme Parameter) sind automatisch gegen die Statistikbibliothek scipy als unabhängige Referenz geprüft – ohne Abweichung, die Rechner auf mindestens 8 signifikante Stellen genau. Ebenso geprüft: 3.500 zufällig erzeugte Übungsaufgaben.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -405,7 +451,7 @@ var SM = (function () {
   var SUP = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
   function sci(x, sig) {
     var e = Math.floor(Math.log10(Math.abs(x))), m = x / Math.pow(10, e);
-    if (Math.abs(m) >= 9.9995) { m /= 10; e += 1; }
+    if (Math.abs(m) >= 10 - 0.5 * Math.pow(10, 1 - sig)) { m /= 10; e += 1; }
     return de(m, sig - 1) + ' · 10' + String(e).replace(/./g, function (c) { return SUP[c]; });
   }
   function fp(x) { // Wahrscheinlichkeit
@@ -418,68 +464,363 @@ var SM = (function () {
   }
   function fq(x) { // Quantil
     if (!isFinite(x)) return '–';
-    if (x !== 0 && Math.abs(x) < 1e-3) return sci(x, 5);
+    if (x !== 0 && Math.abs(x) < 1e-3) return sci(x, 5).replace('-', '−');
+    return de(x, 4).replace('-', '−');
+  }
+  // Rechenweg: Zahl wie eingegeben (ohne erzwungene Nachkommastellen), negative in Klammern
+  function nz(x) { return x.toLocaleString('de-DE', { maximumFractionDigits: 10 }).replace('-', '−'); }
+  function par(x) { return x < 0 ? '(' + nz(x) + ')' : nz(x); }
+  function sg(x, s) { // s signifikante Stellen
+    if (x === 0) return '0';
+    if (!isFinite(x)) return '–';
+    var e = Math.floor(Math.log10(Math.abs(x)));
+    if (e < -4 || e > 14) return sci(x, s);
+    return x.toLocaleString('de-DE', { maximumFractionDigits: Math.max(0, s - 1 - e) }).replace('-', '−');
+  }
+  function p4(x) { // Wahrscheinlichkeit im Rechenweg: 4 Nachkommastellen, sehr klein wissenschaftlich
+    if (x > 0 && x < 5e-5) return sci(x, 3);
     return de(x, 4);
   }
+  function zf(z) { return (Math.abs(z * 100 - Math.round(z * 100)) < 1e-9 ? de(z, 2) : de(z, 4)).replace('-', '−'); }
+  function bk(n, k) { return '<span class="bk" aria-hidden="true"><span class="bk-i"><span>' + n + '</span><span>' + k + '</span></span></span><span class="sr">(' + n + ' über ' + k + ')</span>'; }
   function line(lbl, val) { return '<div><span>' + lbl + '</span><b>' + val + '</b></div>'; }
   function err(msg) { return '<span class="err">' + msg + '</span>'; }
+  function li(t, fx) { return '<li><b>' + t + '</b>' + (fx ? '<span class="fx">' + fx + '</span>' : '') + '</li>'; }
+  function weg(items, note) { return '<p class="rwt">Rechenweg</p><ol class="bmw-weg">' + items.join('') + '</ol>' + (note ? '<p class="small rwn">' + note + '</p>' : ''); }
+  function mark(ids, bad) { ids.forEach(function (id) { $(id).setAttribute('aria-invalid', bad.indexOf(id) >= 0 ? 'true' : 'false'); }); }
+  // Φ-Wert in Tabellen-Rundung (4 Stellen), als ganze Zehntausendstel
+  function phi4(z) { return Math.round(SM.Phi(z) * 1e4); }
+  function t4(v) { return de(v / 1e4, 4); }
+  // Φ(z) mit Symmetrie wie beim Ablesen aus der Tabelle; liefert [Text, Wert in Zehntausendsteln]
+  function phiText(z) {
+    if (z < 0) { var v = phi4(-z); return ['Φ(' + zf(z) + ') = 1 − Φ(' + zf(-z) + ') = 1 − ' + t4(v) + ' = ' + t4(1e4 - v), 1e4 - v]; }
+    var w = phi4(z); return ['Φ(' + zf(z) + ') = ' + t4(w), w];
+  }
 
+  // ---------- Normalverteilung ----------
   function calcNorm() {
+    var ids = ['n-mu', 'n-sd', 'n-a', 'n-b', 'n-p'];
     var mu = num($('n-mu').value), sd = num($('n-sd').value), a = num($('n-a').value), b = num($('n-b').value), p = num($('n-p').value);
-    var o = [];
-    if (!isFinite(mu) || !(sd > 0)) { $('n-out').innerHTML = err('Bitte μ und σ > 0 eingeben.'); return; }
-    var std = mu === 0 && sd === 1;
-    if (isFinite(a)) { var za = (a - mu) / sd; o.push(line((std ? 'Φ(a)' : 'P(X ≤ a)') + (std ? '' : ', z = ' + de(za, 4)), fp(SM.Phi(za)))); }
-    if (isFinite(b)) { var zb = (b - mu) / sd; o.push(line((std ? 'Φ(b)' : 'P(X ≤ b)') + (std ? '' : ', z = ' + de(zb, 4)), fp(SM.Phi(zb)))); o.push(line('P(X &gt; b)', fp(SM.Q(zb)))); }
+    var o = [], w = [], bad = [];
+    if (!isFinite(mu)) bad.push('n-mu');
+    if (!(sd > 0)) bad.push('n-sd');
+    if ($('n-a').value.trim() !== '' && !isFinite(a)) bad.push('n-a');
+    if ($('n-b').value.trim() !== '' && !isFinite(b)) bad.push('n-b');
+    if ($('n-p').value.trim() !== '' && !(p > 0 && p < 1)) bad.push('n-p');
+    if (bad.indexOf('n-mu') >= 0 || bad.indexOf('n-sd') >= 0) { mark(ids, bad); $('n-out').innerHTML = err('Bitte μ als Zahl und σ > 0 eingeben.'); return; }
+    var std = mu === 0 && sd === 1, za, zb, ta, tb;
+    function stdz(x, n) { return 'z<sub>' + n + '</sub> = (' + n + ' − μ) / σ = (' + nz(x) + ' − ' + par(mu) + ') / ' + nz(sd) + ' = ' + zf((x - mu) / sd); }
+    if (isFinite(a)) { za = (a - mu) / sd; o.push(line((std ? 'Φ(a)' : 'P(X ≤ a)') + (std ? '' : ', z = ' + de(za, 4).replace('-', '−')), fp(SM.Phi(za)))); }
+    if (isFinite(b)) { zb = (b - mu) / sd; o.push(line((std ? 'Φ(b)' : 'P(X ≤ b)') + (std ? '' : ', z = ' + de(zb, 4).replace('-', '−')), fp(SM.Phi(zb)))); o.push(line('P(X &gt; b)', fp(SM.Q(zb)))); }
+    if (!std && (isFinite(a) || isFinite(b))) w.push(li('Standardisieren', (isFinite(a) ? stdz(a, 'a') : '') + (isFinite(a) && isFinite(b) ? '<br>' : '') + (isFinite(b) ? stdz(b, 'b') : '')));
+    if (isFinite(a)) { ta = phiText(za); w.push(li('P(X ≤ a)', 'P(X ≤ ' + nz(a) + ') = ' + ta[0])); }
+    if (isFinite(b)) { tb = phiText(zb); w.push(li('P(X ≤ b) und P(X &gt; b)', 'P(X ≤ ' + nz(b) + ') = ' + tb[0] + '<br>P(X &gt; ' + nz(b) + ') = 1 − Φ(' + zf(zb) + ') = 1 − ' + t4(tb[1]) + ' = ' + t4(1e4 - tb[1]))); }
     if (isFinite(a) && isFinite(b)) {
-      if (a <= b) o.push(line('P(a ≤ X ≤ b)', fp(SM.normProb((a - mu) / sd, (b - mu) / sd))));
-      else o.push(err('Für P(a ≤ X ≤ b) muss a ≤ b sein.'));
+      if (a <= b) {
+        o.push(line('P(a ≤ X ≤ b)', fp(SM.normProb((a - mu) / sd, (b - mu) / sd))));
+        w.push(li('P(a ≤ X ≤ b)', 'P(' + nz(a) + ' ≤ X ≤ ' + nz(b) + ') = Φ(' + zf(zb) + ') − Φ(' + zf(za) + ') = ' + t4(tb[1]) + ' − ' + t4(ta[1]) + ' = ' + t4(tb[1] - ta[1])));
+      } else { o.push(err('Für P(a ≤ X ≤ b) muss a ≤ b sein.')); bad.push('n-a', 'n-b'); }
     }
     if ($('n-p').value.trim() !== '') {
-      if (p > 0 && p < 1) o.push(line('Quantil x<sub>p</sub> mit P(X ≤ x<sub>p</sub>) = p', fq(mu + sd * SM.zq(p))));
-      else o.push(err('p muss zwischen 0 und 1 liegen.'));
+      if (p > 0 && p < 1) {
+        var zp = SM.zq(p), xp = mu + sd * zp;
+        o.push(line('Quantil x<sub>p</sub> mit P(X ≤ x<sub>p</sub>) = p', fq(xp)));
+        var zt = tabWert('table.zq', pstr(p < 0.5 ? +(1 - p).toFixed(10) : p), 'zp');
+        var ps = nz(p), q = p < 0.5 ? 'z<sub>' + ps + '</sub> = −z<sub>' + nz(+(1 - p).toFixed(10)) + '</sub> = ' + de(zp, 4).replace('-', '−') : 'z<sub>' + ps + '</sub> = ' + de(zp, 4);
+        if (zt) q += ' (Tabelle <a href="#z-quantile">Quantile</a>, Zeile p = ' + pstr(p < 0.5 ? +(1 - p).toFixed(10) : p) + ': ' + zt + ')';
+        w.push(li('Quantil', q + (std ? '' : '<br>x<sub>p</sub> = μ + z<sub>p</sub> · σ = ' + nz(mu) + ' + ' + par(+zp.toFixed(4)) + ' · ' + nz(sd) + ' = ' + fq(xp).replace('-', '−'))));
+      } else o.push(err('p muss zwischen 0 und 1 liegen.'));
     }
-    $('n-out').innerHTML = o.join('') || '<span class="small">Werte eingeben.</span>';
+    mark(ids, bad);
+    $('n-out').innerHTML = (o.join('') || '<span class="small">Werte eingeben.</span>') +
+      (w.length ? weg(w, 'Φ-Werte wie in der Tabelle auf vier Stellen gerundet; die Ergebnisse oben sind exakt.') : '');
   }
   function isInt(x) { return isFinite(x) && x >= 0 && Math.floor(x) === x; }
+  function binom(n, k) { // exakt, solange das Ergebnis unter 2^53 bleibt
+    if (k > n - k) k = n - k;
+    var r = 1; for (var i = 1; i <= k; i++) { r = Math.round(r * (n - k + i) / i); if (r > 9e15) return NaN; }
+    return r;
+  }
+
+  // ---------- Binomialverteilung ----------
   function calcBin() {
+    var ids = ['b-n', 'b-p', 'b-k'];
     var n = num($('b-n').value), p = num($('b-p').value), k = num($('b-k').value);
-    if (!isInt(n) || n < 1 || n > 1e6) { $('b-out').innerHTML = err('n: ganze Zahl von 1 bis 1.000.000.'); return; }
-    if (!(p >= 0 && p <= 1)) { $('b-out').innerHTML = err('p muss zwischen 0 und 1 liegen.'); return; }
-    if (!isInt(k) || k > n) { $('b-out').innerHTML = err('k: ganze Zahl von 0 bis n.'); return; }
-    $('b-out').innerHTML = line('P(X = k)', fp(SM.binPmf(k, n, p))) + line('P(X ≤ k)', fp(SM.binCdf(k, n, p))) +
-      line('P(X &lt; k)', fp(SM.binCdf(k - 1, n, p))) + line('P(X ≥ k)', fp(SM.binUpper(k, n, p))) +
-      line('E(X) = np', de(n * p, 4)) + line('Var(X) = np(1 − p)', de(n * p * (1 - p), 4));
+    if (!isInt(n) || n < 1 || n > 1e6) { mark(ids, ['b-n']); $('b-out').innerHTML = err('n: ganze Zahl von 1 bis 1.000.000.'); return; }
+    if (!(p >= 0 && p <= 1)) { mark(ids, ['b-p']); $('b-out').innerHTML = err('p muss zwischen 0 und 1 liegen.'); return; }
+    if (!isInt(k) || k > n) { mark(ids, ['b-k']); $('b-out').innerHTML = err('k: ganze Zahl von 0 bis n.'); return; }
+    mark(ids, []);
+    var pk = SM.binPmf(k, n, p), cdf = SM.binCdf(k, n, p), cdf1 = SM.binCdf(k - 1, n, p), up = SM.binUpper(k, n, p);
+    var w = [], C = binom(n, k), q = +(1 - p).toFixed(12);
+    var f = 'P(X = ' + k + ') = ' + bk(nz(n), nz(k)) + ' · ' + nz(p) + '<sup>' + k + '</sup> · ' + nz(q) + '<sup>' + nz(n - k) + '</sup>';
+    if (isFinite(C) && pk > 0) f += '<br>= ' + sg(C, 15) + ' · ' + sg(Math.pow(p, k), 4) + ' · ' + sg(Math.pow(q, n - k), 4);
+    w.push(li('Einzelwahrscheinlichkeit', 'P(X = k) = ' + bk('n', 'k') + ' · p<sup>k</sup> · (1 − p)<sup>n−k</sup><br>' + f + ' ≈ ' + p4(pk)));
+    var sum = 'P(X ≤ ' + k + ') = P(X = 0) + … + P(X = ' + k + ')';
+    if (k === 0) sum = 'P(X ≤ 0) = P(X = 0)';
+    else if (k <= 3) { var t = []; for (var i = 0; i <= k; i++) t.push(p4(SM.binPmf(i, n, p))); sum = 'P(X ≤ ' + k + ') = ' + t.join(' + '); }
+    w.push(li('Verteilungsfunktion', sum + ' ≈ ' + p4(cdf) + (k >= 1 ? '<br>P(X &lt; ' + k + ') = P(X ≤ ' + (k - 1) + ') ≈ ' + p4(cdf1) : '')));
+    w.push(li('Gegenwahrscheinlichkeit', k === 0 ? 'P(X ≥ 0) = 1' : 'P(X ≥ ' + k + ') = 1 − P(X ≤ ' + (k - 1) + ') = 1 − ' + p4(cdf1) + ' ≈ ' + p4(up)));
+    w.push(li('Erwartungswert und Varianz', 'E(X) = n · p = ' + nz(n) + ' · ' + nz(p) + ' = ' + nz(+(n * p).toFixed(8)) + '<br>Var(X) = n · p · (1 − p) = ' + nz(n) + ' · ' + nz(p) + ' · ' + nz(q) + ' = ' + nz(+(n * p * q).toFixed(8))));
+    $('b-out').innerHTML = line('P(X = k)', fp(pk)) + line('P(X ≤ k)', fp(cdf)) +
+      line('P(X &lt; k)', fp(cdf1)) + line('P(X ≥ k)', fp(up)) +
+      line('E(X) = np', de(n * p, 4)) + line('Var(X) = np(1 − p)', de(n * p * (1 - p), 4)) +
+      weg(w, 'Zwischenwerte gerundet; die Ergebnisse oben sind exakt berechnet.');
   }
+
+  // ---------- Poissonverteilung ----------
   function calcPoi() {
+    var ids = ['p-l', 'p-k'];
     var l = num($('p-l').value), k = num($('p-k').value);
-    if (!(l > 0) || l > 1e6) { $('p-out').innerHTML = err('λ muss größer als 0 sein (höchstens 1.000.000).'); return; }
-    if (!isInt(k) || k > 1e7) { $('p-out').innerHTML = err('k: ganze Zahl ≥ 0.'); return; }
-    $('p-out').innerHTML = line('P(X = k)', fp(SM.poiPmf(k, l))) + line('P(X ≤ k)', fp(SM.poiCdf(k, l))) +
-      line('P(X &lt; k)', fp(SM.poiCdf(k - 1, l))) + line('P(X ≥ k)', fp(SM.poiUpper(k, l))) +
-      line('E(X) = Var(X) = λ', de(l, 4));
+    if (!(l > 0) || l > 1e6) { mark(ids, ['p-l']); $('p-out').innerHTML = err('λ muss größer als 0 sein (höchstens 1.000.000).'); return; }
+    if (!isInt(k) || k > 1e7) { mark(ids, ['p-k']); $('p-out').innerHTML = err('k: ganze Zahl ≥ 0.'); return; }
+    mark(ids, []);
+    var pk = SM.poiPmf(k, l), cdf = SM.poiCdf(k, l), cdf1 = SM.poiCdf(k - 1, l), up = SM.poiUpper(k, l), w = [];
+    var lk = Math.pow(l, k), kf = 1, el = Math.exp(-l);
+    for (var fi = 2; fi <= k && fi <= 171; fi++) kf *= fi;
+    var f = 'P(X = ' + k + ') = ' + nz(l) + '<sup>' + k + '</sup> / ' + k + '! · e<sup>−' + nz(l) + '</sup>';
+    if (isFinite(lk) && isFinite(kf) && el > 0 && k <= 170) f += '<br>= ' + sg(lk, 6) + ' / ' + sg(kf, 6) + ' · ' + sg(el, 4);
+    w.push(li('Einzelwahrscheinlichkeit', 'P(X = k) = λ<sup>k</sup> / k! · e<sup>−λ</sup><br>' + f + ' ≈ ' + p4(pk)));
+    var sum;
+    if (k === 0) sum = 'P(X ≤ 0) = P(X = 0)';
+    else if (k <= 3) { var t = []; for (var i = 0; i <= k; i++) t.push(p4(SM.poiPmf(i, l))); sum = 'P(X ≤ ' + k + ') = ' + t.join(' + '); }
+    else sum = 'P(X ≤ ' + k + ') = P(X = 0) + … + P(X = ' + k + ')';
+    w.push(li('Verteilungsfunktion', sum + ' ≈ ' + p4(cdf) + (k >= 1 ? '<br>P(X &lt; ' + k + ') = P(X ≤ ' + (k - 1) + ') ≈ ' + p4(cdf1) : '')));
+    w.push(li('Gegenwahrscheinlichkeit', k === 0 ? 'P(X ≥ 0) = 1' : 'P(X ≥ ' + k + ') = 1 − P(X ≤ ' + (k - 1) + ') = 1 − ' + p4(cdf1) + ' ≈ ' + p4(up)));
+    $('p-out').innerHTML = line('P(X = k)', fp(pk)) + line('P(X ≤ k)', fp(cdf)) +
+      line('P(X &lt; k)', fp(cdf1)) + line('P(X ≥ k)', fp(up)) +
+      line('E(X) = Var(X) = λ', de(l, 4)) +
+      weg(w, 'Zwischenwerte gerundet; die Ergebnisse oben sind exakt berechnet.');
   }
+
+  // ---------- Tabellenwert nachschlagen (aus den Tabellen dieser Seite) ----------
+  function kopf(t) { return t.textContent.replace(/\s+/g, ''); }
+  function tabWert(sel, zeile, spalte) {
+    var ts = document.querySelectorAll(sel);
+    for (var i = 0; i < ts.length; i++) {
+      var hs = ts[i].querySelectorAll('thead th'), ci = -1;
+      for (var j = 1; j < hs.length; j++) if (kopf(hs[j]) === spalte) ci = j;
+      if (ci < 0) continue;
+      var rs = ts[i].querySelectorAll('tbody tr');
+      for (var r = 0; r < rs.length; r++) {
+        var th = rs[r].querySelector('th');
+        if (th && kopf(th) === zeile) { var td = rs[r].querySelectorAll('td')[ci - 1]; return td ? td.textContent : null; }
+      }
+    }
+    return null;
+  }
+  function pstr(p) { return p.toLocaleString('de-DE', { maximumFractionDigits: 8 }); }
+  var TAB = { t: ['table.tt', '#t', 't-Tabelle'], chi: ['table.chi', '#chi2', 'χ²-Tabelle'], f95: ['#f95 table.ff', '#f95', 'F-Tabelle (0,95)'], f99: ['#f99 table.ff', '#f99', 'F-Tabelle (0,99)'] };
+  function nachschlagen(art, zeile, spalte, zl, sl) {
+    var t = TAB[art], v = tabWert(t[0], zeile, spalte);
+    return v ? '<a href="' + t[1] + '">' + t[2] + '</a>, Zeile ' + (zl || '') + zeile + ', Spalte ' + (sl || '') + spalte + ': <b>' + v + '</b>' : null;
+  }
+
+  // ---------- Quantile t, χ², F ----------
   function calcQ() {
+    var ids = ['q-p', 'q-d1', 'q-d2'];
     var dist = $('q-dist').value, p = num($('q-p').value), d1 = num($('q-d1').value), d2 = num($('q-d2').value);
     $('q-l2').hidden = dist !== 'f';
     $('q-l1').firstChild.nodeValue = dist === 'f' ? 'Zählerfreiheitsgrade m' : 'Freiheitsgrade n';
-    if (!(p > 0 && p < 1)) { $('q-out').innerHTML = err('p muss zwischen 0 und 1 liegen.'); return; }
-    if (!(d1 > 0) || d1 > 1e6) { $('q-out').innerHTML = err('Freiheitsgrade müssen größer als 0 sein.'); return; }
-    var x, lbl;
-    if (dist === 't') { x = SM.tq(p, d1); lbl = 't<sub>' + de(d1, 0) + ';p</sub>'; }
-    else if (dist === 'chi') { x = SM.chiq(p, d1); lbl = 'χ²<sub>' + de(d1, 0) + ';p</sub>'; }
-    else {
-      if (!(d2 > 0) || d2 > 1e6) { $('q-out').innerHTML = err('Nennerfreiheitsgrade müssen größer als 0 sein.'); return; }
-      x = SM.fq(p, d1, d2); lbl = 'F<sub>' + de(d1, 0) + ',' + de(d2, 0) + ';p</sub>';
+    if (!(p > 0 && p < 1)) { mark(ids, ['q-p']); $('q-out').innerHTML = err('p muss zwischen 0 und 1 liegen.'); return; }
+    if (!(d1 > 0) || d1 > 1e6) { mark(ids, ['q-d1']); $('q-out').innerHTML = err('Freiheitsgrade müssen größer als 0 sein.'); return; }
+    var x, lbl, w = [], ganz = d1 === Math.floor(d1), pp = p < 0.5 ? +(1 - p).toFixed(10) : p, tv;
+    if (dist === 't') {
+      x = SM.tq(p, d1); lbl = 't<sub>' + de(d1, 0) + ';' + pstr(p) + '</sub>';
+      w.push(li('Gesucht', 't<sub>n;p</sub> mit P(T ≤ t<sub>n;p</sub>) = p, hier n = ' + nz(d1) + ', p = ' + pstr(p)));
+      if (p < 0.5) w.push(li('Symmetrie', 't<sub>' + nz(d1) + ';' + pstr(p) + '</sub> = −t<sub>' + nz(d1) + ';' + pstr(pp) + '</sub>'));
+      tv = ganz ? nachschlagen('t', nz(d1), pstr(pp), 'n = ', 'p = ') : null;
+    } else if (dist === 'chi') {
+      x = SM.chiq(p, d1); lbl = 'χ²<sub>' + de(d1, 0) + ';' + pstr(p) + '</sub>';
+      w.push(li('Gesucht', 'χ²<sub>n;p</sub> mit P(X ≤ χ²<sub>n;p</sub>) = p, hier n = ' + nz(d1) + ', p = ' + pstr(p) + ' (keine Symmetrie: untere und obere Quantile stehen getrennt in der Tabelle)'));
+      tv = ganz ? nachschlagen('chi', nz(d1), pstr(p), 'n = ', 'p = ') : null;
+    } else {
+      if (!(d2 > 0) || d2 > 1e6) { mark(ids, ['q-d2']); $('q-out').innerHTML = err('Nennerfreiheitsgrade müssen größer als 0 sein.'); return; }
+      x = SM.fq(p, d1, d2); lbl = 'F<sub>' + de(d1, 0) + ',' + de(d2, 0) + ';' + pstr(p) + '</sub>';
+      w.push(li('Gesucht', 'F<sub>m,n;p</sub> mit P(F ≤ F<sub>m,n;p</sub>) = p, hier m = ' + nz(d1) + ' (Zähler), n = ' + nz(d2) + ' (Nenner), p = ' + pstr(p)));
+      var g2 = ganz && d2 === Math.floor(d2), art = pp === 0.95 ? 'f95' : pp === 0.99 ? 'f99' : null;
+      if (p < 0.5) {
+        var gegen = SM.fq(pp, d2, d1);
+        w.push(li('Unteres Quantil über den Kehrwert', 'F<sub>' + nz(d1) + ',' + nz(d2) + ';' + pstr(p) + '</sub> = 1 / F<sub>' + nz(d2) + ',' + nz(d1) + ';' + pstr(pp) + '</sub> = 1 / ' + de(gegen, 4) + ' = ' + de(1 / gegen, 4) + ' (Freiheitsgrade vertauscht)'));
+        tv = g2 && art ? nachschlagen(art, nz(d1), nz(d2), 'n = ', 'm = ') : null;
+        if (tv) tv = 'für F<sub>' + nz(d2) + ',' + nz(d1) + ';' + pstr(pp) + '</sub>: ' + tv;
+      } else {
+        tv = g2 && art ? nachschlagen(art, nz(d2), nz(d1), 'n = ', 'm = ') : null;
+      }
     }
-    if (d1 !== Math.floor(d1) || (dist === 'f' && d2 !== Math.floor(d2))) lbl = 'Quantil';
-    $('q-out').innerHTML = line(lbl, fq(x));
+    var gnz = ganz && (dist !== 'f' || d2 === Math.floor(d2));
+    if (!gnz) lbl = 'Quantil';
+    w.push(li('Tabelle', tv ? tv + ' (gerundet)' : 'Dieser Wert steht nicht in den Tabellen dieser Seite – er wird numerisch berechnet.'));
+    if (dist === 't' && p >= 0.5 && p < 1) w.push(li('Typische Verwendung', 'einseitiger Test mit α = ' + pstr(+(1 - p).toFixed(10)) + ' oder zweiseitiger Test bzw. Konfidenzintervall mit α = ' + pstr(+(2 * (1 - p)).toFixed(10))));
+    mark(ids, []);
+    $('q-out').innerHTML = line(lbl, fq(x)) + weg(w);
   }
+
   function bind(ids, fn) { ids.forEach(function (id) { $(id).addEventListener('input', fn); }); fn(); }
   bind(['n-mu', 'n-sd', 'n-a', 'n-b', 'n-p'], calcNorm);
   bind(['b-n', 'b-p', 'b-k'], calcBin);
   bind(['p-l', 'p-k'], calcPoi);
   bind(['q-dist', 'q-p', 'q-d1', 'q-d2'], calcQ);
+
+  // ---------- Link teilen / Drucken ----------
+  if (window.BMW) {
+    [['c-norm', 'norm', calcNorm], ['c-bin', 'bin', calcBin], ['c-poi', 'poi', calcPoi], ['c-q', 'quantil', calcQ]].forEach(function (c) {
+      BMW.leiste($(c[0]), { teilen: BMW.teilen({ key: c[1], root: $(c[0]), run: c[2] }), druckScope: $(c[0]) });
+    });
+  }
+
+  // ---------- Übungsmodus ----------
+  var Z = function (a, b, s) { return BMW.zufall(a, b, s); };
+  function uebQuantil() {
+    var art = BMW.wahl(['ki', 'test', 'z', 'chi', 'anova']), text, felder, los = [], v;
+    if (art === 'ki' || art === 'test') {
+      var n = BMW.wahl([Z(5, 31), Z(5, 31), Z(5, 31), 41, 51, 61, 81, 101, 121]), df = n - 1, p, satz;
+      if (art === 'ki') { var lv = BMW.wahl([90, 95, 99]); p = { 90: 0.95, 95: 0.975, 99: 0.995 }[lv];
+        text = 'Aus einer normalverteilten Grundgesamtheit wird eine Stichprobe vom Umfang n = ' + n + ' gezogen. Die Varianz ist unbekannt. Für ein ' + lv + '-%-Konfidenzintervall für μ wird ein Quantil der t-Verteilung benötigt.';
+        satz = 'Konfidenzniveau 1 − α = ' + pstr(lv / 100) + ', also α = ' + pstr(+(1 - lv / 100).toFixed(4)) + '. Zweiseitig: p = 1 − α/2 = ' + pstr(p) + '.';
+      } else { var al = BMW.wahl([0.05, 0.01, 0.1, 0.025]), seite = BMW.wahl(['einseitig', 'zweiseitig']); p = seite === 'einseitig' ? 1 - al : 1 - al / 2; p = +p.toFixed(4);
+        if ([0.9, 0.95, 0.975, 0.99, 0.995].indexOf(p) < 0) { al = 0.05; p = seite === 'einseitig' ? 0.95 : 0.975; }
+        text = 'Mit einem ' + (seite === 'einseitig' ? 'einseitigen t-Test (H<sub>1</sub>: μ &gt; μ<sub>0</sub>)' : 'zweiseitigen t-Test (H<sub>1</sub>: μ ≠ μ<sub>0</sub>)') + ' zum Signifikanzniveau α = ' + pstr(al) + ' wird eine Stichprobe vom Umfang n = ' + n + ' aus einer Normalverteilung mit unbekannter Varianz geprüft. Bestimme den kritischen Wert.';
+        satz = seite === 'einseitig' ? 'Einseitiger Test nach oben: p = 1 − α = ' + pstr(p) + '.' : 'Zweiseitiger Test: p = 1 − α/2 = ' + pstr(p) + '.';
+      }
+      v = SM.tq(p, df);
+      felder = [{ key: 'df', label: 'Freiheitsgrade', wert: df, nk: 0 }, { key: 'p', label: 'Ordnung p des Quantils', wert: p, tol: 1e-9 }, { key: 'q', label: 'Quantil t (aus der Tabelle)', wert: v, nk: 3 }];
+      los.push(li('Freiheitsgrade', 'n − 1 = ' + n + ' − 1 = ' + df));
+      los.push(li('Ordnung des Quantils', satz));
+      los.push(li('Ablesen', nachschlagen('t', String(df), pstr(p), 'n = ', 'p = ') + ' → t<sub>' + df + ';' + pstr(p) + '</sub> = ' + de(v, 3)));
+    } else if (art === 'z') {
+      var lv2 = BMW.wahl([90, 95, 99]), p2 = { 90: 0.95, 95: 0.975, 99: 0.995 }[lv2];
+      text = 'Für ein ' + lv2 + '-%-Konfidenzintervall für den Erwartungswert μ einer Normalverteilung mit <strong>bekannter</strong> Standardabweichung σ wird ein Quantil der Standardnormalverteilung benötigt.';
+      v = SM.zq(p2);
+      felder = [{ key: 'p', label: 'Ordnung p des Quantils', wert: p2, tol: 1e-9 }, { key: 'q', label: 'Quantil z (aus der Tabelle)', wert: v, nk: 4 }];
+      los.push(li('Verteilung', 'σ bekannt → Standardnormalverteilung (nicht t).'));
+      los.push(li('Ordnung des Quantils', 'α = ' + pstr(+(1 - lv2 / 100).toFixed(4)) + ', zweiseitig: p = 1 − α/2 = ' + pstr(p2) + '.'));
+      los.push(li('Ablesen', '<a href="#z-quantile">Quantile der Standardnormalverteilung</a>, Zeile p = ' + pstr(p2) + ': z<sub>' + pstr(p2) + '</sub> = ' + de(v, 4)));
+    } else if (art === 'chi') {
+      var k = Z(2, 5), l = Z(2, 5), al2 = BMW.wahl([0.05, 0.01, 0.1]), df2 = (k - 1) * (l - 1), p3 = +(1 - al2).toFixed(4);
+      text = 'Mit einem χ²-Unabhängigkeitstest zum Niveau α = ' + pstr(al2) + ' wird geprüft, ob zwei Merkmale unabhängig sind. Die Kontingenztabelle hat ' + k + ' Zeilen und ' + l + ' Spalten. Bestimme den kritischen Wert.';
+      v = SM.chiq(p3, df2);
+      felder = [{ key: 'df', label: 'Freiheitsgrade', wert: df2, nk: 0 }, { key: 'p', label: 'Ordnung p des Quantils', wert: p3, tol: 1e-9 }, { key: 'q', label: 'Quantil χ² (aus der Tabelle)', wert: v, nk: 3 }];
+      los.push(li('Freiheitsgrade', '(k − 1) · (l − 1) = (' + k + ' − 1) · (' + l + ' − 1) = ' + df2));
+      los.push(li('Ordnung des Quantils', 'Der χ²-Test verwirft nur bei großen Werten: p = 1 − α = ' + pstr(p3) + '.'));
+      los.push(li('Ablesen', nachschlagen('chi', String(df2), pstr(p3), 'n = ', 'p = ') + ' → χ²<sub>' + df2 + ';' + pstr(p3) + '</sub> = ' + de(v, 3)));
+    } else {
+      var g = Z(3, 6), nn = g + Z(10, 30), m = g - 1, df3 = nn - g, pf = BMW.wahl([0.95, 0.99]);
+      text = 'In einer einfaktoriellen Varianzanalyse werden ' + g + ' Gruppen mit insgesamt N = ' + nn + ' Beobachtungen verglichen. Bestimme den kritischen Wert des F-Tests zum Niveau α = ' + pstr(+(1 - pf).toFixed(2)) + '.';
+      v = SM.fq(pf, m, df3);
+      felder = [{ key: 'm', label: 'Zählerfreiheitsgrade', wert: m, nk: 0 }, { key: 'n', label: 'Nennerfreiheitsgrade', wert: df3, nk: 0 }, { key: 'q', label: 'Quantil F (aus der Tabelle)', wert: v, nk: 2 }];
+      los.push(li('Freiheitsgrade', 'Zähler: Gruppen − 1 = ' + g + ' − 1 = ' + m + '; Nenner: N − Gruppen = ' + nn + ' − ' + g + ' = ' + df3));
+      los.push(li('Ordnung des Quantils', 'Der F-Test verwirft nur bei großen Werten: p = 1 − α = ' + pstr(pf) + '.'));
+      los.push(li('Ablesen', nachschlagen(pf === 0.95 ? 'f95' : 'f99', String(df3), String(m), 'n = ', 'm = ') + ' → F<sub>' + m + ',' + df3 + ';' + pstr(pf) + '</sub> = ' + de(v, 2)));
+    }
+    return {
+      text: '<p>' + text + '</p><p class="small">Bestimme ' + [felder.some(function (f) { return f.key === 'df' || f.key === 'm'; }) ? 'die Freiheitsgrade' : '', felder.some(function (f) { return f.key === 'p'; }) ? 'die Ordnung p des Quantils (als Dezimalzahl, z. B. 0,975)' : ''].filter(Boolean).join(' und ') + '. Lies dann das Quantil aus der passenden Tabelle ab (der Tabellenwert genügt).</p>',
+      felder: felder,
+      loesung: '<ol class="bmw-weg">' + los.join('') + '</ol>'
+    };
+  }
+  function uebWahrsch() {
+    var art = BMW.wahl(['normal', 'normal', 'bin', 'poi']), text, felder, los = [], P;
+    if (art === 'normal') {
+      var mu, sd, x1, x2, z1, z2, typ = BMW.wahl(['le', 'gt', 'zw']), ok = false;
+      for (var t = 0; t < 500 && !ok; t++) {
+        mu = BMW.wahl([50, 80, 100, 120, 200, 250, 500]); sd = BMW.wahl([2, 4, 5, 8, 10, 20, 25, 40, 50]);
+        x1 = mu + Z(-3 * sd, 3 * sd); x2 = mu + Z(-3 * sd, 3 * sd);
+        if (x1 > x2) { var h = x1; x1 = x2; x2 = h; }
+        z1 = (x1 - mu) / sd; z2 = (x2 - mu) / sd;
+        var zw = function (z) { return Math.abs(z * 100 - Math.round(z * 100)) < 1e-9 && Math.abs(z) <= 3 && Math.abs(z) >= 0.05; };
+        ok = zw(z1) && x1 > 0 && (typ !== 'zw' || (zw(z2) && z2 - z1 >= 0.3));
+      }
+      var e = 'X ~ N(' + mu + '; ' + (sd * sd) + ')';
+      var ph1 = phiText(z1);
+      if (typ === 'le') {
+        P = ph1[1] / 1e4;
+        text = 'Die Abfüllmenge X einer Maschine (in ml) ist normalverteilt mit μ = ' + mu + ' und σ = ' + sd + ', also ' + e + '. Berechne P(X ≤ ' + x1 + ').';
+        felder = [{ key: 'z', label: 'standardisierter Wert z', wert: z1, nk: 2 }, { key: 'p', label: 'P(X ≤ ' + x1 + ')', wert: P, tol: 0.00015 }];
+        los.push(li('Standardisieren', 'z = (x − μ) / σ = (' + x1 + ' − ' + mu + ') / ' + sd + ' = ' + zf(z1)));
+        los.push(li('Tabelle ablesen', 'P(X ≤ ' + x1 + ') = ' + ph1[0]));
+      } else if (typ === 'gt') {
+        P = 1 - ph1[1] / 1e4;
+        text = 'Die Bearbeitungszeit X eines Auftrags (in Minuten) ist normalverteilt mit μ = ' + mu + ' und σ = ' + sd + ', also ' + e + '. Berechne die Wahrscheinlichkeit, dass ein Auftrag länger als ' + x1 + ' Minuten dauert.';
+        felder = [{ key: 'z', label: 'standardisierter Wert z', wert: z1, nk: 2 }, { key: 'p', label: 'P(X > ' + x1 + ')', wert: P, tol: 0.00015 }];
+        los.push(li('Standardisieren', 'z = (x − μ) / σ = (' + x1 + ' − ' + mu + ') / ' + sd + ' = ' + zf(z1)));
+        los.push(li('Gegenwahrscheinlichkeit', 'P(X &gt; ' + x1 + ') = 1 − P(X ≤ ' + x1 + ') = 1 − ' + ph1[0].split(' = ').pop() + ' = ' + t4(1e4 - ph1[1])));
+        if (z1 < 0) los.push(li('Hinweis', 'Bei negativem z gilt Φ(−z) = 1 − Φ(z); damit wird P(X &gt; ' + x1 + ') = Φ(' + zf(-z1) + ') = ' + t4(phi4(-z1)) + '.'));
+      } else {
+        var ph2 = phiText(z2);
+        P = (ph2[1] - ph1[1]) / 1e4;
+        text = 'Das Gewicht X einer Packung (in g) ist normalverteilt mit μ = ' + mu + ' und σ = ' + sd + ', also ' + e + '. Berechne P(' + x1 + ' ≤ X ≤ ' + x2 + ').';
+        felder = [{ key: 'z1', label: 'z für die untere Grenze', wert: z1, nk: 2 }, { key: 'z2', label: 'z für die obere Grenze', wert: z2, nk: 2 }, { key: 'p', label: 'P(' + x1 + ' ≤ X ≤ ' + x2 + ')', wert: P, tol: 0.00025 }];
+        los.push(li('Standardisieren', 'z<sub>1</sub> = (' + x1 + ' − ' + mu + ') / ' + sd + ' = ' + zf(z1) + '<br>z<sub>2</sub> = (' + x2 + ' − ' + mu + ') / ' + sd + ' = ' + zf(z2)));
+        los.push(li('Tabelle ablesen', ph2[0] + '<br>' + ph1[0]));
+        los.push(li('Differenz', 'P(' + x1 + ' ≤ X ≤ ' + x2 + ') = Φ(z<sub>2</sub>) − Φ(z<sub>1</sub>) = ' + t4(ph2[1]) + ' − ' + t4(ph1[1]) + ' = ' + t4(ph2[1] - ph1[1])));
+      }
+      los.push(li('Ergebnis', 'P ≈ ' + de(P, 4) + ' (mit den gerundeten Tabellenwerten). Kleine Abweichungen in der letzten Stelle durch Rundung werden als richtig gewertet.'));
+    } else if (art === 'bin') {
+      var n, p, fr, k;
+      for (var tb = 0; tb < 200; tb++) {
+        n = Z(5, 20); p = BMW.wahl([0.05, 0.1, 0.2, 0.25, 0.3, 0.4, 0.5]); fr = BMW.wahl(['eq', 'le', 'ge1']); k = fr === 'eq' ? Z(1, 4) : Z(1, 3);
+        var pr = fr === 'eq' ? SM.binPmf(k, n, p) : fr === 'le' ? SM.binCdf(k, n, p) : 1 - SM.binPmf(0, n, p);
+        if (pr >= 0.01 && pr <= 0.99) break;
+      }
+      var q = +(1 - p).toFixed(4);
+      text = 'Ein Bauteil ist unabhängig von den anderen mit Wahrscheinlichkeit p = ' + pstr(p) + ' fehlerhaft. Es werden n = ' + n + ' Bauteile geprüft; X sei die Anzahl fehlerhafter Teile. Berechne ' + (fr === 'eq' ? 'P(X = ' + k + ')' : fr === 'le' ? 'P(X ≤ ' + k + ')' : 'die Wahrscheinlichkeit, dass mindestens ein Teil fehlerhaft ist') + '.';
+      los.push(li('Modell', 'X ~ B(' + n + '; ' + pstr(p) + '), denn n unabhängige Prüfungen mit gleicher Fehlerwahrscheinlichkeit.'));
+      var pm = function (i) { return SM.binPmf(i, n, p); };
+      if (fr === 'eq') {
+        P = pm(k);
+        los.push(li('Formel', 'P(X = ' + k + ') = ' + bk(n, k) + ' · ' + pstr(p) + '<sup>' + k + '</sup> · ' + pstr(q) + '<sup>' + (n - k) + '</sup> = ' + binom(n, k) + ' · ' + sg(Math.pow(p, k), 4) + ' · ' + sg(Math.pow(q, n - k), 4) + ' ≈ ' + de(P, 4)));
+      } else if (fr === 'le') {
+        P = SM.binCdf(k, n, p); var ts = [];
+        for (var i = 0; i <= k; i++) ts.push('P(X = ' + i + ') = ' + bk(n, i) + ' · ' + pstr(p) + '<sup>' + i + '</sup> · ' + pstr(q) + '<sup>' + (n - i) + '</sup> ≈ ' + de(pm(i), 4));
+        los.push(li('Einzelwahrscheinlichkeiten', ts.join('<br>')));
+        los.push(li('Summe', 'P(X ≤ ' + k + ') = ' + ts.map(function (s, i) { return 'P(X = ' + i + ')'; }).join(' + ') + ' ≈ ' + de(P, 4)));
+      } else {
+        P = 1 - pm(0);
+        los.push(li('Gegenereignis', 'P(X ≥ 1) = 1 − P(X = 0) = 1 − ' + pstr(q) + '<sup>' + n + '</sup> = 1 − ' + de(pm(0), 4) + ' ≈ ' + de(P, 4)));
+      }
+      felder = [{ key: 'p', label: 'Wahrscheinlichkeit', wert: P, tol: 0.00015 }];
+    } else {
+      var lam, fr2, k2;
+      for (var tp = 0; tp < 200; tp++) {
+        lam = BMW.wahl([0.5, 1, 1.5, 2, 2.5, 3, 4, 5]); fr2 = BMW.wahl(['eq', 'le', 'ge1']); k2 = fr2 === 'eq' ? Z(0, 4) : Z(1, 3);
+        var pr2 = fr2 === 'eq' ? SM.poiPmf(k2, lam) : fr2 === 'le' ? SM.poiCdf(k2, lam) : 1 - Math.exp(-lam);
+        if (pr2 >= 0.01 && pr2 <= 0.99) break;
+      }
+      text = 'Bei einer Service-Hotline ' + (lam === 1 ? 'geht' : 'gehen') + ' im Mittel λ = ' + pstr(lam) + (lam === 1 ? ' Anruf' : ' Anrufe') + ' pro Minute ein. Die Anzahl X der Anrufe pro Minute sei poissonverteilt. Berechne ' + (fr2 === 'eq' ? 'P(X = ' + k2 + ')' : fr2 === 'le' ? 'P(X ≤ ' + k2 + ')' : 'die Wahrscheinlichkeit, dass in einer Minute mindestens ein Anruf eingeht') + '.';
+      var em = Math.exp(-lam), pp2 = function (i) { return SM.poiPmf(i, lam); }, fac = [1, 1, 2, 6, 24];
+      los.push(li('Modell', 'X ~ Po(' + pstr(lam) + '), P(X = k) = λ<sup>k</sup> / k! · e<sup>−λ</sup>, e<sup>−' + pstr(lam) + '</sup> ≈ ' + sg(em, 4)));
+      if (fr2 === 'eq') {
+        P = pp2(k2);
+        los.push(li('Einsetzen', 'P(X = ' + k2 + ') = ' + pstr(lam) + '<sup>' + k2 + '</sup> / ' + k2 + '! · e<sup>−' + pstr(lam) + '</sup> = ' + sg(Math.pow(lam, k2), 6) + ' / ' + fac[k2] + ' · ' + sg(em, 4) + ' ≈ ' + de(P, 4)));
+      } else if (fr2 === 'le') {
+        P = SM.poiCdf(k2, lam); var tt = [];
+        for (var j = 0; j <= k2; j++) tt.push(sg(Math.pow(lam, j) / fac[j], 6));
+        los.push(li('Summe', 'P(X ≤ ' + k2 + ') = e<sup>−' + pstr(lam) + '</sup> · (' + tt.join(' + ') + ') = ' + sg(em, 4) + ' · ' + sg(tt.reduce(function (s, v, i) { return s + Math.pow(lam, i) / fac[i]; }, 0), 6) + ' ≈ ' + de(P, 4)));
+      } else {
+        P = 1 - em;
+        los.push(li('Gegenereignis', 'P(X ≥ 1) = 1 − P(X = 0) = 1 − e<sup>−' + pstr(lam) + '</sup> = 1 − ' + de(em, 4) + ' ≈ ' + de(P, 4)));
+      }
+      felder = [{ key: 'p', label: 'Wahrscheinlichkeit', wert: P, tol: 0.00015 }];
+    }
+    return {
+      text: '<p>' + text + '</p><p class="small">Runde Wahrscheinlichkeiten auf vier Nachkommastellen' + (art === 'normal' ? ', z-Werte auf zwei. Verwende die Φ-Tabelle.' : '.') + '</p>',
+      felder: felder,
+      loesung: '<ol class="bmw-weg">' + los.join('') + '</ol>'
+    };
+  }
+  // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form>: per form-Attribut verbinden
+  function pruefenVerbinden(mount) {
+    var f = mount.querySelector('.bmw-ueb-form'), btn = mount.querySelector('.bmw-ueb-btns button[type=submit]');
+    if (!f || !btn || btn.form) return;
+    f.id = f.id || 'uf-' + Math.random().toString(36).slice(2, 8);
+    btn.setAttribute('form', f.id);
+  }
+  if (window.BMW && $('ueb-quantil')) {
+    BMW.uebung($('ueb-quantil'), { titel: 'Übung 1: Kritischen Wert aus der Tabelle ablesen', hinweis: 'Situation lesen, Freiheitsgrade und Ordnung p bestimmen, Wert in der passenden Tabelle oben nachschlagen.', neu: uebQuantil });
+    BMW.uebung($('ueb-wahrsch'), { titel: 'Übung 2: Wahrscheinlichkeit berechnen', hinweis: 'Normal-, Binomial- oder Poissonverteilung: Modell erkennen, Formel bzw. Φ-Tabelle anwenden.', neu: uebWahrsch });
+    pruefenVerbinden($('ueb-quantil')); pruefenVerbinden($('ueb-wahrsch'));
+  }
+  window.VT_UEB = { uebQuantil: uebQuantil, uebWahrsch: uebWahrsch };
 })();
 </script>
 </body>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Personalbedarfsplanung – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 13 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-personalbedarf">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Personalbedarfsplanung (Excel-Vorlage)","description":"Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.","url":"https://www.bwlmax.de/tools/excel-vorlage-personalbedarf","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Personalbedarfsplanung</h1>
+<p class="lead">Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>11</b> Eingabefelder</li><li><b>13</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="personalbedarf">
+<div class="xl-keys"><div class="xl-key"><small>Einstellungsbedarf (Personen, aufgerundet)</small><b>12</b></div><div class="xl-key"><small>Personalüberdeckung (Freisetzungsbedarf)</small><b>0,00</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Personalbedarfsplanung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Personalbedarf“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:370px"><col style="width:104px"><col style="width:266px"><col style="width:89px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="4">Personalbedarfsplanung</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="4">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="4">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Gesamter Arbeitszeitbedarf (Stunden pro Jahr)</td><td class="xs-in num">198.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Soll-Arbeitszeit je Mitarbeiter (Stunden pro Jahr)</td><td class="xs-in num">1.650,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">oder Einsatzbedarf direkt (Mitarbeiter, leer = aus Arbeitszeit)</td><td class="xs-in num"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Ausfallquote (Urlaub, Krankheit, Fortbildung; bezogen auf den Einsatzbedarf)</td><td class="xs-in num">10,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Personalbestand zu Beginn der Planperiode</td><td class="xs-in num">125,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-th">Feststehende Abgänge</td><td class="xs-th">Anzahl</td><td class="xs-th">Feststehende Zugänge</td><td class="xs-th">Anzahl</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Ruhestand</td><td class="xs-in num">4,00</td><td class="xs-lab">Übernahme Auszubildender</td><td class="xs-in num">3,00</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Kündigungen / Fluktuation</td><td class="xs-in num">3,00</td><td class="xs-lab">Rückkehr (Elternzeit u. a.)</td><td class="xs-in num">1,00</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Sonstige (Elternzeit, Versetzung, Vertragsende)</td><td class="xs-in num">2,00</td><td class="xs-lab">Sonstige (bereits eingestellt, Versetzung)</td><td class="xs-in num">0,00</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Summe Abgänge</td><td class="xs-tot num">9,00</td><td class="xs-lab">Summe Zugänge</td><td class="xs-tot num">4,00</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-sec" colspan="4">Berechnung</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">Einsatzbedarf</td><td class="xs-out num">120,00</td><td class="xs-txt" colspan="2">Arbeitszeitbedarf / Soll-Arbeitszeit je Mitarbeiter</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">+ Reservebedarf</td><td class="xs-out num">12,00</td><td class="xs-txt" colspan="2">Einsatzbedarf × Ausfallquote</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">= Bruttopersonalbedarf</td><td class="xs-tot num">132,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">− Personalbestand</td><td class="xs-out num">125,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">+ Abgänge</td><td class="xs-out num">9,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">− Zugänge</td><td class="xs-out num">4,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">= Fortgeschriebener Personalbestand</td><td class="xs-out num">120,00</td><td class="xs-txt" colspan="2">Bestand − Abgänge + Zugänge</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Nettopersonalbedarf</td><td class="xs-out num">12,00</td><td class="xs-txt" colspan="2">Bruttobedarf − fortgeschriebener Bestand</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Einstellungsbedarf (Personen, aufgerundet)</td><td class="xs-res num">12</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Personalüberdeckung (Freisetzungsbedarf)</td><td class="xs-res num">0,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Ergebnis</td><td class="xs-out" colspan="3">Unterdeckung – Personal beschaffen</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-note" colspan="4">Bruttopersonalbedarf = Einsatzbedarf + Reservebedarf. Nettopersonalbedarf = Bruttobedarf − (Bestand − Abgänge + Zugänge). Positiv = Neueinstellungen nötig, negativ = Personalüberhang.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Personalbedarf“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 11 Werte ein; die Datei berechnet daraus unter anderem „Einstellungsbedarf (Personen, aufgerundet)“ und „Personalüberdeckung (Freisetzungsbedarf)“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Bruttopersonalbedarf = Einsatzbedarf + Reservebedarf. Nettopersonalbedarf = Bruttobedarf − (Bestand − Abgänge + Zugänge). Positiv = Neueinstellungen nötig, negativ = Personalüberhang.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Gesamter Arbeitszeitbedarf (Stunden pro Jahr)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">198.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Soll-Arbeitszeit je Mitarbeiter (Stunden pro Jahr)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">1.650,00</td><td>ab 1,00</td></tr>
+<tr><td>oder Einsatzbedarf direkt (Mitarbeiter, leer = aus Arbeitszeit)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">(leer)</td><td>ab 0,00; darf leer bleiben</td></tr>
+<tr><td>Ausfallquote (Urlaub, Krankheit, Fortbildung; bezogen auf den Einsatzbedarf)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">10,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Personalbestand zu Beginn der Planperiode</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">125,00</td><td>ab 0,00</td></tr>
+<tr><td>Ruhestand</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">4,00</td><td>ab 0,00</td></tr>
+<tr><td>Übernahme Auszubildender</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">3,00</td><td>ab 0,00</td></tr>
+<tr><td>Kündigungen / Fluktuation</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">3,00</td><td>ab 0,00</td></tr>
+<tr><td>Rückkehr (Elternzeit u. a.)</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">1,00</td><td>ab 0,00</td></tr>
+<tr><td>Sonstige (Elternzeit, Versetzung, Vertragsende)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">2,00</td><td>ab 0,00</td></tr>
+<tr><td>Sonstige (bereits eingestellt, Versetzung)</td><td><code>D14</code></td><td class="xlw-v" data-xi="D14">0,00</td><td>ab 0,00</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Einstellungsbedarf (Personen, aufgerundet)</td><td><code>B27</code></td><td class="xlw-v"><b data-xv="B27">12</b></td></tr>
+<tr><td>Personalüberdeckung (Freisetzungsbedarf)</td><td><code>B28</code></td><td class="xlw-v"><b data-xv="B28">0,00</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 13 Formeln des Blatts „Personalbedarf“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B15</td><td>Summe Abgänge</td><td class="xlw-f">=SUMME(B12:B14)</td><td></td></tr>
+<tr><td>D15</td><td>Summe Zugänge</td><td class="xlw-f">=SUMME(D12:D14)</td><td></td></tr>
+<tr><td>B18</td><td>Einsatzbedarf</td><td class="xlw-f">=WENN(ANZAHL(B7)=0;B5/B6;B7)</td><td></td></tr>
+<tr><td>B19</td><td>+ Reservebedarf</td><td class="xlw-f">=B18*B8</td><td></td></tr>
+<tr><td>B20</td><td>= Bruttopersonalbedarf</td><td class="xlw-f">=B18+B19</td><td><small>Bruttopersonalbedarf = Einsatzbedarf + Reservebedarf (Einsatzbedarf × Ausfallquote).</small></td></tr>
+<tr><td>B21</td><td>− Personalbestand</td><td class="xlw-f">=B9</td><td></td></tr>
+<tr><td>B22</td><td>+ Abgänge</td><td class="xlw-f">=B15</td><td></td></tr>
+<tr><td>B23</td><td>− Zugänge</td><td class="xlw-f">=D15</td><td></td></tr>
+<tr><td>B24</td><td>= Fortgeschriebener Personalbestand</td><td class="xlw-f">=B21-B22+B23</td><td></td></tr>
+<tr><td>B26</td><td>Nettopersonalbedarf</td><td class="xlw-f">=RUNDEN(B20-B24;6)</td><td><small>Nettopersonalbedarf = Bruttopersonalbedarf − Personalbestand + Abgänge − Zugänge.</small></td></tr>
+<tr><td>B27</td><td>Einstellungsbedarf (Personen, aufgerundet)</td><td class="xlw-f">=WENN(B26&gt;0;AUFRUNDEN(B26;0);0)</td><td><small>Ganze Personen: positiver Nettobedarf wird aufgerundet.</small></td></tr>
+<tr><td>B28</td><td>Personalüberdeckung (Freisetzungsbedarf)</td><td class="xlw-f">=WENN(B26&lt;0;-B26;0)</td><td></td></tr>
+<tr><td>B29</td><td>Ergebnis</td><td class="xlw-f">=WENN(B26&gt;0;&quot;Unterdeckung – Personal beschaffen&quot;;WENN(B26&lt;0;&quot;Überdeckung – Personal abbauen oder umsetzen&quot;;&quot;Bedarf und Bestand stimmen überein&quot;))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>273 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 13 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Einstellungsbedarf (Personen, aufgerundet) (B27), Personalüberdeckung (Freisetzungsbedarf) (B28).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 13 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 13 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>273 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-produktionsprogramm">Optimales Produktionsprogramm (ein Engpass)</a><p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-nutzwertanalyse">Nutzwertanalyse</a><p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.</p></li>
+<li><a href="/tools/excel-vorlage-liquiditaetsplan">Liquiditätsplan (12 Monate)</a><p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.</p></li>
+<li><a href="/tools/excel-vorlage-sollist">Soll-Ist-Vergleich (Budgetabweichung)</a><p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.</p></li>
+<li><a href="/tools/excel-vorlage-mehrproduktbe">Break-even im Mehrproduktunternehmen</a><p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

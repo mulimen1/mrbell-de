@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Zinseszins &amp; Sparplan – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 208 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-sparplan">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Zinseszins & Sparplan (Excel-Vorlage)","description":"Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre.","url":"https://www.bwlmax.de/tools/excel-vorlage-sparplan","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Finanzierung & Finanzmathematik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Finanzierung &amp; Finanzmathematik</p>
+<h1>Excel-Vorlage: Zinseszins &amp; Sparplan</h1>
+<p class="lead">Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>6</b> Eingabefelder</li><li><b>208</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="sparplan">
+<div class="xl-keys"><div class="xl-key"><small>Endwert</small><b>27.467,68 €</b></div><div class="xl-key"><small>Zinserträge gesamt</small><b>5.467,68 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Zinseszins_Sparplan.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Sparplan“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:340px"><col style="width:155px"><col style="width:155px"><col style="width:141px"><col style="width:126px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="5">Zinseszins &amp; Sparplan</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="5">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="5">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Einmalanlage zu Beginn (K₀)</td><td class="xs-in num">10.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Sparrate je Periode</td><td class="xs-in num">100,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Zinssatz p. a. (nominal)</td><td class="xs-in num">3,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Laufzeit in Jahren (1 – 40)</td><td class="xs-in num">10</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Perioden pro Jahr (1 = jährlich, 12 = monatlich)</td><td class="xs-in num">12</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Sparrate vorschüssig? (1 = ja, 0 = nachschüssig)</td><td class="xs-in num">0</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-sec" colspan="5">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Zinssatz je Periode (i / m)</td><td class="xs-out num">0,25 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Anzahl Perioden</td><td class="xs-out num">120</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Endwert</td><td class="xs-res num">27.467,68 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Summe der Einzahlungen</td><td class="xs-out num">22.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Zinserträge gesamt</td><td class="xs-res num">5.467,68 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">  davon Endwert der Einmalanlage</td><td class="xs-out num">13.493,54 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">  davon Endwert des Sparplans</td><td class="xs-out num">13.974,14 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Effektiver Jahreszins</td><td class="xs-out num">3,04 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-th">Jahr</td><td class="xs-th">Einzahlungen kumuliert</td><td class="xs-th">Kontostand Jahresende</td><td class="xs-th">Zinsen kumuliert</td><td class="xs-th">Zinsen im Jahr</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-out num">1</td><td class="xs-out num">11.200,00 €</td><td class="xs-out num">11.520,80 €</td><td class="xs-out num">320,80 €</td><td class="xs-out num">320,80 €</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-out num">2</td><td class="xs-out num">12.400,00 €</td><td class="xs-out num">13.087,85 €</td><td class="xs-out num">687,85 €</td><td class="xs-out num">367,05 €</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-out num">3</td><td class="xs-out num">13.600,00 €</td><td class="xs-out num">14.702,57 €</td><td class="xs-out num">1.102,57 €</td><td class="xs-out num">414,72 €</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-out num">4</td><td class="xs-out num">14.800,00 €</td><td class="xs-out num">16.366,40 €</td><td class="xs-out num">1.566,40 €</td><td class="xs-out num">463,83 €</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-out num">5</td><td class="xs-out num">16.000,00 €</td><td class="xs-out num">18.080,84 €</td><td class="xs-out num">2.080,84 €</td><td class="xs-out num">514,44 €</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-out num">6</td><td class="xs-out num">17.200,00 €</td><td class="xs-out num">19.847,42 €</td><td class="xs-out num">2.647,42 €</td><td class="xs-out num">566,58 €</td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-out num">7</td><td class="xs-out num">18.400,00 €</td><td class="xs-out num">21.667,74 €</td><td class="xs-out num">3.267,74 €</td><td class="xs-out num">620,32 €</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out num">8</td><td class="xs-out num">19.600,00 €</td><td class="xs-out num">23.543,42 €</td><td class="xs-out num">3.943,42 €</td><td class="xs-out num">675,68 €</td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out num">9</td><td class="xs-out num">20.800,00 €</td><td class="xs-out num">25.476,16 €</td><td class="xs-out num">4.676,16 €</td><td class="xs-out num">732,73 €</td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-out num">10</td><td class="xs-out num">22.000,00 €</td><td class="xs-out num">27.467,68 €</td><td class="xs-out num">5.467,68 €</td><td class="xs-out num">791,52 €</td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">44</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">45</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">46</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">47</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">48</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">49</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">50</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">51</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">52</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">53</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">54</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">55</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">56</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">57</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">58</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">59</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">60</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">61</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">62</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">63</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">64</th><td class="xs-note" colspan="5">Zinsen werden je Periode mit i / m gutgeschrieben (relativer Periodenzins) – daher liegt der effektive Jahreszins bei m &gt; 1 über dem Nominalzins. Vorschüssig: Rate am Periodenanfang.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Sparplan“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre. Die Vorlage gehört zum Bereich Finanzierung &amp; Finanzmathematik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 6 Werte ein; die Datei berechnet daraus unter anderem „Endwert“ und „Zinserträge gesamt“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Zinsen werden je Periode mit i / m gutgeschrieben (relativer Periodenzins) – daher liegt der effektive Jahreszins bei m &gt; 1 über dem Nominalzins. Vorschüssig: Rate am Periodenanfang.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Einmalanlage zu Beginn (K₀)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">10.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sparrate je Periode</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">100,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zinssatz p. a. (nominal)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">3,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Laufzeit in Jahren (1 – 40)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">10</td><td>1 bis 40, ganze Zahl</td></tr>
+<tr><td>Perioden pro Jahr (1 = jährlich, 12 = monatlich)</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">12</td><td>1 bis 12, ganze Zahl</td></tr>
+<tr><td>Sparrate vorschüssig? (1 = ja, 0 = nachschüssig)</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">0</td><td>0 oder 1</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Endwert</td><td><code>B15</code></td><td class="xlw-v"><b data-xv="B15">27.467,68 €</b></td></tr>
+<tr><td>Zinserträge gesamt</td><td><code>B17</code></td><td class="xlw-v"><b data-xv="B17">5.467,68 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 208 Formeln des Blatts „Sparplan“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B13</td><td>Zinssatz je Periode (i / m)</td><td class="xlw-f">=B7/B9</td><td></td></tr>
+<tr><td>B14</td><td>Anzahl Perioden</td><td class="xlw-f">=B8*B9</td><td></td></tr>
+<tr><td>B15</td><td>Endwert</td><td class="xlw-f">=ZW(B13;B14;-B6;-B5;B10)</td><td><small>ZW rechnet K₀ · q^N + r · (q^N − 1) / i_p (vorschüssig × q) mit q = 1 + i/m und N = Jahre × m.</small></td></tr>
+<tr><td>B16</td><td>Summe der Einzahlungen</td><td class="xlw-f">=B5+B6*B14</td><td></td></tr>
+<tr><td>B17</td><td>Zinserträge gesamt</td><td class="xlw-f">=B15-B16</td><td></td></tr>
+<tr><td>B18</td><td>  davon Endwert der Einmalanlage</td><td class="xlw-f">=B5*(1+B13)^B14</td><td></td></tr>
+<tr><td>B19</td><td>  davon Endwert des Sparplans</td><td class="xlw-f">=ZW(B13;B14;-B6;0;B10)</td><td></td></tr>
+<tr><td>B20</td><td>Effektiver Jahreszins</td><td class="xlw-f">=WENN(B7=0;0;EFFEKTIV(B7;B9))</td><td><small>Effektiver Jahreszins = (1 + i/m)^m − 1.</small></td></tr>
+<tr><td>A23</td><td>Jahr (Zeile 23)</td><td class="xlw-f">=WENN(1&lt;=$B$8;1;&quot;&quot;)</td><td></td></tr>
+<tr><td>B23</td><td>Einzahlungen kumuliert (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A23)</td><td></td></tr>
+<tr><td>C23</td><td>Kontostand Jahresende (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;ZW($B$13;A23*$B$9;-$B$6;-$B$5;$B$10))</td><td><small>Kontostand nach k Jahren mit derselben Endwertformel.</small></td></tr>
+<tr><td>D23</td><td>Zinsen kumuliert (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;C23-B23)</td><td></td></tr>
+<tr><td>E23</td><td>Zinsen im Jahr (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;D23)</td><td></td></tr>
+<tr><td>A24</td><td>Jahr (Zeile 24)</td><td class="xlw-f">=WENN(2&lt;=$B$8;2;&quot;&quot;)</td><td></td></tr>
+<tr><td>B24</td><td>Einzahlungen kumuliert (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A24)</td><td></td></tr>
+<tr><td>C24</td><td>Kontostand Jahresende (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;ZW($B$13;A24*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D24</td><td>Zinsen kumuliert (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;C24-B24)</td><td></td></tr>
+<tr><td>E24</td><td>Zinsen im Jahr (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;D24-D23)</td><td></td></tr>
+<tr><td>A25</td><td>Jahr (Zeile 25)</td><td class="xlw-f">=WENN(3&lt;=$B$8;3;&quot;&quot;)</td><td></td></tr>
+<tr><td>B25</td><td>Einzahlungen kumuliert (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A25)</td><td></td></tr>
+<tr><td>C25</td><td>Kontostand Jahresende (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;ZW($B$13;A25*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D25</td><td>Zinsen kumuliert (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;C25-B25)</td><td></td></tr>
+<tr><td>E25</td><td>Zinsen im Jahr (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;D25-D24)</td><td></td></tr>
+<tr><td>A26</td><td>Jahr (Zeile 26)</td><td class="xlw-f">=WENN(4&lt;=$B$8;4;&quot;&quot;)</td><td></td></tr>
+<tr><td>B26</td><td>Einzahlungen kumuliert (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A26)</td><td></td></tr>
+<tr><td>C26</td><td>Kontostand Jahresende (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;ZW($B$13;A26*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D26</td><td>Zinsen kumuliert (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;C26-B26)</td><td></td></tr>
+<tr><td>E26</td><td>Zinsen im Jahr (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;D26-D25)</td><td></td></tr>
+<tr><td>A27</td><td>Jahr (Zeile 27)</td><td class="xlw-f">=WENN(5&lt;=$B$8;5;&quot;&quot;)</td><td></td></tr>
+<tr><td>B27</td><td>Einzahlungen kumuliert (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A27)</td><td></td></tr>
+<tr><td>C27</td><td>Kontostand Jahresende (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;ZW($B$13;A27*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D27</td><td>Zinsen kumuliert (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;C27-B27)</td><td></td></tr>
+<tr><td>E27</td><td>Zinsen im Jahr (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;D27-D26)</td><td></td></tr>
+<tr><td>A28</td><td>Jahr (Zeile 28)</td><td class="xlw-f">=WENN(6&lt;=$B$8;6;&quot;&quot;)</td><td></td></tr>
+<tr><td>B28</td><td>Einzahlungen kumuliert (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A28)</td><td></td></tr>
+<tr><td>C28</td><td>Kontostand Jahresende (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;ZW($B$13;A28*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D28</td><td>Zinsen kumuliert (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;C28-B28)</td><td></td></tr>
+<tr><td>E28</td><td>Zinsen im Jahr (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;D28-D27)</td><td></td></tr>
+<tr><td>A29</td><td>Jahr (Zeile 29)</td><td class="xlw-f">=WENN(7&lt;=$B$8;7;&quot;&quot;)</td><td></td></tr>
+<tr><td>B29</td><td>Einzahlungen kumuliert (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A29)</td><td></td></tr>
+<tr><td>C29</td><td>Kontostand Jahresende (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;ZW($B$13;A29*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D29</td><td>Zinsen kumuliert (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;C29-B29)</td><td></td></tr>
+<tr><td>E29</td><td>Zinsen im Jahr (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;D29-D28)</td><td></td></tr>
+<tr><td>A30</td><td>Jahr (Zeile 30)</td><td class="xlw-f">=WENN(8&lt;=$B$8;8;&quot;&quot;)</td><td></td></tr>
+<tr><td>B30</td><td>Einzahlungen kumuliert (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A30)</td><td></td></tr>
+<tr><td>C30</td><td>Kontostand Jahresende (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;ZW($B$13;A30*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D30</td><td>Zinsen kumuliert (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;C30-B30)</td><td></td></tr>
+<tr><td>E30</td><td>Zinsen im Jahr (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;D30-D29)</td><td></td></tr>
+<tr><td>A31</td><td>Jahr (Zeile 31)</td><td class="xlw-f">=WENN(9&lt;=$B$8;9;&quot;&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>Einzahlungen kumuliert (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A31)</td><td></td></tr>
+<tr><td>C31</td><td>Kontostand Jahresende (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;ZW($B$13;A31*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D31</td><td>Zinsen kumuliert (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;C31-B31)</td><td></td></tr>
+<tr><td>E31</td><td>Zinsen im Jahr (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;D31-D30)</td><td></td></tr>
+<tr><td>A32</td><td>Jahr (Zeile 32)</td><td class="xlw-f">=WENN(10&lt;=$B$8;10;&quot;&quot;)</td><td></td></tr>
+<tr><td>B32</td><td>Einzahlungen kumuliert (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A32)</td><td></td></tr>
+<tr><td>C32</td><td>Kontostand Jahresende (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;ZW($B$13;A32*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D32</td><td>Zinsen kumuliert (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;C32-B32)</td><td></td></tr>
+<tr><td>E32</td><td>Zinsen im Jahr (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;D32-D31)</td><td></td></tr>
+<tr><td>A33</td><td>Jahr (Zeile 33)</td><td class="xlw-f">=WENN(11&lt;=$B$8;11;&quot;&quot;)</td><td></td></tr>
+<tr><td>B33</td><td>Einzahlungen kumuliert (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A33)</td><td></td></tr>
+<tr><td>C33</td><td>Kontostand Jahresende (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;ZW($B$13;A33*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D33</td><td>Zinsen kumuliert (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;C33-B33)</td><td></td></tr>
+<tr><td>E33</td><td>Zinsen im Jahr (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;D33-D32)</td><td></td></tr>
+<tr><td>A34</td><td>Jahr (Zeile 34)</td><td class="xlw-f">=WENN(12&lt;=$B$8;12;&quot;&quot;)</td><td></td></tr>
+<tr><td>B34</td><td>Einzahlungen kumuliert (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A34)</td><td></td></tr>
+<tr><td>C34</td><td>Kontostand Jahresende (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;ZW($B$13;A34*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D34</td><td>Zinsen kumuliert (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;C34-B34)</td><td></td></tr>
+<tr><td>E34</td><td>Zinsen im Jahr (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;D34-D33)</td><td></td></tr>
+<tr><td>A35</td><td>Jahr (Zeile 35)</td><td class="xlw-f">=WENN(13&lt;=$B$8;13;&quot;&quot;)</td><td></td></tr>
+<tr><td>B35</td><td>Einzahlungen kumuliert (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A35)</td><td></td></tr>
+<tr><td>C35</td><td>Kontostand Jahresende (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;ZW($B$13;A35*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D35</td><td>Zinsen kumuliert (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;C35-B35)</td><td></td></tr>
+<tr><td>E35</td><td>Zinsen im Jahr (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;D35-D34)</td><td></td></tr>
+<tr><td>A36</td><td>Jahr (Zeile 36)</td><td class="xlw-f">=WENN(14&lt;=$B$8;14;&quot;&quot;)</td><td></td></tr>
+<tr><td>B36</td><td>Einzahlungen kumuliert (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A36)</td><td></td></tr>
+<tr><td>C36</td><td>Kontostand Jahresende (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;ZW($B$13;A36*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D36</td><td>Zinsen kumuliert (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;C36-B36)</td><td></td></tr>
+<tr><td>E36</td><td>Zinsen im Jahr (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;D36-D35)</td><td></td></tr>
+<tr><td>A37</td><td>Jahr (Zeile 37)</td><td class="xlw-f">=WENN(15&lt;=$B$8;15;&quot;&quot;)</td><td></td></tr>
+<tr><td>B37</td><td>Einzahlungen kumuliert (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A37)</td><td></td></tr>
+<tr><td>C37</td><td>Kontostand Jahresende (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;ZW($B$13;A37*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D37</td><td>Zinsen kumuliert (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;C37-B37)</td><td></td></tr>
+<tr><td>E37</td><td>Zinsen im Jahr (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;D37-D36)</td><td></td></tr>
+<tr><td>A38</td><td>Jahr (Zeile 38)</td><td class="xlw-f">=WENN(16&lt;=$B$8;16;&quot;&quot;)</td><td></td></tr>
+<tr><td>B38</td><td>Einzahlungen kumuliert (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A38)</td><td></td></tr>
+<tr><td>C38</td><td>Kontostand Jahresende (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;ZW($B$13;A38*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D38</td><td>Zinsen kumuliert (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;C38-B38)</td><td></td></tr>
+<tr><td>E38</td><td>Zinsen im Jahr (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;D38-D37)</td><td></td></tr>
+<tr><td>A39</td><td>Jahr (Zeile 39)</td><td class="xlw-f">=WENN(17&lt;=$B$8;17;&quot;&quot;)</td><td></td></tr>
+<tr><td>B39</td><td>Einzahlungen kumuliert (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A39)</td><td></td></tr>
+<tr><td>C39</td><td>Kontostand Jahresende (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;ZW($B$13;A39*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D39</td><td>Zinsen kumuliert (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;C39-B39)</td><td></td></tr>
+<tr><td>E39</td><td>Zinsen im Jahr (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;D39-D38)</td><td></td></tr>
+<tr><td>A40</td><td>Jahr (Zeile 40)</td><td class="xlw-f">=WENN(18&lt;=$B$8;18;&quot;&quot;)</td><td></td></tr>
+<tr><td>B40</td><td>Einzahlungen kumuliert (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A40)</td><td></td></tr>
+<tr><td>C40</td><td>Kontostand Jahresende (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;ZW($B$13;A40*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D40</td><td>Zinsen kumuliert (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;C40-B40)</td><td></td></tr>
+<tr><td>E40</td><td>Zinsen im Jahr (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;D40-D39)</td><td></td></tr>
+<tr><td>A41</td><td>Jahr (Zeile 41)</td><td class="xlw-f">=WENN(19&lt;=$B$8;19;&quot;&quot;)</td><td></td></tr>
+<tr><td>B41</td><td>Einzahlungen kumuliert (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A41)</td><td></td></tr>
+<tr><td>C41</td><td>Kontostand Jahresende (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;ZW($B$13;A41*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D41</td><td>Zinsen kumuliert (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;C41-B41)</td><td></td></tr>
+<tr><td>E41</td><td>Zinsen im Jahr (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;D41-D40)</td><td></td></tr>
+<tr><td>A42</td><td>Jahr (Zeile 42)</td><td class="xlw-f">=WENN(20&lt;=$B$8;20;&quot;&quot;)</td><td></td></tr>
+<tr><td>B42</td><td>Einzahlungen kumuliert (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A42)</td><td></td></tr>
+<tr><td>C42</td><td>Kontostand Jahresende (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;ZW($B$13;A42*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D42</td><td>Zinsen kumuliert (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;C42-B42)</td><td></td></tr>
+<tr><td>E42</td><td>Zinsen im Jahr (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;D42-D41)</td><td></td></tr>
+<tr><td>A43</td><td>Jahr (Zeile 43)</td><td class="xlw-f">=WENN(21&lt;=$B$8;21;&quot;&quot;)</td><td></td></tr>
+<tr><td>B43</td><td>Einzahlungen kumuliert (Zeile 43)</td><td class="xlw-f">=WENN(A43=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A43)</td><td></td></tr>
+<tr><td>C43</td><td>Kontostand Jahresende (Zeile 43)</td><td class="xlw-f">=WENN(A43=&quot;&quot;;&quot;&quot;;ZW($B$13;A43*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D43</td><td>Zinsen kumuliert (Zeile 43)</td><td class="xlw-f">=WENN(A43=&quot;&quot;;&quot;&quot;;C43-B43)</td><td></td></tr>
+<tr><td>E43</td><td>Zinsen im Jahr (Zeile 43)</td><td class="xlw-f">=WENN(A43=&quot;&quot;;&quot;&quot;;D43-D42)</td><td></td></tr>
+<tr><td>A44</td><td>Jahr (Zeile 44)</td><td class="xlw-f">=WENN(22&lt;=$B$8;22;&quot;&quot;)</td><td></td></tr>
+<tr><td>B44</td><td>Einzahlungen kumuliert (Zeile 44)</td><td class="xlw-f">=WENN(A44=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A44)</td><td></td></tr>
+<tr><td>C44</td><td>Kontostand Jahresende (Zeile 44)</td><td class="xlw-f">=WENN(A44=&quot;&quot;;&quot;&quot;;ZW($B$13;A44*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D44</td><td>Zinsen kumuliert (Zeile 44)</td><td class="xlw-f">=WENN(A44=&quot;&quot;;&quot;&quot;;C44-B44)</td><td></td></tr>
+<tr><td>E44</td><td>Zinsen im Jahr (Zeile 44)</td><td class="xlw-f">=WENN(A44=&quot;&quot;;&quot;&quot;;D44-D43)</td><td></td></tr>
+<tr><td>A45</td><td>Jahr (Zeile 45)</td><td class="xlw-f">=WENN(23&lt;=$B$8;23;&quot;&quot;)</td><td></td></tr>
+<tr><td>B45</td><td>Einzahlungen kumuliert (Zeile 45)</td><td class="xlw-f">=WENN(A45=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A45)</td><td></td></tr>
+<tr><td>C45</td><td>Kontostand Jahresende (Zeile 45)</td><td class="xlw-f">=WENN(A45=&quot;&quot;;&quot;&quot;;ZW($B$13;A45*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D45</td><td>Zinsen kumuliert (Zeile 45)</td><td class="xlw-f">=WENN(A45=&quot;&quot;;&quot;&quot;;C45-B45)</td><td></td></tr>
+<tr><td>E45</td><td>Zinsen im Jahr (Zeile 45)</td><td class="xlw-f">=WENN(A45=&quot;&quot;;&quot;&quot;;D45-D44)</td><td></td></tr>
+<tr><td>A46</td><td>Jahr (Zeile 46)</td><td class="xlw-f">=WENN(24&lt;=$B$8;24;&quot;&quot;)</td><td></td></tr>
+<tr><td>B46</td><td>Einzahlungen kumuliert (Zeile 46)</td><td class="xlw-f">=WENN(A46=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A46)</td><td></td></tr>
+<tr><td>C46</td><td>Kontostand Jahresende (Zeile 46)</td><td class="xlw-f">=WENN(A46=&quot;&quot;;&quot;&quot;;ZW($B$13;A46*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D46</td><td>Zinsen kumuliert (Zeile 46)</td><td class="xlw-f">=WENN(A46=&quot;&quot;;&quot;&quot;;C46-B46)</td><td></td></tr>
+<tr><td>E46</td><td>Zinsen im Jahr (Zeile 46)</td><td class="xlw-f">=WENN(A46=&quot;&quot;;&quot;&quot;;D46-D45)</td><td></td></tr>
+<tr><td>A47</td><td>Jahr (Zeile 47)</td><td class="xlw-f">=WENN(25&lt;=$B$8;25;&quot;&quot;)</td><td></td></tr>
+<tr><td>B47</td><td>Einzahlungen kumuliert (Zeile 47)</td><td class="xlw-f">=WENN(A47=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A47)</td><td></td></tr>
+<tr><td>C47</td><td>Kontostand Jahresende (Zeile 47)</td><td class="xlw-f">=WENN(A47=&quot;&quot;;&quot;&quot;;ZW($B$13;A47*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D47</td><td>Zinsen kumuliert (Zeile 47)</td><td class="xlw-f">=WENN(A47=&quot;&quot;;&quot;&quot;;C47-B47)</td><td></td></tr>
+<tr><td>E47</td><td>Zinsen im Jahr (Zeile 47)</td><td class="xlw-f">=WENN(A47=&quot;&quot;;&quot;&quot;;D47-D46)</td><td></td></tr>
+<tr><td>A48</td><td>Jahr (Zeile 48)</td><td class="xlw-f">=WENN(26&lt;=$B$8;26;&quot;&quot;)</td><td></td></tr>
+<tr><td>B48</td><td>Einzahlungen kumuliert (Zeile 48)</td><td class="xlw-f">=WENN(A48=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A48)</td><td></td></tr>
+<tr><td>C48</td><td>Kontostand Jahresende (Zeile 48)</td><td class="xlw-f">=WENN(A48=&quot;&quot;;&quot;&quot;;ZW($B$13;A48*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D48</td><td>Zinsen kumuliert (Zeile 48)</td><td class="xlw-f">=WENN(A48=&quot;&quot;;&quot;&quot;;C48-B48)</td><td></td></tr>
+<tr><td>E48</td><td>Zinsen im Jahr (Zeile 48)</td><td class="xlw-f">=WENN(A48=&quot;&quot;;&quot;&quot;;D48-D47)</td><td></td></tr>
+<tr><td>A49</td><td>Jahr (Zeile 49)</td><td class="xlw-f">=WENN(27&lt;=$B$8;27;&quot;&quot;)</td><td></td></tr>
+<tr><td>B49</td><td>Einzahlungen kumuliert (Zeile 49)</td><td class="xlw-f">=WENN(A49=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A49)</td><td></td></tr>
+<tr><td>C49</td><td>Kontostand Jahresende (Zeile 49)</td><td class="xlw-f">=WENN(A49=&quot;&quot;;&quot;&quot;;ZW($B$13;A49*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D49</td><td>Zinsen kumuliert (Zeile 49)</td><td class="xlw-f">=WENN(A49=&quot;&quot;;&quot;&quot;;C49-B49)</td><td></td></tr>
+<tr><td>E49</td><td>Zinsen im Jahr (Zeile 49)</td><td class="xlw-f">=WENN(A49=&quot;&quot;;&quot;&quot;;D49-D48)</td><td></td></tr>
+<tr><td>A50</td><td>Jahr (Zeile 50)</td><td class="xlw-f">=WENN(28&lt;=$B$8;28;&quot;&quot;)</td><td></td></tr>
+<tr><td>B50</td><td>Einzahlungen kumuliert (Zeile 50)</td><td class="xlw-f">=WENN(A50=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A50)</td><td></td></tr>
+<tr><td>C50</td><td>Kontostand Jahresende (Zeile 50)</td><td class="xlw-f">=WENN(A50=&quot;&quot;;&quot;&quot;;ZW($B$13;A50*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D50</td><td>Zinsen kumuliert (Zeile 50)</td><td class="xlw-f">=WENN(A50=&quot;&quot;;&quot;&quot;;C50-B50)</td><td></td></tr>
+<tr><td>E50</td><td>Zinsen im Jahr (Zeile 50)</td><td class="xlw-f">=WENN(A50=&quot;&quot;;&quot;&quot;;D50-D49)</td><td></td></tr>
+<tr><td>A51</td><td>Jahr (Zeile 51)</td><td class="xlw-f">=WENN(29&lt;=$B$8;29;&quot;&quot;)</td><td></td></tr>
+<tr><td>B51</td><td>Einzahlungen kumuliert (Zeile 51)</td><td class="xlw-f">=WENN(A51=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A51)</td><td></td></tr>
+<tr><td>C51</td><td>Kontostand Jahresende (Zeile 51)</td><td class="xlw-f">=WENN(A51=&quot;&quot;;&quot;&quot;;ZW($B$13;A51*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D51</td><td>Zinsen kumuliert (Zeile 51)</td><td class="xlw-f">=WENN(A51=&quot;&quot;;&quot;&quot;;C51-B51)</td><td></td></tr>
+<tr><td>E51</td><td>Zinsen im Jahr (Zeile 51)</td><td class="xlw-f">=WENN(A51=&quot;&quot;;&quot;&quot;;D51-D50)</td><td></td></tr>
+<tr><td>A52</td><td>Jahr (Zeile 52)</td><td class="xlw-f">=WENN(30&lt;=$B$8;30;&quot;&quot;)</td><td></td></tr>
+<tr><td>B52</td><td>Einzahlungen kumuliert (Zeile 52)</td><td class="xlw-f">=WENN(A52=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A52)</td><td></td></tr>
+<tr><td>C52</td><td>Kontostand Jahresende (Zeile 52)</td><td class="xlw-f">=WENN(A52=&quot;&quot;;&quot;&quot;;ZW($B$13;A52*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D52</td><td>Zinsen kumuliert (Zeile 52)</td><td class="xlw-f">=WENN(A52=&quot;&quot;;&quot;&quot;;C52-B52)</td><td></td></tr>
+<tr><td>E52</td><td>Zinsen im Jahr (Zeile 52)</td><td class="xlw-f">=WENN(A52=&quot;&quot;;&quot;&quot;;D52-D51)</td><td></td></tr>
+<tr><td>A53</td><td>Jahr (Zeile 53)</td><td class="xlw-f">=WENN(31&lt;=$B$8;31;&quot;&quot;)</td><td></td></tr>
+<tr><td>B53</td><td>Einzahlungen kumuliert (Zeile 53)</td><td class="xlw-f">=WENN(A53=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A53)</td><td></td></tr>
+<tr><td>C53</td><td>Kontostand Jahresende (Zeile 53)</td><td class="xlw-f">=WENN(A53=&quot;&quot;;&quot;&quot;;ZW($B$13;A53*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D53</td><td>Zinsen kumuliert (Zeile 53)</td><td class="xlw-f">=WENN(A53=&quot;&quot;;&quot;&quot;;C53-B53)</td><td></td></tr>
+<tr><td>E53</td><td>Zinsen im Jahr (Zeile 53)</td><td class="xlw-f">=WENN(A53=&quot;&quot;;&quot;&quot;;D53-D52)</td><td></td></tr>
+<tr><td>A54</td><td>Jahr (Zeile 54)</td><td class="xlw-f">=WENN(32&lt;=$B$8;32;&quot;&quot;)</td><td></td></tr>
+<tr><td>B54</td><td>Einzahlungen kumuliert (Zeile 54)</td><td class="xlw-f">=WENN(A54=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A54)</td><td></td></tr>
+<tr><td>C54</td><td>Kontostand Jahresende (Zeile 54)</td><td class="xlw-f">=WENN(A54=&quot;&quot;;&quot;&quot;;ZW($B$13;A54*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D54</td><td>Zinsen kumuliert (Zeile 54)</td><td class="xlw-f">=WENN(A54=&quot;&quot;;&quot;&quot;;C54-B54)</td><td></td></tr>
+<tr><td>E54</td><td>Zinsen im Jahr (Zeile 54)</td><td class="xlw-f">=WENN(A54=&quot;&quot;;&quot;&quot;;D54-D53)</td><td></td></tr>
+<tr><td>A55</td><td>Jahr (Zeile 55)</td><td class="xlw-f">=WENN(33&lt;=$B$8;33;&quot;&quot;)</td><td></td></tr>
+<tr><td>B55</td><td>Einzahlungen kumuliert (Zeile 55)</td><td class="xlw-f">=WENN(A55=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A55)</td><td></td></tr>
+<tr><td>C55</td><td>Kontostand Jahresende (Zeile 55)</td><td class="xlw-f">=WENN(A55=&quot;&quot;;&quot;&quot;;ZW($B$13;A55*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D55</td><td>Zinsen kumuliert (Zeile 55)</td><td class="xlw-f">=WENN(A55=&quot;&quot;;&quot;&quot;;C55-B55)</td><td></td></tr>
+<tr><td>E55</td><td>Zinsen im Jahr (Zeile 55)</td><td class="xlw-f">=WENN(A55=&quot;&quot;;&quot;&quot;;D55-D54)</td><td></td></tr>
+<tr><td>A56</td><td>Jahr (Zeile 56)</td><td class="xlw-f">=WENN(34&lt;=$B$8;34;&quot;&quot;)</td><td></td></tr>
+<tr><td>B56</td><td>Einzahlungen kumuliert (Zeile 56)</td><td class="xlw-f">=WENN(A56=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A56)</td><td></td></tr>
+<tr><td>C56</td><td>Kontostand Jahresende (Zeile 56)</td><td class="xlw-f">=WENN(A56=&quot;&quot;;&quot;&quot;;ZW($B$13;A56*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D56</td><td>Zinsen kumuliert (Zeile 56)</td><td class="xlw-f">=WENN(A56=&quot;&quot;;&quot;&quot;;C56-B56)</td><td></td></tr>
+<tr><td>E56</td><td>Zinsen im Jahr (Zeile 56)</td><td class="xlw-f">=WENN(A56=&quot;&quot;;&quot;&quot;;D56-D55)</td><td></td></tr>
+<tr><td>A57</td><td>Jahr (Zeile 57)</td><td class="xlw-f">=WENN(35&lt;=$B$8;35;&quot;&quot;)</td><td></td></tr>
+<tr><td>B57</td><td>Einzahlungen kumuliert (Zeile 57)</td><td class="xlw-f">=WENN(A57=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A57)</td><td></td></tr>
+<tr><td>C57</td><td>Kontostand Jahresende (Zeile 57)</td><td class="xlw-f">=WENN(A57=&quot;&quot;;&quot;&quot;;ZW($B$13;A57*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D57</td><td>Zinsen kumuliert (Zeile 57)</td><td class="xlw-f">=WENN(A57=&quot;&quot;;&quot;&quot;;C57-B57)</td><td></td></tr>
+<tr><td>E57</td><td>Zinsen im Jahr (Zeile 57)</td><td class="xlw-f">=WENN(A57=&quot;&quot;;&quot;&quot;;D57-D56)</td><td></td></tr>
+<tr><td>A58</td><td>Jahr (Zeile 58)</td><td class="xlw-f">=WENN(36&lt;=$B$8;36;&quot;&quot;)</td><td></td></tr>
+<tr><td>B58</td><td>Einzahlungen kumuliert (Zeile 58)</td><td class="xlw-f">=WENN(A58=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A58)</td><td></td></tr>
+<tr><td>C58</td><td>Kontostand Jahresende (Zeile 58)</td><td class="xlw-f">=WENN(A58=&quot;&quot;;&quot;&quot;;ZW($B$13;A58*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D58</td><td>Zinsen kumuliert (Zeile 58)</td><td class="xlw-f">=WENN(A58=&quot;&quot;;&quot;&quot;;C58-B58)</td><td></td></tr>
+<tr><td>E58</td><td>Zinsen im Jahr (Zeile 58)</td><td class="xlw-f">=WENN(A58=&quot;&quot;;&quot;&quot;;D58-D57)</td><td></td></tr>
+<tr><td>A59</td><td>Jahr (Zeile 59)</td><td class="xlw-f">=WENN(37&lt;=$B$8;37;&quot;&quot;)</td><td></td></tr>
+<tr><td>B59</td><td>Einzahlungen kumuliert (Zeile 59)</td><td class="xlw-f">=WENN(A59=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A59)</td><td></td></tr>
+<tr><td>C59</td><td>Kontostand Jahresende (Zeile 59)</td><td class="xlw-f">=WENN(A59=&quot;&quot;;&quot;&quot;;ZW($B$13;A59*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D59</td><td>Zinsen kumuliert (Zeile 59)</td><td class="xlw-f">=WENN(A59=&quot;&quot;;&quot;&quot;;C59-B59)</td><td></td></tr>
+<tr><td>E59</td><td>Zinsen im Jahr (Zeile 59)</td><td class="xlw-f">=WENN(A59=&quot;&quot;;&quot;&quot;;D59-D58)</td><td></td></tr>
+<tr><td>A60</td><td>Jahr (Zeile 60)</td><td class="xlw-f">=WENN(38&lt;=$B$8;38;&quot;&quot;)</td><td></td></tr>
+<tr><td>B60</td><td>Einzahlungen kumuliert (Zeile 60)</td><td class="xlw-f">=WENN(A60=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A60)</td><td></td></tr>
+<tr><td>C60</td><td>Kontostand Jahresende (Zeile 60)</td><td class="xlw-f">=WENN(A60=&quot;&quot;;&quot;&quot;;ZW($B$13;A60*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D60</td><td>Zinsen kumuliert (Zeile 60)</td><td class="xlw-f">=WENN(A60=&quot;&quot;;&quot;&quot;;C60-B60)</td><td></td></tr>
+<tr><td>E60</td><td>Zinsen im Jahr (Zeile 60)</td><td class="xlw-f">=WENN(A60=&quot;&quot;;&quot;&quot;;D60-D59)</td><td></td></tr>
+<tr><td>A61</td><td>Jahr (Zeile 61)</td><td class="xlw-f">=WENN(39&lt;=$B$8;39;&quot;&quot;)</td><td></td></tr>
+<tr><td>B61</td><td>Einzahlungen kumuliert (Zeile 61)</td><td class="xlw-f">=WENN(A61=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A61)</td><td></td></tr>
+<tr><td>C61</td><td>Kontostand Jahresende (Zeile 61)</td><td class="xlw-f">=WENN(A61=&quot;&quot;;&quot;&quot;;ZW($B$13;A61*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D61</td><td>Zinsen kumuliert (Zeile 61)</td><td class="xlw-f">=WENN(A61=&quot;&quot;;&quot;&quot;;C61-B61)</td><td></td></tr>
+<tr><td>E61</td><td>Zinsen im Jahr (Zeile 61)</td><td class="xlw-f">=WENN(A61=&quot;&quot;;&quot;&quot;;D61-D60)</td><td></td></tr>
+<tr><td>A62</td><td>Jahr (Zeile 62)</td><td class="xlw-f">=WENN(40&lt;=$B$8;40;&quot;&quot;)</td><td></td></tr>
+<tr><td>B62</td><td>Einzahlungen kumuliert (Zeile 62)</td><td class="xlw-f">=WENN(A62=&quot;&quot;;&quot;&quot;;$B$5+$B$6*$B$9*A62)</td><td></td></tr>
+<tr><td>C62</td><td>Kontostand Jahresende (Zeile 62)</td><td class="xlw-f">=WENN(A62=&quot;&quot;;&quot;&quot;;ZW($B$13;A62*$B$9;-$B$6;-$B$5;$B$10))</td><td></td></tr>
+<tr><td>D62</td><td>Zinsen kumuliert (Zeile 62)</td><td class="xlw-f">=WENN(A62=&quot;&quot;;&quot;&quot;;C62-B62)</td><td></td></tr>
+<tr><td>E62</td><td>Zinsen im Jahr (Zeile 62)</td><td class="xlw-f">=WENN(A62=&quot;&quot;;&quot;&quot;;D62-D61)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>4.368 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 208 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Endwert (B15), Zinserträge gesamt (B17).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 208 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 208 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>4.368 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Finanzierung &amp; Finanzmathematik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-annuitaet">Annuitätendarlehen &amp; Tilgungsplan</a><p>Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-ratendarlehen">Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</a><p>Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-rentenrechnung">Rentenrechnung: Barwert, Endwert, ewige Rente</a><p>Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig.</p></li>
+<li><a href="/tools/excel-vorlage-effektivzins">Effektivzins eines Kredits</a><p>Effektivzins eines Annuitätendarlehens mit Disagio und Gebühr – plus Nominal- vs. Effektivzins.</p></li>
+<li><a href="/tools/excel-vorlage-skonto">Lieferantenkredit vs. Skonto</a><p>Effektiver Jahreszins des Lieferantenkredits und Entscheidung: Skonto ziehen oder Ziel ausnutzen?</p></li>
+<li><a href="/tools/excel-vorlage-leverage">Leverage-Effekt</a><p>EK-Rendite in Abhängigkeit vom Verschuldungsgrad – mit Chance und Risiko im Krisenfall.</p></li>
+<li><a href="/tools/excel-vorlage-wacc">WACC – gewichtete Kapitalkosten</a><p>Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalbedarf">Kapitalbedarfsplanung (Gründung)</a><p>Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

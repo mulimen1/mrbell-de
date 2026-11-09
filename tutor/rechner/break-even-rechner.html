@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Break-even-Rechner: Gewinnschwelle und Sicherheitsabstand | BWL Max</title>
 <meta name="description" content="Break-even-Menge und -Umsatz berechnen, Sicherheitsabstand und Menge für einen Zielgewinn – mit Deckungsbeitrag und Rechenweg, kostenlos.">
@@ -100,8 +100,23 @@ table.plan td{white-space:nowrap}
 table.dec.plan th,table.dec.plan th.n{white-space:normal;vertical-align:bottom;-webkit-hyphens:auto;hyphens:auto}
 table.dec.plan th:first-child{white-space:nowrap}
 @media (max-width:600px){.card.main{padding:12px 10px}.out{padding:10px 8px}.out table.dec{font-size:.78rem}.out table.dec th,.out table.dec td{padding:4px 3px}}
+.druck-kopf{display:none}
+.fazit{margin:.6em 0 0;font-weight:600;color:var(--fg)}
+.bmw-ueb .uta{border-collapse:collapse;font-variant-numeric:tabular-nums;margin:.3em 0}
 @media print{
  @page{size:A4;margin:12mm 11mm}
+ html.bmw-printing .druck-kopf{display:block;font-size:9pt;color:#333;margin:0 0 3mm}
+ html.bmw-printing #rechner>h2{margin-top:0}
+ #rechner .card.main{break-inside:auto}
+ .out .lbl{margin-top:.3em}
+ .out table.dec th,.out table.dec td{padding:2px 8px}
+ .out .tw{margin:.3em 0;break-inside:avoid}
+ .big{margin-top:.25em;padding-top:.2em}
+ #rechner .card.main{border:1px solid #999;padding:8px 10px}
+ #rechner .grid{grid-template-columns:repeat(3,1fr);gap:6px 10px}
+ #rechner input{border:1px solid #999;padding:3px 6px}
+ .out{background:#fff;border:1px solid #bbb}
+ .steps{overflow:visible}
  :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
  body{font-size:10pt}
  .wrap{max-width:none;padding:0}
@@ -115,7 +130,7 @@ table.dec.plan th:first-child{white-space:nowrap}
  footer{margin-top:1em}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -126,23 +141,26 @@ table.dec.plan th:first-child{white-space:nowrap}
 <header>
 <h1>Break-even-Rechner: Gewinnschwelle berechnen</h1>
 <p class="lead">Aus Fixkosten, Preis und variablen Stückkosten berechnet der Rechner den Deckungsbeitrag je Stück, die Break-even-Menge und den Break-even-Umsatz. Mit einer geplanten Menge kommen Sicherheitsabstand und Gewinn hinzu, mit einem Zielgewinn die dafür nötige Absatzmenge – jeweils mit Formel und eingesetztem Rechenweg. Gedacht für Kosten- und Leistungsrechnung, Controlling und BWL-Grundlagen im Studium.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übungsmodus</a></li>
 <li><a href="#formeln">Formeln</a></li>
 <li><a href="#beispiele">Beispiele mit Lösung</a></li>
 <li><a href="#grundlagen">Begriffe und Grundlagen</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
-<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
-<p class="small">Beträge in Euro. Komma oder Punkt als Dezimaltrennzeichen, Tausenderpunkte sind erlaubt (1.500 = eintausendfünfhundert). Das Ergebnis wird beim Tippen aktualisiert.</p>
+<p class="druck-kopf">Break-even-Analyse (Einproduktfall) · Quelle: www.bwlmax.de/rechner/break-even-rechner</p>
+<p class="small noprint">Beträge in Euro. Komma oder Punkt als Dezimaltrennzeichen, Tausenderpunkte sind erlaubt (1.500 = eintausendfünfhundert). Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-be" onsubmit="return false">
 <div class="grid">
 <label><span>Fixkosten K<sub>f</sub> (€)</span><input id="be-kf" inputmode="decimal" autocomplete="off" value="50.000"></label>
@@ -153,6 +171,12 @@ table.dec.plan th:first-child{white-space:nowrap}
 </div>
 <div class="out" id="be-out" aria-live="polite"></div>
 </form>
+</section>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übungsmodus: selbst rechnen</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen – Gewinnschwelle und Sicherheitsabstand, Absatzmenge für einen Zielgewinn oder eine Break-even-Menge mit Nachkommastellen. Rechne auf Papier, trag deine Ergebnisse ein und lass sie prüfen. Der Lösungsweg zeigt jeden Schritt mit Formel und eingesetzten Zahlen.</p>
+<div id="be-ueb"></div>
 </section>
 
 <section id="formeln" aria-labelledby="h-formeln">
@@ -228,6 +252,17 @@ table.dec.plan th:first-child{white-space:nowrap}
 <p>Der Rechner behandelt ein Produkt. Bei mehreren Produkten mit festem Absatzmix lässt sich der Break-even-Umsatz als Fixkosten geteilt durch die umsatzgewichtete durchschnittliche Deckungsbeitragsquote bestimmen.</p>
 <h3>Warum ist der Sicherheitsabstand negativ?</h3>
 <p>Die geplante Menge liegt dann unter der Break-even-Menge, das Unternehmen macht Verlust. Der Betrag zeigt, wie viele Stück bis zur Gewinnschwelle fehlen.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Einproduktfall mit linearem Kosten- und Erlösverlauf (Deckungsbeitragsrechnung). Alle Formeln stehen im Abschnitt <a href="#formeln">Formeln</a>; der Rechner zeigt jeden Schritt mit deinen Zahlen.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung getestet: 1.511 Rechnerfälle einschließlich Randfällen (Deckungsbeitrag ≤ 0, Fixkosten 0, negativer Zielgewinn) und 2.100 zufällig erzeugte Übungsaufgaben.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -425,7 +460,7 @@ var UI = (function () {
       o.render(out); return;
     }
     o.add('<div class="lbl">Break-even-Menge</div>').steps('x_{BE}=\\dfrac{K_f}{p-k_v}=\\dfrac{' + kf + '}{' + tn(r.db) + '}' + teq(r.xbe, 0, 2));
-    o.add(UI.big('Break-even-Menge', stk(r.xbe), BM.istGanz(r.xbe) ? null : 'Ganze Stück: ab ' + fmt(r.xbeAuf, 0) + ' Stück wird ein Gewinn erzielt.', 'be-r-x'));
+    o.add(UI.big('Break-even-Menge', stk(r.xbe), BM.istGanz(r.xbe) ? (r.xbe > 0 ? 'Bei genau ' + fmt(r.xbe, 0) + ' Stück ist der Gewinn 0, ab ' + fmt(r.xbe + 1, 0) + ' Stück wird ein Gewinn erzielt.' : null) : 'Ganze Stück: ab ' + fmt(r.xbeAuf, 0) + ' Stück wird ein Gewinn erzielt.', 'be-r-x'));
     o.add('<div class="lbl">Break-even-Umsatz</div>').steps('U_{BE}=x_{BE}\\cdot p=' + tn(r.xbe, 0, 4) + '\\cdot ' + p + teq(r.ube, 0, 2));
     o.add(UI.big('Break-even-Umsatz', eur(r.ube), null, 'be-r-u'));
     if (a.m !== undefined) {
@@ -436,6 +471,7 @@ var UI = (function () {
       if (r.saMenge < 0) o.add('<p class="small"><strong>Die geplante Menge liegt unter der Gewinnschwelle. Der negative Sicherheitsabstand zeigt, wie viele Stück bis zum Break-even fehlen.</strong></p>');
       o.add('<div class="lbl">Gewinn bei geplanter Menge</div>').steps('G=(p-k_v)\\cdot x-K_f=' + tn(r.db) + '\\cdot ' + m + '-' + kf + teq(r.gewinn, 0, 2));
       o.add(UI.big('Gewinn bei geplanter Menge', eur(r.gewinn), null, 'be-r-g'));
+      o.add('<p class="fazit">' + (r.saMenge > 1e-9 ? 'Ergebnis: Die geplante Menge von ' + stk(a.m) + ' liegt über der Break-even-Menge – das Unternehmen ist in der Gewinnzone.' : r.saMenge < -1e-9 ? 'Ergebnis: Die geplante Menge von ' + stk(a.m) + ' liegt unter der Break-even-Menge – das Unternehmen ist in der Verlustzone.' : 'Ergebnis: Die geplante Menge entspricht genau der Break-even-Menge – Gewinn 0.') + '</p>');
       o.add('<div class="tw"><table class="dec res"><tbody>' +
         '<tr><th scope="row">Umsatz</th><td class="n">' + eur(r.umsatz) + '</td></tr>' +
         '<tr><th scope="row">− variable Kosten</th><td class="n">' + eur(r.kvGesamt) + '</td></tr>' +
@@ -461,6 +497,97 @@ var UI = (function () {
   });
   UI.renderStatic();
   calc();
+  BMW.leiste($('c-be'), { teilen: BMW.teilen({ key: 'be', root: $('c-be'), run: calc }), druckScope: $('rechner') });
+})();
+</script>
+<script>
+// UEB-START
+// Übungsaufgaben zur Break-even-Analyse (Zahlen so gewählt, dass keine Sonderfälle entstehen)
+function beAufgabe(v) {
+  'use strict';
+  var Z = BMW.zufall, W = BMW.wahl, tn = BM.tn, teq = BM.teq, fmt = BM.fmt;
+  function tx(s) { return '<span class="fx" data-tex="' + s.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"></span>'; }
+  function geld(x) { return (BM.istGanz(x) ? fmt(x, 0, 0) : fmt(x, 2, 2)) + '\u00a0€'; }
+  function st(x) { return fmt(x, 0, 2) + ' Stück'; }
+  v = v || W(['A', 'B', 'C']);
+  var db, xbe, kv, p, kf, o = { p: { v: v } };
+  if (v === 'C') {
+    do {
+      db = W([3.5, 4.5, 6.5, 7.5, 8.5, 12.5, 17.5, 22.5]);
+      kv = Z(8, 120, 1) + 0.5; kf = Z(5, 90, 1) * 1000;
+    } while (BM.istGanz(kf / db));
+    p = kv + db; xbe = kf / db;
+    var xmin = Math.ceil(xbe), gmin = db * xmin - kf;
+    o.p.kf = kf; o.p.pr = p; o.p.kv = kv;
+    o.text = '<p>Ein Einproduktunternehmen hat Fixkosten von ' + geld(kf) + ' je Periode. Das Produkt wird zu ' + geld(p) + ' je Stück verkauft, die variablen Stückkosten betragen ' + geld(kv) + '.</p>' +
+      '<p>a) Berechne die Break-even-Menge (auf zwei Nachkommastellen).<br>b) Wie viele ganze Stück müssen mindestens abgesetzt werden, damit ein Gewinn entsteht?<br>c) Wie hoch ist der Gewinn bei dieser Mindestmenge (auf zwei Nachkommastellen)?</p>';
+    o.felder = [
+      { key: 'xbe', label: 'a) Break-even-Menge', einheit: 'Stück', wert: xbe },
+      { key: 'xmin', label: 'b) Mindestmenge (ganze Stück)', einheit: 'Stück', wert: xmin, nk: 0, tol: 0.001 },
+      { key: 'gmin', label: 'c) Gewinn bei der Mindestmenge', einheit: '€', wert: gmin }
+    ];
+    o.loesung = '<ol class="bmw-weg">' +
+      '<li>Deckungsbeitrag je Stück ' + tx('db=p-k_v=' + tn(p, 0, 2) + '-' + tn(kv, 0, 2) + '=' + tn(db, 0, 2)) + '</li>' +
+      '<li>Break-even-Menge ' + tx('x_{BE}=\\dfrac{K_f}{db}=\\dfrac{' + tn(kf) + '}{' + tn(db, 0, 2) + '}' + teq(xbe, 2, 2)) + '</li>' +
+      '<li>Nur ganze Stück werden verkauft: Bei ' + st(Math.floor(xbe)) + ' ist der Deckungsbeitrag noch kleiner als die Fixkosten, also aufrunden ' + tx('x_{\\min}=' + tn(xmin)) + '</li>' +
+      '<li>Gewinn bei der Mindestmenge ' + tx('G=db\\cdot x-K_f=' + tn(db, 0, 2) + '\\cdot ' + tn(xmin) + '-' + tn(kf) + '=' + tn(gmin, 2, 2)) + '</li>' +
+      '</ol><p><strong>Antwort:</strong> Die Gewinnschwelle liegt bei ' + fmt(xbe, 2, 2) + ' Stück; ab ' + st(xmin) + ' entsteht ein Gewinn (' + fmt(gmin, 2, 2) + ' €).</p>';
+    return o;
+  }
+  db = W([8, 10, 12, 15, 16, 20, 24, 25, 30, 40, 45, 50, 60, 75, 80]);
+  xbe = Z(4, 60, 1) * 100; kv = Z(10, 180, 1); p = kv + db; kf = db * xbe;
+  var ube = xbe * p;
+  o.p.kf = kf; o.p.pr = p; o.p.kv = kv;
+  var weg1 = '<li>Deckungsbeitrag je Stück ' + tx('db=p-k_v=' + tn(p) + '-' + tn(kv) + '=' + tn(db)) + '</li>' +
+    '<li>Break-even-Menge (Umsatz = Gesamtkosten) ' + tx('x_{BE}=\\dfrac{K_f}{p-k_v}=\\dfrac{' + tn(kf) + '}{' + tn(db) + '}=' + tn(xbe)) + '</li>';
+  if (v === 'A') {
+    var x = xbe + Z(1, 8, 1) * xbe / 10, sa = (x - xbe) / x * 100, g = db * x - kf;
+    o.p.x = x;
+    o.text = '<p>Ein Unternehmen stellt ein einziges Produkt her. Die Fixkosten betragen ' + geld(kf) + ' je Periode, der Verkaufspreis ' + geld(p) + ' je Stück und die variablen Stückkosten ' + geld(kv) + '. Geplant ist ein Absatz von ' + st(x) + '.</p>' +
+      '<p>Berechne a) den Deckungsbeitrag je Stück, b) die Break-even-Menge, c) den Break-even-Umsatz, d) den Sicherheitsabstand in Prozent der geplanten Menge und e) den Gewinn bei der geplanten Menge. Runde auf zwei Nachkommastellen.</p>';
+    o.felder = [
+      { key: 'db', label: 'a) Deckungsbeitrag je Stück', einheit: '€', wert: db },
+      { key: 'xbe', label: 'b) Break-even-Menge', einheit: 'Stück', wert: xbe },
+      { key: 'ube', label: 'c) Break-even-Umsatz', einheit: '€', wert: ube },
+      { key: 'sa', label: 'd) Sicherheitsabstand', einheit: '%', wert: sa },
+      { key: 'g', label: 'e) Gewinn bei geplanter Menge', einheit: '€', wert: g }
+    ];
+    o.loesung = '<ol class="bmw-weg">' + weg1 +
+      '<li>Break-even-Umsatz ' + tx('U_{BE}=x_{BE}\\cdot p=' + tn(xbe) + '\\cdot ' + tn(p) + '=' + tn(ube)) + '</li>' +
+      '<li>Sicherheitsabstand in Prozent der geplanten Menge ' + tx('\\dfrac{x-x_{BE}}{x}\\cdot 100\\,\\%=\\dfrac{' + tn(x) + '-' + tn(xbe) + '}{' + tn(x) + '}\\cdot 100\\,\\%' + teq(sa, 0, 2) + '\\,\\%') + '</li>' +
+      '<li>Gewinn bei der geplanten Menge ' + tx('G=(p-k_v)\\cdot x-K_f=' + tn(db) + '\\cdot ' + tn(x) + '-' + tn(kf) + '=' + tn(g)) + '</li>' +
+      '</ol><p><strong>Antwort:</strong> Die Gewinnschwelle liegt bei ' + st(xbe) + ' bzw. ' + geld(ube) + ' Umsatz. Der Absatz darf um ' + fmt(sa, 2, 2) + ' % sinken, bevor Verlust entsteht; bei ' + st(x) + ' beträgt der Gewinn ' + geld(g) + '.</p>';
+    return o;
+  }
+  // v === 'B': Zielgewinn
+  var zg = db * 50 * Math.max(1, Math.round(xbe * Z(1, 8, 1) / 10 / 50)), xg = (kf + zg) / db, ug = xg * p;
+  o.p.zg = zg;
+  o.text = '<p>Für ein Produkt gelten: Fixkosten ' + geld(kf) + ' je Periode, Verkaufspreis ' + geld(p) + ' je Stück, variable Stückkosten ' + geld(kv) + '. Die Geschäftsführung strebt einen Gewinn von ' + geld(zg) + ' an.</p>' +
+    '<p>Berechne a) die Break-even-Menge, b) die Absatzmenge, mit der der Zielgewinn genau erreicht wird, und c) den Umsatz bei dieser Absatzmenge.</p>';
+  o.felder = [
+    { key: 'xbe', label: 'a) Break-even-Menge', einheit: 'Stück', wert: xbe },
+    { key: 'xg', label: 'b) Menge für den Zielgewinn', einheit: 'Stück', wert: xg },
+    { key: 'ug', label: 'c) Umsatz bei dieser Menge', einheit: '€', wert: ug }
+  ];
+  o.loesung = '<ol class="bmw-weg">' + weg1 +
+    '<li>Menge für den Zielgewinn: Der Deckungsbeitrag muss Fixkosten und Zielgewinn decken ' + tx('x_G=\\dfrac{K_f+G}{p-k_v}=\\dfrac{' + tn(kf) + '+' + tn(zg) + '}{' + tn(db) + '}=\\dfrac{' + tn(kf + zg) + '}{' + tn(db) + '}=' + tn(xg)) + '</li>' +
+    '<li>Umsatz bei dieser Menge ' + tx('U=x_G\\cdot p=' + tn(xg) + '\\cdot ' + tn(p) + '=' + tn(ug)) + '</li>' +
+    '</ol><p><strong>Antwort:</strong> Für ' + geld(zg) + ' Gewinn müssen ' + st(xg) + ' abgesetzt werden (Umsatz ' + geld(ug) + '); das sind ' + st(xg - xbe) + ' mehr als an der Gewinnschwelle.</p>';
+  return o;
+}
+// UEB-END
+(function () {
+  'use strict';
+  function tex(el) {
+    el.querySelectorAll('[data-tex]').forEach(function (s) {
+      var src = s.getAttribute('data-tex'); s.removeAttribute('data-tex');
+      if (window.katex) { try { katex.render('\\displaystyle ' + src, s, { throwOnError: true, strict: 'ignore' }); return; } catch (e) { if (window.console) console.error(e.message); } }
+      s.textContent = src;
+    });
+  }
+  BMW.uebung(document.getElementById('be-ueb'), { titel: 'Aufgabe zur Break-even-Analyse', neu: function () { return beAufgabe(); }, nachher: tex });
+// „Prüfen“ liegt in bm-werkzeug.js außerhalb des <form> – hier mit dem Formular verknüpfen (Klick und Enter prüfen)
+(function (m) { var f = m.querySelector('form.bmw-ueb-form'), b = m.querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'be-ueb-form'; b.setAttribute('form', f.id); } })(document.getElementById('be-ueb'));
 })();
 </script>
 </body>

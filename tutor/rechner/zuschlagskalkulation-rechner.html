@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Zuschlagskalkulation-Rechner: Herstellkosten, Selbstkosten, Listenpreis | BWL Max</title>
 <meta name="description" content="Zuschlagskalkulation online: Materialkosten, Fertigungskosten, Herstellkosten, Selbstkosten bis zum Listenverkaufspreis – im Klausurschema, kostenlos.">
@@ -100,8 +100,26 @@ table.plan td{white-space:nowrap}
 table.dec.plan th,table.dec.plan th.n{white-space:normal;vertical-align:bottom;-webkit-hyphens:auto;hyphens:auto}
 table.dec.plan th:first-child{white-space:nowrap}
 @media (max-width:600px){.card.main{padding:12px 10px}.out{padding:10px 8px}.out table.dec{font-size:.78rem}.out table.dec th,.out table.dec td{padding:4px 3px}}
+.druck-kopf{display:none}
+.bmw-ueb-auf ul.daten{columns:2;column-gap:2em;margin:.4em 0}
+@media (max-width:600px){.bmw-ueb-auf ul.daten{columns:1}.bmw-ueb-los{padding:10px 8px}.bmw-ueb-los table.dec{font-size:.78rem}.bmw-ueb-los table.dec th,.bmw-ueb-los table.dec td{padding:4px 5px}.bmw-ueb-los .bmw-weg>li{padding-left:34px}}
 @media print{
  @page{size:A4;margin:12mm 11mm}
+ html.bmw-printing .druck-kopf{display:block;font-size:9pt;color:#333;margin:0 0 3mm}
+ html.bmw-printing #rechner>h2{margin-top:0}
+ #rechner .card.main{break-inside:auto}
+ .out .lbl{margin-top:.3em}
+ .out table.dec th,.out table.dec td{padding:2px 8px}
+ .out .tw{margin:.3em 0;break-inside:avoid}
+ .big{margin-top:.25em;padding-top:.2em}
+ #rechner .card.main{border:1px solid #999;padding:6px 10px}
+ #rechner h3.gh{margin:.4em 0 .1em;font-size:10pt}
+ #rechner .grid{grid-template-columns:repeat(4,1fr);gap:4px 10px;margin:.2em 0}
+ #rechner input{border:1px solid #999;padding:2px 6px}
+ .out{background:#fff;border:1px solid #bbb}
+ .steps{overflow:visible}
+ .big{margin-top:.3em;padding-top:.25em}
+ .big b{font-size:11pt}
  :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
  body{font-size:10pt}
  .wrap{max-width:none;padding:0}
@@ -115,7 +133,7 @@ table.dec.plan th:first-child{white-space:nowrap}
  footer{margin-top:1em}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -126,23 +144,26 @@ table.dec.plan th:first-child{white-space:nowrap}
 <header>
 <h1>Zuschlagskalkulation-Rechner: vom Material bis zum Listenpreis</h1>
 <p class="lead">Der Rechner rechnet das Kalkulationsschema der differenzierenden Zuschlagskalkulation vollständig durch: Materialkosten, Fertigungskosten, Herstellkosten und Selbstkosten, auf Wunsch mit Gewinnzuschlag, Kundenskonto, Vertreterprovision und Kundenrabatt bis zum Listenverkaufspreis. Sondereinzelkosten der Fertigung und des Vertriebs sind möglich, der Rechenweg wird mit eingesetzten Zahlen gezeigt. Gedacht für Kosten- und Leistungsrechnung im Studium und in der Ausbildung.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übungsmodus</a></li>
 <li><a href="#schema">Kalkulationsschema</a></li>
 <li><a href="#beispiele">Beispiele mit Lösung</a></li>
 <li><a href="#grundlagen">Begriffe und Grundlagen</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
-<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
-<p class="small">Beträge in Euro, Zuschläge in Prozent. Komma oder Punkt als Dezimaltrennzeichen. Leere Felder zählen als 0. Das Ergebnis wird beim Tippen aktualisiert.</p>
+<p class="druck-kopf">Zuschlagskalkulation (differenzierend, Vorwärtsrechnung) · Quelle: www.bwlmax.de/rechner/zuschlagskalkulation-rechner</p>
+<p class="small noprint">Beträge in Euro, Zuschläge in Prozent. Komma oder Punkt als Dezimaltrennzeichen. Leere Felder zählen als 0. Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-zk" onsubmit="return false">
 <h3 class="gh">Material</h3>
 <div class="grid">
@@ -170,6 +191,12 @@ table.dec.plan th:first-child{white-space:nowrap}
 </div>
 <div class="out" id="zk-out" aria-live="polite"></div>
 </form>
+</section>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übungsmodus: selbst kalkulieren</h2>
+<p>Klausurtypische Kalkulationsaufgaben mit zufälligen Zahlen, teils mit Sondereinzelkosten und Vertreterprovision. Rechne das Schema auf Papier durch, trag Herstellkosten, Selbstkosten und die drei Verkaufspreise ein und lass sie prüfen. Die Lösung zeigt das vollständige Kalkulationsschema und die Rechnung im Hundert.</p>
+<div id="zk-ueb"></div>
 </section>
 
 <section id="schema" aria-labelledby="h-schema">
@@ -248,6 +275,17 @@ table.dec.plan th:first-child{white-space:nowrap}
 <p>Netto, also ohne Umsatzsteuer. Für den Bruttopreis kommt die Umsatzsteuer auf den Listenverkaufspreis hinzu.</p>
 <h3>Was sind Fertigungslöhne?</h3>
 <p>Die Fertigungseinzelkosten: Löhne, die einem Produkt direkt zugerechnet werden können. Hilfslöhne zählen dagegen zu den Fertigungsgemeinkosten.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Differenzierende Zuschlagskalkulation: Verwaltungs- und Vertriebsgemeinkosten auf Basis der Herstellkosten, Gewinn vom Hundert, Skonto, Provision und Rabatt im Hundert. Das vollständige Schema steht im Abschnitt <a href="#schema">Kalkulationsschema</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung getestet: 1.505 Rechnerfälle einschließlich Randfällen und 2.500 zufällig erzeugte Übungsaufgaben – mit und ohne Rundung der Zwischenergebnisse.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -448,7 +486,7 @@ var UI = (function () {
     o.steps('SK=HK+HK\\cdot(\\text{VwGK}+\\text{VtGK})' + (r.SEKV ? '+SEK_V' : '') + '=' + x(r.HK) + '+' + x(r.HK) + '\\cdot(' + pz(g('vwgk')) + '+' + pz(g('vtgk')) + ')' + (r.SEKV ? '+' + x(r.SEKV) : '') + teq(r.SK, 0, 2));
     if (a.gewinn !== undefined) o.steps('BVP=SK+SK\\cdot\\text{Gewinnzuschlag}=' + x(r.SK) + '+' + x(r.SK) + '\\cdot ' + (g('gewinn') < 0 ? '(' + pz(g('gewinn')) + ')' : pz(g('gewinn'))) + teq(r.BVP, 0, 2));
     if (g('skonto') || g('prov')) o.steps('ZVP=\\dfrac{BVP}{1-\\frac{\\text{Skonto}+\\text{Provision}}{100}}=\\dfrac{' + x(r.BVP) + '}{1-' + dz(g('skonto') + g('prov')) + '}' + teq(r.ZVP, 0, 2));
-    if (g('rabatt')) o.steps('LVP=\\dfrac{ZVP}{1-\\frac{\\text{Rabatt}}{100}}=\\dfrac{' + tn(r.ZVP, 0, 4) + '}{1-' + dz(g('rabatt')) + '}' + teq(r.LVP, 0, 2));
+    if (g('rabatt')) o.steps('LVP=\\dfrac{ZVP}{1-\\frac{\\text{Rabatt}}{100}}=\\dfrac{' + tn(r.ZVP, 2, 4) + '}{1-' + dz(g('rabatt')) + '}' + teq(r.LVP, 0, 2));
     o.add(UI.big('Herstellkosten', eur(r.HK), null, 'zk-r-hk') + UI.big('Selbstkosten', eur(r.SK), null, 'zk-r-sk') + UI.big('Barverkaufspreis', eur(r.BVP), null, 'zk-r-bvp') +
       UI.big('Zielverkaufspreis', eur(r.ZVP), null, 'zk-r-zvp') + UI.big('Listenverkaufspreis (netto)', eur(r.LVP), null, 'zk-r-lvp'));
     var rows = r.schema.map(function (s) {
@@ -470,6 +508,87 @@ var UI = (function () {
   });
   UI.renderStatic();
   calc();
+  BMW.leiste($('c-zk'), { teilen: BMW.teilen({ key: 'zk', root: $('c-zk'), run: calc }), druckScope: $('rechner') });
+})();
+</script>
+<script>
+// UEB-START
+// Übungsaufgabe Zuschlagskalkulation: Zwischenergebnisse wie in der Klausur auf Cent gerundet
+function zkAufgabe() {
+  'use strict';
+  var Z = BMW.zufall, W = BMW.wahl, R = BM.R, tn = BM.tn, fmt = BM.fmt;
+  function tx(s) { return '<span class="fx" data-tex="' + s.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"></span>'; }
+  function geld(x) { return fmt(x, 2, 2) + '\u00a0€'; }
+  function pz(x) { return fmt(x, 0, 2) + '\u00a0%'; }
+  function t2(x) { return tn(x, 2, 2); }
+  function tp(x) { return tn(x) + '\\,\\%'; }
+  function gl(exakt, gerundet) { return Math.abs(exakt - gerundet) > 1e-9 ? '\\approx ' : '='; }
+  var a = {
+    mek: Z(3, 40, 1) * 20, mgk: W([5, 10, 15, 20, 25, 30]), fl: Z(2, 30, 1) * 20, fgk: Z(16, 50, 1) * 5,
+    sekf: W([0, 0, 0, Z(1, 10, 1) * 10]), vwgk: Z(5, 15, 1), vtgk: Z(3, 12, 1), sekv: W([0, 0, Z(1, 6, 1) * 5]),
+    gewinn: W([5, 8, 10, 12, 15, 20, 25]), skonto: W([2, 3]), prov: W([0, 0, 5]), rabatt: W([5, 10, 15, 20, 25])
+  };
+  // MEK, FL Vielfache von 20 und Zuschläge Vielfache von 5 → HK ganzzahlig, VwGK/VtGK/SK centgenau.
+  // Ab dem Gewinn: Rundung auf Cent nach jedem Schritt (Klausurpraxis)
+  var MGK = R(a.mek * a.mgk / 100), MK = R(a.mek + MGK), FGK = R(a.fl * a.fgk / 100), FK = R(a.fl + FGK + a.sekf), HK = R(MK + FK);
+  var VW = R(HK * a.vwgk / 100), VT = R(HK * a.vtgk / 100), SK = R(HK + VW + VT + a.sekv);
+  var GEW = R(SK * a.gewinn / 100), BVP = R(SK + GEW);
+  var ab = a.skonto + a.prov, ZVP = R(BVP / (1 - ab / 100)), SKO = a.prov ? R(ZVP * a.skonto / 100) : R(ZVP - BVP), PROV = a.prov ? R(ZVP - BVP - SKO) : 0;
+  var LVP = R(ZVP / (1 - a.rabatt / 100)), RAB = R(LVP - ZVP);
+  var o = { p: a };
+  o.text = '<p>Für ein Erzeugnis liegen folgende Kalkulationsdaten je Stück vor:</p><ul class="daten">' +
+    '<li>Materialeinzelkosten ' + geld(a.mek) + '</li><li>Materialgemeinkosten ' + pz(a.mgk) + '</li>' +
+    '<li>Fertigungslöhne ' + geld(a.fl) + '</li><li>Fertigungsgemeinkosten ' + pz(a.fgk) + '</li>' +
+    (a.sekf ? '<li>Sondereinzelkosten der Fertigung ' + geld(a.sekf) + '</li>' : '') +
+    '<li>Verwaltungsgemeinkosten ' + pz(a.vwgk) + '</li><li>Vertriebsgemeinkosten ' + pz(a.vtgk) + '</li>' +
+    (a.sekv ? '<li>Sondereinzelkosten des Vertriebs ' + geld(a.sekv) + '</li>' : '') +
+    '<li>Gewinnzuschlag ' + pz(a.gewinn) + '</li><li>Kundenskonto ' + pz(a.skonto) + '</li>' +
+    (a.prov ? '<li>Vertreterprovision ' + pz(a.prov) + '</li>' : '') +
+    '<li>Kundenrabatt ' + pz(a.rabatt) + '</li></ul>' +
+    '<p>Ermittle mit dem Schema der differenzierenden Zuschlagskalkulation die Herstellkosten, die Selbstkosten, den Barverkaufspreis, den Zielverkaufspreis und den Listenverkaufspreis (netto). Verwaltungs- und Vertriebsgemeinkosten beziehen sich auf die Herstellkosten. Runde jedes Zwischenergebnis auf Cent.</p>';
+  o.felder = [
+    { key: 'hk', label: 'Herstellkosten', einheit: '€', wert: HK },
+    { key: 'sk', label: 'Selbstkosten', einheit: '€', wert: SK },
+    { key: 'bvp', label: 'Barverkaufspreis', einheit: '€', wert: BVP, tol: 0.01 },
+    { key: 'zvp', label: 'Zielverkaufspreis', einheit: '€', wert: ZVP, tol: 0.02 },
+    { key: 'lvp', label: 'Listenverkaufspreis (netto)', einheit: '€', wert: LVP, tol: 0.03 }
+  ];
+  var rows = [
+    ['Materialeinzelkosten', '', a.mek], ['+ Materialgemeinkosten', pz(a.mgk), MGK], ['= Materialkosten', '', MK, 1],
+    ['Fertigungslöhne', '', a.fl], ['+ Fertigungsgemeinkosten', pz(a.fgk), FGK]
+  ];
+  if (a.sekf) rows.push(['+ Sondereinzelkosten der Fertigung', '', a.sekf]);
+  rows.push(['= Fertigungskosten', '', FK, 1], ['= Herstellkosten (MK + FK)', '', HK, 2], ['+ Verwaltungsgemeinkosten', pz(a.vwgk), VW], ['+ Vertriebsgemeinkosten', pz(a.vtgk), VT]);
+  if (a.sekv) rows.push(['+ Sondereinzelkosten des Vertriebs', '', a.sekv]);
+  rows.push(['= Selbstkosten', '', SK, 2], ['+ Gewinn', pz(a.gewinn), GEW], ['= Barverkaufspreis', '', BVP, 2], ['+ Kundenskonto (i. H.)', pz(a.skonto), SKO]);
+  if (a.prov) rows.push(['+ Vertreterprovision (i. H.)', pz(a.prov), PROV]);
+  rows.push(['= Zielverkaufspreis', '', ZVP, 2], ['+ Kundenrabatt (i. H.)', pz(a.rabatt), RAB], ['= Listenverkaufspreis (netto)', '', LVP, 2]);
+  var tab = '<div class="tw"><table class="dec res"><caption class="small">Kalkulationsschema (Beträge in €)</caption><thead><tr><th scope="col">Position</th><th scope="col" class="n">Satz</th><th scope="col" class="n">Betrag</th></tr></thead><tbody>' +
+    rows.map(function (r) { return '<tr' + (r[3] ? ' class="sum"' : '') + '><th scope="row">' + r[0] + '</th><td class="n">' + r[1] + '</td><td class="n">' + fmt(r[2], 2, 2) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+  o.loesung = tab + '<ol class="bmw-weg">' +
+    '<li>Materialkosten ' + tx('MK=MEK+MGK=' + t2(a.mek) + '+' + t2(a.mek) + '\\cdot ' + tp(a.mgk) + '=' + t2(MK)) + '</li>' +
+    '<li>Fertigungskosten ' + tx('FK=FL+FGK' + (a.sekf ? '+SEK_F' : '') + '=' + t2(a.fl) + '+' + t2(a.fl) + '\\cdot ' + tp(a.fgk) + (a.sekf ? '+' + t2(a.sekf) : '') + '=' + t2(FK)) + '</li>' +
+    '<li>Herstellkosten ' + tx('HK=MK+FK=' + t2(MK) + '+' + t2(FK) + '=' + t2(HK)) + '</li>' +
+    '<li>Selbstkosten (Gemeinkostenzuschläge auf die Herstellkosten) ' + tx('SK=HK+VwGK+VtGK' + (a.sekv ? '+SEK_V' : '') + '=' + t2(HK) + '+' + t2(VW) + '+' + t2(VT) + (a.sekv ? '+' + t2(a.sekv) : '') + '=' + t2(SK)) + '</li>' +
+    '<li>Barverkaufspreis (Gewinn vom Hundert der Selbstkosten) ' + tx('BVP=SK+SK\\cdot ' + tp(a.gewinn) + '=' + t2(SK) + '+' + t2(GEW) + '=' + t2(BVP)) + '</li>' +
+    '<li>Zielverkaufspreis: Der BVP entspricht ' + fmt(100 - ab, 0, 2) + ' % des ZVP (im Hundert) ' + tx('ZVP=\\dfrac{BVP}{1-' + tn(ab / 100, 0, 4) + '}=\\dfrac{' + t2(BVP) + '}{' + tn(1 - ab / 100, 0, 4) + '}' + gl(BVP / (1 - ab / 100), ZVP) + t2(ZVP)) + '</li>' +
+    '<li>Listenverkaufspreis: Der ZVP entspricht ' + fmt(100 - a.rabatt, 0, 2) + ' % des LVP (im Hundert) ' + tx('LVP=\\dfrac{ZVP}{1-' + tn(a.rabatt / 100, 0, 4) + '}=\\dfrac{' + t2(ZVP) + '}{' + tn(1 - a.rabatt / 100, 0, 4) + '}' + gl(ZVP / (1 - a.rabatt / 100), LVP) + t2(LVP)) + '</li>' +
+    '</ol><p class="small">Zwischenergebnisse sind auf Cent gerundet. Wer ungerundet weiterrechnet, kann um ein bis zwei Cent abweichen – das wird als richtig gewertet.</p>';
+  return o;
+}
+// UEB-END
+(function () {
+  'use strict';
+  function tex(el) {
+    el.querySelectorAll('[data-tex]').forEach(function (s) {
+      var src = s.getAttribute('data-tex'); s.removeAttribute('data-tex');
+      if (window.katex) { try { katex.render('\\displaystyle ' + src, s, { throwOnError: true, strict: 'ignore' }); return; } catch (e) { if (window.console) console.error(e.message); } }
+      s.textContent = src;
+    });
+  }
+  BMW.uebung(document.getElementById('zk-ueb'), { titel: 'Kalkulationsaufgabe', neu: function () { return zkAufgabe(); }, nachher: tex });
+// „Prüfen“ liegt in bm-werkzeug.js außerhalb des <form> – hier mit dem Formular verknüpfen (Klick und Enter prüfen)
+(function (m) { var f = m.querySelector('form.bmw-ueb-form'), b = m.querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'zk-ueb-form'; b.setAttribute('form', f.id); } })(document.getElementById('zk-ueb'));
 })();
 </script>
 </body>

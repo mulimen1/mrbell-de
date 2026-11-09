@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Break-even im Mehrproduktunternehmen – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 50 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-mehrproduktbe">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Break-even im Mehrproduktunternehmen (Excel-Vorlage)","description":"Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.","url":"https://www.bwlmax.de/tools/excel-vorlage-mehrproduktbe","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Break-even im Mehrproduktunternehmen</h1>
+<p class="lead">Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>21</b> Eingabefelder</li><li><b>50</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="mehrproduktbe">
+<div class="xl-keys"><div class="xl-key"><small>Break-even-Umsatz</small><b>158.490,57 €</b></div><div class="xl-key"><small>Gewinn bei Planabsatz</small><b>46.000,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Break-even_Mehrproduktunternehmen.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Break-even Mehrprodukt“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:252px"><col style="width:118px"><col style="width:141px"><col style="width:133px"><col style="width:118px"><col style="width:126px"><col style="width:89px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Break-even im Mehrproduktunternehmen</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">1. Sortiment (bis 5 Produkte, freie Zeilen leer lassen)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Fixkosten des Unternehmens</td><td class="xs-in num">60.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-th">Produkt</td><td class="xs-th">Preis je Stück</td><td class="xs-th">Variable Kosten je Stück</td><td class="xs-th">Absatzmenge (Plan)</td><td class="xs-th">Umsatzerlöse</td><td class="xs-th">Deckungsbeitrag</td><td class="xs-th">DB-Quote</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Produkt A</td><td class="xs-in num">40,00 €</td><td class="xs-in num">24,00 €</td><td class="xs-in num">3.000,00</td><td class="xs-out num">120.000,00 €</td><td class="xs-out num">48.000,00 €</td><td class="xs-out num">40,00 %</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Produkt B</td><td class="xs-in num">25,00 €</td><td class="xs-in num">15,00 €</td><td class="xs-in num">4.000,00</td><td class="xs-out num">100.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">40,00 %</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Produkt C</td><td class="xs-in num">60,00 €</td><td class="xs-in num">42,00 €</td><td class="xs-in num">1.000,00</td><td class="xs-out num">60.000,00 €</td><td class="xs-out num">18.000,00 €</td><td class="xs-out num">30,00 %</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Summe</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">8.000,00</td><td class="xs-tot num">280.000,00 €</td><td class="xs-tot num">106.000,00 €</td><td class="xs-tot num">37,86 %</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-sec" colspan="7">2. Ergebnis</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Ø Deckungsbeitragsquote</td><td class="xs-out num">37,86 %</td><td class="xs-txt" colspan="5">Σ Deckungsbeiträge / Σ Umsatzerlöse</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Break-even-Umsatz</td><td class="xs-res num">158.490,57 €</td><td class="xs-txt" colspan="5">Fixkosten / Ø DB-Quote</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">Gewinn bei Planabsatz</td><td class="xs-res num">46.000,00 €</td><td class="xs-txt" colspan="5">Σ Deckungsbeiträge − Fixkosten</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Sicherheitsabstand (Umsatz)</td><td class="xs-out num">43,40 %</td><td class="xs-txt" colspan="5">(Planumsatz − Break-even-Umsatz) / Planumsatz</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-sec" colspan="7">3. Break-even je Produkt (bei gleichem Sortimentsmix)</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-th">Produkt</td><td class="xs-th">Umsatzanteil</td><td class="xs-th">Break-even-Umsatz</td><td class="xs-th">Break-even-Menge</td><td class="xs-th">Planmenge</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-out">Produkt A</td><td class="xs-out num">42,86 %</td><td class="xs-out num">67.924,53 €</td><td class="xs-out num">1.698,11</td><td class="xs-out num">3.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-out">Produkt B</td><td class="xs-out num">35,71 %</td><td class="xs-out num">56.603,77 €</td><td class="xs-out num">2.264,15</td><td class="xs-out num">4.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-out">Produkt C</td><td class="xs-out num">21,43 %</td><td class="xs-out num">33.962,26 €</td><td class="xs-out num">566,04</td><td class="xs-out num">1.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Summe</td><td class="xs-tot num">100,00 %</td><td class="xs-tot num">158.490,57 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-note" colspan="7">Der Break-even-Umsatz gilt nur, solange der Sortimentsmix (Umsatzanteile) wie geplant bleibt. Break-even-Menge je Produkt = Break-even-Umsatz × Umsatzanteil / Preis.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Break-even Mehrprodukt“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 21 Werte ein; die Datei berechnet daraus unter anderem „Break-even-Umsatz“ und „Gewinn bei Planabsatz“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Der Break-even-Umsatz gilt nur, solange der Sortimentsmix (Umsatzanteile) wie geplant bleibt. Break-even-Menge je Produkt = Break-even-Umsatz × Umsatzanteil / Preis.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Fixkosten des Unternehmens</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">60.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Produkt A</td><td>Text</td></tr>
+<tr><td>Produkt A · Preis je Stück</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">40,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt A · Variable Kosten je Stück</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">24,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt A · Absatzmenge (Plan)</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">3.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Produkt B</td><td>Text</td></tr>
+<tr><td>Produkt B · Preis je Stück</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">25,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt B · Variable Kosten je Stück</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">15,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt B · Absatzmenge (Plan)</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">4.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Produkt C</td><td>Text</td></tr>
+<tr><td>Produkt C · Preis je Stück</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">60,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt C · Variable Kosten je Stück</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">42,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt C · Absatzmenge (Plan)</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">1.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">(leer)</td><td>Text</td></tr>
+<tr><td>Preis je Stück (Zeile 11)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+<tr><td>Variable Kosten je Stück (Zeile 11)</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+<tr><td>Absatzmenge (Plan) (Zeile 11)</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">(leer)</td><td>ab 0,00; darf leer bleiben</td></tr>
+<tr><td>Produkt (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">(leer)</td><td>Text</td></tr>
+<tr><td>Preis je Stück (Zeile 12)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+<tr><td>Variable Kosten je Stück (Zeile 12)</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+<tr><td>Absatzmenge (Plan) (Zeile 12)</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">(leer)</td><td>ab 0,00; darf leer bleiben</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Break-even-Umsatz</td><td><code>B17</code></td><td class="xlw-v"><b data-xv="B17">158.490,57 €</b></td></tr>
+<tr><td>Gewinn bei Planabsatz</td><td><code>B18</code></td><td class="xlw-v"><b data-xv="B18">46.000,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 50 Formeln des Blatts „Break-even Mehrprodukt“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>E8</td><td>Produkt A</td><td class="xlw-f">=WENN(ANZAHL(B8:D8)&lt;3;&quot;&quot;;B8*D8)</td><td></td></tr>
+<tr><td>F8</td><td>Produkt A</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;(B8-C8)*D8)</td><td></td></tr>
+<tr><td>G8</td><td>Produkt A</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;WENN(B8=0;&quot;–&quot;;(B8-C8)/B8))</td><td></td></tr>
+<tr><td>E9</td><td>Produkt B</td><td class="xlw-f">=WENN(ANZAHL(B9:D9)&lt;3;&quot;&quot;;B9*D9)</td><td></td></tr>
+<tr><td>F9</td><td>Produkt B</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;(B9-C9)*D9)</td><td></td></tr>
+<tr><td>G9</td><td>Produkt B</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;WENN(B9=0;&quot;–&quot;;(B9-C9)/B9))</td><td></td></tr>
+<tr><td>E10</td><td>Produkt C</td><td class="xlw-f">=WENN(ANZAHL(B10:D10)&lt;3;&quot;&quot;;B10*D10)</td><td></td></tr>
+<tr><td>F10</td><td>Produkt C</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;(B10-C10)*D10)</td><td></td></tr>
+<tr><td>G10</td><td>Produkt C</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;WENN(B10=0;&quot;–&quot;;(B10-C10)/B10))</td><td></td></tr>
+<tr><td>E11</td><td>Umsatzerlöse (Zeile 11)</td><td class="xlw-f">=WENN(ANZAHL(B11:D11)&lt;3;&quot;&quot;;B11*D11)</td><td></td></tr>
+<tr><td>F11</td><td>Deckungsbeitrag (Zeile 11)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;(B11-C11)*D11)</td><td></td></tr>
+<tr><td>G11</td><td>DB-Quote (Zeile 11)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;WENN(B11=0;&quot;–&quot;;(B11-C11)/B11))</td><td></td></tr>
+<tr><td>E12</td><td>Umsatzerlöse (Zeile 12)</td><td class="xlw-f">=WENN(ANZAHL(B12:D12)&lt;3;&quot;&quot;;B12*D12)</td><td></td></tr>
+<tr><td>F12</td><td>Deckungsbeitrag (Zeile 12)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;(B12-C12)*D12)</td><td></td></tr>
+<tr><td>G12</td><td>DB-Quote (Zeile 12)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;WENN(B12=0;&quot;–&quot;;(B12-C12)/B12))</td><td></td></tr>
+<tr><td>D13</td><td>Summe</td><td class="xlw-f">=SUMME(D8:D12)</td><td></td></tr>
+<tr><td>E13</td><td>Summe</td><td class="xlw-f">=SUMME(E8:E12)</td><td></td></tr>
+<tr><td>F13</td><td>Summe</td><td class="xlw-f">=SUMME(F8:F12)</td><td></td></tr>
+<tr><td>G13</td><td>Summe</td><td class="xlw-f">=WENN(E13=0;&quot;–&quot;;F13/E13)</td><td><small>Ø DB-Quote = Summe der Deckungsbeiträge / Summe der Umsatzerlöse (gewichtet mit dem Sortimentsmix).</small></td></tr>
+<tr><td>B16</td><td>Ø Deckungsbeitragsquote</td><td class="xlw-f">=G13</td><td></td></tr>
+<tr><td>B17</td><td>Break-even-Umsatz</td><td class="xlw-f">=WENN(UND(E13&gt;0;F13&gt;0);B5/G13;&quot;kein Break-even (DB ≤ 0)&quot;)</td><td><small>Break-even-Umsatz = Fixkosten / Ø DB-Quote.</small></td></tr>
+<tr><td>B18</td><td>Gewinn bei Planabsatz</td><td class="xlw-f">=F13-B5</td><td></td></tr>
+<tr><td>B19</td><td>Sicherheitsabstand (Umsatz)</td><td class="xlw-f">=WENN(UND(E13&gt;0;F13&gt;0);(E13-B17)/E13;&quot;–&quot;)</td><td></td></tr>
+<tr><td>A23</td><td>Produkt (Zeile 23)</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;A8)</td><td></td></tr>
+<tr><td>B23</td><td>Umsatzanteil (Zeile 23)</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;WENN($E$13=0;&quot;–&quot;;E8/$E$13))</td><td></td></tr>
+<tr><td>C23</td><td>Break-even-Umsatz (Zeile 23)</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;WENN(UND(E13&gt;0;F13&gt;0);$B$17*B23;&quot;–&quot;))</td><td><small>Anteil des Produkts am Break-even-Umsatz entsprechend seinem Umsatzanteil im Plan.</small></td></tr>
+<tr><td>D23</td><td>Break-even-Menge (Zeile 23)</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;WENNFEHLER(C23/B8;&quot;–&quot;))</td><td></td></tr>
+<tr><td>E23</td><td>Planmenge (Zeile 23)</td><td class="xlw-f">=WENN(E8=&quot;&quot;;&quot;&quot;;D8)</td><td></td></tr>
+<tr><td>A24</td><td>Produkt (Zeile 24)</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;A9)</td><td></td></tr>
+<tr><td>B24</td><td>Umsatzanteil (Zeile 24)</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;WENN($E$13=0;&quot;–&quot;;E9/$E$13))</td><td></td></tr>
+<tr><td>C24</td><td>Break-even-Umsatz (Zeile 24)</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;WENN(UND(E13&gt;0;F13&gt;0);$B$17*B24;&quot;–&quot;))</td><td></td></tr>
+<tr><td>D24</td><td>Break-even-Menge (Zeile 24)</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;WENNFEHLER(C24/B9;&quot;–&quot;))</td><td></td></tr>
+<tr><td>E24</td><td>Planmenge (Zeile 24)</td><td class="xlw-f">=WENN(E9=&quot;&quot;;&quot;&quot;;D9)</td><td></td></tr>
+<tr><td>A25</td><td>Produkt (Zeile 25)</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;A10)</td><td></td></tr>
+<tr><td>B25</td><td>Umsatzanteil (Zeile 25)</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;WENN($E$13=0;&quot;–&quot;;E10/$E$13))</td><td></td></tr>
+<tr><td>C25</td><td>Break-even-Umsatz (Zeile 25)</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;WENN(UND(E13&gt;0;F13&gt;0);$B$17*B25;&quot;–&quot;))</td><td></td></tr>
+<tr><td>D25</td><td>Break-even-Menge (Zeile 25)</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;WENNFEHLER(C25/B10;&quot;–&quot;))</td><td></td></tr>
+<tr><td>E25</td><td>Planmenge (Zeile 25)</td><td class="xlw-f">=WENN(E10=&quot;&quot;;&quot;&quot;;D10)</td><td></td></tr>
+<tr><td>A26</td><td>Produkt (Zeile 26)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;A11)</td><td></td></tr>
+<tr><td>B26</td><td>Umsatzanteil (Zeile 26)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;WENN($E$13=0;&quot;–&quot;;E11/$E$13))</td><td></td></tr>
+<tr><td>C26</td><td>Break-even-Umsatz (Zeile 26)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;WENN(UND(E13&gt;0;F13&gt;0);$B$17*B26;&quot;–&quot;))</td><td></td></tr>
+<tr><td>D26</td><td>Break-even-Menge (Zeile 26)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;WENNFEHLER(C26/B11;&quot;–&quot;))</td><td></td></tr>
+<tr><td>E26</td><td>Planmenge (Zeile 26)</td><td class="xlw-f">=WENN(E11=&quot;&quot;;&quot;&quot;;D11)</td><td></td></tr>
+<tr><td>A27</td><td>Produkt (Zeile 27)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;A12)</td><td></td></tr>
+<tr><td>B27</td><td>Umsatzanteil (Zeile 27)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;WENN($E$13=0;&quot;–&quot;;E12/$E$13))</td><td></td></tr>
+<tr><td>C27</td><td>Break-even-Umsatz (Zeile 27)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;WENN(UND(E13&gt;0;F13&gt;0);$B$17*B27;&quot;–&quot;))</td><td></td></tr>
+<tr><td>D27</td><td>Break-even-Menge (Zeile 27)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;WENNFEHLER(C27/B12;&quot;–&quot;))</td><td></td></tr>
+<tr><td>E27</td><td>Planmenge (Zeile 27)</td><td class="xlw-f">=WENN(E12=&quot;&quot;;&quot;&quot;;D12)</td><td></td></tr>
+<tr><td>B28</td><td>Summe</td><td class="xlw-f">=WENN(E13=0;&quot;–&quot;;SUMME(B23:B27))</td><td></td></tr>
+<tr><td>C28</td><td>Summe</td><td class="xlw-f">=WENN(UND(E13&gt;0;F13&gt;0);SUMME(C23:C27);&quot;–&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.050 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 50 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Break-even-Umsatz (B17), Gewinn bei Planabsatz (B18).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 50 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 50 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.050 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-produktionsprogramm">Optimales Produktionsprogramm (ein Engpass)</a><p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-nutzwertanalyse">Nutzwertanalyse</a><p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.</p></li>
+<li><a href="/tools/excel-vorlage-liquiditaetsplan">Liquiditätsplan (12 Monate)</a><p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.</p></li>
+<li><a href="/tools/excel-vorlage-sollist">Soll-Ist-Vergleich (Budgetabweichung)</a><p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.</p></li>
+<li><a href="/tools/excel-vorlage-personalbedarf">Personalbedarfsplanung</a><p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

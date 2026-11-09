@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Maschinenstundensatzrechnung – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 22 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-maschinenstundensatz">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Maschinenstundensatzrechnung (Excel-Vorlage)","description":"Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt.","url":"https://www.bwlmax.de/tools/excel-vorlage-maschinenstundensatz","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Kosten- & Leistungsrechnung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Kosten- &amp; Leistungsrechnung</p>
+<h1>Excel-Vorlage: Maschinenstundensatzrechnung</h1>
+<p class="lead">Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>13</b> Eingabefelder</li><li><b>22</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="maschinenstundensatz">
+<div class="xl-keys"><div class="xl-key"><small>Maschinenstundensatz (bei Planlaufzeit)</small><b>30,84 €</b></div><div class="xl-key"><small>Maschinenstundensatz bei Ist-Laufzeit</small><b>36,68 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Maschinenstundensatz.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Maschinenstundensatz“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:355px"><col style="width:126px"><col style="width:126px"><col style="width:126px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="4">Maschinenstundensatzrechnung</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="4">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="4">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Anschaffungskosten</td><td class="xs-in num">240.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Wiederbeschaffungswert</td><td class="xs-in num">300.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Nutzungsdauer (Jahre)</td><td class="xs-in num">10</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Kalkulationszinssatz</td><td class="xs-in num">8,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Raumbedarf (m²)</td><td class="xs-in num">20,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Raumkosten je m² und Monat</td><td class="xs-in num">12,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Energieverbrauch je Laufstunde (kWh)</td><td class="xs-in num">25,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Energiepreis je kWh</td><td class="xs-in num">0,20 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Energie-Grundgebühr p. a. (fix)</td><td class="xs-in num">1.200,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Instandhaltung fix p. a.</td><td class="xs-in num">3.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Instandhaltung variabel je Laufstunde</td><td class="xs-in num">2,50 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Planlaufzeit (Maschinenstunden p. a.)</td><td class="xs-in num">2.000</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Ist-Laufzeit zum Vergleich (Maschinenstunden p. a.)</td><td class="xs-in num">1.600</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-sec" colspan="4">Maschinenabhängige Kosten pro Jahr (bei Planlaufzeit)</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-th">Kostenart</td><td class="xs-th">Gesamt</td><td class="xs-th">Fix</td><td class="xs-th">Variabel</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Kalkulatorische Abschreibung (WBW / ND)</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Kalkulatorische Zinsen (AK / 2 × Zinssatz)</td><td class="xs-out num">9.600,00 €</td><td class="xs-out num">9.600,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Raumkosten (m² × €/m² × 12 Monate)</td><td class="xs-out num">2.880,00 €</td><td class="xs-out num">2.880,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Energiekosten</td><td class="xs-out num">11.200,00 €</td><td class="xs-out num">1.200,00 €</td><td class="xs-out num">10.000,00 €</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Instandhaltung</td><td class="xs-out num">8.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">5.000,00 €</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">= Maschinenabhängige Kosten</td><td class="xs-tot num">61.680,00 €</td><td class="xs-tot num">46.680,00 €</td><td class="xs-tot num">15.000,00 €</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-sec" colspan="4">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Maschinenstundensatz (bei Planlaufzeit)</td><td class="xs-res num">30,84 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">davon fixer Anteil je Stunde</td><td class="xs-out num">23,34 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">davon variabler Anteil je Stunde</td><td class="xs-out num">7,50 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Maschinenstundensatz bei Ist-Laufzeit</td><td class="xs-res num">36,68 €</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-note" colspan="4">Fixe Kosten verteilen sich bei weniger Laufstunden auf weniger Stunden – der Satz steigt. Kalk. AfA vom Wiederbeschaffungswert, kalk. Zinsen vom halben Anschaffungswert.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Maschinenstundensatz“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt. Die Vorlage gehört zum Bereich Kosten- &amp; Leistungsrechnung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 13 Werte ein; die Datei berechnet daraus unter anderem „Maschinenstundensatz (bei Planlaufzeit)“ und „Maschinenstundensatz bei Ist-Laufzeit“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Fixe Kosten verteilen sich bei weniger Laufstunden auf weniger Stunden – der Satz steigt. Kalk. AfA vom Wiederbeschaffungswert, kalk. Zinsen vom halben Anschaffungswert.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anschaffungskosten</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">240.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Wiederbeschaffungswert</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">300.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Nutzungsdauer (Jahre)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">10</td><td>1 bis 100, ganze Zahl</td></tr>
+<tr><td>Kalkulationszinssatz</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">8,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Raumbedarf (m²)</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">20,00</td><td>ab 0,00</td></tr>
+<tr><td>Raumkosten je m² und Monat</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">12,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Energieverbrauch je Laufstunde (kWh)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">25,00</td><td>ab 0,00</td></tr>
+<tr><td>Energiepreis je kWh</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">0,20 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Energie-Grundgebühr p. a. (fix)</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">1.200,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Instandhaltung fix p. a.</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">3.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Instandhaltung variabel je Laufstunde</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">2,50 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Planlaufzeit (Maschinenstunden p. a.)</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">2.000</td><td>ab 1, ganze Zahl</td></tr>
+<tr><td>Ist-Laufzeit zum Vergleich (Maschinenstunden p. a.)</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">1.600</td><td>ab 1, ganze Zahl</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Maschinenstundensatz (bei Planlaufzeit)</td><td><code>B29</code></td><td class="xlw-v"><b data-xv="B29">30,84 €</b></td></tr>
+<tr><td>Maschinenstundensatz bei Ist-Laufzeit</td><td><code>B32</code></td><td class="xlw-v"><b data-xv="B32">36,68 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 22 Formeln des Blatts „Maschinenstundensatz“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B21</td><td>Kalkulatorische Abschreibung (WBW / ND)</td><td class="xlw-f">=C21+D21</td><td></td></tr>
+<tr><td>C21</td><td>Kalkulatorische Abschreibung (WBW / ND)</td><td class="xlw-f">=WENN(B7=0;0;B6/B7)</td><td><small>Kalkulatorische AfA = Wiederbeschaffungswert / Nutzungsdauer.</small></td></tr>
+<tr><td>D21</td><td>Kalkulatorische Abschreibung (WBW / ND)</td><td class="xlw-f">=0</td><td></td></tr>
+<tr><td>B22</td><td>Kalkulatorische Zinsen (AK / 2 × Zinssatz)</td><td class="xlw-f">=C22+D22</td><td></td></tr>
+<tr><td>C22</td><td>Kalkulatorische Zinsen (AK / 2 × Zinssatz)</td><td class="xlw-f">=B5/2*B8</td><td><small>Kalkulatorische Zinsen = Anschaffungskosten / 2 × Kalkulationszinssatz.</small></td></tr>
+<tr><td>D22</td><td>Kalkulatorische Zinsen (AK / 2 × Zinssatz)</td><td class="xlw-f">=0</td><td></td></tr>
+<tr><td>B23</td><td>Raumkosten (m² × €/m² × 12 Monate)</td><td class="xlw-f">=C23+D23</td><td></td></tr>
+<tr><td>C23</td><td>Raumkosten (m² × €/m² × 12 Monate)</td><td class="xlw-f">=B9*B10*12</td><td></td></tr>
+<tr><td>D23</td><td>Raumkosten (m² × €/m² × 12 Monate)</td><td class="xlw-f">=0</td><td></td></tr>
+<tr><td>B24</td><td>Energiekosten</td><td class="xlw-f">=C24+D24</td><td></td></tr>
+<tr><td>C24</td><td>Energiekosten</td><td class="xlw-f">=B13</td><td></td></tr>
+<tr><td>D24</td><td>Energiekosten</td><td class="xlw-f">=B11*B12*B16</td><td></td></tr>
+<tr><td>B25</td><td>Instandhaltung</td><td class="xlw-f">=C25+D25</td><td></td></tr>
+<tr><td>C25</td><td>Instandhaltung</td><td class="xlw-f">=B14</td><td></td></tr>
+<tr><td>D25</td><td>Instandhaltung</td><td class="xlw-f">=B15*B16</td><td></td></tr>
+<tr><td>B26</td><td>= Maschinenabhängige Kosten</td><td class="xlw-f">=SUMME(B21:B25)</td><td></td></tr>
+<tr><td>C26</td><td>= Maschinenabhängige Kosten</td><td class="xlw-f">=SUMME(C21:C25)</td><td></td></tr>
+<tr><td>D26</td><td>= Maschinenabhängige Kosten</td><td class="xlw-f">=SUMME(D21:D25)</td><td></td></tr>
+<tr><td>B29</td><td>Maschinenstundensatz (bei Planlaufzeit)</td><td class="xlw-f">=WENN(B16=0;0;B26/B16)</td><td><small>Maschinenstundensatz = maschinenabhängige Kosten / Laufzeit in Stunden.</small></td></tr>
+<tr><td>B30</td><td>davon fixer Anteil je Stunde</td><td class="xlw-f">=WENN(B16=0;0;C26/B16)</td><td></td></tr>
+<tr><td>B31</td><td>davon variabler Anteil je Stunde</td><td class="xlw-f">=WENN(B16=0;0;D26/B16)</td><td></td></tr>
+<tr><td>B32</td><td>Maschinenstundensatz bei Ist-Laufzeit</td><td class="xlw-f">=WENN(ODER(B16=0;B17=0);0;C26/B17+B31)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>462 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 22 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Maschinenstundensatz (bei Planlaufzeit) (B29), Maschinenstundensatz bei Ist-Laufzeit (B32).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 22 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 22 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>462 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Kosten- &amp; Leistungsrechnung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-breakeven">Break-even-Analyse</a><p>Gewinnschwelle in Stück und Euro, Sicherheitsabstand und Gewinn-Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-deckungsbeitrag">Mehrstufige Deckungsbeitragsrechnung</a><p>3 Produkte, 2 Erzeugnisgruppen: DB I, II, III bis zum Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-zuschlag">Zuschlagskalkulation (Industrie)</a><p>Vom Material bis zum Listenverkaufspreis – mit Skonto, Provision und Rabatt im Hundert.</p></li>
+<li><a href="/tools/excel-vorlage-bab">Betriebsabrechnungsbogen (BAB)</a><p>Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln.</p></li>
+<li><a href="/tools/excel-vorlage-divisionskalkulation">Divisionskalkulation (einstufig &amp; zweistufig)</a><p>Selbstkosten je Stück ein- und zweistufig, Lagerbestandsveränderung zu Herstellkosten und Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-aequivalenzziffern">Äquivalenzziffernkalkulation</a><p>Bis 6 Sorten: Recheneinheiten, Kosten je Recheneinheit, Stückkosten und Sortenkosten je Sorte.</p></li>
+<li><a href="/tools/excel-vorlage-kuppelkalkulation">Kuppelkalkulation (Restwert- &amp; Verteilungsmethode)</a><p>Herstellkosten des Hauptprodukts per Restwertmethode und Kostenverteilung nach Marktwerten.</p></li>
+<li><a href="/tools/excel-vorlage-handelvorwaerts">Handelskalkulation (Vorwärtskalkulation)</a><p>Vom Listeneinkaufspreis zum Listenverkaufspreis – mit Kalkulationszuschlag, -faktor und Handelsspanne.</p></li>
+<li><a href="/tools/excel-vorlage-handelrueckwaerts">Handelskalkulation (Rückwärtskalkulation)</a><p>Vom erzielbaren Listenverkaufspreis zurück zum höchstens zahlbaren Listeneinkaufspreis.</p></li>
+<li><a href="/tools/excel-vorlage-makeorbuy">Make-or-Buy (kurzfristig)</a><p>Eigenfertigung oder Fremdbezug? Relevante Kosten, kritische Menge und Preisobergrenze für den Zukauf.</p></li>
+<li><a href="/tools/excel-vorlage-preisuntergrenze">Preisuntergrenze &amp; Zusatzauftrag</a><p>Kurz- und langfristige Preisuntergrenze und ob sich ein Zusatzauftrag lohnt – auch bei knapper Kapazität.</p></li>
+<li><a href="/tools/excel-vorlage-kostenaufloesung">Kostenauflösung &amp; Kostenfunktion</a><p>Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x.</p></li>
+<li><a href="/tools/excel-vorlage-prozesskosten">Prozesskostenrechnung</a><p>Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

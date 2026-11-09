@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Soll-Ist-Vergleich (Budgetabweichung) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 54 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-sollist">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Soll-Ist-Vergleich (Budgetabweichung) (Excel-Vorlage)","description":"Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.","url":"https://www.bwlmax.de/tools/excel-vorlage-sollist","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Soll-Ist-Vergleich (Budgetabweichung)</h1>
+<p class="lead">Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>42</b> Eingabefelder</li><li><b>54</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="sollist">
+<div class="xl-keys"><div class="xl-key"><small>Ergebnis (Erlöse − Kosten) – Ist</small><b>165.400,00 €</b></div><div class="xl-key"><small>Ergebnis (Erlöse − Kosten) – Abweichung absolut</small><b>-26.600,00 €</b></div><div class="xl-key"><small>Positionen mit Ampel Rot</small><b>1</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Soll-Ist-Vergleich_Budgetabweichung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Soll-Ist“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:222px"><col style="width:81px"><col style="width:111px"><col style="width:111px"><col style="width:126px"><col style="width:111px"><col style="width:104px"><col style="width:74px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Soll-Ist-Vergleich (Budgetabweichung)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">Toleranzgrenzen für ungünstige Abweichungen</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Grün bis (relative Abweichung)</td><td class="xs-in num">5,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Gelb bis (darüber Rot)</td><td class="xs-in num">10,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-sec" colspan="8">Positionen (Art: 1 = Kosten, 2 = Erlös)</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-th">Position</td><td class="xs-th">Art (1 / 2)</td><td class="xs-th">Soll (Plan)</td><td class="xs-th">Ist</td><td class="xs-th">Abweichung absolut</td><td class="xs-th">Abweichung relativ</td><td class="xs-th">Bewertung</td><td class="xs-th">Ampel</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Umsatzerlöse Produkt A</td><td class="xs-in num">2</td><td class="xs-in num">500.000,00 €</td><td class="xs-in num">520.000,00 €</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">4,0 %</td><td class="xs-out">günstig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">Umsatzerlöse Produkt B</td><td class="xs-in num">2</td><td class="xs-in num">300.000,00 €</td><td class="xs-in num">270.000,00 €</td><td class="xs-out num neg">-30.000,00 €</td><td class="xs-out num">-10,0 %</td><td class="xs-out">ungünstig</td><td class="xs-out">Gelb</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in">Materialkosten</td><td class="xs-in num">1</td><td class="xs-in num">200.000,00 €</td><td class="xs-in num">215.000,00 €</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">7,5 %</td><td class="xs-out">ungünstig</td><td class="xs-out">Gelb</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-in">Personalkosten</td><td class="xs-in num">1</td><td class="xs-in num">250.000,00 €</td><td class="xs-in num">248.000,00 €</td><td class="xs-out num neg">-2.000,00 €</td><td class="xs-out num">-0,8 %</td><td class="xs-out">günstig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-in">Energiekosten</td><td class="xs-in num">1</td><td class="xs-in num">30.000,00 €</td><td class="xs-in num">36.000,00 €</td><td class="xs-out num">6.000,00 €</td><td class="xs-out num">20,0 %</td><td class="xs-out">ungünstig</td><td class="xs-out">Rot</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-in">Miete</td><td class="xs-in num">1</td><td class="xs-in num">48.000,00 €</td><td class="xs-in num">48.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0,0 %</td><td class="xs-out">planmäßig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-in">Abschreibungen</td><td class="xs-in num">1</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">40.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0,0 %</td><td class="xs-out">planmäßig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-in">Marketing</td><td class="xs-in num">1</td><td class="xs-in num">25.000,00 €</td><td class="xs-in num">22.000,00 €</td><td class="xs-out num neg">-3.000,00 €</td><td class="xs-out num">-12,0 %</td><td class="xs-out">günstig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-in">Sonstige Kosten</td><td class="xs-in num">1</td><td class="xs-in num">15.000,00 €</td><td class="xs-in num">15.600,00 €</td><td class="xs-out num">600,00 €</td><td class="xs-out num">4,0 %</td><td class="xs-out">ungünstig</td><td class="xs-out">Grün</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-sec" colspan="8">Zusammenfassung</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-th"></td><td class="xs-th"></td><td class="xs-th">Soll</td><td class="xs-th">Ist</td><td class="xs-th">Abweichung absolut</td><td class="xs-th">Abweichung relativ</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Erlöse</td><td class="xs-empty"></td><td class="xs-out num">800.000,00 €</td><td class="xs-out num">790.000,00 €</td><td class="xs-out num neg">-10.000,00 €</td><td class="xs-out num">-1,3 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Kosten</td><td class="xs-empty"></td><td class="xs-out num">608.000,00 €</td><td class="xs-out num">624.600,00 €</td><td class="xs-out num">16.600,00 €</td><td class="xs-out num">2,7 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Ergebnis (Erlöse − Kosten)</td><td class="xs-empty"></td><td class="xs-tot num">192.000,00 €</td><td class="xs-res num">165.400,00 €</td><td class="xs-res num neg">-26.600,00 €</td><td class="xs-out num">-13,9 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Positionen mit Ampel Rot</td><td class="xs-res num">1</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Positionen mit Ampel Gelb</td><td class="xs-out num">2</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-note" colspan="8">Abweichung = Ist − Soll. Bei Kosten ist eine Überschreitung ungünstig, bei Erlösen eine Unterschreitung. Die Ampel bewertet nur ungünstige Abweichungen: bis Grün-Grenze Grün, bis Gelb-Grenze Gelb, darüber Rot. Art leer = Kosten.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Soll-Ist“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 42 Werte ein; die Datei berechnet daraus unter anderem „Ergebnis (Erlöse − Kosten) – Ist“, „Ergebnis (Erlöse − Kosten) – Abweichung absolut“ und „Positionen mit Ampel Rot“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Abweichung = Ist − Soll. Bei Kosten ist eine Überschreitung ungünstig, bei Erlösen eine Unterschreitung. Die Ampel bewertet nur ungünstige Abweichungen: bis Grün-Grenze Grün, bis Gelb-Grenze Gelb, darüber Rot. Art leer = Kosten.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Grün bis (relative Abweichung)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">5,00 %</td><td>0,00 % bis 1.000,00 %</td></tr>
+<tr><td>Gelb bis (darüber Rot)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">10,00 %</td><td>0,00 % bis 1.000,00 %</td></tr>
+<tr><td>Position (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Umsatzerlöse Produkt A</td><td>Text</td></tr>
+<tr><td>Umsatzerlöse Produkt A · Art (1 / 2)</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">2</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Umsatzerlöse Produkt A · Soll (Plan)</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">500.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Umsatzerlöse Produkt A · Ist</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">520.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">Umsatzerlöse Produkt B</td><td>Text</td></tr>
+<tr><td>Umsatzerlöse Produkt B · Art (1 / 2)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">2</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Umsatzerlöse Produkt B · Soll (Plan)</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">300.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Umsatzerlöse Produkt B · Ist</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">270.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">Materialkosten</td><td>Text</td></tr>
+<tr><td>Materialkosten · Art (1 / 2)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Materialkosten · Soll (Plan)</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">200.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Materialkosten · Ist</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">215.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 13)</td><td><code>A13</code></td><td class="xlw-v" data-xi="A13">Personalkosten</td><td>Text</td></tr>
+<tr><td>Personalkosten · Art (1 / 2)</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Personalkosten · Soll (Plan)</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">250.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Personalkosten · Ist</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">248.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 14)</td><td><code>A14</code></td><td class="xlw-v" data-xi="A14">Energiekosten</td><td>Text</td></tr>
+<tr><td>Energiekosten · Art (1 / 2)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Energiekosten · Soll (Plan)</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Energiekosten · Ist</td><td><code>D14</code></td><td class="xlw-v" data-xi="D14">36.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 15)</td><td><code>A15</code></td><td class="xlw-v" data-xi="A15">Miete</td><td>Text</td></tr>
+<tr><td>Miete · Art (1 / 2)</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Miete · Soll (Plan)</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">48.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Miete · Ist</td><td><code>D15</code></td><td class="xlw-v" data-xi="D15">48.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 16)</td><td><code>A16</code></td><td class="xlw-v" data-xi="A16">Abschreibungen</td><td>Text</td></tr>
+<tr><td>Abschreibungen · Art (1 / 2)</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Abschreibungen · Soll (Plan)</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen · Ist</td><td><code>D16</code></td><td class="xlw-v" data-xi="D16">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 17)</td><td><code>A17</code></td><td class="xlw-v" data-xi="A17">Marketing</td><td>Text</td></tr>
+<tr><td>Marketing · Art (1 / 2)</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Marketing · Soll (Plan)</td><td><code>C17</code></td><td class="xlw-v" data-xi="C17">25.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Marketing · Ist</td><td><code>D17</code></td><td class="xlw-v" data-xi="D17">22.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 18)</td><td><code>A18</code></td><td class="xlw-v" data-xi="A18">Sonstige Kosten</td><td>Text</td></tr>
+<tr><td>Sonstige Kosten · Art (1 / 2)</td><td><code>B18</code></td><td class="xlw-v" data-xi="B18">1</td><td>1 bis 2, ganze Zahl</td></tr>
+<tr><td>Sonstige Kosten · Soll (Plan)</td><td><code>C18</code></td><td class="xlw-v" data-xi="C18">15.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Kosten · Ist</td><td><code>D18</code></td><td class="xlw-v" data-xi="D18">15.600,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Position (Zeile 19)</td><td><code>A19</code></td><td class="xlw-v" data-xi="A19">(leer)</td><td>Text</td></tr>
+<tr><td>Art (1 / 2) (Zeile 19)</td><td><code>B19</code></td><td class="xlw-v" data-xi="B19">(leer)</td><td>1 bis 2, ganze Zahl; darf leer bleiben</td></tr>
+<tr><td>Soll (Plan) (Zeile 19)</td><td><code>C19</code></td><td class="xlw-v" data-xi="C19">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+<tr><td>Ist (Zeile 19)</td><td><code>D19</code></td><td class="xlw-v" data-xi="D19">(leer)</td><td>ab 0,00 €; darf leer bleiben</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Ergebnis (Erlöse − Kosten) – Ist</td><td><code>D25</code></td><td class="xlw-v"><b data-xv="D25">165.400,00 €</b></td></tr>
+<tr><td>Ergebnis (Erlöse − Kosten) – Abweichung absolut</td><td><code>E25</code></td><td class="xlw-v"><b data-xv="E25">-26.600,00 €</b></td></tr>
+<tr><td>Positionen mit Ampel Rot</td><td><code>B27</code></td><td class="xlw-v"><b data-xv="B27">1</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 54 Formeln des Blatts „Soll-Ist“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>E10</td><td>Umsatzerlöse Produkt A</td><td class="xlw-f">=WENN(ANZAHL(C10:D10)=0;&quot;&quot;;D10-C10)</td><td><small>Absolute Abweichung = Ist − Soll.</small></td></tr>
+<tr><td>F10</td><td>Umsatzerlöse Produkt A</td><td class="xlw-f">=WENN(ANZAHL(C10:D10)=0;&quot;&quot;;WENN(C10=0;&quot;–&quot;;(D10-C10)/C10))</td><td><small>Relative Abweichung = (Ist − Soll) / Soll.</small></td></tr>
+<tr><td>G10</td><td>Umsatzerlöse Produkt A</td><td class="xlw-f">=WENN(ANZAHL(C10:D10)=0;&quot;&quot;;WENN(E10=0;&quot;planmäßig&quot;;WENN(B10=2;WENN(E10&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E10&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H10</td><td>Umsatzerlöse Produkt A</td><td class="xlw-f">=WENN(ANZAHL(C10:D10)=0;&quot;&quot;;WENN(G10&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F10=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F10);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F10);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td><small>Ampel nach Toleranzgrenzen – günstige Abweichungen sind immer Grün.</small></td></tr>
+<tr><td>E11</td><td>Umsatzerlöse Produkt B</td><td class="xlw-f">=WENN(ANZAHL(C11:D11)=0;&quot;&quot;;D11-C11)</td><td></td></tr>
+<tr><td>F11</td><td>Umsatzerlöse Produkt B</td><td class="xlw-f">=WENN(ANZAHL(C11:D11)=0;&quot;&quot;;WENN(C11=0;&quot;–&quot;;(D11-C11)/C11))</td><td></td></tr>
+<tr><td>G11</td><td>Umsatzerlöse Produkt B</td><td class="xlw-f">=WENN(ANZAHL(C11:D11)=0;&quot;&quot;;WENN(E11=0;&quot;planmäßig&quot;;WENN(B11=2;WENN(E11&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E11&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H11</td><td>Umsatzerlöse Produkt B</td><td class="xlw-f">=WENN(ANZAHL(C11:D11)=0;&quot;&quot;;WENN(G11&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F11=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F11);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F11);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E12</td><td>Materialkosten</td><td class="xlw-f">=WENN(ANZAHL(C12:D12)=0;&quot;&quot;;D12-C12)</td><td></td></tr>
+<tr><td>F12</td><td>Materialkosten</td><td class="xlw-f">=WENN(ANZAHL(C12:D12)=0;&quot;&quot;;WENN(C12=0;&quot;–&quot;;(D12-C12)/C12))</td><td></td></tr>
+<tr><td>G12</td><td>Materialkosten</td><td class="xlw-f">=WENN(ANZAHL(C12:D12)=0;&quot;&quot;;WENN(E12=0;&quot;planmäßig&quot;;WENN(B12=2;WENN(E12&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E12&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H12</td><td>Materialkosten</td><td class="xlw-f">=WENN(ANZAHL(C12:D12)=0;&quot;&quot;;WENN(G12&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F12=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F12);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F12);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E13</td><td>Personalkosten</td><td class="xlw-f">=WENN(ANZAHL(C13:D13)=0;&quot;&quot;;D13-C13)</td><td></td></tr>
+<tr><td>F13</td><td>Personalkosten</td><td class="xlw-f">=WENN(ANZAHL(C13:D13)=0;&quot;&quot;;WENN(C13=0;&quot;–&quot;;(D13-C13)/C13))</td><td></td></tr>
+<tr><td>G13</td><td>Personalkosten</td><td class="xlw-f">=WENN(ANZAHL(C13:D13)=0;&quot;&quot;;WENN(E13=0;&quot;planmäßig&quot;;WENN(B13=2;WENN(E13&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E13&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H13</td><td>Personalkosten</td><td class="xlw-f">=WENN(ANZAHL(C13:D13)=0;&quot;&quot;;WENN(G13&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F13=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F13);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F13);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E14</td><td>Energiekosten</td><td class="xlw-f">=WENN(ANZAHL(C14:D14)=0;&quot;&quot;;D14-C14)</td><td></td></tr>
+<tr><td>F14</td><td>Energiekosten</td><td class="xlw-f">=WENN(ANZAHL(C14:D14)=0;&quot;&quot;;WENN(C14=0;&quot;–&quot;;(D14-C14)/C14))</td><td></td></tr>
+<tr><td>G14</td><td>Energiekosten</td><td class="xlw-f">=WENN(ANZAHL(C14:D14)=0;&quot;&quot;;WENN(E14=0;&quot;planmäßig&quot;;WENN(B14=2;WENN(E14&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E14&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H14</td><td>Energiekosten</td><td class="xlw-f">=WENN(ANZAHL(C14:D14)=0;&quot;&quot;;WENN(G14&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F14=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F14);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F14);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E15</td><td>Miete</td><td class="xlw-f">=WENN(ANZAHL(C15:D15)=0;&quot;&quot;;D15-C15)</td><td></td></tr>
+<tr><td>F15</td><td>Miete</td><td class="xlw-f">=WENN(ANZAHL(C15:D15)=0;&quot;&quot;;WENN(C15=0;&quot;–&quot;;(D15-C15)/C15))</td><td></td></tr>
+<tr><td>G15</td><td>Miete</td><td class="xlw-f">=WENN(ANZAHL(C15:D15)=0;&quot;&quot;;WENN(E15=0;&quot;planmäßig&quot;;WENN(B15=2;WENN(E15&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E15&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H15</td><td>Miete</td><td class="xlw-f">=WENN(ANZAHL(C15:D15)=0;&quot;&quot;;WENN(G15&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F15=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F15);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F15);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E16</td><td>Abschreibungen</td><td class="xlw-f">=WENN(ANZAHL(C16:D16)=0;&quot;&quot;;D16-C16)</td><td></td></tr>
+<tr><td>F16</td><td>Abschreibungen</td><td class="xlw-f">=WENN(ANZAHL(C16:D16)=0;&quot;&quot;;WENN(C16=0;&quot;–&quot;;(D16-C16)/C16))</td><td></td></tr>
+<tr><td>G16</td><td>Abschreibungen</td><td class="xlw-f">=WENN(ANZAHL(C16:D16)=0;&quot;&quot;;WENN(E16=0;&quot;planmäßig&quot;;WENN(B16=2;WENN(E16&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E16&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H16</td><td>Abschreibungen</td><td class="xlw-f">=WENN(ANZAHL(C16:D16)=0;&quot;&quot;;WENN(G16&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F16=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F16);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F16);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E17</td><td>Marketing</td><td class="xlw-f">=WENN(ANZAHL(C17:D17)=0;&quot;&quot;;D17-C17)</td><td></td></tr>
+<tr><td>F17</td><td>Marketing</td><td class="xlw-f">=WENN(ANZAHL(C17:D17)=0;&quot;&quot;;WENN(C17=0;&quot;–&quot;;(D17-C17)/C17))</td><td></td></tr>
+<tr><td>G17</td><td>Marketing</td><td class="xlw-f">=WENN(ANZAHL(C17:D17)=0;&quot;&quot;;WENN(E17=0;&quot;planmäßig&quot;;WENN(B17=2;WENN(E17&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E17&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H17</td><td>Marketing</td><td class="xlw-f">=WENN(ANZAHL(C17:D17)=0;&quot;&quot;;WENN(G17&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F17=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F17);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F17);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E18</td><td>Sonstige Kosten</td><td class="xlw-f">=WENN(ANZAHL(C18:D18)=0;&quot;&quot;;D18-C18)</td><td></td></tr>
+<tr><td>F18</td><td>Sonstige Kosten</td><td class="xlw-f">=WENN(ANZAHL(C18:D18)=0;&quot;&quot;;WENN(C18=0;&quot;–&quot;;(D18-C18)/C18))</td><td></td></tr>
+<tr><td>G18</td><td>Sonstige Kosten</td><td class="xlw-f">=WENN(ANZAHL(C18:D18)=0;&quot;&quot;;WENN(E18=0;&quot;planmäßig&quot;;WENN(B18=2;WENN(E18&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E18&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H18</td><td>Sonstige Kosten</td><td class="xlw-f">=WENN(ANZAHL(C18:D18)=0;&quot;&quot;;WENN(G18&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F18=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F18);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F18);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>E19</td><td>Abweichung absolut (Zeile 19)</td><td class="xlw-f">=WENN(ANZAHL(C19:D19)=0;&quot;&quot;;D19-C19)</td><td></td></tr>
+<tr><td>F19</td><td>Abweichung relativ (Zeile 19)</td><td class="xlw-f">=WENN(ANZAHL(C19:D19)=0;&quot;&quot;;WENN(C19=0;&quot;–&quot;;(D19-C19)/C19))</td><td></td></tr>
+<tr><td>G19</td><td>Bewertung (Zeile 19)</td><td class="xlw-f">=WENN(ANZAHL(C19:D19)=0;&quot;&quot;;WENN(E19=0;&quot;planmäßig&quot;;WENN(B19=2;WENN(E19&gt;0;&quot;günstig&quot;;&quot;ungünstig&quot;);WENN(E19&lt;0;&quot;günstig&quot;;&quot;ungünstig&quot;))))</td><td></td></tr>
+<tr><td>H19</td><td>Ampel (Zeile 19)</td><td class="xlw-f">=WENN(ANZAHL(C19:D19)=0;&quot;&quot;;WENN(G19&lt;&gt;&quot;ungünstig&quot;;&quot;Grün&quot;;WENN(F19=&quot;–&quot;;&quot;Rot&quot;;WENN(RUNDEN(ABS(F19);10)&lt;=$B$5;&quot;Grün&quot;;WENN(RUNDEN(ABS(F19);10)&lt;=$B$6;&quot;Gelb&quot;;&quot;Rot&quot;)))))</td><td></td></tr>
+<tr><td>C23</td><td>Erlöse</td><td class="xlw-f">=SUMMEWENNS(C10:C19;B10:B19;2)</td><td></td></tr>
+<tr><td>D23</td><td>Erlöse</td><td class="xlw-f">=SUMMEWENNS(D10:D19;B10:B19;2)</td><td></td></tr>
+<tr><td>E23</td><td>Erlöse</td><td class="xlw-f">=D23-C23</td><td></td></tr>
+<tr><td>F23</td><td>Erlöse</td><td class="xlw-f">=WENN(C23=0;&quot;–&quot;;E23/C23)</td><td></td></tr>
+<tr><td>C24</td><td>Kosten</td><td class="xlw-f">=SUMME(C10:C19)-C23</td><td></td></tr>
+<tr><td>D24</td><td>Kosten</td><td class="xlw-f">=SUMME(D10:D19)-D23</td><td></td></tr>
+<tr><td>E24</td><td>Kosten</td><td class="xlw-f">=D24-C24</td><td></td></tr>
+<tr><td>F24</td><td>Kosten</td><td class="xlw-f">=WENN(C24=0;&quot;–&quot;;E24/C24)</td><td></td></tr>
+<tr><td>C25</td><td>Ergebnis (Erlöse − Kosten)</td><td class="xlw-f">=C23-C24</td><td></td></tr>
+<tr><td>D25</td><td>Ergebnis (Erlöse − Kosten)</td><td class="xlw-f">=D23-D24</td><td></td></tr>
+<tr><td>E25</td><td>Ergebnis (Erlöse − Kosten)</td><td class="xlw-f">=D25-C25</td><td><small>Ergebnisabweichung = Ist-Ergebnis − Soll-Ergebnis.</small></td></tr>
+<tr><td>F25</td><td>Ergebnis (Erlöse − Kosten)</td><td class="xlw-f">=WENN(C25=0;&quot;–&quot;;E25/ABS(C25))</td><td></td></tr>
+<tr><td>B27</td><td>Positionen mit Ampel Rot</td><td class="xlw-f">=ZÄHLENWENN(H10:H19;&quot;Rot&quot;)</td><td></td></tr>
+<tr><td>B28</td><td>Positionen mit Ampel Gelb</td><td class="xlw-f">=ZÄHLENWENN(H10:H19;&quot;Gelb&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.134 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 54 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Positionen mit Ampel Rot (B27), Ergebnis (Erlöse − Kosten) (D25), Ergebnis (Erlöse − Kosten) (E25).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 54 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 54 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.134 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-produktionsprogramm">Optimales Produktionsprogramm (ein Engpass)</a><p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-nutzwertanalyse">Nutzwertanalyse</a><p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.</p></li>
+<li><a href="/tools/excel-vorlage-liquiditaetsplan">Liquiditätsplan (12 Monate)</a><p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.</p></li>
+<li><a href="/tools/excel-vorlage-personalbedarf">Personalbedarfsplanung</a><p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.</p></li>
+<li><a href="/tools/excel-vorlage-mehrproduktbe">Break-even im Mehrproduktunternehmen</a><p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

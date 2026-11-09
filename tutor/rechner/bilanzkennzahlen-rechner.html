@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Bilanzkennzahlen-Rechner: Eigenkapitalquote, Anlagendeckung, Liquiditätsgrade | BWL Max</title>
 <meta name="description" content="Bilanzkennzahlen berechnen: Eigenkapitalquote, Anlagendeckungsgrade, Liquidität 1.–3. Grades und Rentabilität – mit Faustregeln, kostenlos.">
@@ -89,8 +89,29 @@ table.kz tr.sum th,table.kz tr.sum td{font-weight:700;border-top:2px solid var(-
 #b-weg h3{margin-top:1.6em}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media (max-width:600px){table.kz .rg{display:none}table.kz .rg-m{display:block;font-weight:400}nav.toc ol{columns:1}h1{font-size:1.45rem}table.dec,table.kz{font-size:.85rem}table.dec th,table.dec td,table.kz th,table.kz td{padding:6px 6px}}
+.druck-kopf{display:none}
+.bmw-ueb table.kz{width:auto;min-width:min(100%,520px)}
+.bmw-ueb .bil2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:0 16px}
 @media print{
  @page{size:A4;margin:12mm 11mm}
+ html.bmw-printing .druck-kopf{display:block;font-size:9pt;color:#333;margin:0 0 3mm}
+ html.bmw-printing #rechner>h2{margin-top:0}
+ #rechner .card.main{break-inside:auto}
+ .out .lbl{margin-top:.3em}
+ .out table.dec th,.out table.dec td{padding:2px 8px}
+ .out .tw{margin:.3em 0}
+ .big{margin-top:.25em;padding-top:.2em}
+ #rechner .card.main{border:1px solid #999;padding:6px 10px}
+ .grp{grid-template-columns:repeat(3,1fr)}
+ .fields label{margin:.2em 0}
+ #rechner input{border:1px solid #999;padding:2px 6px}
+ .out{background:#fff;border:1px solid #bbb}
+ .steps{overflow:visible}
+ #b-weg .calcs{grid-template-columns:1fr 1fr;gap:8px}
+ #b-weg .card{padding:6px 8px}
+ #b-weg h3{margin:.8em 0 .3em}
+ .big b{font-size:11pt}
+ .calcs .tw{margin:.3em 0}
  :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#eee;--zebra:#f6f6f6;--accent:#000}
  body{font-size:10pt}
  .wrap{max-width:none;padding:0}
@@ -104,7 +125,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  footer{margin-top:1em}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -115,7 +136,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <header>
 <h1>Bilanzkennzahlen-Rechner</h1>
 <p class="lead">Aus den Posten einer Strukturbilanz (und optional der GuV) berechnet der Rechner Eigenkapitalquote, Fremdkapitalquote, Verschuldungsgrad, Anlagen- und Umlaufintensität, Anlagendeckungsgrad I, II und III, Liquidität 1., 2. und 3. Grades, Working Capital sowie Eigenkapital-, Gesamtkapital- und Umsatzrentabilität, Kapitalumschlag und ROI. Jeweils mit Formel, eingesetztem Rechenweg und gängiger Faustregel.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
@@ -123,16 +144,20 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <ol>
 <li><a href="#rechner">Rechner</a></li>
 <li><a href="#kennzahlen">Kennzahlen mit Rechenweg</a></li>
+<li><a href="#uebung">Übungsmodus</a></li>
 <li><a href="#formeln">Formeln und Faustregeln</a></li>
 <li><a href="#beispiel">Klausurbeispiel mit Lösung</a></li>
 <li><a href="#hinweise">Hinweise</a></li>
 <li><a href="#grundlagen">Begriffe und Quellen</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
-<section id="rechner" class="noprint" aria-labelledby="h-rechner">
+<div id="bil-druck">
+<section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
-<p class="small">Beträge in Euro, mit oder ohne Tausenderpunkte (600.000 oder 600000), Dezimalzeichen Komma oder Punkt. Leere Bilanzfelder zählen als 0. Das Ergebnis wird beim Tippen aktualisiert.</p>
+<p class="druck-kopf">Bilanzkennzahlen aus einer Strukturbilanz · Quelle: www.bwlmax.de/rechner/bilanzkennzahlen-rechner</p>
+<p class="small noprint">Beträge in Euro, mit oder ohne Tausenderpunkte (600.000 oder 600000), Dezimalzeichen Komma oder Punkt. Leere Bilanzfelder zählen als 0. Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-bil" onsubmit="return false">
 <div class="grp">
 <div class="fields">
@@ -161,10 +186,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <div id="b-res"></div>
 </section>
 
-<section id="kennzahlen" class="noprint" aria-labelledby="h-kz">
+<section id="kennzahlen" aria-labelledby="h-kz">
 <h2 id="h-kz">Kennzahlen mit Rechenweg</h2>
 <p class="small">Formel und eingesetzte Werte zur aktuellen Eingabe. GK = Gesamtkapital = Bilanzsumme.</p>
 <div id="b-weg"></div>
+</section>
+</div>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übungsmodus: Strukturbilanz auswerten</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Bilanzen – wahlweise Kapitalstruktur und goldene Bilanzregel, Liquiditätsgrade oder Rentabilität und ROI. Rechne selbst, trag die Kennzahlen ein und lass sie prüfen. Der Lösungsweg zeigt jede Formel mit eingesetzten Werten und die Beurteilung.</p>
+<div id="b-ueb"></div>
 </section>
 
 <section id="formeln" aria-labelledby="h-formeln">
@@ -238,6 +270,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <li>Ein Liquiditätsgrad setzt flüssige Mittel bzw. Teile des Umlaufvermögens ins Verhältnis zu den Zahlungsverpflichtungen (Deckungsgrad). Er zeigt, wie oft die kurzfristigen Verbindlichkeiten gedeckt sind, wenn man unterstellt, dass die Bilanzwerte als Verkaufserlöse realisierbar sind. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/liquiditaetsgrad-41314" rel="noopener">Gabler Wirtschaftslexikon: Liquiditätsgrad</a>)</span></li>
 <li>Liquidität im betriebswirtschaftlichen Sinn ist die Fähigkeit und Bereitschaft eines Unternehmens, seine bestehenden Zahlungsverpflichtungen termingerecht und betragsgenau zu erfüllen. <span class="small">(<a href="https://wirtschaftslexikon.gabler.de/definition/liquiditaet-39685" rel="noopener">Gabler Wirtschaftslexikon: Liquidität</a>)</span></li>
 </ul>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Kennzahlen auf Basis der Stichtagswerte einer Strukturbilanz. Alle Formeln und Faustregeln stehen im Abschnitt <a href="#formeln">Formeln und Faustregeln</a>, die Abgrenzungen unter <a href="#hinweise">Hinweise</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung getestet: 1.504 Bilanzen einschließlich nicht ausgeglichener Bilanzen, negativem Eigenkapital und Nennern gleich 0 sowie 2.400 zufällig erzeugte Übungsaufgaben.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -371,7 +414,7 @@ var BK = (function () {
       case 'ur': return [[T('Umsatzrentabilität') + '=' + fr(T('Jahresüberschuss'), T('Umsatz')) + H], [fr(tn(r.ju), tn(r.u)) + H, tPct(k.v)]];
       case 'ku': return [[T('Kapitalumschlag') + '=' + fr(T('Umsatz'), 'GK')], [fr(tn(r.u), tn(r.passiva)), (Math.abs(Math.round(k.v * 1e4) / 1e4 - k.v) > 1e-12 ? '\\approx ' : '=') + tn(k.v, 4)]];
       case 'roi': return [[T('ROI') + '=' + T('Umsatzrentabilität') + '\\cdot ' + T('Kapitalumschlag'), '=' + fr(T('Jahresüberschuss'), 'GK') + H],
-        ['ROI=' + tn(r.ju / r.u * 100, 4) + '\\,\\%\\cdot ' + tn(r.u / r.passiva, 4), '=' + fr(tn(r.ju), tn(r.passiva)) + H, tPct(k.v)]];
+        [T('ROI') + '=' + fr(tn(r.ju), tn(r.u)) + '\\cdot ' + fr(tn(r.u), tn(r.passiva)) + H, '=' + fr(tn(r.ju), tn(r.passiva)) + H, tPct(k.v)]];
     }
     return [[], []];
   }
@@ -490,6 +533,7 @@ var BK = (function () {
 
   F.forEach(function (f) { $('b-' + f[0]).addEventListener('input', calc); });
   calc();
+  BMW.leiste($('c-bil'), { teilen: BMW.teilen({ key: 'bil', root: $('c-bil'), run: calc }), druckScope: $('bil-druck') });
 
   var EX = { av: '600.000', vo: '150.000', fo: '120.000', lm: '30.000', luv: '', ek: '300.000', lfk: '280.000', kfk: '320.000', u: '1.200.000', ju: '45.000', za: '18.000' };
   ['b-ex1', 'b-ex2'].forEach(function (id) {
@@ -499,6 +543,119 @@ var BK = (function () {
       $(id === 'b-ex1' ? 'rechner' : 'kennzahlen').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+})();
+</script>
+<script>
+// UEB-START
+// Übungsaufgaben Bilanzkennzahlen: zufällige, ausgeglichene Strukturbilanz in Vielfachen von 10.000 €
+function bkAufgabe(v) {
+  'use strict';
+  var Z = BMW.zufall, W = BMW.wahl;
+  function f2(x) { return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(x); }
+  function f0(x) { return new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 }).format(x); }
+  function tz(x) { return f0(x).replace(/\./g, '{.}'); }
+  function tx(s) { return '<span class="fx" data-tex="' + s.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"></span>'; }
+  function fr(a, b) { return '\\dfrac{' + a + '}{' + b + '}'; }
+  function T(s) { return '\\text{' + s + '}'; }
+  var H = '\\cdot 100\\,\\%';
+  function erg(x, proz) { var r = Math.round(x * 100) / 100; return (Math.abs(r - x) > 1e-9 ? '\\approx ' : '=') + f2(x).replace(/\./g, '{.}').replace(/,/g, '{,}') + (proz ? '\\,\\%' : ''); }
+  v = v || W(['A', 'B', 'C']);
+  var AV, VO, FO, LM, BS, EK, KFK, LFK;
+  do {
+    AV = Z(20, 90, 1) * 10000; VO = Z(5, 30, 1) * 10000; FO = Z(3, 25, 1) * 10000; LM = Z(1, 10, 1) * 10000;
+    BS = AV + VO + FO + LM;
+    EK = Math.round(BS * Z(20, 55, 1) / 100 / 10000) * 10000;
+    KFK = Math.round(BS * Z(12, 40, 1) / 100 / 10000) * 10000;
+    LFK = BS - EK - KFK;
+  } while (LFK < 20000 || EK < 10000 || KFK < 10000 || Math.abs((EK + LFK) / AV - 1) < 0.01);
+  var UV = VO + FO + LM, FK = LFK + KFK;
+  var p = { v: v, AV: AV, VO: VO, FO: FO, LM: LM, EK: EK, LFK: LFK, KFK: KFK };
+  var bil = '<div class="tw"><table class="kz"><caption class="small">Strukturbilanz zum 31.12. (Beträge in €)</caption><thead><tr><th scope="col">Aktiva</th><th scope="col" class="n">€</th><th scope="col">Passiva</th><th scope="col" class="n">€</th></tr></thead><tbody>' +
+    '<tr><th scope="row">Anlagevermögen</th><td class="n">' + f0(AV) + '</td><th scope="row">Eigenkapital</th><td class="n">' + f0(EK) + '</td></tr>' +
+    '<tr><th scope="row">Vorräte</th><td class="n">' + f0(VO) + '</td><th scope="row">Langfristiges Fremdkapital</th><td class="n">' + f0(LFK) + '</td></tr>' +
+    '<tr><th scope="row">Forderungen</th><td class="n">' + f0(FO) + '</td><th scope="row">Kurzfristiges Fremdkapital</th><td class="n">' + f0(KFK) + '</td></tr>' +
+    '<tr><th scope="row">Liquide Mittel</th><td class="n">' + f0(LM) + '</td><td></td><td></td></tr>' +
+    '<tr class="sum"><th scope="row">Summe</th><td class="n">' + f0(BS) + '</td><th scope="row">Summe</th><td class="n">' + f0(BS) + '</td></tr></tbody></table></div>';
+  var o = { p: p };
+  if (v === 'A') {
+    var ekq = EK / BS * 100, vg = FK / EK * 100, adg1 = EK / AV * 100, adg2 = (EK + LFK) / AV * 100, gbr = adg2 >= 100 ? 'ja' : 'nein';
+    o.text = '<p>Eine GmbH legt die folgende Strukturbilanz vor.</p>' + bil +
+      '<p>Berechne Eigenkapitalquote, Verschuldungsgrad (FK/EK) sowie Anlagendeckungsgrad I und II jeweils in Prozent auf zwei Nachkommastellen. Ist die goldene Bilanzregel in der weiten Fassung erfüllt?</p>';
+    o.felder = [
+      { key: 'ekq', label: 'Eigenkapitalquote', einheit: '%', wert: ekq },
+      { key: 'vg', label: 'Verschuldungsgrad', einheit: '%', wert: vg },
+      { key: 'adg1', label: 'Anlagendeckungsgrad I', einheit: '%', wert: adg1 },
+      { key: 'adg2', label: 'Anlagendeckungsgrad II', einheit: '%', wert: adg2 },
+      { key: 'gbr', label: 'Goldene Bilanzregel (weite Fassung) erfüllt?', wert: gbr, wahl: ['ja', 'nein'] }
+    ];
+    o.loesung = '<ol class="bmw-weg">' +
+      '<li>Gesamtkapital (= Bilanzsumme) und Fremdkapital ' + tx('GK=' + tz(BS) + ',\\qquad FK=FK_{\\text{lfr}}+FK_{\\text{kfr}}=' + tz(LFK) + '+' + tz(KFK) + '=' + tz(FK)) + '</li>' +
+      '<li>Eigenkapitalquote ' + tx(T('EK-Quote') + '=' + fr('EK', 'GK') + H + '=' + fr(tz(EK), tz(BS)) + H + erg(ekq, 1)) + '</li>' +
+      '<li>Verschuldungsgrad ' + tx(T('Verschuldungsgrad') + '=' + fr('FK', 'EK') + H + '=' + fr(tz(FK), tz(EK)) + H + erg(vg, 1)) + '</li>' +
+      '<li>Anlagendeckungsgrad I ' + tx(T('ADG I') + '=' + fr('EK', 'AV') + H + '=' + fr(tz(EK), tz(AV)) + H + erg(adg1, 1)) + '</li>' +
+      '<li>Anlagendeckungsgrad II ' + tx(T('ADG II') + '=' + fr('EK+FK_{\\text{lfr}}', 'AV') + H + '=' + fr(tz(EK) + '+' + tz(LFK), tz(AV)) + H + erg(adg2, 1)) + '</li>' +
+      '<li>Beurteilung: Die weite Fassung der goldenen Bilanzregel verlangt ADG II ≥ 100 %. Mit ' + f2(adg2) + ' % ist sie ' + (gbr === 'ja' ? '<strong>erfüllt</strong> – das Anlagevermögen ist vollständig langfristig finanziert.' : '<strong>nicht erfüllt</strong> – ein Teil des Anlagevermögens ist kurzfristig finanziert.') +
+      ' Die enge Fassung (ADG I ≥ 100 %) ist ' + (adg1 >= 100 ? 'ebenfalls erfüllt.' : 'nicht erfüllt.') + '</li></ol>';
+    return o;
+  }
+  if (v === 'B') {
+    var l1 = LM / KFK * 100, l2 = (LM + FO) / KFK * 100, l3 = UV / KFK * 100, wc = UV - KFK;
+    o.text = '<p>Gegeben ist die folgende Strukturbilanz eines Industrieunternehmens.</p>' + bil +
+      '<p>Berechne die Liquidität 1., 2. und 3. Grades in Prozent (auf zwei Nachkommastellen) sowie das Working Capital in Euro.</p>';
+    o.felder = [
+      { key: 'l1', label: 'Liquidität 1. Grades', einheit: '%', wert: l1 },
+      { key: 'l2', label: 'Liquidität 2. Grades', einheit: '%', wert: l2 },
+      { key: 'l3', label: 'Liquidität 3. Grades', einheit: '%', wert: l3 },
+      { key: 'wc', label: 'Working Capital', einheit: '€', wert: wc }
+    ];
+    o.loesung = '<ol class="bmw-weg">' +
+      '<li>Umlaufvermögen ' + tx('UV=' + tz(VO) + '+' + tz(FO) + '+' + tz(LM) + '=' + tz(UV)) + '</li>' +
+      '<li>Liquidität 1. Grades ' + tx(fr(T('liquide Mittel'), 'FK_{\\text{kfr}}') + H + '=' + fr(tz(LM), tz(KFK)) + H + erg(l1, 1)) + '</li>' +
+      '<li>Liquidität 2. Grades ' + tx(fr(T('liquide Mittel') + '+' + T('Forderungen'), 'FK_{\\text{kfr}}') + H + '=' + fr(tz(LM) + '+' + tz(FO), tz(KFK)) + H + erg(l2, 1)) + '</li>' +
+      '<li>Liquidität 3. Grades ' + tx(fr('UV', 'FK_{\\text{kfr}}') + H + '=' + fr(tz(UV), tz(KFK)) + H + erg(l3, 1)) + '</li>' +
+      '<li>Working Capital ' + tx(T('WC') + '=UV-FK_{\\text{kfr}}=' + tz(UV) + '-' + tz(KFK) + '=' + tz(wc)) + '</li>' +
+      '<li>Beurteilung nach Faustregeln: Liquidität 2. Grades ' + (l2 >= 100 ? 'mindestens 100 % – erfüllt' : 'unter 100 % – nicht erfüllt') + ', Liquidität 3. Grades ' + (l3 >= 150 ? 'ab 150 % – erfüllt' : 'unter 150 % – nicht erfüllt') + ', Working Capital ' + (wc > 0 ? 'positiv.' : 'nicht positiv.') + '</li></ol>';
+    return o;
+  }
+  // v === 'C': Rentabilität
+  var U = Math.round(BS * Z(8, 25, 1) / 10 / 10000) * 10000;
+  var JU = Math.round(U * Z(10, 120, 1) / 1000 / 1000) * 1000;
+  var ZA = Math.max(500, Math.round(FK * Z(2, 8, 1) / 100 / 500) * 500);
+  p.U = U; p.JU = JU; p.ZA = ZA;
+  var ekr = JU / EK * 100, gkr = (JU + ZA) / BS * 100, ur = JU / U * 100, ku = U / BS, roi = JU / BS * 100;
+  o.text = '<p>Eine GmbH legt die folgende Strukturbilanz vor.</p>' + bil +
+    '<p>Aus der GuV: Umsatzerlöse ' + f0(U) + ' €, Jahresüberschuss ' + f0(JU) + ' €, Zinsaufwand ' + f0(ZA) + ' €.</p>' +
+    '<p>Berechne Eigenkapitalrentabilität, Gesamtkapitalrentabilität, Umsatzrentabilität, Kapitalumschlag und den ROI nach Du-Pont (Prozentwerte und Kapitalumschlag auf zwei Nachkommastellen). Verwende die Stichtagswerte der Bilanz.</p>';
+  o.felder = [
+    { key: 'ekr', label: 'Eigenkapitalrentabilität', einheit: '%', wert: ekr },
+    { key: 'gkr', label: 'Gesamtkapitalrentabilität', einheit: '%', wert: gkr },
+    { key: 'ur', label: 'Umsatzrentabilität', einheit: '%', wert: ur },
+    { key: 'ku', label: 'Kapitalumschlag', wert: ku },
+    // ROI aus gerundeter Umsatzrentabilität · gerundetem Kapitalumschlag gilt auch als richtig
+    { key: 'roi', label: 'ROI', einheit: '%', wert: roi, tol: 0.005 + 0.005 * ur + 0.005 * ku + 1e-9 }
+  ];
+  o.loesung = '<ol class="bmw-weg">' +
+    '<li>Eigenkapitalrentabilität ' + tx(T('EKR') + '=' + fr(T('Jahresüberschuss'), 'EK') + H + '=' + fr(tz(JU), tz(EK)) + H + erg(ekr, 1)) + '</li>' +
+    '<li>Gesamtkapitalrentabilität: Die Fremdkapitalzinsen sind das Entgelt der Fremdkapitalgeber und werden addiert ' + tx(T('GKR') + '=' + fr(T('JÜ') + '+' + T('Zinsaufwand'), 'GK') + H + '=' + fr(tz(JU) + '+' + tz(ZA), tz(BS)) + H + erg(gkr, 1)) + '</li>' +
+    '<li>Umsatzrentabilität ' + tx(T('UR') + '=' + fr(T('Jahresüberschuss'), T('Umsatz')) + H + '=' + fr(tz(JU), tz(U)) + H + erg(ur, 1)) + '</li>' +
+    '<li>Kapitalumschlag ' + tx(T('KU') + '=' + fr(T('Umsatz'), 'GK') + '=' + fr(tz(U), tz(BS)) + erg(ku, 0)) + '</li>' +
+    '<li>ROI nach Du-Pont ' + tx(T('ROI') + '=' + T('UR') + '\\cdot ' + T('KU') + '=' + fr(tz(JU), tz(U)) + '\\cdot ' + fr(tz(U), tz(BS)) + H + '=' + fr(tz(JU), tz(BS)) + H + erg(roi, 1)) + '</li>' +
+    '</ol><p class="small">Wer den ROI mit gerundeter Umsatzrentabilität und gerundetem Kapitalumschlag ausrechnet, weicht leicht ab – diese Rundungsdifferenz wird als richtig gewertet.</p>';
+  return o;
+}
+// UEB-END
+(function () {
+  'use strict';
+  function tex(el) {
+    el.querySelectorAll('[data-tex]').forEach(function (s) {
+      var src = s.getAttribute('data-tex'); s.removeAttribute('data-tex');
+      if (window.katex) { try { katex.render('\\displaystyle ' + src, s, { throwOnError: true, strict: 'ignore' }); return; } catch (e) { if (window.console) console.error(e.message); } }
+      s.textContent = src;
+    });
+  }
+  BMW.uebung(document.getElementById('b-ueb'), { titel: 'Aufgabe zur Bilanzanalyse', neu: function () { return bkAufgabe(); }, nachher: tex });
+// „Prüfen“ liegt in bm-werkzeug.js außerhalb des <form> – hier mit dem Formular verknüpfen (Klick und Enter prüfen)
+(function (m) { var f = m.querySelector('form.bmw-ueb-form'), b = m.querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'b-ueb-form'; b.setAttribute('form', f.id); } })(document.getElementById('b-ueb'));
 })();
 </script>
 </body>

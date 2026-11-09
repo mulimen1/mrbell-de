@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Optimales Produktionsprogramm (ein Engpass) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 76 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-produktionsprogramm">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Optimales Produktionsprogramm (ein Engpass) (Excel-Vorlage)","description":"Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.","url":"https://www.bwlmax.de/tools/excel-vorlage-produktionsprogramm","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Optimales Produktionsprogramm (ein Engpass)</h1>
+<p class="lead">Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>27</b> Eingabefelder</li><li><b>76</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="produktionsprogramm">
+<div class="xl-keys"><div class="xl-key"><small>Gesamtdeckungsbeitrag</small><b>54.000,00 €</b></div><div class="xl-key"><small>Betriebsergebnis (Gesamt-DB − Fixkosten)</small><b>4.000,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Optimales_Produktionsprogramm.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Produktionsprogramm“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:222px"><col style="width:104px"><col style="width:118px"><col style="width:118px"><col style="width:118px"><col style="width:111px"><col style="width:133px"><col style="width:118px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Optimales Produktionsprogramm bei einem Engpass</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Kapazität des Engpasses (z. B. Maschinenstunden)</td><td class="xs-in num" colspan="2">4.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Fixkosten der Periode</td><td class="xs-in num" colspan="2">50.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-th">Produkt</td><td class="xs-th">Preis je Stück</td><td class="xs-th">Variable Kosten je Stück</td><td class="xs-th">Höchstabsatz (Stück)</td><td class="xs-th">Engpassbedarf je Stück</td><td class="xs-th">DB je Stück</td><td class="xs-th">Relativer DB je Engpasseinheit</td><td class="xs-th">Rang</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Produkt A</td><td class="xs-in num">100,00 €</td><td class="xs-in num">60,00 €</td><td class="xs-in num">500,00</td><td class="xs-in num">4,00</td><td class="xs-out num">40,00 €</td><td class="xs-out num">10,00 €</td><td class="xs-out num">4</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Produkt B</td><td class="xs-in num">80,00 €</td><td class="xs-in num">50,00 €</td><td class="xs-in num">800,00</td><td class="xs-in num">2,00</td><td class="xs-out num">30,00 €</td><td class="xs-out num">15,00 €</td><td class="xs-out num">1</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">Produkt C</td><td class="xs-in num">130,00 €</td><td class="xs-in num">70,00 €</td><td class="xs-in num">300,00</td><td class="xs-in num">5,00</td><td class="xs-out num">60,00 €</td><td class="xs-out num">12,00 €</td><td class="xs-out num">3</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in">Produkt D</td><td class="xs-in num">60,00 €</td><td class="xs-in num">45,00 €</td><td class="xs-in num">600,00</td><td class="xs-in num">1,00</td><td class="xs-out num">15,00 €</td><td class="xs-out num">15,00 €</td><td class="xs-out num">2</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-in">Produkt E</td><td class="xs-in num">50,00 €</td><td class="xs-in num">52,00 €</td><td class="xs-in num">400,00</td><td class="xs-in num">1,00</td><td class="xs-out num neg">-2,00 €</td><td class="xs-out num">kein positiver DB</td><td class="xs-out num">5</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-sec" colspan="8">Produktionsprogramm in der Rangfolge</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-th">Rang</td><td class="xs-th">Produkt</td><td class="xs-th">Relativer DB</td><td class="xs-th">Engpassbedarf je Stück</td><td class="xs-th">Menge im Programm</td><td class="xs-th">Engpass belegt</td><td class="xs-th">Restkapazität</td><td class="xs-th">Deckungsbeitrag</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-out num">1</td><td class="xs-out">Produkt B</td><td class="xs-out num">15,00 €</td><td class="xs-out num">2,00</td><td class="xs-out num">800,00</td><td class="xs-out num">1.600,00</td><td class="xs-out num">2.400,00</td><td class="xs-out num">24.000,00 €</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-out num">2</td><td class="xs-out">Produkt D</td><td class="xs-out num">15,00 €</td><td class="xs-out num">1,00</td><td class="xs-out num">600,00</td><td class="xs-out num">600,00</td><td class="xs-out num">1.800,00</td><td class="xs-out num">9.000,00 €</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-out num">3</td><td class="xs-out">Produkt C</td><td class="xs-out num">12,00 €</td><td class="xs-out num">5,00</td><td class="xs-out num">300,00</td><td class="xs-out num">1.500,00</td><td class="xs-out num">300,00</td><td class="xs-out num">18.000,00 €</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-out num">4</td><td class="xs-out">Produkt A</td><td class="xs-out num">10,00 €</td><td class="xs-out num">4,00</td><td class="xs-out num">75,00</td><td class="xs-out num">300,00</td><td class="xs-out num">0,00</td><td class="xs-out num">3.000,00 €</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-out num">5</td><td class="xs-out">Produkt E</td><td class="xs-out num">kein positiver DB</td><td class="xs-out num">1,00</td><td class="xs-out num">0,00</td><td class="xs-out num">0,00</td><td class="xs-out num">0,00</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Summe</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">4.000,00</td><td class="xs-empty"></td><td class="xs-tot num">54.000,00 €</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Gesamtdeckungsbeitrag</td><td class="xs-res num" colspan="2">54.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Betriebsergebnis (Gesamt-DB − Fixkosten)</td><td class="xs-res num" colspan="2">4.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Engpassbedarf bei Höchstabsatz (nur Produkte mit DB &gt; 0)</td><td class="xs-out num" colspan="2">5.700,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Liegt ein Engpass vor?</td><td class="xs-out" colspan="7">Ja – Rangfolge nach relativem DB</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-note" colspan="8">Bei gleichem relativem DB ist die Reihenfolge egal – der Gesamt-DB bleibt gleich. Mengen können Bruchteile sein, wenn die Restkapazität nicht aufgeht. Zeilen ohne Produktname werden ignoriert.</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-sec" colspan="8">Hilfswerte für die Rangfolge (nicht ändern)</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out">Produkt A</td><td class="xs-out num">10,00</td><td class="xs-out num">2.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out">Produkt B</td><td class="xs-out num">15,00</td><td class="xs-out num">1.600,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-out">Produkt C</td><td class="xs-out num">12,00</td><td class="xs-out num">1.500,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-out">Produkt D</td><td class="xs-out num">15,00</td><td class="xs-out num">600,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-out">Produkt E</td><td class="xs-out num">-1,00</td><td class="xs-out num">0,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Produktionsprogramm“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 27 Werte ein; die Datei berechnet daraus unter anderem „Gesamtdeckungsbeitrag“ und „Betriebsergebnis (Gesamt-DB − Fixkosten)“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Bei gleichem relativem DB ist die Reihenfolge egal – der Gesamt-DB bleibt gleich. Mengen können Bruchteile sein, wenn die Restkapazität nicht aufgeht. Zeilen ohne Produktname werden ignoriert.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Kapazität des Engpasses (z. B. Maschinenstunden)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">4.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Fixkosten der Periode</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Produkt A</td><td>Text</td></tr>
+<tr><td>Produkt A · Preis je Stück</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">100,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt A · Variable Kosten je Stück</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">60,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt A · Höchstabsatz (Stück)</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">500,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt A · Engpassbedarf je Stück</td><td><code>E9</code></td><td class="xlw-v" data-xi="E9">4,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Produkt B</td><td>Text</td></tr>
+<tr><td>Produkt B · Preis je Stück</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">80,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt B · Variable Kosten je Stück</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">50,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt B · Höchstabsatz (Stück)</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">800,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt B · Engpassbedarf je Stück</td><td><code>E10</code></td><td class="xlw-v" data-xi="E10">2,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">Produkt C</td><td>Text</td></tr>
+<tr><td>Produkt C · Preis je Stück</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">130,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt C · Variable Kosten je Stück</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">70,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt C · Höchstabsatz (Stück)</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">300,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt C · Engpassbedarf je Stück</td><td><code>E11</code></td><td class="xlw-v" data-xi="E11">5,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">Produkt D</td><td>Text</td></tr>
+<tr><td>Produkt D · Preis je Stück</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">60,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt D · Variable Kosten je Stück</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">45,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt D · Höchstabsatz (Stück)</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">600,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt D · Engpassbedarf je Stück</td><td><code>E12</code></td><td class="xlw-v" data-xi="E12">1,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt (Zeile 13)</td><td><code>A13</code></td><td class="xlw-v" data-xi="A13">Produkt E</td><td>Text</td></tr>
+<tr><td>Produkt E · Preis je Stück</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">50,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt E · Variable Kosten je Stück</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">52,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Produkt E · Höchstabsatz (Stück)</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">400,00</td><td>ab 0,00</td></tr>
+<tr><td>Produkt E · Engpassbedarf je Stück</td><td><code>E13</code></td><td class="xlw-v" data-xi="E13">1,00</td><td>ab 0,00</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Gesamtdeckungsbeitrag</td><td><code>B23</code></td><td class="xlw-v"><b data-xv="B23">54.000,00 €</b></td></tr>
+<tr><td>Betriebsergebnis (Gesamt-DB − Fixkosten)</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">4.000,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 76 Formeln des Blatts „Produktionsprogramm“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>F9</td><td>Produkt A</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;B9-C9)</td><td></td></tr>
+<tr><td>G9</td><td>Produkt A</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;WENN(F9&lt;=0;&quot;kein positiver DB&quot;;WENN(E9=0;&quot;kein Engpassbedarf&quot;;F9/E9)))</td><td><small>Relativer DB = DB je Stück / Engpassbedarf je Stück.</small></td></tr>
+<tr><td>H9</td><td>Produkt A</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($B$30:$B$34;&quot;&gt;&quot;&amp;B30)+ZÄHLENWENN($B$30:B30;B30))</td><td><small>Rang ohne RANG-Funktion: Anzahl größerer Schlüssel + 1; bei Gleichstand entscheidet die Zeilenreihenfolge.</small></td></tr>
+<tr><td>F10</td><td>Produkt B</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;B10-C10)</td><td></td></tr>
+<tr><td>G10</td><td>Produkt B</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;WENN(F10&lt;=0;&quot;kein positiver DB&quot;;WENN(E10=0;&quot;kein Engpassbedarf&quot;;F10/E10)))</td><td></td></tr>
+<tr><td>H10</td><td>Produkt B</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($B$30:$B$34;&quot;&gt;&quot;&amp;B31)+ZÄHLENWENN($B$30:B31;B31))</td><td></td></tr>
+<tr><td>F11</td><td>Produkt C</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;B11-C11)</td><td></td></tr>
+<tr><td>G11</td><td>Produkt C</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;WENN(F11&lt;=0;&quot;kein positiver DB&quot;;WENN(E11=0;&quot;kein Engpassbedarf&quot;;F11/E11)))</td><td></td></tr>
+<tr><td>H11</td><td>Produkt C</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($B$30:$B$34;&quot;&gt;&quot;&amp;B32)+ZÄHLENWENN($B$30:B32;B32))</td><td></td></tr>
+<tr><td>F12</td><td>Produkt D</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;B12-C12)</td><td></td></tr>
+<tr><td>G12</td><td>Produkt D</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;WENN(F12&lt;=0;&quot;kein positiver DB&quot;;WENN(E12=0;&quot;kein Engpassbedarf&quot;;F12/E12)))</td><td></td></tr>
+<tr><td>H12</td><td>Produkt D</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($B$30:$B$34;&quot;&gt;&quot;&amp;B33)+ZÄHLENWENN($B$30:B33;B33))</td><td></td></tr>
+<tr><td>F13</td><td>Produkt E</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;B13-C13)</td><td></td></tr>
+<tr><td>G13</td><td>Produkt E</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;WENN(F13&lt;=0;&quot;kein positiver DB&quot;;WENN(E13=0;&quot;kein Engpassbedarf&quot;;F13/E13)))</td><td></td></tr>
+<tr><td>H13</td><td>Produkt E</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($B$30:$B$34;&quot;&gt;&quot;&amp;B34)+ZÄHLENWENN($B$30:B34;B34))</td><td></td></tr>
+<tr><td>A17</td><td>Rang (Zeile 17)</td><td class="xlw-f">=WENN(1&lt;=ANZAHL($H$9:$H$13);1;&quot;&quot;)</td><td></td></tr>
+<tr><td>B17</td><td>Produkt (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;INDEX($A$9:$A$13;VERGLEICH(A17;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>C17</td><td>Relativer DB (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;INDEX($G$9:$G$13;VERGLEICH(A17;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>D17</td><td>Engpassbedarf je Stück (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;INDEX($E$9:$E$13;VERGLEICH(A17;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>E17</td><td>Menge im Programm (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;WENN(INDEX($B$30:$B$34;VERGLEICH(A17;$H$9:$H$13;0))&lt;0;0;WENN(D17=0;INDEX($D$9:$D$13;VERGLEICH(A17;$H$9:$H$13;0));MAX(0;MIN(INDEX($D$9:$D$13;VERGLEICH(A17;$H$9:$H$13;0));$B$5/D17)))))</td><td><small>Menge = Höchstabsatz, solange die Restkapazität reicht – sonst Restkapazität / Engpassbedarf.</small></td></tr>
+<tr><td>F17</td><td>Engpass belegt (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;E17*D17)</td><td></td></tr>
+<tr><td>G17</td><td>Restkapazität (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;MAX(0;RUNDEN($B$5-F17;9)))</td><td></td></tr>
+<tr><td>H17</td><td>Deckungsbeitrag (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;E17*INDEX($F$9:$F$13;VERGLEICH(A17;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>A18</td><td>Rang (Zeile 18)</td><td class="xlw-f">=WENN(2&lt;=ANZAHL($H$9:$H$13);2;&quot;&quot;)</td><td></td></tr>
+<tr><td>B18</td><td>Produkt (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;INDEX($A$9:$A$13;VERGLEICH(A18;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>C18</td><td>Relativer DB (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;INDEX($G$9:$G$13;VERGLEICH(A18;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>D18</td><td>Engpassbedarf je Stück (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;INDEX($E$9:$E$13;VERGLEICH(A18;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>E18</td><td>Menge im Programm (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;WENN(INDEX($B$30:$B$34;VERGLEICH(A18;$H$9:$H$13;0))&lt;0;0;WENN(D18=0;INDEX($D$9:$D$13;VERGLEICH(A18;$H$9:$H$13;0));MAX(0;MIN(INDEX($D$9:$D$13;VERGLEICH(A18;$H$9:$H$13;0));G17/D18)))))</td><td></td></tr>
+<tr><td>F18</td><td>Engpass belegt (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;E18*D18)</td><td></td></tr>
+<tr><td>G18</td><td>Restkapazität (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;MAX(0;RUNDEN(G17-F18;9)))</td><td></td></tr>
+<tr><td>H18</td><td>Deckungsbeitrag (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;E18*INDEX($F$9:$F$13;VERGLEICH(A18;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>A19</td><td>Rang (Zeile 19)</td><td class="xlw-f">=WENN(3&lt;=ANZAHL($H$9:$H$13);3;&quot;&quot;)</td><td></td></tr>
+<tr><td>B19</td><td>Produkt (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;INDEX($A$9:$A$13;VERGLEICH(A19;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>C19</td><td>Relativer DB (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;INDEX($G$9:$G$13;VERGLEICH(A19;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>D19</td><td>Engpassbedarf je Stück (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;INDEX($E$9:$E$13;VERGLEICH(A19;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>E19</td><td>Menge im Programm (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;WENN(INDEX($B$30:$B$34;VERGLEICH(A19;$H$9:$H$13;0))&lt;0;0;WENN(D19=0;INDEX($D$9:$D$13;VERGLEICH(A19;$H$9:$H$13;0));MAX(0;MIN(INDEX($D$9:$D$13;VERGLEICH(A19;$H$9:$H$13;0));G18/D19)))))</td><td></td></tr>
+<tr><td>F19</td><td>Engpass belegt (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;E19*D19)</td><td></td></tr>
+<tr><td>G19</td><td>Restkapazität (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;MAX(0;RUNDEN(G18-F19;9)))</td><td></td></tr>
+<tr><td>H19</td><td>Deckungsbeitrag (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;E19*INDEX($F$9:$F$13;VERGLEICH(A19;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>A20</td><td>Rang (Zeile 20)</td><td class="xlw-f">=WENN(4&lt;=ANZAHL($H$9:$H$13);4;&quot;&quot;)</td><td></td></tr>
+<tr><td>B20</td><td>Produkt (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;INDEX($A$9:$A$13;VERGLEICH(A20;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>C20</td><td>Relativer DB (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;INDEX($G$9:$G$13;VERGLEICH(A20;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>D20</td><td>Engpassbedarf je Stück (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;INDEX($E$9:$E$13;VERGLEICH(A20;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>E20</td><td>Menge im Programm (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;WENN(INDEX($B$30:$B$34;VERGLEICH(A20;$H$9:$H$13;0))&lt;0;0;WENN(D20=0;INDEX($D$9:$D$13;VERGLEICH(A20;$H$9:$H$13;0));MAX(0;MIN(INDEX($D$9:$D$13;VERGLEICH(A20;$H$9:$H$13;0));G19/D20)))))</td><td></td></tr>
+<tr><td>F20</td><td>Engpass belegt (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;E20*D20)</td><td></td></tr>
+<tr><td>G20</td><td>Restkapazität (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;MAX(0;RUNDEN(G19-F20;9)))</td><td></td></tr>
+<tr><td>H20</td><td>Deckungsbeitrag (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;E20*INDEX($F$9:$F$13;VERGLEICH(A20;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>A21</td><td>Rang (Zeile 21)</td><td class="xlw-f">=WENN(5&lt;=ANZAHL($H$9:$H$13);5;&quot;&quot;)</td><td></td></tr>
+<tr><td>B21</td><td>Produkt (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;INDEX($A$9:$A$13;VERGLEICH(A21;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>C21</td><td>Relativer DB (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;INDEX($G$9:$G$13;VERGLEICH(A21;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>D21</td><td>Engpassbedarf je Stück (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;INDEX($E$9:$E$13;VERGLEICH(A21;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>E21</td><td>Menge im Programm (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;WENN(INDEX($B$30:$B$34;VERGLEICH(A21;$H$9:$H$13;0))&lt;0;0;WENN(D21=0;INDEX($D$9:$D$13;VERGLEICH(A21;$H$9:$H$13;0));MAX(0;MIN(INDEX($D$9:$D$13;VERGLEICH(A21;$H$9:$H$13;0));G20/D21)))))</td><td></td></tr>
+<tr><td>F21</td><td>Engpass belegt (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;E21*D21)</td><td></td></tr>
+<tr><td>G21</td><td>Restkapazität (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;MAX(0;RUNDEN(G20-F21;9)))</td><td></td></tr>
+<tr><td>H21</td><td>Deckungsbeitrag (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;E21*INDEX($F$9:$F$13;VERGLEICH(A21;$H$9:$H$13;0)))</td><td></td></tr>
+<tr><td>F22</td><td>Summe</td><td class="xlw-f">=SUMME(F17:F21)</td><td></td></tr>
+<tr><td>H22</td><td>Summe</td><td class="xlw-f">=SUMME(H17:H21)</td><td></td></tr>
+<tr><td>B23</td><td>Gesamtdeckungsbeitrag</td><td class="xlw-f">=H22</td><td></td></tr>
+<tr><td>B24</td><td>Betriebsergebnis (Gesamt-DB − Fixkosten)</td><td class="xlw-f">=H22-B6</td><td></td></tr>
+<tr><td>B25</td><td>Engpassbedarf bei Höchstabsatz (nur Produkte mit DB &gt; 0)</td><td class="xlw-f">=SUMME(C30:C34)</td><td></td></tr>
+<tr><td>B26</td><td>Liegt ein Engpass vor?</td><td class="xlw-f">=WENN(B25&gt;B5;&quot;Ja – Rangfolge nach relativem DB&quot;;&quot;Nein – alle Produkte mit positivem DB voll produzieren&quot;)</td><td></td></tr>
+<tr><td>A30</td><td>Rang (Zeile 30)</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;(leer)&quot;;A9)</td><td></td></tr>
+<tr><td>B30</td><td>Produkt (Zeile 30)</td><td class="xlw-f">=WENN(A9=&quot;&quot;;-2;WENN(F9&lt;=0;-1;WENN(E9=0;1000000000;RUNDEN(F9/E9;12))))</td><td></td></tr>
+<tr><td>C30</td><td>Relativer DB (Zeile 30)</td><td class="xlw-f">=WENN(B30&lt;0;0;D9*E9)</td><td></td></tr>
+<tr><td>A31</td><td>Rang (Zeile 31)</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;(leer)&quot;;A10)</td><td></td></tr>
+<tr><td>B31</td><td>Produkt (Zeile 31)</td><td class="xlw-f">=WENN(A10=&quot;&quot;;-2;WENN(F10&lt;=0;-1;WENN(E10=0;1000000000;RUNDEN(F10/E10;12))))</td><td></td></tr>
+<tr><td>C31</td><td>Relativer DB (Zeile 31)</td><td class="xlw-f">=WENN(B31&lt;0;0;D10*E10)</td><td></td></tr>
+<tr><td>A32</td><td>Rang (Zeile 32)</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;(leer)&quot;;A11)</td><td></td></tr>
+<tr><td>B32</td><td>Produkt (Zeile 32)</td><td class="xlw-f">=WENN(A11=&quot;&quot;;-2;WENN(F11&lt;=0;-1;WENN(E11=0;1000000000;RUNDEN(F11/E11;12))))</td><td></td></tr>
+<tr><td>C32</td><td>Relativer DB (Zeile 32)</td><td class="xlw-f">=WENN(B32&lt;0;0;D11*E11)</td><td></td></tr>
+<tr><td>A33</td><td>Rang (Zeile 33)</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;(leer)&quot;;A12)</td><td></td></tr>
+<tr><td>B33</td><td>Produkt (Zeile 33)</td><td class="xlw-f">=WENN(A12=&quot;&quot;;-2;WENN(F12&lt;=0;-1;WENN(E12=0;1000000000;RUNDEN(F12/E12;12))))</td><td></td></tr>
+<tr><td>C33</td><td>Relativer DB (Zeile 33)</td><td class="xlw-f">=WENN(B33&lt;0;0;D12*E12)</td><td></td></tr>
+<tr><td>A34</td><td>Rang (Zeile 34)</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;(leer)&quot;;A13)</td><td></td></tr>
+<tr><td>B34</td><td>Produkt (Zeile 34)</td><td class="xlw-f">=WENN(A13=&quot;&quot;;-2;WENN(F13&lt;=0;-1;WENN(E13=0;1000000000;RUNDEN(F13/E13;12))))</td><td></td></tr>
+<tr><td>C34</td><td>Relativer DB (Zeile 34)</td><td class="xlw-f">=WENN(B34&lt;0;0;D13*E13)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.596 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 76 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Gesamtdeckungsbeitrag (B23), Betriebsergebnis (Gesamt-DB − Fixkosten) (B24).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 76 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 76 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.596 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-nutzwertanalyse">Nutzwertanalyse</a><p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.</p></li>
+<li><a href="/tools/excel-vorlage-liquiditaetsplan">Liquiditätsplan (12 Monate)</a><p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.</p></li>
+<li><a href="/tools/excel-vorlage-sollist">Soll-Ist-Vergleich (Budgetabweichung)</a><p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.</p></li>
+<li><a href="/tools/excel-vorlage-personalbedarf">Personalbedarfsplanung</a><p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.</p></li>
+<li><a href="/tools/excel-vorlage-mehrproduktbe">Break-even im Mehrproduktunternehmen</a><p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

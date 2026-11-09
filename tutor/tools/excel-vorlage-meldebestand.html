@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Melde-, Sicherheits- und Höchstbestand – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Wann muss bestellt werden? Tagesverbrauch, Sicherheitsbestand, Meldebestand, Höchstbestand und Reichweite. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 8 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-meldebestand">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Melde-, Sicherheits- und Höchstbestand (Excel-Vorlage)","description":"Wann muss bestellt werden? Tagesverbrauch, Sicherheitsbestand, Meldebestand, Höchstbestand und Reichweite.","url":"https://www.bwlmax.de/tools/excel-vorlage-meldebestand","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Beschaffung, Produktion & Logistik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Beschaffung, Produktion &amp; Logistik</p>
+<h1>Excel-Vorlage: Melde-, Sicherheits- und Höchstbestand</h1>
+<p class="lead">Wann muss bestellt werden? Tagesverbrauch, Sicherheitsbestand, Meldebestand, Höchstbestand und Reichweite. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>6</b> Eingabefelder</li><li><b>8</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="meldebestand">
+<div class="xl-keys"><div class="xl-key"><small>Meldebestand</small><b>680,00</b></div><div class="xl-key"><small>Höchstbestand</small><b>1.700,00</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Meldebestand_Sicherheitsbestand_Hoechstbestand.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Meldebestand“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:385px"><col style="width:126px"><col style="width:222px"><col style="width:163px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="4">Melde-, Sicherheits- und Höchstbestand</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="4">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="4">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Jahresbedarf (Stück)</td><td class="xs-in num">9.600,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Arbeitstage pro Jahr</td><td class="xs-in num">240</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Beschaffungszeit (Tage)</td><td class="xs-in num">12,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Sicherheitszeit (Tage Reserve)</td><td class="xs-in num">5,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">oder Sicherheitsbestand direkt (Stück, leer = aus Sicherheitszeit)</td><td class="xs-in num"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Bestellmenge (Stück)</td><td class="xs-in num">1.500,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-sec" colspan="4">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Tagesverbrauch (Stück)</td><td class="xs-out num">40,00</td><td class="xs-txt" colspan="2">Jahresbedarf / Arbeitstage</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Sicherheitsbestand (Mindestbestand)</td><td class="xs-res num">200,00</td><td class="xs-txt" colspan="2">Tagesverbrauch × Sicherheitszeit</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Verbrauch während der Beschaffungszeit</td><td class="xs-out num">480,00</td><td class="xs-txt" colspan="2">Tagesverbrauch × Beschaffungszeit</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Ø Lagerbestand</td><td class="xs-out num">950,00</td><td class="xs-txt" colspan="2">Sicherheitsbestand + Bestellmenge / 2</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Reichweite einer Bestellung (Tage)</td><td class="xs-out num">37,50</td><td class="xs-txt" colspan="2">Bestellmenge / Tagesverbrauch</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Meldebestand</td><td class="xs-res num">680,00</td><td class="xs-txt" colspan="2">Tagesverbrauch × Beschaffungszeit + Sicherheitsbestand</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Höchstbestand</td><td class="xs-res num">1.700,00</td><td class="xs-txt" colspan="2">Sicherheitsbestand + Bestellmenge</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Prüfung</td><td class="xs-out" colspan="3">✓ Meldebestand liegt unter dem Höchstbestand</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-note" colspan="4">Bestellt wird, sobald der Lagerbestand den Meldebestand erreicht (bei mehreren offenen Bestellungen zählt der Bestand inklusive offener Bestellungen). Bis die Lieferung eintrifft, sinkt er auf den Sicherheitsbestand; mit der Lieferung steigt er auf den Höchstbestand.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Meldebestand“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Wann muss bestellt werden? Tagesverbrauch, Sicherheitsbestand, Meldebestand, Höchstbestand und Reichweite. Die Vorlage gehört zum Bereich Beschaffung, Produktion &amp; Logistik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 6 Werte ein; die Datei berechnet daraus unter anderem „Meldebestand“ und „Höchstbestand“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Bestellt wird, sobald der Lagerbestand den Meldebestand erreicht (bei mehreren offenen Bestellungen zählt der Bestand inklusive offener Bestellungen). Bis die Lieferung eintrifft, sinkt er auf den Sicherheitsbestand; mit der Lieferung steigt er auf den Höchstbestand.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Jahresbedarf (Stück)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">9.600,00</td><td>ab 0,00</td></tr>
+<tr><td>Arbeitstage pro Jahr</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">240</td><td>1 bis 366, ganze Zahl</td></tr>
+<tr><td>Beschaffungszeit (Tage)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">12,00</td><td>ab 0,00</td></tr>
+<tr><td>Sicherheitszeit (Tage Reserve)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">5,00</td><td>ab 0,00</td></tr>
+<tr><td>oder Sicherheitsbestand direkt (Stück, leer = aus Sicherheitszeit)</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">(leer)</td><td>ab 0,00; darf leer bleiben</td></tr>
+<tr><td>Bestellmenge (Stück)</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">1.500,00</td><td>ab 0,00</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Meldebestand</td><td><code>B19</code></td><td class="xlw-v"><b data-xv="B19">680,00</b></td></tr>
+<tr><td>Höchstbestand</td><td><code>B20</code></td><td class="xlw-v"><b data-xv="B20">1.700,00</b></td></tr>
+<tr><td>Sicherheitsbestand (Mindestbestand)</td><td><code>B14</code></td><td class="xlw-v"><b data-xv="B14">200,00</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 8 Formeln des Blatts „Meldebestand“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B13</td><td>Tagesverbrauch (Stück)</td><td class="xlw-f">=B5/B6</td><td></td></tr>
+<tr><td>B14</td><td>Sicherheitsbestand (Mindestbestand)</td><td class="xlw-f">=WENN(ANZAHL(B9)=0;B13*B8;B9)</td><td><small>Sicherheitsbestand (eiserne Reserve) = Tagesverbrauch × Sicherheitszeit – oder direkt vorgegeben.</small></td></tr>
+<tr><td>B15</td><td>Verbrauch während der Beschaffungszeit</td><td class="xlw-f">=B13*B7</td><td></td></tr>
+<tr><td>B16</td><td>Ø Lagerbestand</td><td class="xlw-f">=B14+B10/2</td><td></td></tr>
+<tr><td>B17</td><td>Reichweite einer Bestellung (Tage)</td><td class="xlw-f">=WENN(B13=0;&quot;–&quot;;B10/B13)</td><td></td></tr>
+<tr><td>B19</td><td>Meldebestand</td><td class="xlw-f">=B15+B14</td><td><small>Meldebestand = Tagesverbrauch × Beschaffungszeit + Sicherheitsbestand.</small></td></tr>
+<tr><td>B20</td><td>Höchstbestand</td><td class="xlw-f">=B14+B10</td><td><small>Höchstbestand = Sicherheitsbestand + Bestellmenge (Bestand direkt nach der Lieferung).</small></td></tr>
+<tr><td>B21</td><td>Prüfung</td><td class="xlw-f">=WENN(B19&gt;B20;&quot;Meldebestand über Höchstbestand – die Bestellmenge reicht nicht über die Beschaffungszeit&quot;;&quot;✓ Meldebestand liegt unter dem Höchstbestand&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>168 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 8 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Meldebestand (B19), Höchstbestand (B20).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 8 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 8 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>168 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Beschaffung, Produktion &amp; Logistik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-bestellmenge">Optimale Bestellmenge (Andler)</a><p>Andler-Formel: optimale Bestellmenge, Anzahl Bestellungen, Bestellrhythmus und Kostenverlauf als Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-abcanalyse">ABC-Analyse</a><p>Bis 15 Artikel nach Verbrauchswert sortieren, kumulierte Anteile bilden und in A-, B-, C-Güter einteilen.</p></li>
+<li><a href="/tools/excel-vorlage-lagerkennzahlen">Lagerkennzahlen</a><p>Ø Lagerbestand aus 13 Beständen, Umschlagshäufigkeit, Ø Lagerdauer, Lagerzinssatz und Lagerzinsen.</p></li>
+<li><a href="/tools/excel-vorlage-losgroesse">Optimale Losgröße (Andler)</a><p>Kostenminimale Losgröße aus Rüstkosten und Lagerkostensatz, Anzahl Lose, Produktionszyklus und Kostentabelle.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

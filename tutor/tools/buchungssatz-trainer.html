@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <meta name="color-scheme" content="light">
 <title>Buchungssätze üben – 60 Geschäftsvorfälle mit Lösung</title>
@@ -68,15 +68,30 @@ footer{max-width:960px;margin:0 auto;padding:18px 16px 30px;color:var(--muted);f
 footer a{color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:680px){.grid{grid-template-columns:1fr}h1{font-size:1.45rem}.ln{grid-template-columns:minmax(0,1fr) 6.4em 34px}}
+.cases button{position:relative}
+.cases button.ok::after,.cases button.bad::after,.cases button.shown::after{position:absolute;top:1px;right:3px;font-size:.62rem;font-weight:700;line-height:1}
+.cases button.ok::after{content:"✓";color:var(--ok)}
+.cases button.bad::after{content:"✗";color:var(--bad)}
+.cases button.shown::after{content:"L";color:var(--warn)}
+.legende{font-size:.82rem;color:var(--muted);margin:-4px 0 10px}
+.druck-kopf{display:none}
+.bmw-ueb button,.bmw-leiste button{font:inherit;font-size:.92rem;cursor:pointer}
+.bmw-ueb table.bs{width:auto;min-width:min(100%,480px)}
 @media print{
   body{font-size:11pt;background:#fff;color:#000}
+  html.bmw-printing .druck-kopf{display:block;font-size:9pt;color:#333;margin:0 0 3mm}
+  .sum,.legende{display:none!important}
+  .ln input{border:0;border-bottom:1px solid #777;border-radius:0}
+  .ln input::placeholder{color:transparent}
+  #case h2{font-size:12pt;margin:.8em 0 .3em}
+  .msg{border:1px solid #999;background:#fff}
   main{max-width:none;padding:0}
   .tabs,.cases,.btns,button.add,.ln .rm{display:none!important}
   .card{border:0;padding:0}
   @page{size:A4;margin:15mm}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <main>
@@ -102,9 +117,11 @@ Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssa
 
 <div class="tabs" role="tablist" aria-label="Themengruppen" id="tabs"></div>
 <p class="prog" id="prog"></p>
-<div class="cases" id="cases" aria-label="Fälle der Gruppe"></div>
+<div class="cases" id="cases" role="group" aria-label="Fälle der Gruppe"></div>
+<p class="legende" aria-hidden="true">Markierung an den Fallnummern: ✓ richtig gelöst · ✗ noch falsch · L Lösung angesehen</p>
 
 <section class="card" id="case" aria-live="off">
+<p class="druck-kopf">Buchungssätze üben · Quelle: www.bwlmax.de/tools/buchungssatz-trainer</p>
 <p class="case-h" id="caseH"></p>
 <p class="case-t" id="caseT"></p>
 <datalist id="konten"></datalist>
@@ -122,6 +139,23 @@ Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssa
 </div>
 <div id="fb" aria-live="polite"></div>
 <div id="sol"></div>
+</section>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Zusatzübung: Beträge berechnen</h2>
+<p>Bei Rabatt, Skonto, Bruttobeträgen und Abschreibung scheitern Buchungssätze oft nicht am Konto, sondern an der Rechnung davor. Hier gibt es dazu Aufgaben mit zufälligen Beträgen: rechne die Beträge des Buchungssatzes aus, das Werkzeug prüft sie und zeigt Rechenweg und Buchungssatz. Es gelten die Konventionen von oben.</p>
+<div id="bt-ueb"></div>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Die Annahmen (Industriebetrieb, Nettomethode, Konten nach Kontenart, Behandlung von Nachlässen und Privatbuchungen) stehen oben unter <a href="#konventionen">Konventionen</a>. Jede Musterlösung begründet jede Zeile; gleichwertige übliche Varianten werden als richtig gewertet und benannt.</span></li>
+<li><b>Gegengerechnet</b><span>Alle 60 Musterlösungen sind automatisch nachgerechnet (Soll gleich Haben, Steuer-, Rabatt-, Skonto- und Abschreibungsbeträge) und einzeln über die Prüffunktion getestet, ebenso 3.000 zufällig erzeugte Zusatzaufgaben gegen eine unabhängige Referenzrechnung.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 </main>
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -301,10 +335,12 @@ Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssa
   }
 
   // ---------- UI ----------
+  let lnNr = 0;
   function lineHTML(side) {
-    const sn = side === 'S' ? 'Soll' : 'Haben';
-    return '<div class="ln" data-side="' + side + '"><input type="text" class="acc" list="konten" autocomplete="off" placeholder="Konto suchen …" aria-label="' + sn + '-Konto"><input type="text" class="amt" inputmode="decimal" placeholder="Betrag" aria-label="Betrag ' + sn + '"><button type="button" class="rm" aria-label="Zeile entfernen" title="Zeile entfernen">×</button><div class="fb" hidden></div></div>';
+    const sn = side === 'S' ? 'Soll' : 'Haben', id = 'ln' + (++lnNr) + '-fb';
+    return '<div class="ln" data-side="' + side + '"><input type="text" class="acc" list="konten" autocomplete="off" placeholder="Konto suchen …" aria-label="' + sn + '-Konto" aria-describedby="' + id + '"><input type="text" class="amt" inputmode="decimal" placeholder="Betrag" aria-label="Betrag ' + sn + '" aria-describedby="' + id + '"><button type="button" class="rm" aria-label="' + sn + '-Zeile entfernen" title="Zeile entfernen">×</button><div class="fb" id="' + id + '" hidden></div></div>';
   }
+  function invalid(el, bad) { el.querySelectorAll('input').forEach(i => { if (bad) i.setAttribute('aria-invalid', 'true'); else i.removeAttribute('aria-invalid'); }); }
   function addLine(side) {
     const box = document.querySelector('#side' + side + ' .lines');
     box.insertAdjacentHTML('beforeend', lineHTML(side));
@@ -343,15 +379,15 @@ Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssa
   function check() {
     const f = D.faelle[curI];
     const { lines, errs } = readUser();
-    document.querySelectorAll('.ln').forEach(el => { el.classList.remove('ok', 'bad'); const fb = el.querySelector('.fb'); fb.hidden = true; fb.className = 'fb'; });
-    lines.forEach(l => { if (l.el._err) { const fb = l.el.querySelector('.fb'); fb.hidden = false; fb.className = 'fb bad'; fb.textContent = l.el._err; l.el.classList.add('bad'); } });
+    document.querySelectorAll('.ln').forEach(el => { el.classList.remove('ok', 'bad'); invalid(el, false); const fb = el.querySelector('.fb'); fb.hidden = true; fb.className = 'fb'; });
+    lines.forEach(l => { if (l.el._err) { const fb = l.el.querySelector('.fb'); fb.hidden = false; fb.className = 'fb bad'; fb.textContent = l.el._err; l.el.classList.add('bad'); invalid(l.el, true); } });
     if (!lines.length) { $('fb').innerHTML = '<p class="msg bad">Bitte mindestens eine Soll- und eine Habenzeile ausfüllen.</p>'; return; }
     if (errs.length) { $('fb').innerHTML = '<p class="msg bad">Bitte die markierten Zeilen ergänzen.</p>'; return; }
     const user = lines.map(l => [l.side, l.k, l.c]);
     const r = evaluate(f, user);
     r.perLine.forEach((p, i) => {
       const el = lines[i].el, fb = el.querySelector('.fb');
-      el.classList.add(p.ok ? 'ok' : 'bad'); fb.hidden = false; fb.className = 'fb ' + (p.ok ? 'ok' : 'bad'); fb.textContent = (p.ok ? '✓ ' : '✗ ') + p.msg;
+      el.classList.add(p.ok ? 'ok' : 'bad'); invalid(el, !p.ok); fb.hidden = false; fb.className = 'fb ' + (p.ok ? 'ok' : 'bad'); fb.textContent = (p.ok ? '✓ ' : '✗ ') + p.msg;
     });
     const sS = user.filter(u => u[0] === 'S').reduce((a, u) => a + u[2], 0), sH = user.filter(u => u[0] === 'H').reduce((a, u) => a + u[2], 0);
     let h = '';
@@ -446,7 +482,115 @@ Betragseingabe: 1.190,00 oder 1190 oder 1190,5. Ein zusammengesetzter Buchungssa
   $('cases').addEventListener('click', e => { const b = e.target.closest('button[data-i]'); if (b) { openCase(+b.dataset.i); } });
   window.__trainer = { D, evaluate, candidates, parseAmt };
   openCase(0);
+  // Link teilen: nur die Nummer des aktuellen Falls steckt im Link
+  const teilen = BMW.teilen({ key: 'fall', root: $('case'), get: () => ({ f: curI }), set: v => { const i = +v.f; if (!Number.isInteger(i) || i < 0 || i >= D.faelle.length) throw new Error('Fall unbekannt'); openCase(i); } });
+  BMW.leiste($('fb'), { teilen, teilenText: 'Diesen Fall als Link teilen', druckText: 'Fall drucken / als PDF', druckScope: $('case'), vor: true });
 })();
+</script>
+<script>
+// UEB-START
+// Zusatzübung: Beträge für Buchungssätze (Rabatt, Skonto, Bruttobetrag, Abschreibung) mit zufälligen, centgenauen Zahlen
+function btAufgabe(v) {
+  'use strict';
+  var Z = BMW.zufall, W = BMW.wahl;
+  var NF = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function c(x) { return Math.round(x * 100) / 100; }
+  function eur(x) { return NF.format(c(x)) + '\u00a0€'; }
+  function pz(x) { return x + '\u00a0%'; }
+  function bs(zeilen) {
+    var S = zeilen.filter(function (z) { return z[0] === 'S'; }), Hb = zeilen.filter(function (z) { return z[0] === 'H'; }), n = Math.max(S.length, Hb.length), h = '';
+    for (var i = 0; i < n; i++) h += '<tr><td>' + (S[i] ? S[i][1] : '') + '</td><td class="n">' + (S[i] ? eur(S[i][2]) : '') + '</td><td>' + (Hb[i] ? (i === 0 ? 'an ' : '') + Hb[i][1] : '') + '</td><td class="n">' + (Hb[i] ? eur(Hb[i][2]) : '') + '</td></tr>';
+    return '<div style="overflow-x:auto"><table class="bs"><caption class="sr">Buchungssatz</caption><thead><tr><th scope="col">Soll</th><th scope="col">Betrag</th><th scope="col">Haben</th><th scope="col">Betrag</th></tr></thead><tbody>' + h + '</tbody></table></div>';
+  }
+  function weg(schritte) { return '<ol class="bmw-weg">' + schritte.map(function (x) { return '<li>' + x[0] + '<span class="fx">' + x[1] + '</span></li>'; }).join('') + '</ol>'; }
+  function mische(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  v = v || W(['rabatt', 'lskonto', 'kskonto', 'brutto', 'afa']);
+  var o = { p: { v: v } }, H2 = '<p><strong>Buchungssatz</strong></p>';
+  if (v === 'rabatt') {
+    var L = Z(10, 300, 1) * 100, r = W([5, 10, 15, 20]), net = c(L * (100 - r) / 100), vst = c(net * 0.19), verb = c(net + vst);
+    o.p.L = L; o.p.r = r;
+    o.text = '<p>Wir kaufen Rohstoffe auf Ziel. Listenpreis ' + eur(L) + ' netto, abzüglich ' + pz(r) + ' Sofortrabatt, zuzüglich 19\u00a0% Umsatzsteuer.</p><p>Berechne die Beträge des Buchungssatzes (auf Cent).</p>';
+    o.felder = [
+      { key: 'net', label: 'Aufwendungen für Rohstoffe (Soll)', einheit: '€', wert: net },
+      { key: 'vst', label: 'Vorsteuer (Soll)', einheit: '€', wert: vst },
+      { key: 'verb', label: 'Verbindlichkeiten aus L. u. L. (Haben)', einheit: '€', wert: verb }
+    ];
+    o.loesung = weg([
+      ['Der Sofortrabatt wird nicht gebucht, nur der rabattierte Nettopreis: ', eur(L) + ' − ' + pz(r) + ' = ' + eur(L) + ' · ' + NF.format((100 - r) / 100) + ' = ' + eur(net)],
+      ['Vorsteuer (19\u00a0% vom Nettobetrag): ', eur(net) + ' · 0,19 = ' + eur(vst)],
+      ['Verbindlichkeit gegenüber dem Lieferer (brutto): ', eur(net) + ' + ' + eur(vst) + ' = ' + eur(verb)]
+    ]) + H2 + bs([['S', 'Aufwendungen für Rohstoffe', net], ['S', 'Vorsteuer', vst], ['H', 'Verbindlichkeiten aus Lieferungen und Leistungen', verb]]);
+    return o;
+  }
+  if (v === 'lskonto' || v === 'kskonto') {
+    var N = Z(10, 200, 1) * 100, B = c(N * 1.19), s = W([2, 3]), skB = c(B * s / 100), skN = c(N * s / 100), korr = c(skB - skN), zahl = c(B - skB), ein = v === 'lskonto';
+    o.p.N = N; o.p.s = s;
+    var richtig = ein ? 'Nachlässe für Rohstoffe – Haben' : 'Erlösberichtigungen – Soll';
+    var wahl = ein ? ['Nachlässe für Rohstoffe – Haben', 'Nachlässe für Rohstoffe – Soll', 'Erlösberichtigungen – Soll', 'Bezugskosten für Rohstoffe – Soll']
+      : ['Erlösberichtigungen – Soll', 'Erlösberichtigungen – Haben', 'Nachlässe für Rohstoffe – Haben', 'Umsatzerlöse – Haben'];
+    o.text = ein
+      ? '<p>Wir begleichen eine Liefererrechnung über Rohstoffe in Höhe von ' + eur(B) + ' brutto (' + eur(N) + ' netto zuzüglich 19\u00a0% Umsatzsteuer) per Banküberweisung unter Abzug von ' + pz(s) + ' Skonto.</p>'
+      : '<p>Ein Kunde begleicht unsere Rechnung über ' + eur(B) + ' brutto (' + eur(N) + ' netto zuzüglich 19\u00a0% Umsatzsteuer) per Banküberweisung unter Abzug von ' + pz(s) + ' Skonto.</p>';
+    o.text += '<p>Berechne die Beträge des Buchungssatzes (auf Cent) und gib an, auf welchem Konto und auf welcher Seite der Nettoskonto gebucht wird.</p>';
+    o.felder = [
+      { key: 'zahl', label: ein ? 'Überweisungsbetrag (Bank, Haben)' : 'Zahlungseingang (Bank, Soll)', einheit: '€', wert: zahl },
+      { key: 'skn', label: 'Skonto netto', einheit: '€', wert: skN },
+      { key: 'korr', label: ein ? 'Vorsteuerberichtigung' : 'Umsatzsteuerberichtigung', einheit: '€', wert: korr },
+      { key: 'konto', label: 'Konto und Seite des Nettoskontos', wert: richtig, wahl: mische(wahl) }
+    ];
+    var schritte = [
+      ['Skonto vom Bruttobetrag: ', eur(B) + ' · ' + pz(s) + ' = ' + eur(skB)],
+      [ein ? 'Überweisungsbetrag: ' : 'Zahlungseingang: ', eur(B) + ' − ' + eur(skB) + ' = ' + eur(zahl)],
+      ['Skonto netto (aus dem Bruttoskonto herausrechnen): ', eur(skB) + ' : 1,19 = ' + eur(skN)],
+      [(ein ? 'Vorsteuerberichtigung' : 'Umsatzsteuerberichtigung') + ' (Steueranteil im Skonto): ', eur(skB) + ' − ' + eur(skN) + ' = ' + eur(korr)]
+    ];
+    o.loesung = weg(schritte) + H2 + (ein
+      ? bs([['S', 'Verbindlichkeiten aus Lieferungen und Leistungen', B], ['H', 'Bank', zahl], ['H', 'Nachlässe für Rohstoffe', skN], ['H', 'Vorsteuer', korr]]) +
+        '<p>Der Skonto mindert nachträglich den Einkaufspreis: Der Nettoskonto steht im Haben von „Nachlässe für Rohstoffe“, die zu viel abgezogene Vorsteuer wird im Haben korrigiert. Die Verbindlichkeit erlischt in voller Höhe.</p>'
+      : bs([['S', 'Bank', zahl], ['S', 'Erlösberichtigungen', skN], ['S', 'Umsatzsteuer', korr], ['H', 'Forderungen aus Lieferungen und Leistungen', B]]) +
+        '<p>Der Skonto mindert den Erlös: Der Nettoskonto steht im Soll von „Erlösberichtigungen“, die Umsatzsteuerschuld sinkt (Soll). Die Forderung erlischt in voller Höhe.</p>');
+    return o;
+  }
+  if (v === 'brutto') {
+    var art = W([['Büromaterial', 'Wir kaufen Büromaterial bar', 'Kasse'], ['Werbeaufwand', 'Eine Rechnung für Online-Werbung wird per Bank bezahlt', 'Bank'],
+      ['Instandhaltungsaufwand', 'Für die Reparatur einer Maschine geht eine Rechnung auf Ziel ein', 'Verbindlichkeiten aus Lieferungen und Leistungen'], ['Kommunikationsaufwand (Telefon, Internet)', 'Die Telefon- und Internetrechnung wird per Bank bezahlt', 'Bank']]);
+    var N2 = Z(20, 4000, 1), B2 = c(N2 * 1.19), vst2 = c(B2 - N2);
+    o.p.B = B2;
+    o.text = '<p>' + art[1] + ': ' + eur(B2) + ' brutto einschließlich 19\u00a0% Umsatzsteuer.</p><p>Berechne den Nettobetrag und die Vorsteuer (auf Cent).</p>';
+    o.felder = [
+      { key: 'net', label: art[0] + ' (Soll)', einheit: '€', wert: N2 },
+      { key: 'vst', label: 'Vorsteuer (Soll)', einheit: '€', wert: vst2 }
+    ];
+    o.loesung = weg([
+      ['Der Bruttobetrag entspricht 119 % des Nettobetrags: ', eur(B2) + ' : 1,19 = ' + eur(N2)],
+      ['Vorsteuer: ', eur(B2) + ' − ' + eur(N2) + ' = ' + eur(vst2) + ' (Kontrolle: ' + eur(N2) + ' · 0,19 = ' + eur(vst2) + ')']
+    ]) + H2 + bs([['S', art[0], N2], ['S', 'Vorsteuer', vst2], ['H', art[2], B2]]) +
+      '<p>Typischer Fehler: 19 % vom Bruttobetrag abziehen. Das ergibt ' + eur(c(B2 * 0.19)) + ' – zu viel, weil die Steuer auf den Nettobetrag berechnet wird.</p>';
+    return o;
+  }
+  // v === 'afa': lineare Abschreibung, monatsgenau
+  var MON = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+  var gut = W([['eine Produktionsmaschine', 'Technische Anlagen und Maschinen', [5, 8, 10]], ['einen Lieferwagen', 'Fuhrpark', [5, 6]], ['eine Büroeinrichtung', 'Betriebs- und Geschäftsausstattung (BGA)', [8, 10, 13]]]);
+  var nd = W(gut[2]), m = Z(1, 12, 1), ak = nd * Z(1, 60, 1) * 600, jafa = c(ak / nd), monate = 13 - m, afa = c(jafa * monate / 12), bw = c(ak - afa);
+  o.p.ak = ak; o.p.nd = nd; o.p.m = m;
+  o.text = '<p>Ein Industriebetrieb schafft im ' + MON[m - 1] + ' ' + gut[0] + ' an. Anschaffungskosten ' + eur(ak) + ', betriebsgewöhnliche Nutzungsdauer ' + nd + ' Jahre. Abgeschrieben wird linear und monatsgenau (der Anschaffungsmonat zählt voll), direkt auf dem Anlagenkonto.</p><p>Berechne die Jahres-AfA, die Abschreibung zum 31.12. des Anschaffungsjahres und den Buchwert am 31.12. (auf Cent).</p>';
+  o.felder = [
+    { key: 'jafa', label: 'Jahres-AfA', einheit: '€', wert: jafa },
+    { key: 'afa', label: 'Abschreibung im Anschaffungsjahr', einheit: '€', wert: afa },
+    { key: 'bw', label: 'Buchwert am 31.12.', einheit: '€', wert: bw }
+  ];
+  o.loesung = weg([
+    ['Jahres-AfA (linear): ', eur(ak) + ' : ' + nd + ' = ' + eur(jafa)],
+    ['Monate im Anschaffungsjahr (' + MON[m - 1] + ' bis Dezember): ', '13 − ' + m + ' = ' + monate + ' Monate'],
+    ['Abschreibung im Anschaffungsjahr: ', eur(jafa) + ' · ' + monate + '/12 = ' + eur(afa)],
+    ['Buchwert am 31.12.: ', eur(ak) + ' − ' + eur(afa) + ' = ' + eur(bw)]
+  ]) + H2 + bs([['S', 'Abschreibungen auf Sachanlagen', afa], ['H', gut[1], afa]]);
+  return o;
+}
+// UEB-END
+BMW.uebung(document.getElementById('bt-ueb'), { titel: 'Beträge für den Buchungssatz', neu: function () { return btAufgabe(); } });
+// „Prüfen“ liegt in bm-werkzeug.js außerhalb des <form> – hier mit dem Formular verknüpfen (Klick und Enter prüfen)
+(function (m) { var f = m.querySelector('form.bmw-ueb-form'), b = m.querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'bt-ueb-form'; b.setAttribute('form', f.id); } })(document.getElementById('bt-ueb'));
 </script>
 </body>
 </html>

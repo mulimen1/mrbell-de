@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Kapitalbedarfsplanung (Gründung) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 21 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-kapitalbedarf">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Kapitalbedarfsplanung (Gründung) (Excel-Vorlage)","description":"Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung.","url":"https://www.bwlmax.de/tools/excel-vorlage-kapitalbedarf","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Finanzierung & Finanzmathematik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Finanzierung &amp; Finanzmathematik</p>
+<h1>Excel-Vorlage: Kapitalbedarfsplanung (Gründung)</h1>
+<p class="lead">Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>51</b> Eingabefelder</li><li><b>21</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="kapitalbedarf">
+<div class="xl-keys"><div class="xl-key"><small>Umlaufkapitalbedarf</small><b>522.500,00 €</b></div><div class="xl-key"><small>Gesamtkapitalbedarf</small><b>1.300.750,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Kapitalbedarfsplanung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Kapitalbedarf“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:296px"><col style="width:126px"><col style="width:81px"><col style="width:89px"><col style="width:89px"><col style="width:89px"><col style="width:111px"><col style="width:111px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Kapitalbedarfsplanung (Gründung)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">1. Anlagekapitalbedarf</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-in">Grundstücke und Gebäude</td><td class="xs-in num">300.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-in">Maschinen und Anlagen</td><td class="xs-in num">250.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-in">Betriebs- und Geschäftsausstattung</td><td class="xs-in num">50.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Fuhrpark</td><td class="xs-in num">40.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Gründungs- und Ingangsetzungskosten</td><td class="xs-in num">20.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">= Anlagekapitalbedarf</td><td class="xs-tot num">660.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-sec" colspan="8">2. Dauer der Prozessphasen (Tage)</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Lagerdauer Roh-, Hilfs- und Betriebsstoffe</td><td class="xs-in num">20</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Produktionsdauer</td><td class="xs-in num">10</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Lagerdauer Fertigerzeugnisse</td><td class="xs-in num">15</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Kundenziel</td><td class="xs-in num">30</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Lieferantenziel</td><td class="xs-in num">25</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-sec" colspan="8">3. Kapitalbindungsdauer je Ausgabenart (1 = Phase zählt mit, 0 = nicht)</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-th">Ausgabenart</td><td class="xs-th">Ausgaben je Tag</td><td class="xs-th">RHB-Lager</td><td class="xs-th">Produktion</td><td class="xs-th">Fertiglager</td><td class="xs-th">Kundenziel</td><td class="xs-th">− Lieferantenziel</td><td class="xs-th">Bindungsdauer (Tage)</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-in">Materialausgaben</td><td class="xs-in num">4.000,00 €</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-out num">50</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-in">Fertigungslöhne</td><td class="xs-in num">3.000,00 €</td><td class="xs-in num">0</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">0</td><td class="xs-out num">55</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-in">Material- und Fertigungsgemeinkosten</td><td class="xs-in num">1.500,00 €</td><td class="xs-in num">0</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">0</td><td class="xs-out num">55</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-in">Verwaltungs- und Vertriebsgemeinkosten</td><td class="xs-in num">1.000,00 €</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">0</td><td class="xs-out num">75</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-in">Sonstige Ausgaben</td><td class="xs-in num">0,00 €</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">1</td><td class="xs-in num">0</td><td class="xs-out num">75</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-sec" colspan="8">4. Umlaufkapitalbedarf (Ausgaben je Tag × Bindungsdauer)</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-out">Materialausgaben</td><td class="xs-out num">200.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-out">Fertigungslöhne</td><td class="xs-out num">165.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out">Material- und Fertigungsgemeinkosten</td><td class="xs-out num">82.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out">Verwaltungs- und Vertriebsgemeinkosten</td><td class="xs-out num">75.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-out">Sonstige Ausgaben</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-lab">= Umlaufkapitalbedarf</td><td class="xs-res num">522.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-sec" colspan="8">5. Gesamtkapitalbedarf</td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-lab">Anlagekapitalbedarf</td><td class="xs-out num">660.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-lab">+ Umlaufkapitalbedarf</td><td class="xs-out num">522.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-lab">Sicherheitszuschlag (auf Anlage + Umlauf)</td><td class="xs-in num">10,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-lab">+ Sicherheitsreserve</td><td class="xs-out num">118.250,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-lab">= Gesamtkapitalbedarf</td><td class="xs-res num">1.300.750,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-note" colspan="8">Übliche Lehrbuchregel: Material bindet Kapital vom Einkauf bis zum Zahlungseingang des Kunden, abzüglich Lieferantenziel; Löhne und Fertigungsgemeinkosten ab Produktionsbeginn; Verwaltung und Vertrieb über den ganzen Prozess.</td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-note" colspan="8">Gibt die Aufgabe andere Bindungsdauern vor, die 1/0-Felder anpassen. Bindungsdauer = Summe der markierten Phasen (nie unter 0).</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Kapitalbedarf“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung. Die Vorlage gehört zum Bereich Finanzierung &amp; Finanzmathematik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 51 Werte ein; die Datei berechnet daraus unter anderem „Umlaufkapitalbedarf“ und „Gesamtkapitalbedarf“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Übliche Lehrbuchregel: Material bindet Kapital vom Einkauf bis zum Zahlungseingang des Kunden, abzüglich Lieferantenziel; Löhne und Fertigungsgemeinkosten ab Produktionsbeginn; Verwaltung und Vertrieb über den ganzen Prozess.</li><li>Gibt die Aufgabe andere Bindungsdauern vor, die 1/0-Felder anpassen. Bindungsdauer = Summe der markierten Phasen (nie unter 0).</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>A5</td><td><code>A5</code></td><td class="xlw-v" data-xi="A5">Grundstücke und Gebäude</td><td>Text</td></tr>
+<tr><td>Grundstücke und Gebäude</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">300.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>A6</td><td><code>A6</code></td><td class="xlw-v" data-xi="A6">Maschinen und Anlagen</td><td>Text</td></tr>
+<tr><td>Maschinen und Anlagen</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">250.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>A7</td><td><code>A7</code></td><td class="xlw-v" data-xi="A7">Betriebs- und Geschäftsausstattung</td><td>Text</td></tr>
+<tr><td>Betriebs- und Geschäftsausstattung</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>A8</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Fuhrpark</td><td>Text</td></tr>
+<tr><td>Fuhrpark</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>A9</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Gründungs- und Ingangsetzungskosten</td><td>Text</td></tr>
+<tr><td>Gründungs- und Ingangsetzungskosten</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Lagerdauer Roh-, Hilfs- und Betriebsstoffe</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">20</td><td>0 bis 1.000, ganze Zahl</td></tr>
+<tr><td>Produktionsdauer</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">10</td><td>0 bis 1.000, ganze Zahl</td></tr>
+<tr><td>Lagerdauer Fertigerzeugnisse</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">15</td><td>0 bis 1.000, ganze Zahl</td></tr>
+<tr><td>Kundenziel</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">30</td><td>0 bis 1.000, ganze Zahl</td></tr>
+<tr><td>Lieferantenziel</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">25</td><td>0 bis 1.000, ganze Zahl</td></tr>
+<tr><td>Ausgabenart (Zeile 21)</td><td><code>A21</code></td><td class="xlw-v" data-xi="A21">Materialausgaben</td><td>Text</td></tr>
+<tr><td>Materialausgaben · Ausgaben je Tag</td><td><code>B21</code></td><td class="xlw-v" data-xi="B21">4.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Materialausgaben · RHB-Lager</td><td><code>C21</code></td><td class="xlw-v" data-xi="C21">1</td><td>0 oder 1</td></tr>
+<tr><td>Materialausgaben · Produktion</td><td><code>D21</code></td><td class="xlw-v" data-xi="D21">1</td><td>0 oder 1</td></tr>
+<tr><td>Materialausgaben · Fertiglager</td><td><code>E21</code></td><td class="xlw-v" data-xi="E21">1</td><td>0 oder 1</td></tr>
+<tr><td>Materialausgaben · Kundenziel</td><td><code>F21</code></td><td class="xlw-v" data-xi="F21">1</td><td>0 oder 1</td></tr>
+<tr><td>Materialausgaben · − Lieferantenziel</td><td><code>G21</code></td><td class="xlw-v" data-xi="G21">1</td><td>0 oder 1</td></tr>
+<tr><td>Ausgabenart (Zeile 22)</td><td><code>A22</code></td><td class="xlw-v" data-xi="A22">Fertigungslöhne</td><td>Text</td></tr>
+<tr><td>Fertigungslöhne · Ausgaben je Tag</td><td><code>B22</code></td><td class="xlw-v" data-xi="B22">3.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Fertigungslöhne · RHB-Lager</td><td><code>C22</code></td><td class="xlw-v" data-xi="C22">0</td><td>0 oder 1</td></tr>
+<tr><td>Fertigungslöhne · Produktion</td><td><code>D22</code></td><td class="xlw-v" data-xi="D22">1</td><td>0 oder 1</td></tr>
+<tr><td>Fertigungslöhne · Fertiglager</td><td><code>E22</code></td><td class="xlw-v" data-xi="E22">1</td><td>0 oder 1</td></tr>
+<tr><td>Fertigungslöhne · Kundenziel</td><td><code>F22</code></td><td class="xlw-v" data-xi="F22">1</td><td>0 oder 1</td></tr>
+<tr><td>Fertigungslöhne · − Lieferantenziel</td><td><code>G22</code></td><td class="xlw-v" data-xi="G22">0</td><td>0 oder 1</td></tr>
+<tr><td>Ausgabenart (Zeile 23)</td><td><code>A23</code></td><td class="xlw-v" data-xi="A23">Material- und Fertigungsgemeinkosten</td><td>Text</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · Ausgaben je Tag</td><td><code>B23</code></td><td class="xlw-v" data-xi="B23">1.500,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · RHB-Lager</td><td><code>C23</code></td><td class="xlw-v" data-xi="C23">0</td><td>0 oder 1</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · Produktion</td><td><code>D23</code></td><td class="xlw-v" data-xi="D23">1</td><td>0 oder 1</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · Fertiglager</td><td><code>E23</code></td><td class="xlw-v" data-xi="E23">1</td><td>0 oder 1</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · Kundenziel</td><td><code>F23</code></td><td class="xlw-v" data-xi="F23">1</td><td>0 oder 1</td></tr>
+<tr><td>Material- und Fertigungsgemeinkosten · − Lieferantenziel</td><td><code>G23</code></td><td class="xlw-v" data-xi="G23">0</td><td>0 oder 1</td></tr>
+<tr><td>Ausgabenart (Zeile 24)</td><td><code>A24</code></td><td class="xlw-v" data-xi="A24">Verwaltungs- und Vertriebsgemeinkosten</td><td>Text</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · Ausgaben je Tag</td><td><code>B24</code></td><td class="xlw-v" data-xi="B24">1.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · RHB-Lager</td><td><code>C24</code></td><td class="xlw-v" data-xi="C24">1</td><td>0 oder 1</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · Produktion</td><td><code>D24</code></td><td class="xlw-v" data-xi="D24">1</td><td>0 oder 1</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · Fertiglager</td><td><code>E24</code></td><td class="xlw-v" data-xi="E24">1</td><td>0 oder 1</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · Kundenziel</td><td><code>F24</code></td><td class="xlw-v" data-xi="F24">1</td><td>0 oder 1</td></tr>
+<tr><td>Verwaltungs- und Vertriebsgemeinkosten · − Lieferantenziel</td><td><code>G24</code></td><td class="xlw-v" data-xi="G24">0</td><td>0 oder 1</td></tr>
+<tr><td>Ausgabenart (Zeile 25)</td><td><code>A25</code></td><td class="xlw-v" data-xi="A25">Sonstige Ausgaben</td><td>Text</td></tr>
+<tr><td>Sonstige Ausgaben · Ausgaben je Tag</td><td><code>B25</code></td><td class="xlw-v" data-xi="B25">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Ausgaben · RHB-Lager</td><td><code>C25</code></td><td class="xlw-v" data-xi="C25">1</td><td>0 oder 1</td></tr>
+<tr><td>Sonstige Ausgaben · Produktion</td><td><code>D25</code></td><td class="xlw-v" data-xi="D25">1</td><td>0 oder 1</td></tr>
+<tr><td>Sonstige Ausgaben · Fertiglager</td><td><code>E25</code></td><td class="xlw-v" data-xi="E25">1</td><td>0 oder 1</td></tr>
+<tr><td>Sonstige Ausgaben · Kundenziel</td><td><code>F25</code></td><td class="xlw-v" data-xi="F25">1</td><td>0 oder 1</td></tr>
+<tr><td>Sonstige Ausgaben · − Lieferantenziel</td><td><code>G25</code></td><td class="xlw-v" data-xi="G25">0</td><td>0 oder 1</td></tr>
+<tr><td>Sicherheitszuschlag (auf Anlage + Umlauf)</td><td><code>B38</code></td><td class="xlw-v" data-xi="B38">10,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Umlaufkapitalbedarf</td><td><code>B33</code></td><td class="xlw-v"><b data-xv="B33">522.500,00 €</b></td></tr>
+<tr><td>Gesamtkapitalbedarf</td><td><code>B40</code></td><td class="xlw-v"><b data-xv="B40">1.300.750,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 21 Formeln des Blatts „Kapitalbedarf“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B10</td><td>= Anlagekapitalbedarf</td><td class="xlw-f">=SUMME(B5:B9)</td><td></td></tr>
+<tr><td>H21</td><td>Materialausgaben</td><td class="xlw-f">=MAX(0;C21*$B$13+D21*$B$14+E21*$B$15+F21*$B$16-G21*$B$17)</td><td><small>Bindungsdauer = Summe der mit 1 markierten Phasen − Lieferantenziel (falls markiert), mindestens 0.</small></td></tr>
+<tr><td>H22</td><td>Fertigungslöhne</td><td class="xlw-f">=MAX(0;C22*$B$13+D22*$B$14+E22*$B$15+F22*$B$16-G22*$B$17)</td><td></td></tr>
+<tr><td>H23</td><td>Material- und Fertigungsgemeinkosten</td><td class="xlw-f">=MAX(0;C23*$B$13+D23*$B$14+E23*$B$15+F23*$B$16-G23*$B$17)</td><td></td></tr>
+<tr><td>H24</td><td>Verwaltungs- und Vertriebsgemeinkosten</td><td class="xlw-f">=MAX(0;C24*$B$13+D24*$B$14+E24*$B$15+F24*$B$16-G24*$B$17)</td><td></td></tr>
+<tr><td>H25</td><td>Sonstige Ausgaben</td><td class="xlw-f">=MAX(0;C25*$B$13+D25*$B$14+E25*$B$15+F25*$B$16-G25*$B$17)</td><td></td></tr>
+<tr><td>A28</td><td>Ausgabenart (Zeile 28)</td><td class="xlw-f">=A21</td><td></td></tr>
+<tr><td>B28</td><td>Ausgaben je Tag (Zeile 28)</td><td class="xlw-f">=B21*H21</td><td><small>Kapitalbedarf = Ausgaben je Tag × Kapitalbindungsdauer.</small></td></tr>
+<tr><td>A29</td><td>Ausgabenart (Zeile 29)</td><td class="xlw-f">=A22</td><td></td></tr>
+<tr><td>B29</td><td>Ausgaben je Tag (Zeile 29)</td><td class="xlw-f">=B22*H22</td><td></td></tr>
+<tr><td>A30</td><td>Ausgabenart (Zeile 30)</td><td class="xlw-f">=A23</td><td></td></tr>
+<tr><td>B30</td><td>Ausgaben je Tag (Zeile 30)</td><td class="xlw-f">=B23*H23</td><td></td></tr>
+<tr><td>A31</td><td>Ausgabenart (Zeile 31)</td><td class="xlw-f">=A24</td><td></td></tr>
+<tr><td>B31</td><td>Ausgaben je Tag (Zeile 31)</td><td class="xlw-f">=B24*H24</td><td></td></tr>
+<tr><td>A32</td><td>Ausgabenart (Zeile 32)</td><td class="xlw-f">=A25</td><td></td></tr>
+<tr><td>B32</td><td>Ausgaben je Tag (Zeile 32)</td><td class="xlw-f">=B25*H25</td><td></td></tr>
+<tr><td>B33</td><td>= Umlaufkapitalbedarf</td><td class="xlw-f">=SUMME(B28:B32)</td><td></td></tr>
+<tr><td>B36</td><td>Anlagekapitalbedarf</td><td class="xlw-f">=B10</td><td></td></tr>
+<tr><td>B37</td><td>+ Umlaufkapitalbedarf</td><td class="xlw-f">=B33</td><td></td></tr>
+<tr><td>B39</td><td>+ Sicherheitsreserve</td><td class="xlw-f">=(B36+B37)*B38</td><td></td></tr>
+<tr><td>B40</td><td>= Gesamtkapitalbedarf</td><td class="xlw-f">=B36+B37+B39</td><td><small>Gesamtkapitalbedarf = (Anlage- + Umlaufkapitalbedarf) × (1 + Sicherheitszuschlag).</small></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>441 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 21 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Umlaufkapitalbedarf (B33), Gesamtkapitalbedarf (B40).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 21 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 21 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>441 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Finanzierung &amp; Finanzmathematik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-annuitaet">Annuitätendarlehen &amp; Tilgungsplan</a><p>Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-ratendarlehen">Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</a><p>Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-sparplan">Zinseszins &amp; Sparplan</a><p>Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-rentenrechnung">Rentenrechnung: Barwert, Endwert, ewige Rente</a><p>Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig.</p></li>
+<li><a href="/tools/excel-vorlage-effektivzins">Effektivzins eines Kredits</a><p>Effektivzins eines Annuitätendarlehens mit Disagio und Gebühr – plus Nominal- vs. Effektivzins.</p></li>
+<li><a href="/tools/excel-vorlage-skonto">Lieferantenkredit vs. Skonto</a><p>Effektiver Jahreszins des Lieferantenkredits und Entscheidung: Skonto ziehen oder Ziel ausnutzen?</p></li>
+<li><a href="/tools/excel-vorlage-leverage">Leverage-Effekt</a><p>EK-Rendite in Abhängigkeit vom Verschuldungsgrad – mit Chance und Risiko im Krisenfall.</p></li>
+<li><a href="/tools/excel-vorlage-wacc">WACC – gewichtete Kapitalkosten</a><p>Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Kapitalwert-Rechner (NPV) mit internem Zinsfuß und Rechenweg | BWL Max</title>
 <meta name="description" content="Kapitalwert online berechnen: Barwerte je Jahr, Kapitalwert und interner Zinsfuß exakt und per Interpolation – mit Rechenweg – kostenlos.">
@@ -113,8 +113,23 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  a{color:#000;text-decoration:none}
  footer{margin-top:1em}
 }
+.bmw-weg .fx.steps{display:flex}
+.bmw-ueb table.num{width:auto;min-width:min(100%,360px)}
+.bmw-ueb-auf .tw{margin:.5em 0 .7em}
+.ueb-typ{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:.6em 0 0;font-size:.9rem;color:var(--muted)}
+.ueb-typ select{width:auto;max-width:100%}
+.druckkopf{display:none}
+@media print{
+ html.bmw-printing .druckkopf{display:block;font-weight:700;font-size:12pt;margin:0 0 .5em}
+ html.bmw-printing #h-rechner,html.bmw-printing #rechner>p.small{display:none}
+ .ueb-typ{display:none}
+ .steps,.d{overflow:visible}
+ .card.main,.out{break-inside:auto}
+ .out .big,.out .steps,.bmw-weg>li{break-inside:avoid}
+ tfoot{display:table-row-group}
+}
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -125,23 +140,26 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <header>
 <h1>Kapitalwert-Rechner mit internem Zinsfuß</h1>
 <p class="lead">Anschaffungsauszahlung, Kalkulationszins und Rückflüsse je Jahr eingeben: Der Rechner zeigt Abzinsungsfaktoren und Barwerte je Jahr, den Kapitalwert mit eingesetzter Formel, den internen Zinsfuß exakt (numerisch bestimmt) und auf Wunsch per linearer Interpolation mit zwei Versuchszinssätzen, wie in der Klausur. Gedacht für Investitionsrechnung und Finanzierung im Studium.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übung: selbst rechnen</a></li>
 <li><a href="#formeln">Formeln</a></li>
 <li><a href="#beispiel">Klausurbeispiel mit Lösung</a></li>
 <li><a href="#grundlagen">Grundlagen</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
 <li><a href="#hinweise">Hinweise</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
 <section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
+<p class="druckkopf">Kapitalwert-Rechner · www.bwlmax.de/rechner/kapitalwert-rechner</p>
 <p class="small">Beträge in Euro, Zinssätze in Prozent. Komma und Punkt als Dezimalzeichen sind erlaubt, Tausenderpunkte auch (100.000 oder 100000). Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-kw" onsubmit="return false">
 <div class="row">
@@ -163,6 +181,13 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </fieldset>
 <div class="out" id="k-out" aria-live="polite"></div>
 </form>
+</section>
+
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übung: selbst rechnen</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen: Kapitalwert mit Beurteilung oder interner Zinsfuß per linearer Interpolation. Du rechnest selbst, das Werkzeug prüft dein Ergebnis und zeigt auf Wunsch den vollständigen Lösungsweg.</p>
+<label class="ueb-typ" for="k-ueb-typ">Aufgabentyp <select id="k-ueb-typ" data-bmw-nicht="1"><option value="mix">gemischt</option><option value="kw">Kapitalwert und Beurteilung</option><option value="izf">Interner Zinsfuß (Interpolation)</option></select></label>
+<div id="k-ueb"></div>
 </section>
 
 <section id="formeln" aria-labelledby="h-formeln">
@@ -249,6 +274,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <li>Der exakte interne Zinsfuß wird zwischen −99 % und 1000 % gesucht: Vorzeichenwechsel der Kapitalwertfunktion auf einem feinen Raster, danach Intervallhalbierung bis auf Rechengenauigkeit.</li>
 <li>Bis zu 200 Jahre Rückflüsse sind möglich.</li>
 </ul>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Alle Formeln stehen im Abschnitt <a href="#formeln">Formeln</a>, der Rechenweg zeigt jede Zahl eingesetzt. Der exakte interne Zinsfuß wird numerisch bestimmt (Vorzeichenwechsel auf feinem Raster, dann Intervallhalbierung), siehe <a href="#hinweise">Hinweise</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung in Python getestet: 412 zufällige und Randfälle (Kapitalwert, alle internen Zinsfüße, Interpolation) und 1.200 erzeugte Übungsaufgaben, ohne Abweichung.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
@@ -374,8 +410,40 @@ var KWR = (function () {
     if (r === 0) r = 0;
     return new Intl.NumberFormat('de-DE', { maximumFractionDigits: max || 8 }).format(r).replace('-', '−');
   }
+  // ---------- Übungsaufgaben (klausurtypische Zufallszahlen) ----------
+  function zuf(rnd, a, b, s) { s = s || 1; return +(a + Math.floor(rnd() * (Math.floor((b - a) / s + 1e-9) + 1)) * s).toFixed(10); }
+  function wahl(rnd, arr) { return arr[Math.floor(rnd() * arr.length)]; }
+  // Toleranz für C0: Rundung der Abzinsungsfaktoren auf vier Nachkommastellen (je Zahlung höchstens 0,00005 · |Zahlung|)
+  function tolC(I0, z) { return 0.05 + 0.00005 * z.reduce(function (s, x) { return s + Math.abs(x); }, 0); }
+  function aufgabe(typ, rnd) {
+    rnd = rnd || Math.random;
+    if (typ !== 'kw' && typ !== 'izf') typ = rnd() < 0.5 ? 'kw' : 'izf';
+    for (var v = 0; v < 1000; v++) {
+      var n = wahl(rnd, [3, 4, 4, 5]), cfs = [], t;
+      if (typ === 'kw') {
+        var I0 = zuf(rnd, 40, 300, 10) * 1000, ip = wahl(rnd, [4, 5, 6, 7, 8, 9, 10, 12]), i = ip / 100;
+        var kwf = i * Math.pow(1 + i, n) / (Math.pow(1 + i, n) - 1), basis = I0 * kwf * (0.86 + 0.28 * rnd());
+        for (t = 0; t < n; t++) cfs.push(Math.max(1, Math.round(basis * (0.7 + 0.6 * rnd()) / 1000)) * 1000);
+        var rw = rnd() < 0.3 ? zuf(rnd, 2, 12) * 1000 : 0;
+        var k = kapitalwert(I0, ip, cfs, rw);
+        if (Math.abs(k.kapitalwert) < Math.max(300, 0.01 * I0)) continue;
+        return { typ: 'kw', I0: I0, i: ip, cfs: cfs, rw: rw, kw: k.kapitalwert, urteil: k.kapitalwert > 0 ? 'vorteilhaft' : 'nicht vorteilhaft',
+          tol: tolC(I0, reihe(cfs, rw)), rows: k.rows };
+      }
+      var i1 = zuf(rnd, 4, 14), gap = wahl(rnd, [2, 2, 4]), i2 = i1 + gap, ziel = (i1 + gap * (0.2 + 0.6 * rnd())) / 100;
+      for (t = 0; t < n; t++) cfs.push(zuf(rnd, 10, 80, 5) * 1000);
+      var I0b = Math.round(npv(ziel, 0, cfs) / 1000) * 1000, L = irrAll(I0b, cfs);
+      if (L.length !== 1 || !(L[0] * 100 > i1 + 0.15 && L[0] * 100 < i2 - 0.15)) continue;
+      var ip2 = interpolation(I0b, cfs, 0, i1, i2), ik = rnd() < 0.5 ? i1 - zuf(rnd, 1, 3) : i2 + zuf(rnd, 1, 3);
+      if (ik < 1) ik = i2 + zuf(rnd, 1, 3);
+      var tc = tolC(I0b, cfs), d = ip2.c2 - ip2.c1, sens = (Math.abs(gap * ip2.c2) + Math.abs(gap * ip2.c1)) / (d * d);
+      return { typ: 'izf', I0: I0b, cfs: cfs, i1: i1, i2: i2, ik: ik, c1: ip2.c1, c2: ip2.c2, r: ip2.r, exakt: L[0] * 100,
+        urteil: L[0] * 100 > ik ? 'vorteilhaft' : 'nicht vorteilhaft', tol: tc, tolR: 0.01 + sens * tc };
+    }
+    throw new Error('Keine passende Aufgabe gefunden.');
+  }
   return { R: R, zahl: zahl, liste: liste, npv: npv, kapitalwert: kapitalwert, irrAll: irrAll, izf: izf, interpolation: interpolation,
-    vorzeichenwechsel: vorzeichenwechsel, reihe: reihe, nfmt: nfmt, nvar: nvar };
+    vorzeichenwechsel: vorzeichenwechsel, reihe: reihe, nfmt: nfmt, nvar: nvar, aufgabe: aufgabe };
 })();
 // MATH-END
 
@@ -409,6 +477,26 @@ var KWR = (function () {
   }
   function big(label, val, cls) { return '<div class="big"><span>' + label + '</span><b' + (cls ? ' class="' + cls + '"' : '') + '>' + val + '</b></div>'; }
 
+  // Rechenweg wie in der Klausur: C0 = −I0 + CF1/q^1 + … und danach die einzelnen Barwerte
+  function kwWeg(I0, ip, r) {
+    var n = r.rows.length, qs = tv(1 + ip / 100, 8), w1 = ['C_0=' + (I0 === 0 ? '0' : '-' + tm(I0))], idx = [], t;
+    for (t = 0; t < n; t++) idx.push(t);
+    if (n > 6) idx = [0, 1, 2, -1, n - 2, n - 1];
+    idx.forEach(function (t) {
+      if (t === -1) { w1.push('+\\cdots'); return; }
+      var row = r.rows[t], zaehler;
+      if (row.restwert) zaehler = tm(row.rueckfluss) + (row.restwert < 0 ? '-' + tm(-row.restwert) : '+' + tm(row.restwert));
+      else zaehler = tm(Math.abs(row.zahlung));
+      var neg = !row.restwert && row.zahlung < 0;
+      w1.push((neg ? '-' : '+') + '\\dfrac{' + zaehler + '}{' + qs + '^{' + (t + 1) + '}}');
+    });
+    var w2 = ['=' + (I0 === 0 ? '0' : '-' + tm(I0))], summe = -M.R(I0, 2);
+    var plus = function (x) { var b = M.R(x, 2); summe += b; w2.push(b < 0 ? '-' + tn(-b) : '+' + tn(b)); };
+    if (n <= 6) r.rows.forEach(function (row) { plus(row.barwert); }); else plus(r.summe_barwerte);
+    w2.push((Math.abs(M.R(summe, 2) - M.R(r.kapitalwert, 2)) < 0.001 ? '=' : '\\approx ') + tn(r.kapitalwert));
+    return { w1: w1, w2: w2 };
+  }
+
   var F = ['i0', 'zins', 'cf', 'rw', 'p1', 'p2'];
   function calc() {
     F.forEach(function (k) { mark($('k-' + k), false); });
@@ -430,27 +518,13 @@ var KWR = (function () {
       if (/i₂/.test(ex.message)) mark($('k-p2'), true);
       $('k-out').innerHTML = err(ex.message); return;
     }
-    var n = cfs.length, q = 1 + ip / 100, qs = tv(q, 8);
-    // Rechenweg: C0 = −I0 + CF1/q^1 + …
-    var weg = ['C_0=' + (I0 === 0 ? '0' : '-' + tm(I0))];
-    var idx = [];
-    for (var t = 0; t < n; t++) idx.push(t);
-    if (n > 6) idx = [0, 1, 2, -1, n - 2, n - 1];
-    idx.forEach(function (t) {
-      if (t === -1) { weg.push('+\\cdots'); return; }
-      var row = r.rows[t], zaehler;
-      if (row.restwert) zaehler = tm(row.rueckfluss) + (row.restwert < 0 ? '-' + tm(-row.restwert) : '+' + tm(row.restwert));
-      else zaehler = tm(Math.abs(row.zahlung));
-      var neg = !row.restwert && row.zahlung < 0;
-      weg.push((neg ? '-' : '+') + '\\dfrac{' + zaehler + '}{' + qs + '^{' + (t + 1) + '}}');
-    });
-    var weg2 = ['=' + (I0 === 0 ? '0' : '-' + tm(I0)) + (r.summe_barwerte < 0 ? '-' + tn(-r.summe_barwerte) : '+' + tn(r.summe_barwerte)), '=' + tn(r.kapitalwert)];
+    var n = cfs.length, q = 1 + ip / 100, qs = tv(q, 8), kweg = kwWeg(I0, ip, r), weg = kweg.w1, weg2 = kweg.w2;
     // Tabelle
     var hatRw = !!rw;
-    var tb = '<div class="tw"><table class="num"><thead><tr><th scope="col">Jahr t</th>' + (hatRw ? '<th scope="col">Rückfluss</th><th scope="col">Restwert</th>' : '') +
+    var tb = '<div class="tw"><table class="num"><caption>Barwerte je Jahr</caption><thead><tr><th scope="col">Jahr t</th>' + (hatRw ? '<th scope="col">Rückfluss</th><th scope="col">Restwert</th>' : '') +
       '<th scope="col">' + (hatRw ? 'Zahlung' : 'Rückfluss CF<sub>t</sub>') + '</th><th scope="col">Abzinsungs&shy;faktor (1 + i)<sup>−t</sup></th><th scope="col">Barwert</th></tr></thead><tbody>';
     r.rows.forEach(function (row) {
-      tb += '<tr><td>' + row.jahr + '</td>' + (hatRw ? '<td>' + eur(row.rueckfluss) + '</td><td>' + (row.restwert ? eur(row.restwert) : '') + '</td>' : '') +
+      tb += '<tr><th scope="row">' + row.jahr + '</th>' + (hatRw ? '<td>' + eur(row.rueckfluss) + '</td><td>' + (row.restwert ? eur(row.restwert) : '') + '</td>' : '') +
         '<td>' + eur(row.zahlung) + '</td><td>' + M.nfmt(row.faktor, 6) + '</td><td>' + eur(row.barwert) + '</td></tr>';
     });
     var span = hatRw ? 3 : 1;
@@ -473,7 +547,7 @@ var KWR = (function () {
       big('Kapitalwert C₀', eur(r.kapitalwert), cls) +
       '<p class="small ' + cls + '">' + urteil + '</p>' +
       (r.kapitalwertrate != null ? '<p class="small">Kapitalwertrate C₀ / I₀ = ' + M.nfmt(r.kapitalwertrate, 4) + ' (Kapitalwert je investiertem Euro).</p>' : '') +
-      '<div class="lbl">Barwerte je Jahr</div>' + tb;
+      tb;
 
     // interner Zinsfuß
     var L = iz.loesungen;
@@ -507,10 +581,15 @@ var KWR = (function () {
     fillSteps('k-w1', weg);
     fillSteps('k-w2', weg2);
     if (ip2) {
-      var i1 = tv(ip2.p1, 8) + '\\,\\%', i2 = tv(ip2.p2, 8) + '\\,\\%';
-      fillSteps('k-i1', ['C_1=C_0(' + i1 + ')=' + tn(ip2.c1), 'C_2=C_0(' + i2 + ')=' + tn(ip2.c2)]);
-      if (ip2.r != null) fillSteps('k-i2', ['r\\approx i_1-C_1\\cdot\\dfrac{i_2-i_1}{C_2-C_1}', '=' + i1 + '-' + tp(ip2.c1) + '\\cdot', '\\dfrac{' + i2 + '-' + (ip2.p1 < 0 ? '(' + i1 + ')' : i1) + '}{' + tn(ip2.c2) + '-' + tp(ip2.c1) + '}', '\\approx ' + tn(ip2.r) + '\\,\\%']);
+      var it = izfTex(ip2);
+      fillSteps('k-i1', it.c);
+      if (ip2.r != null) fillSteps('k-i2', it.r);
     }
+  }
+  function izfTex(ip2) {
+    var i1 = tv(ip2.p1, 8) + '\\,\\%', i2 = tv(ip2.p2, 8) + '\\,\\%';
+    return { c: ['C_1=C_0(' + i1 + ')=' + tn(ip2.c1), 'C_2=C_0(' + i2 + ')=' + tn(ip2.c2)],
+      r: ip2.r == null ? [] : ['r\\approx i_1-C_1\\cdot\\dfrac{i_2-i_1}{C_2-C_1}', '=' + i1 + '-' + tp(ip2.c1) + '\\cdot', '\\dfrac{' + i2 + '-' + (ip2.p1 < 0 ? '(' + i1 + ')' : i1) + '}{' + tn(ip2.c2) + '-' + tp(ip2.c1) + '}', '\\approx ' + tn(ip2.r) + '\\,\\%'] };
   }
   function R2(x) { return M.R(x, 2); }
 
@@ -555,6 +634,80 @@ var KWR = (function () {
       $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // ---------- Link teilen und Drucken ----------
+  if (!window.BMW || !BMW.leiste) return;
+  BMW.leiste($('c-kw'), { teilen: BMW.teilen({ key: 'kw', root: $('c-kw'), run: calc }), drucken: true, druckScope: $('rechner') });
+
+  // ---------- Übungsmodus ----------
+  function ea(x) { return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function fx(parts) { return '<span class="fx steps" data-tex="' + ea(JSON.stringify(parts)) + '"></span>'; }
+  function texIn(el) { el.querySelectorAll('[data-tex]').forEach(function (s) { fillSteps(s, JSON.parse(s.getAttribute('data-tex'))); }); }
+  function betr(x) { return M.nfmt(x, Number.isInteger(M.R(x, 2)) ? 0 : 2) + '\u00a0€'; }
+  function zins(x) { return M.nvar(x, 4) + '\u00a0%'; }
+  function reiheTab(I0, cfs, rw) {
+    var h = '<div class="tw"><table class="num"><caption>Zahlungsreihe in €</caption><thead><tr><th scope="col">Zeitpunkt t</th>', t;
+    h += '<th scope="col">0</th>'; for (t = 0; t < cfs.length; t++) h += '<th scope="col">' + (t + 1) + '</th>';
+    h += '</tr></thead><tbody><tr><th scope="row">Zahlung</th><td>' + M.nfmt(-I0, 0) + '</td>';
+    for (t = 0; t < cfs.length; t++) h += '<td>' + M.nfmt(cfs[t], 0) + '</td>';
+    h += '</tr>';
+    if (rw) { h += '<tr><th scope="row">Liquidationserlös</th><td></td>'; for (t = 0; t < cfs.length; t++) h += '<td>' + (t === cfs.length - 1 ? M.nfmt(rw, 0) : '') + '</td>'; h += '</tr>'; }
+    return h + '</tbody></table></div>';
+  }
+  function barwertTab(rows) {
+    var h = '<div class="tw"><table class="num"><caption>Barwerte je Jahr</caption><thead><tr><th scope="col">Jahr t</th><th scope="col">Zahlung</th><th scope="col">Abzinsungs&shy;faktor 1/q<sup>t</sup></th><th scope="col">Barwert</th></tr></thead><tbody>';
+    rows.forEach(function (row) { h += '<tr><th scope="row">' + row.jahr + '</th><td>' + eur(row.zahlung) + '</td><td>' + M.nfmt(row.faktor, 6) + '</td><td>' + eur(row.barwert) + '</td></tr>'; });
+    return h + '</tbody></table></div>';
+  }
+  function neu() {
+    var a = M.aufgabe($('k-ueb-typ').value), tol = Math.ceil(a.tol * 100 - 1e-6) / 100;
+    if (a.typ === 'kw') {
+      var r = M.kapitalwert(a.I0, a.i, a.cfs, a.rw), w = kwWeg(a.I0, a.i, r);
+      return {
+        text: '<p>Ein Unternehmen prüft eine Investition mit einer Anschaffungsauszahlung von ' + betr(a.I0) + ' und einer Nutzungsdauer von ' + a.cfs.length + ' Jahren. Die Einzahlungsüberschüsse fallen jeweils am Jahresende an' +
+          (a.rw ? '; am Ende der Nutzungsdauer kann die Anlage zusätzlich für ' + betr(a.rw) + ' verkauft werden' : '') + '. Der Kalkulationszins beträgt ' + zins(a.i) + '.</p>' +
+          reiheTab(a.I0, a.cfs, a.rw) +
+          '<p><b>Aufgabe:</b> Berechne den Kapitalwert C₀ (in €, auf zwei Nachkommastellen gerundet) und beurteile die Vorteilhaftigkeit der Investition.</p>' +
+          '<p class="small">Akzeptiert werden Abweichungen bis ±' + M.nfmt(tol, 2) + ' €, wie sie durch auf vier Nachkommastellen gerundete Abzinsungsfaktoren entstehen.</p>',
+        felder: [
+          { key: 'c0', label: 'Kapitalwert C₀', einheit: '€', wert: a.kw, tol: tol },
+          { key: 'u', label: 'Die Investition ist …', wahl: ['vorteilhaft', 'nicht vorteilhaft'], wert: a.urteil }
+        ],
+        loesung: '<ol class="bmw-weg">' +
+          '<li>Kapitalwertformel aufstellen, mit q = 1 + i = ' + M.nvar(1 + a.i / 100, 4) + ':' + fx(['C_0=-I_0+\\sum_{t=1}^{' + a.cfs.length + '}\\dfrac{CF_t}{q^t}']) + '</li>' +
+          '<li>Werte einsetzen' + (a.rw ? ' (der Liquidationserlös gehört zur Zahlung des letzten Jahres)' : '') + ':' + fx(w.w1) + '</li>' +
+          '<li>Jede Zahlung mit ihrem Abzinsungsfaktor auf t = 0 abzinsen:' + barwertTab(r.rows) + '</li>' +
+          '<li>Barwerte addieren und die Anschaffungsauszahlung abziehen:' + fx(w.w2) + '</li>' +
+          '<li>Beurteilung: C₀ ' + (a.kw > 0 ? '&gt; 0, die Investition ist <b>vorteilhaft</b>. Sie verzinst das gebundene Kapital zu ' + zins(a.i) + ' und erwirtschaftet zusätzlich einen Vermögenszuwachs von ' + eur(a.kw) + ' (bezogen auf t = 0).'
+            : '&lt; 0, die Investition ist <b>nicht vorteilhaft</b>. Sie erreicht die Mindestverzinsung von ' + zins(a.i) + ' nicht.') + '</li></ol>'
+      };
+    }
+    var ip2 = { p1: a.i1, p2: a.i2, c1: a.c1, c2: a.c2, r: a.r }, it = izfTex(ip2), tolR = Math.ceil(a.tolR * 100 - 1e-6) / 100;
+    var w1 = kwWeg(a.I0, a.i1, M.kapitalwert(a.I0, a.i1, a.cfs, 0)), w2 = kwWeg(a.I0, a.i2, M.kapitalwert(a.I0, a.i2, a.cfs, 0));
+    w1.w1[0] = 'C_1=' + w1.w1[0].slice(4); w2.w1[0] = 'C_2=' + w2.w1[0].slice(4);
+    return {
+      text: '<p>Für eine Investition gilt folgende Zahlungsreihe (Zahlungen jeweils am Jahresende):</p>' + reiheTab(a.I0, a.cfs, 0) +
+        '<p><b>Aufgabe:</b> Bestimme den internen Zinsfuß näherungsweise per linearer Interpolation mit den Versuchszinssätzen i₁ = ' + zins(a.i1) + ' und i₂ = ' + zins(a.i2) +
+        '. Gib die Kapitalwerte C₁ und C₂ in € und den internen Zinsfuß r in % jeweils auf zwei Nachkommastellen gerundet an. Beurteile die Investition bei einem Kalkulationszins von ' + zins(a.ik) + '.</p>' +
+        '<p class="small">Akzeptiert werden Abweichungen bis ±' + M.nfmt(tol, 2) + ' € bei C₁ und C₂ und bis ±' + M.nfmt(tolR, 2) + ' Prozentpunkte bei r (Rundung der Abzinsungsfaktoren).</p>',
+      felder: [
+        { key: 'c1', label: 'Kapitalwert C₁ bei ' + zins(a.i1), einheit: '€', wert: a.c1, tol: tol },
+        { key: 'c2', label: 'Kapitalwert C₂ bei ' + zins(a.i2), einheit: '€', wert: a.c2, tol: tol },
+        { key: 'r', label: 'Interner Zinsfuß r (Interpolation)', einheit: '%', wert: a.r, tol: tolR },
+        { key: 'u', label: 'Beurteilung bei i = ' + zins(a.ik), wahl: ['vorteilhaft', 'nicht vorteilhaft'], wert: a.urteil }
+      ],
+      loesung: '<ol class="bmw-weg">' +
+        '<li>Kapitalwert beim Versuchszinssatz i₁ = ' + zins(a.i1) + ':' + fx(w1.w1) + fx(w1.w2) + '</li>' +
+        '<li>Kapitalwert beim Versuchszinssatz i₂ = ' + zins(a.i2) + ':' + fx(w2.w1) + fx(w2.w2) + '</li>' +
+        '<li>C₁ und C₂ haben verschiedene Vorzeichen, der interne Zinsfuß liegt also zwischen ' + zins(a.i1) + ' und ' + zins(a.i2) + '. Lineare Interpolation:' + fx(it.r) + '</li>' +
+        '<li>Beurteilung: r ≈ ' + M.nfmt(a.r, 2) + ' % ist ' + (a.r > a.ik ? 'größer' : 'kleiner') + ' als der Kalkulationszins von ' + zins(a.ik) + ', die Investition ist also <b>' + a.urteil + '</b>.' +
+        ' <span class="small">(Exakt liegt der interne Zinsfuß bei ' + M.nfmt(a.exakt, 2) + ' %; die Interpolation weicht ab, weil die Kapitalwertfunktion gekrümmt ist.)</span></li></ol>'
+    };
+  }
+  var ueb = BMW.uebung($('k-ueb'), { titel: 'Übungsaufgabe', neu: neu, nachher: texIn });
+  // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form> und löst dort nichts aus → per form-Attribut ans Formular binden
+  (function () { var f = $('k-ueb').querySelector('.bmw-ueb-form'), b = $('k-ueb').querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'k-ueb-form'; b.setAttribute('form', f.id); } })();
+  $('k-ueb-typ').addEventListener('change', function () { ueb.neu(); });
 })();
 </script>
 </body>

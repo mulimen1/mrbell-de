@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 125 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-ratendarlehen">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Ratendarlehen (Tilgungsdarlehen) & Tilgungsplan (Excel-Vorlage)","description":"Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre.","url":"https://www.bwlmax.de/tools/excel-vorlage-ratendarlehen","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Finanzierung & Finanzmathematik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Finanzierung &amp; Finanzmathematik</p>
+<h1>Excel-Vorlage: Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</h1>
+<p class="lead">Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>3</b> Eingabefelder</li><li><b>125</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="ratendarlehen">
+<div class="xl-keys"><div class="xl-key"><small>Tilgung pro Jahr (konstant)</small><b>10.000,00 €</b></div><div class="xl-key"><small>Summe der Zinsen</small><b>27.500,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Ratendarlehen_Tilgungsplan.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Tilgungsplan“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:252px"><col style="width:141px"><col style="width:126px"><col style="width:126px"><col style="width:148px"><col style="width:141px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="6">Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="6">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="6">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Darlehensbetrag</td><td class="xs-in num">100.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Zinssatz p. a.</td><td class="xs-in num">5,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Laufzeit in Jahren (1 – 20)</td><td class="xs-in num">10</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-sec" colspan="6">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Tilgung pro Jahr (konstant)</td><td class="xs-res num">10.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Summe der Zinsen</td><td class="xs-res num">27.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Rate im ersten Jahr</td><td class="xs-out num">15.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Rate im letzten Jahr</td><td class="xs-out num">10.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Summe aller Raten (Gesamtauszahlung: Zinsen + Tilgung)</td><td class="xs-out num">127.500,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-th">Jahr</td><td class="xs-th">Restschuld Anfang</td><td class="xs-th">Zinsen</td><td class="xs-th">Tilgung</td><td class="xs-th">Rate (Zins + Tilgung)</td><td class="xs-th">Restschuld Ende</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-out num">1</td><td class="xs-out num">100.000,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">90.000,00 €</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-out num">2</td><td class="xs-out num">90.000,00 €</td><td class="xs-out num">4.500,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">14.500,00 €</td><td class="xs-out num">80.000,00 €</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-out num">3</td><td class="xs-out num">80.000,00 €</td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">14.000,00 €</td><td class="xs-out num">70.000,00 €</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-out num">4</td><td class="xs-out num">70.000,00 €</td><td class="xs-out num">3.500,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">13.500,00 €</td><td class="xs-out num">60.000,00 €</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-out num">5</td><td class="xs-out num">60.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">13.000,00 €</td><td class="xs-out num">50.000,00 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-out num">6</td><td class="xs-out num">50.000,00 €</td><td class="xs-out num">2.500,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">12.500,00 €</td><td class="xs-out num">40.000,00 €</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-out num">7</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">30.000,00 €</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-out num">8</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">1.500,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">11.500,00 €</td><td class="xs-out num">20.000,00 €</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-out num">9</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">1.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">11.000,00 €</td><td class="xs-out num">10.000,00 €</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-out num">10</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">500,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">10.500,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-note" colspan="6">Beim Ratendarlehen ist die Tilgung konstant (Darlehen / Laufzeit). Weil die Restschuld sinkt, sinken auch Zinsen und Rate.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Tilgungsplan“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre. Die Vorlage gehört zum Bereich Finanzierung &amp; Finanzmathematik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 3 Werte ein; die Datei berechnet daraus unter anderem „Tilgung pro Jahr (konstant)“ und „Summe der Zinsen“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Beim Ratendarlehen ist die Tilgung konstant (Darlehen / Laufzeit). Weil die Restschuld sinkt, sinken auch Zinsen und Rate.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Darlehensbetrag</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">100.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zinssatz p. a.</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">5,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Laufzeit in Jahren (1 – 20)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">10</td><td>1 bis 20, ganze Zahl</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Tilgung pro Jahr (konstant)</td><td><code>B10</code></td><td class="xlw-v"><b data-xv="B10">10.000,00 €</b></td></tr>
+<tr><td>Summe der Zinsen</td><td><code>B11</code></td><td class="xlw-v"><b data-xv="B11">27.500,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 125 Formeln des Blatts „Tilgungsplan“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B10</td><td>Tilgung pro Jahr (konstant)</td><td class="xlw-f">=B5/B7</td><td><small>Tilgung = Darlehensbetrag / Laufzeit.</small></td></tr>
+<tr><td>B11</td><td>Summe der Zinsen</td><td class="xlw-f">=SUMME(C17:C36)</td><td></td></tr>
+<tr><td>B12</td><td>Rate im ersten Jahr</td><td class="xlw-f">=E17</td><td></td></tr>
+<tr><td>B13</td><td>Rate im letzten Jahr</td><td class="xlw-f">=INDEX(E17:E36;B7)</td><td></td></tr>
+<tr><td>B14</td><td>Summe aller Raten (Gesamtauszahlung: Zinsen + Tilgung)</td><td class="xlw-f">=SUMME(E17:E36)</td><td></td></tr>
+<tr><td>A17</td><td>Jahr (Zeile 17)</td><td class="xlw-f">=WENN(1&lt;=$B$7;1;&quot;&quot;)</td><td></td></tr>
+<tr><td>B17</td><td>Restschuld Anfang (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;$B$5)</td><td></td></tr>
+<tr><td>C17</td><td>Zinsen (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;B17*$B$6)</td><td><small>Zinsen = Restschuld am Jahresanfang × Zinssatz.</small></td></tr>
+<tr><td>D17</td><td>Tilgung (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E17</td><td>Rate (Zins + Tilgung) (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;C17+D17)</td><td><small>Rate = Zinsen + konstante Tilgung – sie sinkt jedes Jahr.</small></td></tr>
+<tr><td>F17</td><td>Restschuld Ende (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;WENN(ABS(B17-D17)&lt;0,005;0;B17-D17))</td><td></td></tr>
+<tr><td>A18</td><td>Jahr (Zeile 18)</td><td class="xlw-f">=WENN(2&lt;=$B$7;2;&quot;&quot;)</td><td></td></tr>
+<tr><td>B18</td><td>Restschuld Anfang (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;F17)</td><td></td></tr>
+<tr><td>C18</td><td>Zinsen (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;B18*$B$6)</td><td></td></tr>
+<tr><td>D18</td><td>Tilgung (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E18</td><td>Rate (Zins + Tilgung) (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;C18+D18)</td><td></td></tr>
+<tr><td>F18</td><td>Restschuld Ende (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;WENN(ABS(B18-D18)&lt;0,005;0;B18-D18))</td><td></td></tr>
+<tr><td>A19</td><td>Jahr (Zeile 19)</td><td class="xlw-f">=WENN(3&lt;=$B$7;3;&quot;&quot;)</td><td></td></tr>
+<tr><td>B19</td><td>Restschuld Anfang (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;F18)</td><td></td></tr>
+<tr><td>C19</td><td>Zinsen (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;B19*$B$6)</td><td></td></tr>
+<tr><td>D19</td><td>Tilgung (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E19</td><td>Rate (Zins + Tilgung) (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;C19+D19)</td><td></td></tr>
+<tr><td>F19</td><td>Restschuld Ende (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;WENN(ABS(B19-D19)&lt;0,005;0;B19-D19))</td><td></td></tr>
+<tr><td>A20</td><td>Jahr (Zeile 20)</td><td class="xlw-f">=WENN(4&lt;=$B$7;4;&quot;&quot;)</td><td></td></tr>
+<tr><td>B20</td><td>Restschuld Anfang (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;F19)</td><td></td></tr>
+<tr><td>C20</td><td>Zinsen (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;B20*$B$6)</td><td></td></tr>
+<tr><td>D20</td><td>Tilgung (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E20</td><td>Rate (Zins + Tilgung) (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;C20+D20)</td><td></td></tr>
+<tr><td>F20</td><td>Restschuld Ende (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;WENN(ABS(B20-D20)&lt;0,005;0;B20-D20))</td><td></td></tr>
+<tr><td>A21</td><td>Jahr (Zeile 21)</td><td class="xlw-f">=WENN(5&lt;=$B$7;5;&quot;&quot;)</td><td></td></tr>
+<tr><td>B21</td><td>Restschuld Anfang (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;F20)</td><td></td></tr>
+<tr><td>C21</td><td>Zinsen (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;B21*$B$6)</td><td></td></tr>
+<tr><td>D21</td><td>Tilgung (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E21</td><td>Rate (Zins + Tilgung) (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;C21+D21)</td><td></td></tr>
+<tr><td>F21</td><td>Restschuld Ende (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;WENN(ABS(B21-D21)&lt;0,005;0;B21-D21))</td><td></td></tr>
+<tr><td>A22</td><td>Jahr (Zeile 22)</td><td class="xlw-f">=WENN(6&lt;=$B$7;6;&quot;&quot;)</td><td></td></tr>
+<tr><td>B22</td><td>Restschuld Anfang (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;F21)</td><td></td></tr>
+<tr><td>C22</td><td>Zinsen (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;B22*$B$6)</td><td></td></tr>
+<tr><td>D22</td><td>Tilgung (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E22</td><td>Rate (Zins + Tilgung) (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;C22+D22)</td><td></td></tr>
+<tr><td>F22</td><td>Restschuld Ende (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;WENN(ABS(B22-D22)&lt;0,005;0;B22-D22))</td><td></td></tr>
+<tr><td>A23</td><td>Jahr (Zeile 23)</td><td class="xlw-f">=WENN(7&lt;=$B$7;7;&quot;&quot;)</td><td></td></tr>
+<tr><td>B23</td><td>Restschuld Anfang (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;F22)</td><td></td></tr>
+<tr><td>C23</td><td>Zinsen (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;B23*$B$6)</td><td></td></tr>
+<tr><td>D23</td><td>Tilgung (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E23</td><td>Rate (Zins + Tilgung) (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;C23+D23)</td><td></td></tr>
+<tr><td>F23</td><td>Restschuld Ende (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;WENN(ABS(B23-D23)&lt;0,005;0;B23-D23))</td><td></td></tr>
+<tr><td>A24</td><td>Jahr (Zeile 24)</td><td class="xlw-f">=WENN(8&lt;=$B$7;8;&quot;&quot;)</td><td></td></tr>
+<tr><td>B24</td><td>Restschuld Anfang (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;F23)</td><td></td></tr>
+<tr><td>C24</td><td>Zinsen (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;B24*$B$6)</td><td></td></tr>
+<tr><td>D24</td><td>Tilgung (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E24</td><td>Rate (Zins + Tilgung) (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;C24+D24)</td><td></td></tr>
+<tr><td>F24</td><td>Restschuld Ende (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;WENN(ABS(B24-D24)&lt;0,005;0;B24-D24))</td><td></td></tr>
+<tr><td>A25</td><td>Jahr (Zeile 25)</td><td class="xlw-f">=WENN(9&lt;=$B$7;9;&quot;&quot;)</td><td></td></tr>
+<tr><td>B25</td><td>Restschuld Anfang (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;F24)</td><td></td></tr>
+<tr><td>C25</td><td>Zinsen (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;B25*$B$6)</td><td></td></tr>
+<tr><td>D25</td><td>Tilgung (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E25</td><td>Rate (Zins + Tilgung) (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;C25+D25)</td><td></td></tr>
+<tr><td>F25</td><td>Restschuld Ende (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;WENN(ABS(B25-D25)&lt;0,005;0;B25-D25))</td><td></td></tr>
+<tr><td>A26</td><td>Jahr (Zeile 26)</td><td class="xlw-f">=WENN(10&lt;=$B$7;10;&quot;&quot;)</td><td></td></tr>
+<tr><td>B26</td><td>Restschuld Anfang (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;F25)</td><td></td></tr>
+<tr><td>C26</td><td>Zinsen (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;B26*$B$6)</td><td></td></tr>
+<tr><td>D26</td><td>Tilgung (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E26</td><td>Rate (Zins + Tilgung) (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;C26+D26)</td><td></td></tr>
+<tr><td>F26</td><td>Restschuld Ende (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;WENN(ABS(B26-D26)&lt;0,005;0;B26-D26))</td><td></td></tr>
+<tr><td>A27</td><td>Jahr (Zeile 27)</td><td class="xlw-f">=WENN(11&lt;=$B$7;11;&quot;&quot;)</td><td></td></tr>
+<tr><td>B27</td><td>Restschuld Anfang (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;F26)</td><td></td></tr>
+<tr><td>C27</td><td>Zinsen (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;B27*$B$6)</td><td></td></tr>
+<tr><td>D27</td><td>Tilgung (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E27</td><td>Rate (Zins + Tilgung) (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;C27+D27)</td><td></td></tr>
+<tr><td>F27</td><td>Restschuld Ende (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;WENN(ABS(B27-D27)&lt;0,005;0;B27-D27))</td><td></td></tr>
+<tr><td>A28</td><td>Jahr (Zeile 28)</td><td class="xlw-f">=WENN(12&lt;=$B$7;12;&quot;&quot;)</td><td></td></tr>
+<tr><td>B28</td><td>Restschuld Anfang (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;F27)</td><td></td></tr>
+<tr><td>C28</td><td>Zinsen (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;B28*$B$6)</td><td></td></tr>
+<tr><td>D28</td><td>Tilgung (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E28</td><td>Rate (Zins + Tilgung) (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;C28+D28)</td><td></td></tr>
+<tr><td>F28</td><td>Restschuld Ende (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN(ABS(B28-D28)&lt;0,005;0;B28-D28))</td><td></td></tr>
+<tr><td>A29</td><td>Jahr (Zeile 29)</td><td class="xlw-f">=WENN(13&lt;=$B$7;13;&quot;&quot;)</td><td></td></tr>
+<tr><td>B29</td><td>Restschuld Anfang (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;F28)</td><td></td></tr>
+<tr><td>C29</td><td>Zinsen (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;B29*$B$6)</td><td></td></tr>
+<tr><td>D29</td><td>Tilgung (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E29</td><td>Rate (Zins + Tilgung) (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;C29+D29)</td><td></td></tr>
+<tr><td>F29</td><td>Restschuld Ende (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN(ABS(B29-D29)&lt;0,005;0;B29-D29))</td><td></td></tr>
+<tr><td>A30</td><td>Jahr (Zeile 30)</td><td class="xlw-f">=WENN(14&lt;=$B$7;14;&quot;&quot;)</td><td></td></tr>
+<tr><td>B30</td><td>Restschuld Anfang (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;F29)</td><td></td></tr>
+<tr><td>C30</td><td>Zinsen (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;B30*$B$6)</td><td></td></tr>
+<tr><td>D30</td><td>Tilgung (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E30</td><td>Rate (Zins + Tilgung) (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;C30+D30)</td><td></td></tr>
+<tr><td>F30</td><td>Restschuld Ende (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN(ABS(B30-D30)&lt;0,005;0;B30-D30))</td><td></td></tr>
+<tr><td>A31</td><td>Jahr (Zeile 31)</td><td class="xlw-f">=WENN(15&lt;=$B$7;15;&quot;&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>Restschuld Anfang (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;F30)</td><td></td></tr>
+<tr><td>C31</td><td>Zinsen (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;B31*$B$6)</td><td></td></tr>
+<tr><td>D31</td><td>Tilgung (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E31</td><td>Rate (Zins + Tilgung) (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;C31+D31)</td><td></td></tr>
+<tr><td>F31</td><td>Restschuld Ende (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN(ABS(B31-D31)&lt;0,005;0;B31-D31))</td><td></td></tr>
+<tr><td>A32</td><td>Jahr (Zeile 32)</td><td class="xlw-f">=WENN(16&lt;=$B$7;16;&quot;&quot;)</td><td></td></tr>
+<tr><td>B32</td><td>Restschuld Anfang (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;F31)</td><td></td></tr>
+<tr><td>C32</td><td>Zinsen (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;B32*$B$6)</td><td></td></tr>
+<tr><td>D32</td><td>Tilgung (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E32</td><td>Rate (Zins + Tilgung) (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;C32+D32)</td><td></td></tr>
+<tr><td>F32</td><td>Restschuld Ende (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;WENN(ABS(B32-D32)&lt;0,005;0;B32-D32))</td><td></td></tr>
+<tr><td>A33</td><td>Jahr (Zeile 33)</td><td class="xlw-f">=WENN(17&lt;=$B$7;17;&quot;&quot;)</td><td></td></tr>
+<tr><td>B33</td><td>Restschuld Anfang (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;F32)</td><td></td></tr>
+<tr><td>C33</td><td>Zinsen (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;B33*$B$6)</td><td></td></tr>
+<tr><td>D33</td><td>Tilgung (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E33</td><td>Rate (Zins + Tilgung) (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;C33+D33)</td><td></td></tr>
+<tr><td>F33</td><td>Restschuld Ende (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;WENN(ABS(B33-D33)&lt;0,005;0;B33-D33))</td><td></td></tr>
+<tr><td>A34</td><td>Jahr (Zeile 34)</td><td class="xlw-f">=WENN(18&lt;=$B$7;18;&quot;&quot;)</td><td></td></tr>
+<tr><td>B34</td><td>Restschuld Anfang (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;F33)</td><td></td></tr>
+<tr><td>C34</td><td>Zinsen (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;B34*$B$6)</td><td></td></tr>
+<tr><td>D34</td><td>Tilgung (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E34</td><td>Rate (Zins + Tilgung) (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;C34+D34)</td><td></td></tr>
+<tr><td>F34</td><td>Restschuld Ende (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;WENN(ABS(B34-D34)&lt;0,005;0;B34-D34))</td><td></td></tr>
+<tr><td>A35</td><td>Jahr (Zeile 35)</td><td class="xlw-f">=WENN(19&lt;=$B$7;19;&quot;&quot;)</td><td></td></tr>
+<tr><td>B35</td><td>Restschuld Anfang (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;F34)</td><td></td></tr>
+<tr><td>C35</td><td>Zinsen (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;B35*$B$6)</td><td></td></tr>
+<tr><td>D35</td><td>Tilgung (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E35</td><td>Rate (Zins + Tilgung) (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;C35+D35)</td><td></td></tr>
+<tr><td>F35</td><td>Restschuld Ende (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;WENN(ABS(B35-D35)&lt;0,005;0;B35-D35))</td><td></td></tr>
+<tr><td>A36</td><td>Jahr (Zeile 36)</td><td class="xlw-f">=WENN(20&lt;=$B$7;20;&quot;&quot;)</td><td></td></tr>
+<tr><td>B36</td><td>Restschuld Anfang (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;F35)</td><td></td></tr>
+<tr><td>C36</td><td>Zinsen (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;B36*$B$6)</td><td></td></tr>
+<tr><td>D36</td><td>Tilgung (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;$B$10)</td><td></td></tr>
+<tr><td>E36</td><td>Rate (Zins + Tilgung) (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;C36+D36)</td><td></td></tr>
+<tr><td>F36</td><td>Restschuld Ende (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;WENN(ABS(B36-D36)&lt;0,005;0;B36-D36))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>2.625 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 125 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Tilgung pro Jahr (konstant) (B10), Summe der Zinsen (B11).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 125 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 125 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>2.625 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Finanzierung &amp; Finanzmathematik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-annuitaet">Annuitätendarlehen &amp; Tilgungsplan</a><p>Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-sparplan">Zinseszins &amp; Sparplan</a><p>Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-rentenrechnung">Rentenrechnung: Barwert, Endwert, ewige Rente</a><p>Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig.</p></li>
+<li><a href="/tools/excel-vorlage-effektivzins">Effektivzins eines Kredits</a><p>Effektivzins eines Annuitätendarlehens mit Disagio und Gebühr – plus Nominal- vs. Effektivzins.</p></li>
+<li><a href="/tools/excel-vorlage-skonto">Lieferantenkredit vs. Skonto</a><p>Effektiver Jahreszins des Lieferantenkredits und Entscheidung: Skonto ziehen oder Ziel ausnutzen?</p></li>
+<li><a href="/tools/excel-vorlage-leverage">Leverage-Effekt</a><p>EK-Rendite in Abhängigkeit vom Verschuldungsgrad – mit Chance und Risiko im Krisenfall.</p></li>
+<li><a href="/tools/excel-vorlage-wacc">WACC – gewichtete Kapitalkosten</a><p>Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalbedarf">Kapitalbedarfsplanung (Gründung)</a><p>Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Anlagenspiegel (Anlagengitter) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 55 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-anlagenspiegel">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Anlagenspiegel (Anlagengitter) (Excel-Vorlage)","description":"Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.","url":"https://www.bwlmax.de/tools/excel-vorlage-anlagenspiegel","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Anlagenspiegel (Anlagengitter)</h1>
+<p class="lead">Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>45</b> Eingabefelder</li><li><b>55</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="anlagenspiegel">
+<div class="xl-keys"><div class="xl-key"><small>Buchwert zum Ende des Geschäftsjahres – Summe</small><b>589.000,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Anlagenspiegel_Anlagengitter.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Anlagenspiegel“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:385px"><col style="width:126px"><col style="width:126px"><col style="width:126px"><col style="width:126px"><col style="width:126px"><col style="width:133px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Anlagenspiegel (Anlagengitter, Bruttomethode)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">Eingaben je Anlage bzw. Bilanzposten</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Position</td><td class="xs-th">Anlage 1</td><td class="xs-th">Anlage 2</td><td class="xs-th">Anlage 3</td><td class="xs-th">Anlage 4</td><td class="xs-th">Anlage 5</td><td class="xs-th">Summe</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Bezeichnung</td><td class="xs-in">Grundstücke und Bauten</td><td class="xs-in">Technische Anlagen und Maschinen</td><td class="xs-in">Betriebs- und Geschäftsausstattung</td><td class="xs-in">Anlagen im Bau</td><td class="xs-in">Software (entgeltlich erworben)</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">AK/HK zu Beginn des Geschäftsjahres</td><td class="xs-in num">500.000,00 €</td><td class="xs-in num">300.000,00 €</td><td class="xs-in num">80.000,00 €</td><td class="xs-in num">25.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-out num">925.000,00 €</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">+ Zugänge</td><td class="xs-in num">0,00 €</td><td class="xs-in num">60.000,00 €</td><td class="xs-in num">12.000,00 €</td><td class="xs-in num">15.000,00 €</td><td class="xs-in num">5.000,00 €</td><td class="xs-out num">92.000,00 €</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">− Abgänge (zu AK/HK)</td><td class="xs-in num">0,00 €</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-out num">40.000,00 €</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">± Umbuchungen</td><td class="xs-in num">0,00 €</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num neg">-40.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Kumulierte Abschreibungen zu Beginn des Geschäftsjahres</td><td class="xs-in num">120.000,00 €</td><td class="xs-in num">180.000,00 €</td><td class="xs-in num">50.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">12.000,00 €</td><td class="xs-out num">362.000,00 €</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">+ Abschreibungen des Geschäftsjahres</td><td class="xs-in num">15.000,00 €</td><td class="xs-in num">36.000,00 €</td><td class="xs-in num">9.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">4.000,00 €</td><td class="xs-out num">64.000,00 €</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">− Zuschreibungen des Geschäftsjahres</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,00 €</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">− Kumulierte Abschreibungen auf Abgänge</td><td class="xs-in num">0,00 €</td><td class="xs-in num">38.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-out num">38.000,00 €</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-sec" colspan="7">Anlagenspiegel</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-th">Position</td><td class="xs-th">Grundstücke und Bauten</td><td class="xs-th">Technische Anlagen und Maschinen</td><td class="xs-th">Betriebs- und Geschäftsausstattung</td><td class="xs-th">Anlagen im Bau</td><td class="xs-th">Software (entgeltlich erworben)</td><td class="xs-th">Summe</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">AK/HK zum Ende des Geschäftsjahres</td><td class="xs-out num">500.000,00 €</td><td class="xs-out num">360.000,00 €</td><td class="xs-out num">92.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">25.000,00 €</td><td class="xs-out num">977.000,00 €</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xs-out num">135.000,00 €</td><td class="xs-out num">178.000,00 €</td><td class="xs-out num">59.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">16.000,00 €</td><td class="xs-out num">388.000,00 €</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xs-out num">380.000,00 €</td><td class="xs-out num">120.000,00 €</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">25.000,00 €</td><td class="xs-out num">8.000,00 €</td><td class="xs-out num">563.000,00 €</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Buchwert zum Ende des Geschäftsjahres</td><td class="xs-res num">365.000,00 €</td><td class="xs-res num">182.000,00 €</td><td class="xs-res num">33.000,00 €</td><td class="xs-res num">0,00 €</td><td class="xs-res num">9.000,00 €</td><td class="xs-res num">589.000,00 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Restbuchwert der Abgänge</td><td class="xs-out num">0,00 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">2.000,00 €</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xs-out num">365.000,00 €</td><td class="xs-out num">182.000,00 €</td><td class="xs-out num">33.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">9.000,00 €</td><td class="xs-out num">589.000,00 €</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Plausibilität</td><td class="xs-out">✓</td><td class="xs-out">✓</td><td class="xs-out">✓</td><td class="xs-out">✓</td><td class="xs-out">✓</td><td class="xs-out">✓ Umbuchungen = 0</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-note" colspan="7">Anlagenspiegel nach § 284 Abs. 3 HGB (Anhang): historische AK/HK und kumulierte Abschreibungen (Bruttomethode). Umbuchungen gleichen sich über alle Posten aus. Vereinfacht ohne Umbuchungen bei den Abschreibungen.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Anlagenspiegel“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 45 Werte ein; die Datei berechnet daraus unter anderem „Buchwert zum Ende des Geschäftsjahres – Summe“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Anlagenspiegel nach § 284 Abs. 3 HGB (Anhang): historische AK/HK und kumulierte Abschreibungen (Bruttomethode). Umbuchungen gleichen sich über alle Posten aus. Vereinfacht ohne Umbuchungen bei den Abschreibungen.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Bezeichnung</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">Grundstücke und Bauten</td><td>Text</td></tr>
+<tr><td>Grundstücke und Bauten</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">Technische Anlagen und Maschinen</td><td>Text</td></tr>
+<tr><td>Technische Anlagen und Maschinen</td><td><code>D6</code></td><td class="xlw-v" data-xi="D6">Betriebs- und Geschäftsausstattung</td><td>Text</td></tr>
+<tr><td>Betriebs- und Geschäftsausstattung</td><td><code>E6</code></td><td class="xlw-v" data-xi="E6">Anlagen im Bau</td><td>Text</td></tr>
+<tr><td>Anlagen im Bau</td><td><code>F6</code></td><td class="xlw-v" data-xi="F6">Software (entgeltlich erworben)</td><td>Text</td></tr>
+<tr><td>AK/HK zu Beginn des Geschäftsjahres · Anlage 1</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">500.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>AK/HK zu Beginn des Geschäftsjahres · Anlage 2</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">300.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>AK/HK zu Beginn des Geschäftsjahres · Anlage 3</td><td><code>D7</code></td><td class="xlw-v" data-xi="D7">80.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>AK/HK zu Beginn des Geschäftsjahres · Anlage 4</td><td><code>E7</code></td><td class="xlw-v" data-xi="E7">25.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>AK/HK zu Beginn des Geschäftsjahres · Anlage 5</td><td><code>F7</code></td><td class="xlw-v" data-xi="F7">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugänge · Anlage 1</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugänge · Anlage 2</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">60.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugänge · Anlage 3</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">12.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugänge · Anlage 4</td><td><code>E8</code></td><td class="xlw-v" data-xi="E8">15.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugänge · Anlage 5</td><td><code>F8</code></td><td class="xlw-v" data-xi="F8">5.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (zu AK/HK) · Anlage 1</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (zu AK/HK) · Anlage 2</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (zu AK/HK) · Anlage 3</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (zu AK/HK) · Anlage 4</td><td><code>E9</code></td><td class="xlw-v" data-xi="E9">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (zu AK/HK) · Anlage 5</td><td><code>F9</code></td><td class="xlw-v" data-xi="F9">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>± Umbuchungen · Anlage 1</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">0,00 €</td><td>beliebig</td></tr>
+<tr><td>± Umbuchungen · Anlage 2</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">40.000,00 €</td><td>beliebig</td></tr>
+<tr><td>± Umbuchungen · Anlage 3</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">0,00 €</td><td>beliebig</td></tr>
+<tr><td>± Umbuchungen · Anlage 4</td><td><code>E10</code></td><td class="xlw-v" data-xi="E10">-40.000,00 €</td><td>beliebig</td></tr>
+<tr><td>± Umbuchungen · Anlage 5</td><td><code>F10</code></td><td class="xlw-v" data-xi="F10">0,00 €</td><td>beliebig</td></tr>
+<tr><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres · Anlage 1</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">120.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres · Anlage 2</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">180.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres · Anlage 3</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres · Anlage 4</td><td><code>E11</code></td><td class="xlw-v" data-xi="E11">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres · Anlage 5</td><td><code>F11</code></td><td class="xlw-v" data-xi="F11">12.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen des Geschäftsjahres · Anlage 1</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">15.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen des Geschäftsjahres · Anlage 2</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">36.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen des Geschäftsjahres · Anlage 3</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">9.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen des Geschäftsjahres · Anlage 4</td><td><code>E12</code></td><td class="xlw-v" data-xi="E12">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen des Geschäftsjahres · Anlage 5</td><td><code>F12</code></td><td class="xlw-v" data-xi="F12">4.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen des Geschäftsjahres · Anlage 1</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen des Geschäftsjahres · Anlage 2</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen des Geschäftsjahres · Anlage 3</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen des Geschäftsjahres · Anlage 4</td><td><code>E13</code></td><td class="xlw-v" data-xi="E13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen des Geschäftsjahres · Anlage 5</td><td><code>F13</code></td><td class="xlw-v" data-xi="F13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen auf Abgänge · Anlage 1</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen auf Abgänge · Anlage 2</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">38.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen auf Abgänge · Anlage 3</td><td><code>D14</code></td><td class="xlw-v" data-xi="D14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen auf Abgänge · Anlage 4</td><td><code>E14</code></td><td class="xlw-v" data-xi="E14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kumulierte Abschreibungen auf Abgänge · Anlage 5</td><td><code>F14</code></td><td class="xlw-v" data-xi="F14">0,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Summe</td><td><code>G21</code></td><td class="xlw-v"><b data-xv="G21">589.000,00 €</b></td></tr>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Grundstücke und Bauten</td><td><code>B21</code></td><td class="xlw-v"><b data-xv="B21">365.000,00 €</b></td></tr>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Technische Anlagen und Maschinen</td><td><code>C21</code></td><td class="xlw-v"><b data-xv="C21">182.000,00 €</b></td></tr>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Betriebs- und Geschäftsausstattung</td><td><code>D21</code></td><td class="xlw-v"><b data-xv="D21">33.000,00 €</b></td></tr>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Anlagen im Bau</td><td><code>E21</code></td><td class="xlw-v"><b data-xv="E21">0,00 €</b></td></tr>
+<tr><td>Buchwert zum Ende des Geschäftsjahres – Software (entgeltlich erworben)</td><td><code>F21</code></td><td class="xlw-v"><b data-xv="F21">9.000,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 55 Formeln des Blatts „Anlagenspiegel“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>G7</td><td>AK/HK zu Beginn des Geschäftsjahres</td><td class="xlw-f">=SUMME(B7:F7)</td><td></td></tr>
+<tr><td>G8</td><td>+ Zugänge</td><td class="xlw-f">=SUMME(B8:F8)</td><td></td></tr>
+<tr><td>G9</td><td>− Abgänge (zu AK/HK)</td><td class="xlw-f">=SUMME(B9:F9)</td><td></td></tr>
+<tr><td>G10</td><td>± Umbuchungen</td><td class="xlw-f">=SUMME(B10:F10)</td><td></td></tr>
+<tr><td>G11</td><td>Kumulierte Abschreibungen zu Beginn des Geschäftsjahres</td><td class="xlw-f">=SUMME(B11:F11)</td><td></td></tr>
+<tr><td>G12</td><td>+ Abschreibungen des Geschäftsjahres</td><td class="xlw-f">=SUMME(B12:F12)</td><td></td></tr>
+<tr><td>G13</td><td>− Zuschreibungen des Geschäftsjahres</td><td class="xlw-f">=SUMME(B13:F13)</td><td></td></tr>
+<tr><td>G14</td><td>− Kumulierte Abschreibungen auf Abgänge</td><td class="xlw-f">=SUMME(B14:F14)</td><td></td></tr>
+<tr><td>B17</td><td>Position</td><td class="xlw-f">=B6</td><td></td></tr>
+<tr><td>C17</td><td>Position</td><td class="xlw-f">=C6</td><td></td></tr>
+<tr><td>D17</td><td>Position</td><td class="xlw-f">=D6</td><td></td></tr>
+<tr><td>E17</td><td>Position</td><td class="xlw-f">=E6</td><td></td></tr>
+<tr><td>F17</td><td>Position</td><td class="xlw-f">=F6</td><td></td></tr>
+<tr><td>B18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=B7+B8-B9+B10</td><td><small>AK/HK Ende = AK/HK Anfang + Zugänge − Abgänge ± Umbuchungen.</small></td></tr>
+<tr><td>C18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=C7+C8-C9+C10</td><td></td></tr>
+<tr><td>D18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=D7+D8-D9+D10</td><td></td></tr>
+<tr><td>E18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=E7+E8-E9+E10</td><td></td></tr>
+<tr><td>F18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=F7+F8-F9+F10</td><td></td></tr>
+<tr><td>G18</td><td>AK/HK zum Ende des Geschäftsjahres</td><td class="xlw-f">=SUMME(B18:F18)</td><td></td></tr>
+<tr><td>B19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=B11+B12-B13-B14</td><td><small>Kumulierte AfA Ende = kumulierte AfA Anfang + AfA des Jahres − Zuschreibungen − kumulierte AfA der Abgänge.</small></td></tr>
+<tr><td>C19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=C11+C12-C13-C14</td><td></td></tr>
+<tr><td>D19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=D11+D12-D13-D14</td><td></td></tr>
+<tr><td>E19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=E11+E12-E13-E14</td><td></td></tr>
+<tr><td>F19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=F11+F12-F13-F14</td><td></td></tr>
+<tr><td>G19</td><td>Kumulierte Abschreibungen zum Ende des Geschäftsjahres</td><td class="xlw-f">=SUMME(B19:F19)</td><td></td></tr>
+<tr><td>B20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=B7-B11</td><td></td></tr>
+<tr><td>C20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=C7-C11</td><td></td></tr>
+<tr><td>D20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=D7-D11</td><td></td></tr>
+<tr><td>E20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=E7-E11</td><td></td></tr>
+<tr><td>F20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=F7-F11</td><td></td></tr>
+<tr><td>G20</td><td>Buchwert zu Beginn des Geschäftsjahres (Vorjahr)</td><td class="xlw-f">=SUMME(B20:F20)</td><td></td></tr>
+<tr><td>B21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=B18-B19</td><td><small>Buchwert = AK/HK Ende − kumulierte Abschreibungen Ende.</small></td></tr>
+<tr><td>C21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=C18-C19</td><td></td></tr>
+<tr><td>D21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=D18-D19</td><td></td></tr>
+<tr><td>E21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=E18-E19</td><td></td></tr>
+<tr><td>F21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=F18-F19</td><td></td></tr>
+<tr><td>G21</td><td>Buchwert zum Ende des Geschäftsjahres</td><td class="xlw-f">=SUMME(B21:F21)</td><td></td></tr>
+<tr><td>B22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=B9-B14</td><td></td></tr>
+<tr><td>C22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=C9-C14</td><td></td></tr>
+<tr><td>D22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=D9-D14</td><td></td></tr>
+<tr><td>E22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=E9-E14</td><td></td></tr>
+<tr><td>F22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=F9-F14</td><td></td></tr>
+<tr><td>G22</td><td>Restbuchwert der Abgänge</td><td class="xlw-f">=SUMME(B22:F22)</td><td></td></tr>
+<tr><td>B23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=B20+B8+B10-B22-B12+B13</td><td></td></tr>
+<tr><td>C23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=C20+C8+C10-C22-C12+C13</td><td></td></tr>
+<tr><td>D23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=D20+D8+D10-D22-D12+D13</td><td></td></tr>
+<tr><td>E23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=E20+E8+E10-E22-E12+E13</td><td></td></tr>
+<tr><td>F23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=F20+F8+F10-F22-F12+F13</td><td></td></tr>
+<tr><td>G23</td><td>Kontrolle: BW Anfang + Zugänge ± Umbuchungen − RBW Abgänge − AfA + Zuschreibungen</td><td class="xlw-f">=SUMME(B23:F23)</td><td></td></tr>
+<tr><td>B24</td><td>Plausibilität</td><td class="xlw-f">=WENN(B21&lt;0;&quot;✗ Buchwert &lt; 0&quot;;WENN(B19&lt;0;&quot;✗ kum. AfA &lt; 0&quot;;WENN(RUNDEN(B23-B21;2)=0;&quot;✓&quot;;&quot;✗&quot;)))</td><td></td></tr>
+<tr><td>C24</td><td>Plausibilität</td><td class="xlw-f">=WENN(C21&lt;0;&quot;✗ Buchwert &lt; 0&quot;;WENN(C19&lt;0;&quot;✗ kum. AfA &lt; 0&quot;;WENN(RUNDEN(C23-C21;2)=0;&quot;✓&quot;;&quot;✗&quot;)))</td><td></td></tr>
+<tr><td>D24</td><td>Plausibilität</td><td class="xlw-f">=WENN(D21&lt;0;&quot;✗ Buchwert &lt; 0&quot;;WENN(D19&lt;0;&quot;✗ kum. AfA &lt; 0&quot;;WENN(RUNDEN(D23-D21;2)=0;&quot;✓&quot;;&quot;✗&quot;)))</td><td></td></tr>
+<tr><td>E24</td><td>Plausibilität</td><td class="xlw-f">=WENN(E21&lt;0;&quot;✗ Buchwert &lt; 0&quot;;WENN(E19&lt;0;&quot;✗ kum. AfA &lt; 0&quot;;WENN(RUNDEN(E23-E21;2)=0;&quot;✓&quot;;&quot;✗&quot;)))</td><td></td></tr>
+<tr><td>F24</td><td>Plausibilität</td><td class="xlw-f">=WENN(F21&lt;0;&quot;✗ Buchwert &lt; 0&quot;;WENN(F19&lt;0;&quot;✗ kum. AfA &lt; 0&quot;;WENN(RUNDEN(F23-F21;2)=0;&quot;✓&quot;;&quot;✗&quot;)))</td><td></td></tr>
+<tr><td>G24</td><td>Plausibilität</td><td class="xlw-f">=WENN(RUNDEN(G10;2)=0;&quot;✓ Umbuchungen = 0&quot;;&quot;✗ Umbuchungen ≠ 0&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.155 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 55 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>21 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Buchwert zum Ende des Geschäftsjahres (G21).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 55 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 55 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.155 Formelergebnisse in LibreOffice neu berechnet, 21 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-abschreibung">Abschreibung: linear vs. degressiv</a><p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-kennzahlen">Bilanzkennzahlen &amp; Rentabilität</a><p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-cashflow">Kapitalflussrechnung (Cashflow indirekt)</a><p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-vorratsbewertung">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</a><p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-bewegungsbilanz">Strukturbilanz &amp; Bewegungsbilanz</a><p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

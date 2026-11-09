@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Strukturbilanz &amp; Bewegungsbilanz – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 98 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-bewegungsbilanz">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Strukturbilanz & Bewegungsbilanz (Excel-Vorlage)","description":"Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.","url":"https://www.bwlmax.de/tools/excel-vorlage-bewegungsbilanz","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Strukturbilanz &amp; Bewegungsbilanz</h1>
+<p class="lead">Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>18</b> Eingabefelder</li><li><b>98</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="bewegungsbilanz">
+<div class="xl-keys"><div class="xl-key"><small>Summe – Mittelverwendung</small><b>115.000,00 €</b></div><div class="xl-key"><small>Summe – Mittelherkunft</small><b>115.000,00 €</b></div><div class="xl-key"><small>Prüfung</small><b>✓ Mittelherkunft = Mittelverwendung</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Strukturbilanz_Bewegungsbilanz.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Bewegungsbilanz“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:429px"><col style="width:118px"><col style="width:118px"><col style="width:133px"><col style="width:104px"><col style="width:96px"><col style="width:104px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Strukturbilanz &amp; Bewegungsbilanz</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">Strukturbilanz (zwei Bilanzstichtage)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Position</td><td class="xs-th">Vorjahr</td><td class="xs-th">Geschäftsjahr</td><td class="xs-th">Veränderung</td><td class="xs-th">Veränderung in %</td><td class="xs-th">Anteil Vorjahr</td><td class="xs-th">Anteil Geschäftsjahr</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xs-in num">500.000,00 €</td><td class="xs-in num">560.000,00 €</td><td class="xs-out num">60.000,00 €</td><td class="xs-out num">12,0 %</td><td class="xs-out num">58,8 %</td><td class="xs-out num">60,5 %</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Finanzanlagen</td><td class="xs-in num">50.000,00 €</td><td class="xs-in num">40.000,00 €</td><td class="xs-out num neg">-10.000,00 €</td><td class="xs-out num">-20,0 %</td><td class="xs-out num">5,9 %</td><td class="xs-out num">4,3 %</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">= Anlagevermögen</td><td class="xs-tot num">550.000,00 €</td><td class="xs-tot num">600.000,00 €</td><td class="xs-out num">50.000,00 €</td><td class="xs-out num">9,1 %</td><td class="xs-out num">64,7 %</td><td class="xs-out num">64,9 %</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Vorräte</td><td class="xs-in num">150.000,00 €</td><td class="xs-in num">170.000,00 €</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">13,3 %</td><td class="xs-out num">17,6 %</td><td class="xs-out num">18,4 %</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Forderungen und sonstige Vermögensgegenstände</td><td class="xs-in num">120.000,00 €</td><td class="xs-in num">110.000,00 €</td><td class="xs-out num neg">-10.000,00 €</td><td class="xs-out num">-8,3 %</td><td class="xs-out num">14,1 %</td><td class="xs-out num">11,9 %</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Liquide Mittel</td><td class="xs-in num">30.000,00 €</td><td class="xs-in num">45.000,00 €</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">50,0 %</td><td class="xs-out num">3,5 %</td><td class="xs-out num">4,9 %</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">= Umlaufvermögen</td><td class="xs-tot num">300.000,00 €</td><td class="xs-tot num">325.000,00 €</td><td class="xs-out num">25.000,00 €</td><td class="xs-out num">8,3 %</td><td class="xs-out num">35,3 %</td><td class="xs-out num">35,1 %</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">= Bilanzsumme (Aktiva)</td><td class="xs-tot num">850.000,00 €</td><td class="xs-tot num">925.000,00 €</td><td class="xs-out num">75.000,00 €</td><td class="xs-out num">8,8 %</td><td class="xs-out num">100,0 %</td><td class="xs-out num">100,0 %</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Eigenkapital</td><td class="xs-in num">300.000,00 €</td><td class="xs-in num">340.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">13,3 %</td><td class="xs-out num">35,3 %</td><td class="xs-out num">36,8 %</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xs-in num">80.000,00 €</td><td class="xs-in num">90.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">12,5 %</td><td class="xs-out num">9,4 %</td><td class="xs-out num">9,7 %</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Langfristige Verbindlichkeiten</td><td class="xs-in num">270.000,00 €</td><td class="xs-in num">250.000,00 €</td><td class="xs-out num neg">-20.000,00 €</td><td class="xs-out num">-7,4 %</td><td class="xs-out num">31,8 %</td><td class="xs-out num">27,0 %</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">= Langfristiges Fremdkapital</td><td class="xs-tot num">350.000,00 €</td><td class="xs-tot num">340.000,00 €</td><td class="xs-out num neg">-10.000,00 €</td><td class="xs-out num">-2,9 %</td><td class="xs-out num">41,2 %</td><td class="xs-out num">36,8 %</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xs-in num">200.000,00 €</td><td class="xs-in num">245.000,00 €</td><td class="xs-out num">45.000,00 €</td><td class="xs-out num">22,5 %</td><td class="xs-out num">23,5 %</td><td class="xs-out num">26,5 %</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">= Bilanzsumme (Passiva)</td><td class="xs-tot num">850.000,00 €</td><td class="xs-tot num">925.000,00 €</td><td class="xs-out num">75.000,00 €</td><td class="xs-out num">8,8 %</td><td class="xs-out num">100,0 %</td><td class="xs-out num">100,0 %</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Bilanz ausgeglichen?</td><td class="xs-out">✓</td><td class="xs-out">✓</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-sec" colspan="7">Bewegungsbilanz</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-th">Position</td><td class="xs-th">Mittelverwendung</td><td class="xs-th">Mittelherkunft</td><td class="xs-th">Art der Veränderung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xs-out num">60.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">Aktivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Finanzanlagen</td><td class="xs-out num">0,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out">Aktivminderung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Vorräte</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">Aktivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Forderungen und sonstige Vermögensgegenstände</td><td class="xs-out num">0,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out">Aktivminderung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Liquide Mittel</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">Aktivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Eigenkapital</td><td class="xs-out num">0,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out">Passivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xs-out num">0,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out">Passivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">Langfristige Verbindlichkeiten</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">Passivminderung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xs-out num">0,00 €</td><td class="xs-out num">45.000,00 €</td><td class="xs-out">Passivmehrung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-lab">= Summe</td><td class="xs-res num">115.000,00 €</td><td class="xs-res num">115.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-lab">Prüfung</td><td class="xs-res" colspan="3">✓ Mittelherkunft = Mittelverwendung</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-note" colspan="7">Mittelverwendung = Aktivmehrung + Passivminderung, Mittelherkunft = Aktivminderung + Passivmehrung. Anteile der Aktiva beziehen sich auf die Bilanzsumme Aktiva, die der Passiva auf die Bilanzsumme Passiva.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Bewegungsbilanz“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 18 Werte ein; die Datei berechnet daraus unter anderem „Summe – Mittelverwendung“, „Summe – Mittelherkunft“ und „Prüfung“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Mittelverwendung = Aktivmehrung + Passivminderung, Mittelherkunft = Aktivminderung + Passivmehrung. Anteile der Aktiva beziehen sich auf die Bilanzsumme Aktiva, die der Passiva auf die Bilanzsumme Passiva.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Immaterielle Vermögensgegenstände und Sachanlagen · Vorjahr</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">500.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Immaterielle Vermögensgegenstände und Sachanlagen · Geschäftsjahr</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">560.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Finanzanlagen · Vorjahr</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Finanzanlagen · Geschäftsjahr</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Vorräte · Vorjahr</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">150.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Vorräte · Geschäftsjahr</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">170.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Forderungen und sonstige Vermögensgegenstände · Vorjahr</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">120.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Forderungen und sonstige Vermögensgegenstände · Geschäftsjahr</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">110.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Liquide Mittel · Vorjahr</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Liquide Mittel · Geschäftsjahr</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">45.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Eigenkapital · Vorjahr</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">300.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Eigenkapital · Geschäftsjahr</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">340.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Langfristige Rückstellungen (z. B. Pensionen) · Vorjahr</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">80.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Langfristige Rückstellungen (z. B. Pensionen) · Geschäftsjahr</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">90.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Langfristige Verbindlichkeiten · Vorjahr</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">270.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Langfristige Verbindlichkeiten · Geschäftsjahr</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">250.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten) · Vorjahr</td><td><code>B18</code></td><td class="xlw-v" data-xi="B18">200.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten) · Geschäftsjahr</td><td><code>C18</code></td><td class="xlw-v" data-xi="C18">245.000,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Summe – Mittelverwendung</td><td><code>B34</code></td><td class="xlw-v"><b data-xv="B34">115.000,00 €</b></td></tr>
+<tr><td>Summe – Mittelherkunft</td><td><code>C34</code></td><td class="xlw-v"><b data-xv="C34">115.000,00 €</b></td></tr>
+<tr><td>Prüfung</td><td><code>B35</code></td><td class="xlw-v"><b data-xv="B35">✓ Mittelherkunft = Mittelverwendung</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 98 Formeln des Blatts „Bewegungsbilanz“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>D6</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=C6-B6</td><td><small>Veränderung = Geschäftsjahr − Vorjahr.</small></td></tr>
+<tr><td>E6</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=WENN(B6=0;&quot;–&quot;;D6/B6)</td><td></td></tr>
+<tr><td>F6</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B6/B$13)</td><td><small>Strukturanteil = Position / Bilanzsumme (vertikale Analyse).</small></td></tr>
+<tr><td>G6</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C6/C$13)</td><td></td></tr>
+<tr><td>D7</td><td>Finanzanlagen</td><td class="xlw-f">=C7-B7</td><td></td></tr>
+<tr><td>E7</td><td>Finanzanlagen</td><td class="xlw-f">=WENN(B7=0;&quot;–&quot;;D7/B7)</td><td></td></tr>
+<tr><td>F7</td><td>Finanzanlagen</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B7/B$13)</td><td></td></tr>
+<tr><td>G7</td><td>Finanzanlagen</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C7/C$13)</td><td></td></tr>
+<tr><td>B8</td><td>= Anlagevermögen</td><td class="xlw-f">=B6+B7</td><td></td></tr>
+<tr><td>C8</td><td>= Anlagevermögen</td><td class="xlw-f">=C6+C7</td><td></td></tr>
+<tr><td>D8</td><td>= Anlagevermögen</td><td class="xlw-f">=C8-B8</td><td></td></tr>
+<tr><td>E8</td><td>= Anlagevermögen</td><td class="xlw-f">=WENN(B8=0;&quot;–&quot;;D8/B8)</td><td></td></tr>
+<tr><td>F8</td><td>= Anlagevermögen</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B8/B$13)</td><td></td></tr>
+<tr><td>G8</td><td>= Anlagevermögen</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C8/C$13)</td><td></td></tr>
+<tr><td>D9</td><td>Vorräte</td><td class="xlw-f">=C9-B9</td><td></td></tr>
+<tr><td>E9</td><td>Vorräte</td><td class="xlw-f">=WENN(B9=0;&quot;–&quot;;D9/B9)</td><td></td></tr>
+<tr><td>F9</td><td>Vorräte</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B9/B$13)</td><td></td></tr>
+<tr><td>G9</td><td>Vorräte</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C9/C$13)</td><td></td></tr>
+<tr><td>D10</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=C10-B10</td><td></td></tr>
+<tr><td>E10</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=WENN(B10=0;&quot;–&quot;;D10/B10)</td><td></td></tr>
+<tr><td>F10</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B10/B$13)</td><td></td></tr>
+<tr><td>G10</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C10/C$13)</td><td></td></tr>
+<tr><td>D11</td><td>Liquide Mittel</td><td class="xlw-f">=C11-B11</td><td></td></tr>
+<tr><td>E11</td><td>Liquide Mittel</td><td class="xlw-f">=WENN(B11=0;&quot;–&quot;;D11/B11)</td><td></td></tr>
+<tr><td>F11</td><td>Liquide Mittel</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B11/B$13)</td><td></td></tr>
+<tr><td>G11</td><td>Liquide Mittel</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C11/C$13)</td><td></td></tr>
+<tr><td>B12</td><td>= Umlaufvermögen</td><td class="xlw-f">=B9+B10+B11</td><td></td></tr>
+<tr><td>C12</td><td>= Umlaufvermögen</td><td class="xlw-f">=C9+C10+C11</td><td></td></tr>
+<tr><td>D12</td><td>= Umlaufvermögen</td><td class="xlw-f">=C12-B12</td><td></td></tr>
+<tr><td>E12</td><td>= Umlaufvermögen</td><td class="xlw-f">=WENN(B12=0;&quot;–&quot;;D12/B12)</td><td></td></tr>
+<tr><td>F12</td><td>= Umlaufvermögen</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B12/B$13)</td><td></td></tr>
+<tr><td>G12</td><td>= Umlaufvermögen</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C12/C$13)</td><td></td></tr>
+<tr><td>B13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=B8+B12</td><td></td></tr>
+<tr><td>C13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=C8+C12</td><td></td></tr>
+<tr><td>D13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=C13-B13</td><td></td></tr>
+<tr><td>E13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=WENN(B13=0;&quot;–&quot;;D13/B13)</td><td></td></tr>
+<tr><td>F13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=WENN(B$13=0;&quot;–&quot;;B13/B$13)</td><td></td></tr>
+<tr><td>G13</td><td>= Bilanzsumme (Aktiva)</td><td class="xlw-f">=WENN(C$13=0;&quot;–&quot;;C13/C$13)</td><td></td></tr>
+<tr><td>D14</td><td>Eigenkapital</td><td class="xlw-f">=C14-B14</td><td></td></tr>
+<tr><td>E14</td><td>Eigenkapital</td><td class="xlw-f">=WENN(B14=0;&quot;–&quot;;D14/B14)</td><td></td></tr>
+<tr><td>F14</td><td>Eigenkapital</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B14/B$19)</td><td></td></tr>
+<tr><td>G14</td><td>Eigenkapital</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C14/C$19)</td><td></td></tr>
+<tr><td>D15</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=C15-B15</td><td></td></tr>
+<tr><td>E15</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=WENN(B15=0;&quot;–&quot;;D15/B15)</td><td></td></tr>
+<tr><td>F15</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B15/B$19)</td><td></td></tr>
+<tr><td>G15</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C15/C$19)</td><td></td></tr>
+<tr><td>D16</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=C16-B16</td><td></td></tr>
+<tr><td>E16</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;D16/B16)</td><td></td></tr>
+<tr><td>F16</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B16/B$19)</td><td></td></tr>
+<tr><td>G16</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C16/C$19)</td><td></td></tr>
+<tr><td>B17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=B15+B16</td><td></td></tr>
+<tr><td>C17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=C15+C16</td><td></td></tr>
+<tr><td>D17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=C17-B17</td><td></td></tr>
+<tr><td>E17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=WENN(B17=0;&quot;–&quot;;D17/B17)</td><td></td></tr>
+<tr><td>F17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B17/B$19)</td><td></td></tr>
+<tr><td>G17</td><td>= Langfristiges Fremdkapital</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C17/C$19)</td><td></td></tr>
+<tr><td>D18</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=C18-B18</td><td></td></tr>
+<tr><td>E18</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=WENN(B18=0;&quot;–&quot;;D18/B18)</td><td></td></tr>
+<tr><td>F18</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B18/B$19)</td><td></td></tr>
+<tr><td>G18</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C18/C$19)</td><td></td></tr>
+<tr><td>B19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=B14+B17+B18</td><td></td></tr>
+<tr><td>C19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=C14+C17+C18</td><td></td></tr>
+<tr><td>D19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=C19-B19</td><td></td></tr>
+<tr><td>E19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=WENN(B19=0;&quot;–&quot;;D19/B19)</td><td></td></tr>
+<tr><td>F19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=WENN(B$19=0;&quot;–&quot;;B19/B$19)</td><td></td></tr>
+<tr><td>G19</td><td>= Bilanzsumme (Passiva)</td><td class="xlw-f">=WENN(C$19=0;&quot;–&quot;;C19/C$19)</td><td></td></tr>
+<tr><td>B20</td><td>Bilanz ausgeglichen?</td><td class="xlw-f">=WENN(RUNDEN(B13-B19;2)=0;&quot;✓&quot;;&quot;✗ Aktiva ≠ Passiva&quot;)</td><td></td></tr>
+<tr><td>C20</td><td>Bilanz ausgeglichen?</td><td class="xlw-f">=WENN(RUNDEN(C13-C19;2)=0;&quot;✓&quot;;&quot;✗ Aktiva ≠ Passiva&quot;)</td><td></td></tr>
+<tr><td>B24</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=MAX(D6;0)</td><td></td></tr>
+<tr><td>C24</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=MAX(-D6;0)</td><td></td></tr>
+<tr><td>D24</td><td>Immaterielle Vermögensgegenstände und Sachanlagen</td><td class="xlw-f">=WENN(D6&gt;0;&quot;Aktivmehrung&quot;;WENN(D6&lt;0;&quot;Aktivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B25</td><td>Finanzanlagen</td><td class="xlw-f">=MAX(D7;0)</td><td></td></tr>
+<tr><td>C25</td><td>Finanzanlagen</td><td class="xlw-f">=MAX(-D7;0)</td><td></td></tr>
+<tr><td>D25</td><td>Finanzanlagen</td><td class="xlw-f">=WENN(D7&gt;0;&quot;Aktivmehrung&quot;;WENN(D7&lt;0;&quot;Aktivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B26</td><td>Vorräte</td><td class="xlw-f">=MAX(D9;0)</td><td></td></tr>
+<tr><td>C26</td><td>Vorräte</td><td class="xlw-f">=MAX(-D9;0)</td><td></td></tr>
+<tr><td>D26</td><td>Vorräte</td><td class="xlw-f">=WENN(D9&gt;0;&quot;Aktivmehrung&quot;;WENN(D9&lt;0;&quot;Aktivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B27</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=MAX(D10;0)</td><td></td></tr>
+<tr><td>C27</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=MAX(-D10;0)</td><td></td></tr>
+<tr><td>D27</td><td>Forderungen und sonstige Vermögensgegenstände</td><td class="xlw-f">=WENN(D10&gt;0;&quot;Aktivmehrung&quot;;WENN(D10&lt;0;&quot;Aktivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B28</td><td>Liquide Mittel</td><td class="xlw-f">=MAX(D11;0)</td><td></td></tr>
+<tr><td>C28</td><td>Liquide Mittel</td><td class="xlw-f">=MAX(-D11;0)</td><td></td></tr>
+<tr><td>D28</td><td>Liquide Mittel</td><td class="xlw-f">=WENN(D11&gt;0;&quot;Aktivmehrung&quot;;WENN(D11&lt;0;&quot;Aktivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B29</td><td>Eigenkapital</td><td class="xlw-f">=MAX(-D14;0)</td><td></td></tr>
+<tr><td>C29</td><td>Eigenkapital</td><td class="xlw-f">=MAX(D14;0)</td><td></td></tr>
+<tr><td>D29</td><td>Eigenkapital</td><td class="xlw-f">=WENN(D14&gt;0;&quot;Passivmehrung&quot;;WENN(D14&lt;0;&quot;Passivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B30</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=MAX(-D15;0)</td><td></td></tr>
+<tr><td>C30</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=MAX(D15;0)</td><td></td></tr>
+<tr><td>D30</td><td>Langfristige Rückstellungen (z. B. Pensionen)</td><td class="xlw-f">=WENN(D15&gt;0;&quot;Passivmehrung&quot;;WENN(D15&lt;0;&quot;Passivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B31</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=MAX(-D16;0)</td><td></td></tr>
+<tr><td>C31</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=MAX(D16;0)</td><td></td></tr>
+<tr><td>D31</td><td>Langfristige Verbindlichkeiten</td><td class="xlw-f">=WENN(D16&gt;0;&quot;Passivmehrung&quot;;WENN(D16&lt;0;&quot;Passivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B32</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=MAX(-D18;0)</td><td></td></tr>
+<tr><td>C32</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=MAX(D18;0)</td><td></td></tr>
+<tr><td>D32</td><td>Kurzfristiges Fremdkapital (kurzfr. Rückstellungen und Verbindlichkeiten)</td><td class="xlw-f">=WENN(D18&gt;0;&quot;Passivmehrung&quot;;WENN(D18&lt;0;&quot;Passivminderung&quot;;&quot;–&quot;))</td><td></td></tr>
+<tr><td>B34</td><td>= Summe</td><td class="xlw-f">=SUMME(B24:B32)</td><td><small>Bei ausgeglichenen Bilanzen sind Mittelverwendung und Mittelherkunft immer gleich groß.</small></td></tr>
+<tr><td>C34</td><td>= Summe</td><td class="xlw-f">=SUMME(C24:C32)</td><td></td></tr>
+<tr><td>B35</td><td>Prüfung</td><td class="xlw-f">=WENN(UND(RUNDEN(B13-B19;2)=0;RUNDEN(C13-C19;2)=0;RUNDEN(B34-C34;2)=0);&quot;✓ Mittelherkunft = Mittelverwendung&quot;;&quot;✗ Bilanzen sind nicht ausgeglichen&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>2.058 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 98 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Summe (B34), Prüfung (B35), Summe (C34).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 98 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 98 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>2.058 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-abschreibung">Abschreibung: linear vs. degressiv</a><p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-kennzahlen">Bilanzkennzahlen &amp; Rentabilität</a><p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-cashflow">Kapitalflussrechnung (Cashflow indirekt)</a><p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-vorratsbewertung">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</a><p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-anlagenspiegel">Anlagenspiegel (Anlagengitter)</a><p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

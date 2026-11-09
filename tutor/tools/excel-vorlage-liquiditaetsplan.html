@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Liquiditätsplan (12 Monate) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 100 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-liquiditaetsplan">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Liquiditätsplan (12 Monate) (Excel-Vorlage)","description":"Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie.","url":"https://www.bwlmax.de/tools/excel-vorlage-liquiditaetsplan","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Controlling & Planung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Controlling &amp; Planung</p>
+<h1>Excel-Vorlage: Liquiditätsplan (12 Monate)</h1>
+<p class="lead">Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>74</b> Eingabefelder</li><li><b>100</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="liquiditaetsplan">
+<div class="xl-keys"><div class="xl-key"><small>Endbestand Dezember</small><b>24.000,00 €</b></div><div class="xl-key"><small>Maximaler Kreditbedarf</small><b>17.000,00 €</b></div><div class="xl-key"><small>Monate mit Unterdeckung</small><b>3</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Liquiditaetsplan_12_Monate.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Liquiditätsplan“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:222px"><col style="width:126px"><col style="width:111px"><col style="width:126px"><col style="width:126px"><col style="width:133px"><col style="width:126px"><col style="width:222px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Liquiditätsplan (12 Monate)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Zahlungsmittelbestand am Jahresanfang</td><td class="xs-in num">20.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Kreditlinie (Kontokorrent)</td><td class="xs-in num">30.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-sec" colspan="8">1. Einzahlungen und Auszahlungen je Monat</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-th">Monat</td><td class="xs-th">Einzahlungen aus Umsätzen</td><td class="xs-th">Sonstige Einzahlungen</td><td class="xs-th">Auszahlungen Material / Waren</td><td class="xs-th">Auszahlungen Personal</td><td class="xs-th">Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td class="xs-th">Investitionen / Tilgung</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Januar</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">15.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Februar</td><td class="xs-in num">35.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">14.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">März</td><td class="xs-in num">42.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">16.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">25.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">April</td><td class="xs-in num">50.000,00 €</td><td class="xs-in num">2.000,00 €</td><td class="xs-in num">18.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Mai</td><td class="xs-in num">55.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">19.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Juni</td><td class="xs-in num">60.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">22.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Juli</td><td class="xs-in num">58.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">5.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">August</td><td class="xs-in num">45.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">17.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">September</td><td class="xs-in num">52.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">18.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-lab">Oktober</td><td class="xs-in num">56.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">19.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">November</td><td class="xs-in num">62.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-in num">21.000,00 €</td><td class="xs-in num">32.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Dezember</td><td class="xs-in num">48.000,00 €</td><td class="xs-in num">3.000,00 €</td><td class="xs-in num">17.000,00 €</td><td class="xs-in num">20.000,00 €</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">10.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Summe</td><td class="xs-tot num">603.000,00 €</td><td class="xs-tot num">5.000,00 €</td><td class="xs-tot num">214.000,00 €</td><td class="xs-tot num">254.000,00 €</td><td class="xs-tot num">96.000,00 €</td><td class="xs-tot num">40.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-sec" colspan="8">2. Liquiditätsplan</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-th">Monat</td><td class="xs-th">Anfangsbestand</td><td class="xs-th">Einzahlungen</td><td class="xs-th">Auszahlungen</td><td class="xs-th">Überschuss / Fehlbetrag</td><td class="xs-th">Endbestand</td><td class="xs-th">Inanspruchnahme Kreditlinie</td><td class="xs-th">Status</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Januar</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">43.000,00 €</td><td class="xs-out num neg">-3.000,00 €</td><td class="xs-out num">17.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">Februar</td><td class="xs-out num">17.000,00 €</td><td class="xs-out num">35.000,00 €</td><td class="xs-out num">42.000,00 €</td><td class="xs-out num neg">-7.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">März</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">42.000,00 €</td><td class="xs-out num">69.000,00 €</td><td class="xs-out num neg">-27.000,00 €</td><td class="xs-out num neg">-17.000,00 €</td><td class="xs-out num">17.000,00 €</td><td class="xs-out">⚠ Unterdeckung – Kreditlinie</td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">April</td><td class="xs-out num neg">-17.000,00 €</td><td class="xs-out num">52.000,00 €</td><td class="xs-out num">46.000,00 €</td><td class="xs-out num">6.000,00 €</td><td class="xs-out num neg">-11.000,00 €</td><td class="xs-out num">11.000,00 €</td><td class="xs-out">⚠ Unterdeckung – Kreditlinie</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">Mai</td><td class="xs-out num neg">-11.000,00 €</td><td class="xs-out num">55.000,00 €</td><td class="xs-out num">47.000,00 €</td><td class="xs-out num">8.000,00 €</td><td class="xs-out num neg">-3.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out">⚠ Unterdeckung – Kreditlinie</td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">Juni</td><td class="xs-out num neg">-3.000,00 €</td><td class="xs-out num">60.000,00 €</td><td class="xs-out num">50.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">7.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Juli</td><td class="xs-out num">7.000,00 €</td><td class="xs-out num">58.000,00 €</td><td class="xs-out num">53.000,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-lab">August</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">45.000,00 €</td><td class="xs-out num">45.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-lab">September</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">52.000,00 €</td><td class="xs-out num">46.000,00 €</td><td class="xs-out num">6.000,00 €</td><td class="xs-out num">18.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-lab">Oktober</td><td class="xs-out num">18.000,00 €</td><td class="xs-out num">56.000,00 €</td><td class="xs-out num">47.000,00 €</td><td class="xs-out num">9.000,00 €</td><td class="xs-out num">27.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-lab">November</td><td class="xs-out num">27.000,00 €</td><td class="xs-out num">62.000,00 €</td><td class="xs-out num">61.000,00 €</td><td class="xs-out num">1.000,00 €</td><td class="xs-out num">28.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-lab">Dezember</td><td class="xs-out num">28.000,00 €</td><td class="xs-out num">51.000,00 €</td><td class="xs-out num">55.000,00 €</td><td class="xs-out num neg">-4.000,00 €</td><td class="xs-out num">24.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">gedeckt</td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-lab">Summe</td><td class="xs-empty"></td><td class="xs-tot num">608.000,00 €</td><td class="xs-tot num">604.000,00 €</td><td class="xs-tot num">4.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-sec" colspan="8">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-lab">Endbestand Dezember</td><td class="xs-res num">24.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-lab">Niedrigster Endbestand</td><td class="xs-out num neg">-17.000,00 €</td><td class="xs-out">März</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-lab">Maximaler Kreditbedarf</td><td class="xs-res num">17.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">44</th><td class="xs-lab">Monate mit Unterdeckung</td><td class="xs-res num">3</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">45</th><td class="xs-lab">Monate über der Kreditlinie</td><td class="xs-out num">0</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">46</th><td class="xs-lab">Einschätzung</td><td class="xs-out" colspan="7">Kreditlinie deckt alle Unterdeckungen</td></tr><tr><th class="xl-rh" scope="row">47</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">48</th><td class="xs-note" colspan="8">Endbestand = Anfangsbestand + Einzahlungen − Auszahlungen; der Endbestand ist der Anfangsbestand des Folgemonats. Ein negativer Endbestand wird über die Kreditlinie finanziert (Zinsen darauf nicht eingerechnet).</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Liquiditätsplan“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Ein- und Auszahlungen je Monat, Endbestände, Unterdeckungen und Inanspruchnahme der Kreditlinie. Die Vorlage gehört zum Bereich Controlling &amp; Planung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 74 Werte ein; die Datei berechnet daraus unter anderem „Endbestand Dezember“, „Maximaler Kreditbedarf“ und „Monate mit Unterdeckung“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Endbestand = Anfangsbestand + Einzahlungen − Auszahlungen; der Endbestand ist der Anfangsbestand des Folgemonats. Ein negativer Endbestand wird über die Kreditlinie finanziert (Zinsen darauf nicht eingerechnet).</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Zahlungsmittelbestand am Jahresanfang</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">20.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Kreditlinie (Kontokorrent)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Einzahlungen aus Umsätzen</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Sonstige Einzahlungen</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Auszahlungen Material / Waren</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">15.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Auszahlungen Personal</td><td><code>E10</code></td><td class="xlw-v" data-xi="E10">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F10</code></td><td class="xlw-v" data-xi="F10">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Januar · Investitionen / Tilgung</td><td><code>G10</code></td><td class="xlw-v" data-xi="G10">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Einzahlungen aus Umsätzen</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">35.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Sonstige Einzahlungen</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Auszahlungen Material / Waren</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">14.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Auszahlungen Personal</td><td><code>E11</code></td><td class="xlw-v" data-xi="E11">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F11</code></td><td class="xlw-v" data-xi="F11">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Februar · Investitionen / Tilgung</td><td><code>G11</code></td><td class="xlw-v" data-xi="G11">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Einzahlungen aus Umsätzen</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">42.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Sonstige Einzahlungen</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Auszahlungen Material / Waren</td><td><code>D12</code></td><td class="xlw-v" data-xi="D12">16.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Auszahlungen Personal</td><td><code>E12</code></td><td class="xlw-v" data-xi="E12">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F12</code></td><td class="xlw-v" data-xi="F12">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>März · Investitionen / Tilgung</td><td><code>G12</code></td><td class="xlw-v" data-xi="G12">25.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Einzahlungen aus Umsätzen</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Sonstige Einzahlungen</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">2.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Auszahlungen Material / Waren</td><td><code>D13</code></td><td class="xlw-v" data-xi="D13">18.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Auszahlungen Personal</td><td><code>E13</code></td><td class="xlw-v" data-xi="E13">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F13</code></td><td class="xlw-v" data-xi="F13">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>April · Investitionen / Tilgung</td><td><code>G13</code></td><td class="xlw-v" data-xi="G13">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Einzahlungen aus Umsätzen</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">55.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Sonstige Einzahlungen</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Auszahlungen Material / Waren</td><td><code>D14</code></td><td class="xlw-v" data-xi="D14">19.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Auszahlungen Personal</td><td><code>E14</code></td><td class="xlw-v" data-xi="E14">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F14</code></td><td class="xlw-v" data-xi="F14">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Mai · Investitionen / Tilgung</td><td><code>G14</code></td><td class="xlw-v" data-xi="G14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Einzahlungen aus Umsätzen</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">60.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Sonstige Einzahlungen</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Auszahlungen Material / Waren</td><td><code>D15</code></td><td class="xlw-v" data-xi="D15">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Auszahlungen Personal</td><td><code>E15</code></td><td class="xlw-v" data-xi="E15">22.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F15</code></td><td class="xlw-v" data-xi="F15">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juni · Investitionen / Tilgung</td><td><code>G15</code></td><td class="xlw-v" data-xi="G15">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Einzahlungen aus Umsätzen</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">58.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Sonstige Einzahlungen</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Auszahlungen Material / Waren</td><td><code>D16</code></td><td class="xlw-v" data-xi="D16">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Auszahlungen Personal</td><td><code>E16</code></td><td class="xlw-v" data-xi="E16">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F16</code></td><td class="xlw-v" data-xi="F16">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Juli · Investitionen / Tilgung</td><td><code>G16</code></td><td class="xlw-v" data-xi="G16">5.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Einzahlungen aus Umsätzen</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">45.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Sonstige Einzahlungen</td><td><code>C17</code></td><td class="xlw-v" data-xi="C17">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Auszahlungen Material / Waren</td><td><code>D17</code></td><td class="xlw-v" data-xi="D17">17.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Auszahlungen Personal</td><td><code>E17</code></td><td class="xlw-v" data-xi="E17">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F17</code></td><td class="xlw-v" data-xi="F17">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>August · Investitionen / Tilgung</td><td><code>G17</code></td><td class="xlw-v" data-xi="G17">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Einzahlungen aus Umsätzen</td><td><code>B18</code></td><td class="xlw-v" data-xi="B18">52.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Sonstige Einzahlungen</td><td><code>C18</code></td><td class="xlw-v" data-xi="C18">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Auszahlungen Material / Waren</td><td><code>D18</code></td><td class="xlw-v" data-xi="D18">18.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Auszahlungen Personal</td><td><code>E18</code></td><td class="xlw-v" data-xi="E18">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F18</code></td><td class="xlw-v" data-xi="F18">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>September · Investitionen / Tilgung</td><td><code>G18</code></td><td class="xlw-v" data-xi="G18">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Einzahlungen aus Umsätzen</td><td><code>B19</code></td><td class="xlw-v" data-xi="B19">56.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Sonstige Einzahlungen</td><td><code>C19</code></td><td class="xlw-v" data-xi="C19">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Auszahlungen Material / Waren</td><td><code>D19</code></td><td class="xlw-v" data-xi="D19">19.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Auszahlungen Personal</td><td><code>E19</code></td><td class="xlw-v" data-xi="E19">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F19</code></td><td class="xlw-v" data-xi="F19">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Oktober · Investitionen / Tilgung</td><td><code>G19</code></td><td class="xlw-v" data-xi="G19">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Einzahlungen aus Umsätzen</td><td><code>B20</code></td><td class="xlw-v" data-xi="B20">62.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Sonstige Einzahlungen</td><td><code>C20</code></td><td class="xlw-v" data-xi="C20">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Auszahlungen Material / Waren</td><td><code>D20</code></td><td class="xlw-v" data-xi="D20">21.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Auszahlungen Personal</td><td><code>E20</code></td><td class="xlw-v" data-xi="E20">32.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F20</code></td><td class="xlw-v" data-xi="F20">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>November · Investitionen / Tilgung</td><td><code>G20</code></td><td class="xlw-v" data-xi="G20">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Einzahlungen aus Umsätzen</td><td><code>B21</code></td><td class="xlw-v" data-xi="B21">48.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Sonstige Einzahlungen</td><td><code>C21</code></td><td class="xlw-v" data-xi="C21">3.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Auszahlungen Material / Waren</td><td><code>D21</code></td><td class="xlw-v" data-xi="D21">17.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Auszahlungen Personal</td><td><code>E21</code></td><td class="xlw-v" data-xi="E21">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Sonstige Auszahlungen (Miete, Zinsen, Steuern)</td><td><code>F21</code></td><td class="xlw-v" data-xi="F21">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Dezember · Investitionen / Tilgung</td><td><code>G21</code></td><td class="xlw-v" data-xi="G21">10.000,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Endbestand Dezember</td><td><code>B41</code></td><td class="xlw-v"><b data-xv="B41">24.000,00 €</b></td></tr>
+<tr><td>Maximaler Kreditbedarf</td><td><code>B43</code></td><td class="xlw-v"><b data-xv="B43">17.000,00 €</b></td></tr>
+<tr><td>Monate mit Unterdeckung</td><td><code>B44</code></td><td class="xlw-v"><b data-xv="B44">3</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 100 Formeln des Blatts „Liquiditätsplan“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B22</td><td>Summe</td><td class="xlw-f">=SUMME(B10:B21)</td><td></td></tr>
+<tr><td>C22</td><td>Summe</td><td class="xlw-f">=SUMME(C10:C21)</td><td></td></tr>
+<tr><td>D22</td><td>Summe</td><td class="xlw-f">=SUMME(D10:D21)</td><td></td></tr>
+<tr><td>E22</td><td>Summe</td><td class="xlw-f">=SUMME(E10:E21)</td><td></td></tr>
+<tr><td>F22</td><td>Summe</td><td class="xlw-f">=SUMME(F10:F21)</td><td></td></tr>
+<tr><td>G22</td><td>Summe</td><td class="xlw-f">=SUMME(G10:G21)</td><td></td></tr>
+<tr><td>B26</td><td>Januar</td><td class="xlw-f">=$B$5</td><td></td></tr>
+<tr><td>C26</td><td>Januar</td><td class="xlw-f">=B10+C10</td><td></td></tr>
+<tr><td>D26</td><td>Januar</td><td class="xlw-f">=SUMME(D10:G10)</td><td></td></tr>
+<tr><td>E26</td><td>Januar</td><td class="xlw-f">=C26-D26</td><td></td></tr>
+<tr><td>F26</td><td>Januar</td><td class="xlw-f">=B26+E26</td><td><small>Endbestand = Anfangsbestand + Einzahlungen − Auszahlungen.</small></td></tr>
+<tr><td>G26</td><td>Januar</td><td class="xlw-f">=MAX(0;-F26)</td><td><small>Negativer Endbestand = benötigter Kontokorrentkredit.</small></td></tr>
+<tr><td>H26</td><td>Januar</td><td class="xlw-f">=WENN(F26&gt;=0;&quot;gedeckt&quot;;WENN(G26&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B27</td><td>Februar</td><td class="xlw-f">=F26</td><td></td></tr>
+<tr><td>C27</td><td>Februar</td><td class="xlw-f">=B11+C11</td><td></td></tr>
+<tr><td>D27</td><td>Februar</td><td class="xlw-f">=SUMME(D11:G11)</td><td></td></tr>
+<tr><td>E27</td><td>Februar</td><td class="xlw-f">=C27-D27</td><td></td></tr>
+<tr><td>F27</td><td>Februar</td><td class="xlw-f">=B27+E27</td><td></td></tr>
+<tr><td>G27</td><td>Februar</td><td class="xlw-f">=MAX(0;-F27)</td><td></td></tr>
+<tr><td>H27</td><td>Februar</td><td class="xlw-f">=WENN(F27&gt;=0;&quot;gedeckt&quot;;WENN(G27&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B28</td><td>März</td><td class="xlw-f">=F27</td><td></td></tr>
+<tr><td>C28</td><td>März</td><td class="xlw-f">=B12+C12</td><td></td></tr>
+<tr><td>D28</td><td>März</td><td class="xlw-f">=SUMME(D12:G12)</td><td></td></tr>
+<tr><td>E28</td><td>März</td><td class="xlw-f">=C28-D28</td><td></td></tr>
+<tr><td>F28</td><td>März</td><td class="xlw-f">=B28+E28</td><td></td></tr>
+<tr><td>G28</td><td>März</td><td class="xlw-f">=MAX(0;-F28)</td><td></td></tr>
+<tr><td>H28</td><td>März</td><td class="xlw-f">=WENN(F28&gt;=0;&quot;gedeckt&quot;;WENN(G28&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B29</td><td>April</td><td class="xlw-f">=F28</td><td></td></tr>
+<tr><td>C29</td><td>April</td><td class="xlw-f">=B13+C13</td><td></td></tr>
+<tr><td>D29</td><td>April</td><td class="xlw-f">=SUMME(D13:G13)</td><td></td></tr>
+<tr><td>E29</td><td>April</td><td class="xlw-f">=C29-D29</td><td></td></tr>
+<tr><td>F29</td><td>April</td><td class="xlw-f">=B29+E29</td><td></td></tr>
+<tr><td>G29</td><td>April</td><td class="xlw-f">=MAX(0;-F29)</td><td></td></tr>
+<tr><td>H29</td><td>April</td><td class="xlw-f">=WENN(F29&gt;=0;&quot;gedeckt&quot;;WENN(G29&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B30</td><td>Mai</td><td class="xlw-f">=F29</td><td></td></tr>
+<tr><td>C30</td><td>Mai</td><td class="xlw-f">=B14+C14</td><td></td></tr>
+<tr><td>D30</td><td>Mai</td><td class="xlw-f">=SUMME(D14:G14)</td><td></td></tr>
+<tr><td>E30</td><td>Mai</td><td class="xlw-f">=C30-D30</td><td></td></tr>
+<tr><td>F30</td><td>Mai</td><td class="xlw-f">=B30+E30</td><td></td></tr>
+<tr><td>G30</td><td>Mai</td><td class="xlw-f">=MAX(0;-F30)</td><td></td></tr>
+<tr><td>H30</td><td>Mai</td><td class="xlw-f">=WENN(F30&gt;=0;&quot;gedeckt&quot;;WENN(G30&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B31</td><td>Juni</td><td class="xlw-f">=F30</td><td></td></tr>
+<tr><td>C31</td><td>Juni</td><td class="xlw-f">=B15+C15</td><td></td></tr>
+<tr><td>D31</td><td>Juni</td><td class="xlw-f">=SUMME(D15:G15)</td><td></td></tr>
+<tr><td>E31</td><td>Juni</td><td class="xlw-f">=C31-D31</td><td></td></tr>
+<tr><td>F31</td><td>Juni</td><td class="xlw-f">=B31+E31</td><td></td></tr>
+<tr><td>G31</td><td>Juni</td><td class="xlw-f">=MAX(0;-F31)</td><td></td></tr>
+<tr><td>H31</td><td>Juni</td><td class="xlw-f">=WENN(F31&gt;=0;&quot;gedeckt&quot;;WENN(G31&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B32</td><td>Juli</td><td class="xlw-f">=F31</td><td></td></tr>
+<tr><td>C32</td><td>Juli</td><td class="xlw-f">=B16+C16</td><td></td></tr>
+<tr><td>D32</td><td>Juli</td><td class="xlw-f">=SUMME(D16:G16)</td><td></td></tr>
+<tr><td>E32</td><td>Juli</td><td class="xlw-f">=C32-D32</td><td></td></tr>
+<tr><td>F32</td><td>Juli</td><td class="xlw-f">=B32+E32</td><td></td></tr>
+<tr><td>G32</td><td>Juli</td><td class="xlw-f">=MAX(0;-F32)</td><td></td></tr>
+<tr><td>H32</td><td>Juli</td><td class="xlw-f">=WENN(F32&gt;=0;&quot;gedeckt&quot;;WENN(G32&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B33</td><td>August</td><td class="xlw-f">=F32</td><td></td></tr>
+<tr><td>C33</td><td>August</td><td class="xlw-f">=B17+C17</td><td></td></tr>
+<tr><td>D33</td><td>August</td><td class="xlw-f">=SUMME(D17:G17)</td><td></td></tr>
+<tr><td>E33</td><td>August</td><td class="xlw-f">=C33-D33</td><td></td></tr>
+<tr><td>F33</td><td>August</td><td class="xlw-f">=B33+E33</td><td></td></tr>
+<tr><td>G33</td><td>August</td><td class="xlw-f">=MAX(0;-F33)</td><td></td></tr>
+<tr><td>H33</td><td>August</td><td class="xlw-f">=WENN(F33&gt;=0;&quot;gedeckt&quot;;WENN(G33&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B34</td><td>September</td><td class="xlw-f">=F33</td><td></td></tr>
+<tr><td>C34</td><td>September</td><td class="xlw-f">=B18+C18</td><td></td></tr>
+<tr><td>D34</td><td>September</td><td class="xlw-f">=SUMME(D18:G18)</td><td></td></tr>
+<tr><td>E34</td><td>September</td><td class="xlw-f">=C34-D34</td><td></td></tr>
+<tr><td>F34</td><td>September</td><td class="xlw-f">=B34+E34</td><td></td></tr>
+<tr><td>G34</td><td>September</td><td class="xlw-f">=MAX(0;-F34)</td><td></td></tr>
+<tr><td>H34</td><td>September</td><td class="xlw-f">=WENN(F34&gt;=0;&quot;gedeckt&quot;;WENN(G34&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B35</td><td>Oktober</td><td class="xlw-f">=F34</td><td></td></tr>
+<tr><td>C35</td><td>Oktober</td><td class="xlw-f">=B19+C19</td><td></td></tr>
+<tr><td>D35</td><td>Oktober</td><td class="xlw-f">=SUMME(D19:G19)</td><td></td></tr>
+<tr><td>E35</td><td>Oktober</td><td class="xlw-f">=C35-D35</td><td></td></tr>
+<tr><td>F35</td><td>Oktober</td><td class="xlw-f">=B35+E35</td><td></td></tr>
+<tr><td>G35</td><td>Oktober</td><td class="xlw-f">=MAX(0;-F35)</td><td></td></tr>
+<tr><td>H35</td><td>Oktober</td><td class="xlw-f">=WENN(F35&gt;=0;&quot;gedeckt&quot;;WENN(G35&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B36</td><td>November</td><td class="xlw-f">=F35</td><td></td></tr>
+<tr><td>C36</td><td>November</td><td class="xlw-f">=B20+C20</td><td></td></tr>
+<tr><td>D36</td><td>November</td><td class="xlw-f">=SUMME(D20:G20)</td><td></td></tr>
+<tr><td>E36</td><td>November</td><td class="xlw-f">=C36-D36</td><td></td></tr>
+<tr><td>F36</td><td>November</td><td class="xlw-f">=B36+E36</td><td></td></tr>
+<tr><td>G36</td><td>November</td><td class="xlw-f">=MAX(0;-F36)</td><td></td></tr>
+<tr><td>H36</td><td>November</td><td class="xlw-f">=WENN(F36&gt;=0;&quot;gedeckt&quot;;WENN(G36&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>B37</td><td>Dezember</td><td class="xlw-f">=F36</td><td></td></tr>
+<tr><td>C37</td><td>Dezember</td><td class="xlw-f">=B21+C21</td><td></td></tr>
+<tr><td>D37</td><td>Dezember</td><td class="xlw-f">=SUMME(D21:G21)</td><td></td></tr>
+<tr><td>E37</td><td>Dezember</td><td class="xlw-f">=C37-D37</td><td></td></tr>
+<tr><td>F37</td><td>Dezember</td><td class="xlw-f">=B37+E37</td><td></td></tr>
+<tr><td>G37</td><td>Dezember</td><td class="xlw-f">=MAX(0;-F37)</td><td></td></tr>
+<tr><td>H37</td><td>Dezember</td><td class="xlw-f">=WENN(F37&gt;=0;&quot;gedeckt&quot;;WENN(G37&lt;=$B$6;&quot;⚠ Unterdeckung – Kreditlinie&quot;;&quot;⚠ Unterdeckung über Kreditlinie!&quot;))</td><td></td></tr>
+<tr><td>C38</td><td>Summe</td><td class="xlw-f">=SUMME(C26:C37)</td><td></td></tr>
+<tr><td>D38</td><td>Summe</td><td class="xlw-f">=SUMME(D26:D37)</td><td></td></tr>
+<tr><td>E38</td><td>Summe</td><td class="xlw-f">=SUMME(E26:E37)</td><td></td></tr>
+<tr><td>B41</td><td>Endbestand Dezember</td><td class="xlw-f">=F37</td><td></td></tr>
+<tr><td>B42</td><td>Niedrigster Endbestand</td><td class="xlw-f">=MIN(F26:F37)</td><td></td></tr>
+<tr><td>C42</td><td>Niedrigster Endbestand</td><td class="xlw-f">=INDEX(A26:A37;VERGLEICH(B42;F26:F37;0))</td><td></td></tr>
+<tr><td>B43</td><td>Maximaler Kreditbedarf</td><td class="xlw-f">=MAX(G26:G37)</td><td><small>Höchste Inanspruchnahme der Kreditlinie im Jahr.</small></td></tr>
+<tr><td>B44</td><td>Monate mit Unterdeckung</td><td class="xlw-f">=ZÄHLENWENN(F26:F37;&quot;&lt;0&quot;)</td><td></td></tr>
+<tr><td>B45</td><td>Monate über der Kreditlinie</td><td class="xlw-f">=ZÄHLENWENN(G26:G37;&quot;&gt;&quot;&amp;B6)</td><td></td></tr>
+<tr><td>B46</td><td>Einschätzung</td><td class="xlw-f">=WENN(B45&gt;0;&quot;Kreditlinie reicht nicht – Zahlungen verschieben oder Linie erhöhen&quot;;WENN(B44&gt;0;&quot;Kreditlinie deckt alle Unterdeckungen&quot;;&quot;Liquidität an allen Monatsenden gesichert&quot;))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>2.100 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 100 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Endbestand Dezember (B41), Maximaler Kreditbedarf (B43), Monate mit Unterdeckung (B44).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 100 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 100 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>2.100 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Controlling &amp; Planung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-plankosten">Flexible Plankostenrechnung (Vollkosten)</a><p>Sollkosten, verrechnete Plankosten sowie Preis-, Verbrauchs- und Beschäftigungsabweichung einer Kostenstelle.</p></li>
+<li><a href="/tools/excel-vorlage-produktionsprogramm">Optimales Produktionsprogramm (ein Engpass)</a><p>Bis 5 Produkte: relativer DB je Engpasseinheit, Rangfolge, Mengen bis zur Kapazitätsgrenze und Gesamt-DB.</p></li>
+<li><a href="/tools/excel-vorlage-cashcycle">Working Capital &amp; Cash Conversion Cycle</a><p>Working Capital, DSO, DIO, DPO und Cash Conversion Cycle in Tagen aus Bilanz und GuV.</p></li>
+<li><a href="/tools/excel-vorlage-ebitda">EBITDA, EBIT, EBT &amp; Margen</a><p>Aus der GuV: Gesamtleistung, EBITDA, EBIT, EBT, Jahresüberschuss und die Margen in % vom Umsatz.</p></li>
+<li><a href="/tools/excel-vorlage-produktivitaet">Produktivität, Wirtschaftlichkeit &amp; Rentabilität</a><p>Kennzahlenblatt: Arbeits-, Maschinen- und Materialproduktivität, Wirtschaftlichkeit, Rentabilitäten, Auslastung.</p></li>
+<li><a href="/tools/excel-vorlage-nutzwertanalyse">Nutzwertanalyse</a><p>Bis 8 Kriterien gewichten, 3 Alternativen bepunkten – gewichtete Nutzwerte, Rangfolge und Gewinner.</p></li>
+<li><a href="/tools/excel-vorlage-sollist">Soll-Ist-Vergleich (Budgetabweichung)</a><p>Bis 10 Positionen: absolute und relative Abweichung, günstig/ungünstig und Ampel nach Toleranzgrenzen.</p></li>
+<li><a href="/tools/excel-vorlage-personalbedarf">Personalbedarfsplanung</a><p>Vom Einsatzbedarf über Reserve- und Bruttobedarf zum Nettopersonalbedarf – mit Abgängen und Zugängen.</p></li>
+<li><a href="/tools/excel-vorlage-mehrproduktbe">Break-even im Mehrproduktunternehmen</a><p>Bis 5 Produkte: Ø DB-Quote aus dem Sortimentsmix, Break-even-Umsatz gesamt und je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

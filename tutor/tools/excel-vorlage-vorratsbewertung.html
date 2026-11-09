@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 39 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-vorratsbewertung">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Vorratsbewertung: Durchschnitt, FIFO & Niederstwertprinzip (Excel-Vorlage)","description":"Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.","url":"https://www.bwlmax.de/tools/excel-vorlage-vorratsbewertung","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</h1>
+<p class="lead">Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>16</b> Eingabefelder</li><li><b>39</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="vorratsbewertung">
+<div class="xl-keys"><div class="xl-key"><small>Gewogener Durchschnitt (periodisch) – Bilanzansatz (strenges NWP)</small><b>13.560,00 €</b></div><div class="xl-key"><small>FIFO (first in – first out) – Bilanzansatz (strenges NWP)</small><b>13.800,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Vorratsbewertung_Durchschnitt_FIFO.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Vorratsbewertung“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:326px"><col style="width:118px"><col style="width:118px"><col style="width:118px"><col style="width:141px"><col style="width:141px"><col style="width:118px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">Lagerbewegungen des Geschäftsjahres</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Bewegung</td><td class="xs-th">Menge (Stück)</td><td class="xs-th">Preis je Stück</td><td class="xs-th">Wert</td><td class="xs-th">FIFO: Menge im Endbestand</td><td class="xs-th">FIFO: Wert im Endbestand</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Anfangsbestand</td><td class="xs-in num">1.000</td><td class="xs-in num">10,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">0</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Zugang 1</td><td class="xs-in num">2.000</td><td class="xs-in num">11,00 €</td><td class="xs-out num">22.000,00 €</td><td class="xs-out num">0</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Zugang 2</td><td class="xs-in num">1.500</td><td class="xs-in num">12,00 €</td><td class="xs-out num">18.000,00 €</td><td class="xs-out num">700</td><td class="xs-out num">8.400,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Zugang 3</td><td class="xs-in num">500</td><td class="xs-in num">13,00 €</td><td class="xs-out num">6.500,00 €</td><td class="xs-out num">500</td><td class="xs-out num">6.500,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-lab">Zugang 4</td><td class="xs-in num">0</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-lab">Zugang 5</td><td class="xs-in num">0</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Zugang 6</td><td class="xs-in num">0</td><td class="xs-in num">0,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">0</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">= Summe Anfangsbestand + Zugänge</td><td class="xs-tot num">5.000</td><td class="xs-empty"></td><td class="xs-tot num">56.500,00 €</td><td class="xs-tot num">1.200</td><td class="xs-tot num">14.900,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-sec" colspan="7">Abgänge und Stichtag</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Abgänge (Verbrauch) gesamt</td><td class="xs-in num">3.800</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Endbestand (Menge)</td><td class="xs-out num">1.200</td><td class="xs-out" colspan="4"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Tageswert je Stück am Bilanzstichtag (z. B. Wiederbeschaffungskosten)</td><td class="xs-in num">11,50 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-sec" colspan="7">Bewertung des Endbestands</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-th">Verfahren</td><td class="xs-th">Preis je Stück</td><td class="xs-th">Wert zu AK</td><td class="xs-th">Wert zum Tageswert</td><td class="xs-th">Bilanzansatz (strenges NWP)</td><td class="xs-th">Abschreibung auf Tageswert</td><td class="xs-th">Verbrauch zu AK</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Gewogener Durchschnitt (periodisch)</td><td class="xs-out num">11,3000</td><td class="xs-out num">13.560,00 €</td><td class="xs-out num">13.800,00 €</td><td class="xs-res num">13.560,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">42.940,00 €</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">FIFO (first in – first out)</td><td class="xs-out num">12,4167</td><td class="xs-out num">14.900,00 €</td><td class="xs-out num">13.800,00 €</td><td class="xs-res num">13.800,00 €</td><td class="xs-out num">1.100,00 €</td><td class="xs-out num">41.600,00 €</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-note" colspan="7">Durchschnitt: Gesamtwert / Gesamtmenge aus Anfangsbestand und allen Zugängen (§ 240 Abs. 4 HGB). FIFO: Der Endbestand stammt aus den letzten Zugängen (§ 256 HGB). Strenges Niederstwertprinzip im Umlaufvermögen (§ 253 Abs. 4 HGB): Liegt der Tageswert darunter, muss auf ihn abgeschrieben werden.</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-note" colspan="7">Preis je Stück bei FIFO = Durchschnittspreis der Endbestandsmenge. Zugänge in zeitlicher Reihenfolge eintragen, leere Zugänge auf 0 lassen.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Vorratsbewertung“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 16 Werte ein; die Datei berechnet daraus unter anderem „Gewogener Durchschnitt (periodisch) – Bilanzansatz (strenges NWP)“ und „FIFO (first in – first out) – Bilanzansatz (strenges NWP)“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Durchschnitt: Gesamtwert / Gesamtmenge aus Anfangsbestand und allen Zugängen (§ 240 Abs. 4 HGB). FIFO: Der Endbestand stammt aus den letzten Zugängen (§ 256 HGB). Strenges Niederstwertprinzip im Umlaufvermögen (§ 253 Abs. 4 HGB): Liegt der Tageswert darunter, muss auf ihn abgeschrieben werden.</li><li>Preis je Stück bei FIFO = Durchschnittspreis der Endbestandsmenge. Zugänge in zeitlicher Reihenfolge eintragen, leere Zugänge auf 0 lassen.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anfangsbestand · Menge (Stück)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">1.000</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Anfangsbestand · Preis je Stück</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">10,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 1 · Menge (Stück)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">2.000</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 1 · Preis je Stück</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">11,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 2 · Menge (Stück)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">1.500</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 2 · Preis je Stück</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">12,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 3 · Menge (Stück)</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">500</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 3 · Preis je Stück</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">13,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 4 · Menge (Stück)</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">0</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 4 · Preis je Stück</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 5 · Menge (Stück)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">0</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 5 · Preis je Stück</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zugang 6 · Menge (Stück)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">0</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Zugang 6 · Preis je Stück</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abgänge (Verbrauch) gesamt</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">3.800</td><td>ab 0, ganze Zahl</td></tr>
+<tr><td>Tageswert je Stück am Bilanzstichtag (z. B. Wiederbeschaffungskosten)</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">11,50 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Gewogener Durchschnitt (periodisch) – Bilanzansatz (strenges NWP)</td><td><code>E21</code></td><td class="xlw-v"><b data-xv="E21">13.560,00 €</b></td></tr>
+<tr><td>FIFO (first in – first out) – Bilanzansatz (strenges NWP)</td><td><code>E22</code></td><td class="xlw-v"><b data-xv="E22">13.800,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 39 Formeln des Blatts „Vorratsbewertung“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>D6</td><td>Anfangsbestand</td><td class="xlw-f">=B6*C6</td><td></td></tr>
+<tr><td>E6</td><td>Anfangsbestand</td><td class="xlw-f">=MIN(B6;MAX(0;$B$16-SUMME(B7:B$12)))</td><td><small>FIFO-Restmenge: Was nicht durch spätere Zugänge im Endbestand abgedeckt ist, kommt aus diesem Posten – höchstens seine Menge.</small></td></tr>
+<tr><td>F6</td><td>Anfangsbestand</td><td class="xlw-f">=E6*C6</td><td></td></tr>
+<tr><td>D7</td><td>Zugang 1</td><td class="xlw-f">=B7*C7</td><td></td></tr>
+<tr><td>E7</td><td>Zugang 1</td><td class="xlw-f">=MIN(B7;MAX(0;$B$16-SUMME(B8:B$12)))</td><td></td></tr>
+<tr><td>F7</td><td>Zugang 1</td><td class="xlw-f">=E7*C7</td><td></td></tr>
+<tr><td>D8</td><td>Zugang 2</td><td class="xlw-f">=B8*C8</td><td></td></tr>
+<tr><td>E8</td><td>Zugang 2</td><td class="xlw-f">=MIN(B8;MAX(0;$B$16-SUMME(B9:B$12)))</td><td></td></tr>
+<tr><td>F8</td><td>Zugang 2</td><td class="xlw-f">=E8*C8</td><td></td></tr>
+<tr><td>D9</td><td>Zugang 3</td><td class="xlw-f">=B9*C9</td><td></td></tr>
+<tr><td>E9</td><td>Zugang 3</td><td class="xlw-f">=MIN(B9;MAX(0;$B$16-SUMME(B10:B$12)))</td><td></td></tr>
+<tr><td>F9</td><td>Zugang 3</td><td class="xlw-f">=E9*C9</td><td></td></tr>
+<tr><td>D10</td><td>Zugang 4</td><td class="xlw-f">=B10*C10</td><td></td></tr>
+<tr><td>E10</td><td>Zugang 4</td><td class="xlw-f">=MIN(B10;MAX(0;$B$16-SUMME(B11:B$12)))</td><td></td></tr>
+<tr><td>F10</td><td>Zugang 4</td><td class="xlw-f">=E10*C10</td><td></td></tr>
+<tr><td>D11</td><td>Zugang 5</td><td class="xlw-f">=B11*C11</td><td></td></tr>
+<tr><td>E11</td><td>Zugang 5</td><td class="xlw-f">=MIN(B11;MAX(0;$B$16-SUMME(B12:B$12)))</td><td></td></tr>
+<tr><td>F11</td><td>Zugang 5</td><td class="xlw-f">=E11*C11</td><td></td></tr>
+<tr><td>D12</td><td>Zugang 6</td><td class="xlw-f">=B12*C12</td><td></td></tr>
+<tr><td>E12</td><td>Zugang 6</td><td class="xlw-f">=MIN(B12;MAX(0;$B$16))</td><td></td></tr>
+<tr><td>F12</td><td>Zugang 6</td><td class="xlw-f">=E12*C12</td><td></td></tr>
+<tr><td>B13</td><td>= Summe Anfangsbestand + Zugänge</td><td class="xlw-f">=SUMME(B6:B12)</td><td></td></tr>
+<tr><td>D13</td><td>= Summe Anfangsbestand + Zugänge</td><td class="xlw-f">=SUMME(D6:D12)</td><td></td></tr>
+<tr><td>E13</td><td>= Summe Anfangsbestand + Zugänge</td><td class="xlw-f">=SUMME(E6:E12)</td><td></td></tr>
+<tr><td>F13</td><td>= Summe Anfangsbestand + Zugänge</td><td class="xlw-f">=SUMME(F6:F12)</td><td></td></tr>
+<tr><td>B16</td><td>Endbestand (Menge)</td><td class="xlw-f">=B13-B15</td><td></td></tr>
+<tr><td>C16</td><td>Endbestand (Menge)</td><td class="xlw-f">=WENN(B16&lt;0;&quot;✗ Abgänge größer als Anfangsbestand + Zugänge&quot;;&quot;&quot;)</td><td></td></tr>
+<tr><td>B21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENNFEHLER(D13/B13;&quot;–&quot;)</td><td><small>Gewogener Durchschnittspreis = Wert (AB + Zugänge) / Menge (AB + Zugänge).</small></td></tr>
+<tr><td>C21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;WENN($B$16=0;0;$B$16*B21))</td><td></td></tr>
+<tr><td>D21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;$B$16*$B$17)</td><td></td></tr>
+<tr><td>E21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;MIN(C21;D21))</td><td><small>Bilanzansatz = niedrigerer Wert aus Anschaffungskosten und Tageswert.</small></td></tr>
+<tr><td>F21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;C21-E21)</td><td></td></tr>
+<tr><td>G21</td><td>Gewogener Durchschnitt (periodisch)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;$D$13-C21)</td><td></td></tr>
+<tr><td>B22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENNFEHLER(F13/E13;&quot;–&quot;)</td><td></td></tr>
+<tr><td>C22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;F13)</td><td></td></tr>
+<tr><td>D22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;$B$16*$B$17)</td><td></td></tr>
+<tr><td>E22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;MIN(C22;D22))</td><td></td></tr>
+<tr><td>F22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;C22-E22)</td><td></td></tr>
+<tr><td>G22</td><td>FIFO (first in – first out)</td><td class="xlw-f">=WENN($B$16&lt;0;&quot;–&quot;;$D$13-C22)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>819 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 39 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Gewogener Durchschnitt (periodisch) (E21), FIFO (first in – first out) (E22).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 39 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 39 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>819 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-abschreibung">Abschreibung: linear vs. degressiv</a><p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-kennzahlen">Bilanzkennzahlen &amp; Rentabilität</a><p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-cashflow">Kapitalflussrechnung (Cashflow indirekt)</a><p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-bewegungsbilanz">Strukturbilanz &amp; Bewegungsbilanz</a><p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.</p></li>
+<li><a href="/tools/excel-vorlage-anlagenspiegel">Anlagenspiegel (Anlagengitter)</a><p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

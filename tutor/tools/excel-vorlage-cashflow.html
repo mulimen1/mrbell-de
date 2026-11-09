@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Kapitalflussrechnung (Cashflow indirekt) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 25 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-cashflow">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Kapitalflussrechnung (Cashflow indirekt) (Excel-Vorlage)","description":"Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.","url":"https://www.bwlmax.de/tools/excel-vorlage-cashflow","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Kapitalflussrechnung (Cashflow indirekt)</h1>
+<p class="lead">Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>24</b> Eingabefelder</li><li><b>25</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="cashflow">
+<div class="xl-keys"><div class="xl-key"><small>Cashflow aus der laufenden Geschäftstätigkeit</small><b>125.000,00 €</b></div><div class="xl-key"><small>Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3)</small><b>12.000,00 €</b></div><div class="xl-key"><small>Finanzmittelfonds am Ende der Periode</small><b>27.000,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Kapitalflussrechnung_Cashflow_indirekt.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Cashflow“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:459px"><col style="width:118px"><col style="width:118px"><col style="width:118px"><col style="width:133px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="5">Kapitalflussrechnung (Cashflow, indirekte Methode)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="5">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="5">Ergebnis und zahlungsunwirksame Posten</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Jahresüberschuss / Jahresfehlbetrag (−)</td><td class="xs-in num">80.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Abschreibungen auf Gegenstände des Anlagevermögens</td><td class="xs-in num">40.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Zuschreibungen auf Gegenstände des Anlagevermögens</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Gewinn (+) / Verlust (−) aus dem Abgang von Anlagevermögen</td><td class="xs-in num">2.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-sec" colspan="5">Bilanzposten (Working Capital und Rückstellungen)</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-th">Bilanzposten</td><td class="xs-th">Vorjahr</td><td class="xs-th">Geschäftsjahr</td><td class="xs-th">Veränderung</td><td class="xs-th">Wirkung auf Cashflow</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Vorräte</td><td class="xs-in num">100.000,00 €</td><td class="xs-in num">110.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num neg">-10.000,00 €</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Forderungen aus Lieferungen und Leistungen</td><td class="xs-in num">60.000,00 €</td><td class="xs-in num">55.000,00 €</td><td class="xs-out num neg">-5.000,00 €</td><td class="xs-out num">5.000,00 €</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Sonstige Aktiva (z. B. aktive RAP)</td><td class="xs-in num">8.000,00 €</td><td class="xs-in num">6.000,00 €</td><td class="xs-out num neg">-2.000,00 €</td><td class="xs-out num">2.000,00 €</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Rückstellungen</td><td class="xs-in num">30.000,00 €</td><td class="xs-in num">35.000,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">5.000,00 €</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Verbindlichkeiten aus Lieferungen und Leistungen</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">46.000,00 €</td><td class="xs-out num">6.000,00 €</td><td class="xs-out num">6.000,00 €</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Sonstige Passiva ohne Finanzschulden (z. B. passive RAP)</td><td class="xs-in num">12.000,00 €</td><td class="xs-in num">11.000,00 €</td><td class="xs-out num neg">-1.000,00 €</td><td class="xs-out num neg">-1.000,00 €</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-sec" colspan="5">1. Cashflow aus der laufenden Geschäftstätigkeit</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Jahresüberschuss / Jahresfehlbetrag</td><td class="xs-out num">80.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">+ Abschreibungen auf Gegenstände des Anlagevermögens</td><td class="xs-out num">40.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">− Zuschreibungen auf Gegenstände des Anlagevermögens</td><td class="xs-out num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">+/− Zunahme / Abnahme der Rückstellungen</td><td class="xs-out num">5.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">−/+ Gewinn / Verlust aus dem Abgang von Anlagevermögen</td><td class="xs-out num neg">-2.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">−/+ Zunahme / Abnahme der Vorräte, Forderungen LuL und sonstigen Aktiva</td><td class="xs-out num neg">-3.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">+/− Zunahme / Abnahme der Verbindlichkeiten LuL und sonstigen Passiva</td><td class="xs-out num">5.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">= Cashflow aus der laufenden Geschäftstätigkeit</td><td class="xs-res num">125.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-sec" colspan="5">2. Cashflow aus der Investitionstätigkeit</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">+ Einzahlungen aus Abgängen von Anlagevermögen</td><td class="xs-in num">12.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">− Auszahlungen für Investitionen in das Anlagevermögen</td><td class="xs-in num">90.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">= Cashflow aus der Investitionstätigkeit</td><td class="xs-tot num neg">-78.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-sec" colspan="5">3. Cashflow aus der Finanzierungstätigkeit</td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-lab">+ Einzahlungen aus Eigenkapitalzuführungen</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-lab">− Auszahlungen an Gesellschafter (Dividenden, Entnahmen)</td><td class="xs-in num">30.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-lab">+ Einzahlungen aus der Aufnahme von (Finanz-)Krediten</td><td class="xs-in num">20.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-lab">− Auszahlungen für die Tilgung von (Finanz-)Krediten</td><td class="xs-in num">25.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-lab">= Cashflow aus der Finanzierungstätigkeit</td><td class="xs-tot num neg">-35.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-sec" colspan="5">Finanzmittelfonds</td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-lab">Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3)</td><td class="xs-res num">12.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-lab">+ Finanzmittelfonds am Anfang der Periode</td><td class="xs-in num">15.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">44</th><td class="xs-lab">= Finanzmittelfonds am Ende der Periode</td><td class="xs-res num">27.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">45</th><td class="xs-lab">Zur Kontrolle: liquide Mittel laut Schlussbilanz</td><td class="xs-in num">27.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">46</th><td class="xs-lab">Abstimmung</td><td class="xs-out" colspan="4">✓ stimmt mit der Bilanz überein</td></tr><tr><th class="xl-rh" scope="row">47</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">48</th><td class="xs-note" colspan="5">Vereinfachung (abweichend von DRS 21): Zinsen und Steuern bleiben hier im Cashflow aus laufender Geschäftstätigkeit. Nach DRS 21 gehören gezahlte Zinsen in den Finanzierungs-, erhaltene Zinsen in den Investitions-Cashflow; Ertragsteuern bleiben operativ. Im Working Capital gilt: Mehr operative Aktiva binden Geld (−), mehr operative Verbindlichkeiten setzen Geld frei (+). Beträge in den Abschnitten 2 und 3 positiv eintragen.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Cashflow“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 24 Werte ein; die Datei berechnet daraus unter anderem „Cashflow aus der laufenden Geschäftstätigkeit“, „Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3)“ und „Finanzmittelfonds am Ende der Periode“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Vereinfachung (abweichend von DRS 21): Zinsen und Steuern bleiben hier im Cashflow aus laufender Geschäftstätigkeit. Nach DRS 21 gehören gezahlte Zinsen in den Finanzierungs-, erhaltene Zinsen in den Investitions-Cashflow; Ertragsteuern bleiben operativ. Im Working Capital gilt: Mehr operative Aktiva binden Geld (−), mehr operative Verbindlichkeiten setzen Geld frei (+). Beträge in den Abschnitten 2 und 3 positiv eintragen.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Jahresüberschuss / Jahresfehlbetrag (−)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">80.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Abschreibungen auf Gegenstände des Anlagevermögens</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zuschreibungen auf Gegenstände des Anlagevermögens</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Gewinn (+) / Verlust (−) aus dem Abgang von Anlagevermögen</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">2.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Vorräte · Vorjahr</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">100.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Vorräte · Geschäftsjahr</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">110.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Forderungen aus Lieferungen und Leistungen · Vorjahr</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">60.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Forderungen aus Lieferungen und Leistungen · Geschäftsjahr</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">55.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Aktiva (z. B. aktive RAP) · Vorjahr</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">8.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Aktiva (z. B. aktive RAP) · Geschäftsjahr</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">6.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Rückstellungen · Vorjahr</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Rückstellungen · Geschäftsjahr</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">35.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Verbindlichkeiten aus Lieferungen und Leistungen · Vorjahr</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Verbindlichkeiten aus Lieferungen und Leistungen · Geschäftsjahr</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">46.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Passiva ohne Finanzschulden (z. B. passive RAP) · Vorjahr</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">12.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Passiva ohne Finanzschulden (z. B. passive RAP) · Geschäftsjahr</td><td><code>C17</code></td><td class="xlw-v" data-xi="C17">11.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Einzahlungen aus Abgängen von Anlagevermögen</td><td><code>B30</code></td><td class="xlw-v" data-xi="B30">12.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Auszahlungen für Investitionen in das Anlagevermögen</td><td><code>B31</code></td><td class="xlw-v" data-xi="B31">90.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Einzahlungen aus Eigenkapitalzuführungen</td><td><code>B35</code></td><td class="xlw-v" data-xi="B35">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Auszahlungen an Gesellschafter (Dividenden, Entnahmen)</td><td><code>B36</code></td><td class="xlw-v" data-xi="B36">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Einzahlungen aus der Aufnahme von (Finanz-)Krediten</td><td><code>B37</code></td><td class="xlw-v" data-xi="B37">20.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Auszahlungen für die Tilgung von (Finanz-)Krediten</td><td><code>B38</code></td><td class="xlw-v" data-xi="B38">25.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Finanzmittelfonds am Anfang der Periode</td><td><code>B43</code></td><td class="xlw-v" data-xi="B43">15.000,00 €</td><td>beliebig</td></tr>
+<tr><td>Zur Kontrolle: liquide Mittel laut Schlussbilanz</td><td><code>B45</code></td><td class="xlw-v" data-xi="B45">27.000,00 €</td><td>beliebig</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Cashflow aus der laufenden Geschäftstätigkeit</td><td><code>B27</code></td><td class="xlw-v"><b data-xv="B27">125.000,00 €</b></td></tr>
+<tr><td>Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3)</td><td><code>B42</code></td><td class="xlw-v"><b data-xv="B42">12.000,00 €</b></td></tr>
+<tr><td>Finanzmittelfonds am Ende der Periode</td><td><code>B44</code></td><td class="xlw-v"><b data-xv="B44">27.000,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 25 Formeln des Blatts „Cashflow“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>D12</td><td>Vorräte</td><td class="xlw-f">=C12-B12</td><td></td></tr>
+<tr><td>E12</td><td>Vorräte</td><td class="xlw-f">=-D12</td><td><small>Steigt ein Aktivposten, ist Geld gebunden worden – das mindert den Cashflow.</small></td></tr>
+<tr><td>D13</td><td>Forderungen aus Lieferungen und Leistungen</td><td class="xlw-f">=C13-B13</td><td></td></tr>
+<tr><td>E13</td><td>Forderungen aus Lieferungen und Leistungen</td><td class="xlw-f">=-D13</td><td></td></tr>
+<tr><td>D14</td><td>Sonstige Aktiva (z. B. aktive RAP)</td><td class="xlw-f">=C14-B14</td><td></td></tr>
+<tr><td>E14</td><td>Sonstige Aktiva (z. B. aktive RAP)</td><td class="xlw-f">=-D14</td><td></td></tr>
+<tr><td>D15</td><td>Rückstellungen</td><td class="xlw-f">=C15-B15</td><td></td></tr>
+<tr><td>E15</td><td>Rückstellungen</td><td class="xlw-f">=D15</td><td></td></tr>
+<tr><td>D16</td><td>Verbindlichkeiten aus Lieferungen und Leistungen</td><td class="xlw-f">=C16-B16</td><td></td></tr>
+<tr><td>E16</td><td>Verbindlichkeiten aus Lieferungen und Leistungen</td><td class="xlw-f">=D16</td><td></td></tr>
+<tr><td>D17</td><td>Sonstige Passiva ohne Finanzschulden (z. B. passive RAP)</td><td class="xlw-f">=C17-B17</td><td></td></tr>
+<tr><td>E17</td><td>Sonstige Passiva ohne Finanzschulden (z. B. passive RAP)</td><td class="xlw-f">=D17</td><td></td></tr>
+<tr><td>B20</td><td>Jahresüberschuss / Jahresfehlbetrag</td><td class="xlw-f">=B5</td><td></td></tr>
+<tr><td>B21</td><td>+ Abschreibungen auf Gegenstände des Anlagevermögens</td><td class="xlw-f">=B6</td><td></td></tr>
+<tr><td>B22</td><td>− Zuschreibungen auf Gegenstände des Anlagevermögens</td><td class="xlw-f">=-B7</td><td></td></tr>
+<tr><td>B23</td><td>+/− Zunahme / Abnahme der Rückstellungen</td><td class="xlw-f">=E15</td><td></td></tr>
+<tr><td>B24</td><td>−/+ Gewinn / Verlust aus dem Abgang von Anlagevermögen</td><td class="xlw-f">=-B8</td><td></td></tr>
+<tr><td>B25</td><td>−/+ Zunahme / Abnahme der Vorräte, Forderungen LuL und sonstigen Aktiva</td><td class="xlw-f">=E12+E13+E14</td><td></td></tr>
+<tr><td>B26</td><td>+/− Zunahme / Abnahme der Verbindlichkeiten LuL und sonstigen Passiva</td><td class="xlw-f">=E16+E17</td><td></td></tr>
+<tr><td>B27</td><td>= Cashflow aus der laufenden Geschäftstätigkeit</td><td class="xlw-f">=SUMME(B20:B26)</td><td><small>Indirekt: Jahresüberschuss + nicht zahlungswirksame Aufwendungen − nicht zahlungswirksame Erträge ± Veränderungen von Working Capital und Rückstellungen.</small></td></tr>
+<tr><td>B32</td><td>= Cashflow aus der Investitionstätigkeit</td><td class="xlw-f">=B30-B31</td><td></td></tr>
+<tr><td>B39</td><td>= Cashflow aus der Finanzierungstätigkeit</td><td class="xlw-f">=B35-B36+B37-B38</td><td></td></tr>
+<tr><td>B42</td><td>Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3)</td><td class="xlw-f">=B27+B32+B39</td><td><small>Summe der drei Cashflows = Veränderung der liquiden Mittel.</small></td></tr>
+<tr><td>B44</td><td>= Finanzmittelfonds am Ende der Periode</td><td class="xlw-f">=B42+B43</td><td></td></tr>
+<tr><td>B46</td><td>Abstimmung</td><td class="xlw-f">=WENN(RUNDEN(B44-B45;2)=0;&quot;✓ stimmt mit der Bilanz überein&quot;;VERKETTEN(&quot;✗ Abweichung: &quot;;RUNDEN(B44-B45;2);&quot; €&quot;))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>525 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 25 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Cashflow aus der laufenden Geschäftstätigkeit (B27), Zahlungswirksame Veränderung des Finanzmittelfonds (1 + 2 + 3) (B42), Finanzmittelfonds am Ende der Periode (B44).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 25 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 25 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>525 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-abschreibung">Abschreibung: linear vs. degressiv</a><p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-kennzahlen">Bilanzkennzahlen &amp; Rentabilität</a><p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-vorratsbewertung">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</a><p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-bewegungsbilanz">Strukturbilanz &amp; Bewegungsbilanz</a><p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.</p></li>
+<li><a href="/tools/excel-vorlage-anlagenspiegel">Anlagenspiegel (Anlagengitter)</a><p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

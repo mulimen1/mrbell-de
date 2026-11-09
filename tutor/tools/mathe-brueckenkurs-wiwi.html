@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Mathe-Brückenkurs Wirtschaftswissenschaften: Auffrischung mit Selbsttests</title>
 <meta name="description" content="Kostenloser Mathe-Vorkurs für Erstsemester in BWL und VWL: Bruch- und Prozentrechnung, Potenzen, Logarithmen, Gleichungen, Funktionen, Zinseszins, Ableitungen und Integrale – mit Beispielen und 50 Aufgaben mit Lösungsweg.">
@@ -55,6 +55,9 @@ button.ghost{background:transparent;color:var(--accent)}
 .score{font-size:.9rem;color:var(--muted)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .small{font-size:.85rem;color:var(--muted)}
+.thema{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.thema label{font-weight:600}
+.thema select{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 9px;max-width:100%}
 footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted)}
 @media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.45rem}.d{font-size:.94em;column-gap:1.4em}}
 @media print{
@@ -62,13 +65,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  :root{--bg:#fff;--fg:#000;--muted:#333;--line:#999;--soft:#f2f2f2;--accent:#000}
  body{font-size:10pt}
  .wrap{max-width:none;padding:0}
- nav.toc,.ans,fieldset,.fb button,.score{display:none!important}
- h2{break-after:avoid}
+ nav.toc,.ans,.fb button,.score,.noprint{display:none!important}
+ fieldset{counter-reset:opt}
+ fieldset input[type=radio]{display:none}
+ fieldset label{display:block;padding:0 0 0 1.6em;text-indent:-1.6em;cursor:auto}
+ fieldset label::before{counter-increment:opt;content:"(" counter(opt,lower-alpha) ")";display:inline-block;width:1.6em;text-indent:0}
+ h2,h3{break-after:avoid}
  .task,.ex{break-inside:avoid}
  a{color:#000;text-decoration:none}
 }
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -78,7 +85,7 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </div>
 <header>
 <h1>Mathe-Brückenkurs für Wirtschaftswissenschaften</h1>
-<p class="lead">Zehn kurze Kapitel frischen das Schulwissen auf, das in Mathematik, Statistik und Mikroökonomik im ersten Semester vorausgesetzt wird. Jedes Kapitel enthält die wichtigsten Regeln, ein durchgerechnetes Beispiel und einen Selbsttest mit fünf Aufgaben samt Lösungsweg. Ohne Anmeldung, nichts wird gespeichert.</p>
+<p class="lead">Zehn kurze Kapitel frischen das Schulwissen auf, das in Mathematik, Statistik und Mikroökonomik im ersten Semester vorausgesetzt wird. Jedes Kapitel enthält die wichtigsten Regeln, ein durchgerechnetes Beispiel und einen Selbsttest mit fünf Aufgaben samt Lösungsweg. Ohne Anmeldung, Ihre Antworten werden nicht gespeichert.</p>
 </header>
 
 <nav class="toc" aria-label="Kapitel">
@@ -94,6 +101,8 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <li><a href="#k8">Folgen, Reihen, Zinseszins</a></li>
 <li><a href="#k9">Ableitungen</a></li>
 <li><a href="#k10">Integralrechnung</a></li>
+<li><a href="#training">Training mit Zufallsaufgaben</a></li>
+<li><a href="#vertrauen">Darauf können Sie sich verlassen</a></li>
 </ol>
 </nav>
 <p class="small">Zahlen können mit Dezimalkomma oder Dezimalpunkt eingegeben werden, Brüche als 3/4. Bei gerundeten Ergebnissen wird eine Abweichung in der letzten geforderten Stelle akzeptiert.</p>
@@ -316,6 +325,35 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <p>Die Konsumentenrente ist die Fläche zwischen Nachfragekurve und Preislinie, hier ein Dreieck: <span class="m">\frac12\cdot 40\cdot 20=400</span>.</p>
 </div>
 <div class="quiz" data-kap="k10"></div>
+</section>
+
+<section id="training" class="noprint" aria-labelledby="h-training">
+<h2 id="h-training">Training mit Zufallsaufgaben</h2>
+<p>Zusätzlich zu den festen Selbsttests: Aufgaben im Stil der Kapitel mit immer neuen Zahlen, jeweils mit vollständigem Lösungsweg. Wählen Sie ein Thema oder lassen Sie die Kapitel gemischt abfragen.</p>
+<p class="thema"><label for="bk-thema">Thema</label>
+<select id="bk-thema">
+<option value="alle">Alle Kapitel gemischt</option>
+<option value="k1">Prozentrechnung (Kapitel 1)</option>
+<option value="k3">Potenzen und Logarithmen (Kapitel 2 und 3)</option>
+<option value="k5">Gleichungen (Kapitel 5)</option>
+<option value="k6">Lineare Gleichungssysteme (Kapitel 6)</option>
+<option value="k7">Ökonomische Funktionen (Kapitel 7)</option>
+<option value="k8">Zinseszins und Renten (Kapitel 8)</option>
+<option value="k9">Ableitungen und Elastizität (Kapitel 9)</option>
+<option value="k10">Integralrechnung (Kapitel 10)</option>
+</select></p>
+<div id="bk-ueb"></div>
+</section>
+
+<section class="bmw-trust noprint" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf können Sie sich verlassen</h2>
+<ul>
+<li><b>Läuft nur in Ihrem Browser</b><span>Ihre Antworten werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Jedes Kapitel nennt die verwendeten Regeln und rechnet ein Beispiel vollständig vor; jede Aufgabe hat einen Lösungsweg. Bei Aufgaben mit Rundung wird eine Abweichung in der letzten geforderten Stelle akzeptiert.</span></li>
+<li><b>Gegengerechnet</b><span>Die Lösungen aller 50 Selbsttest-Aufgaben sind automatisch gegen eine unabhängige Referenzrechnung in Python (NumPy/SciPy) geprüft, ebenso 4.500 zufällig erzeugte Trainingsaufgaben aller 15 Aufgabentypen.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreiben Sie uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
 </section>
 
 <noscript><p>Die Selbsttests benötigen JavaScript. Regeln und Beispiele sind auch ohne JavaScript lesbar.</p></noscript>
@@ -1085,23 +1123,25 @@ function bkCheck(task, input) {
       f.className = 'task'; f.id = uid; f.noValidate = true;
       var h = '<p class="q" id="' + uid + '-q"><span class="nr">Aufgabe ' + t.id + '</span>' + rich(t.frage) + '</p>';
       if (t.typ === 'zahl') {
-        h += '<div class="ans"><label class="lbl" for="' + uid + '-in">Ihre Antwort</label><input type="text" id="' + uid + '-in" inputmode="decimal" autocomplete="off" aria-describedby="' + uid + '-q">' +
+        h += '<div class="ans"><label class="lbl" for="' + uid + '-in">Ihre Antwort</label><input type="text" id="' + uid + '-in" inputmode="decimal" autocomplete="off" aria-describedby="' + uid + '-q ' + uid + '-fb">' +
           (t.einheit ? '<span class="unit">' + t.einheit + '</span>' : '') + '<button type="submit">Prüfen</button><button type="button" class="ghost">Lösung zeigen</button></div>';
       } else {
         h += '<fieldset><legend class="sr">Antwort auswählen</legend>' + t.optionen.map(function (o, j) {
           return '<label><input type="radio" name="' + uid + '" value="' + j + '"><span>' + rich(o) + '</span></label>';
         }).join('') + '</fieldset><div class="ans"><button type="submit">Prüfen</button><button type="button" class="ghost">Lösung zeigen</button></div>';
       }
-      h += '<div class="fb" aria-live="polite"></div>';
+      h += '<div class="fb" id="' + uid + '-fb" aria-live="polite"></div>';
       f.innerHTML = h;
       var fb = f.querySelector('.fb');
       f.addEventListener('submit', function (ev) {
         ev.preventDefault();
         var ok, given;
         if (t.typ === 'zahl') {
-          given = f.querySelector('input').value;
-          if (bkParse(given).length === 0) { fb.innerHTML = '<span class="res bad">Bitte eine Zahl eingeben (z. B. 2,5 oder 5/2).</span>'; return; }
+          var inp = f.querySelector('input');
+          given = inp.value;
+          if (bkParse(given).length === 0) { inp.setAttribute('aria-invalid', 'true'); fb.innerHTML = '<span class="res bad">Bitte eine Zahl eingeben (z. B. 2,5 oder 5/2).</span>'; return; }
           ok = bkCheck(t, given);
+          inp.setAttribute('aria-invalid', ok ? 'false' : 'true');
         } else {
           var sel = f.querySelector('input:checked');
           if (!sel) { fb.innerHTML = '<span class="res bad">Bitte eine Antwort auswählen.</span>'; return; }
@@ -1116,6 +1156,238 @@ function bkCheck(task, input) {
     });
     upd();
   });
+})();
+</script>
+<script>
+// UEB-START
+var BKU = (function () {
+  'use strict';
+  function Z(a, b, s) { return BMW.zufall(a, b, s); }
+  function W(a) { return BMW.wahl(a); }
+  function f(x, nk) { return BMW.fmt(x, nk == null ? 4 : nk); }
+  function fz(x, nk) { var s = new Intl.NumberFormat('de-DE', { minimumFractionDigits: nk, maximumFractionDigits: nk }).format(x); return /^-0(,0*)?$/.test(s) ? s.slice(1) : s; }
+  function T(s) { return String(s).replace(/\./g, '{.}').replace(/,/g, '{,}'); }
+  function tn(x, nk) { return T(f(x, nk)); }
+  function tz(x, nk) { return T(fz(x, nk)); }
+  function tp(x, nk) { return x < 0 ? '(' + tn(x, nk) + ')' : tn(x, nk); }
+  function ex(x, nk) { return Math.abs(Number(x.toFixed(nk)) - x) < 1e-9; }
+  function gl(x, nk) { return ex(x, nk) ? '=' + tn(x, nk) : '\\approx ' + tz(x, nk); }
+  // Polynom-Term mit Vorzeichen: koef·x^pot
+  function term(k, pot, erster) {
+    if (k === 0) return '';
+    var v = k < 0 ? '-' : (erster ? '' : '+'), a = Math.abs(k);
+    var kk = pot === 0 ? tn(a) : (a === 1 ? '' : tn(a));
+    return v + kk + (pot === 0 ? '' : pot === 1 ? 'x' : 'x^{' + pot + '}');
+  }
+  function poly(ks) { var s = '', erst = true; for (var i = 0; i < ks.length; i++) { var t = term(ks[i][0], ks[i][1], erst); if (t) { s += t; erst = false; } } return s || '0'; }
+  function K(t) {
+    if (typeof katex !== 'undefined') { try { return katex.renderToString(t, { throwOnError: true, strict: 'ignore' }); } catch (e) { if (typeof console !== 'undefined') console.error(e.message); } }
+    return t;
+  }
+  function fx(t) { return '<span class="fx">' + K(t) + '</span>'; }
+  function weg(schritte) { return '<ol class="bmw-weg">' + schritte.map(function (s) { return '<li>' + s[0] + (s[1] ? fx(s[1]) : '') + '</li>'; }).join('') + '</ol>'; }
+  function A(text, felder, schritte, p) { return { text: '<p>' + text + '</p>', felder: felder, loesung: weg(schritte), _p: p }; }
+
+  var G = {
+    /* ---- Kapitel 1 ---- */
+    netto: function () {
+      var u = W([19, 7]), B = Z(1000, 99900) / 100, N = B / (1 + u / 100), St = B - N;
+      return A('Ein Artikel kostet brutto ' + fz(B, 2) + ' € einschließlich ' + u + ' % Umsatzsteuer. Berechnen Sie den Nettopreis und den enthaltenen Steuerbetrag (in €, auf zwei Nachkommastellen).',
+        [{ key: 'n', label: 'Nettopreis', einheit: '€', wert: N, tol: 0.01 }, { key: 's', label: 'Steuerbetrag', einheit: '€', wert: St, tol: 0.01 }],
+        [['Der Bruttopreis ist der Nettopreis mal ' + K('1+\\frac{' + u + '}{100}') + ', also zurückrechnen durch Teilen:', '\\text{Netto}=\\frac{' + tz(B, 2) + '}{' + tn(1 + u / 100) + '}' + gl(N, 2)],
+         ['Steuerbetrag = Brutto − Netto', tz(B, 2) + '-' + tz(N, 2) + gl(St, 2)],
+         ['Achtung: ' + K(tn(u / 100) + '\\cdot ' + tz(B, 2) + '\\approx ' + tz(u / 100 * B, 2)) + ' € wäre falsch, weil sich die ' + u + ' % auf den Nettopreis beziehen.']], { typ: 'netto', u: u, B: B });
+    },
+    aenderung: function () {
+      var a = W([5, 10, 15, 20, 25, 30, 40, 50]), b = W([5, 10, 15, 20, 25, 30, 40]), auf = Math.random() < 0.5;
+      var f1 = auf ? 1 + a / 100 : 1 - a / 100, f2 = auf ? 1 - b / 100 : 1 + b / 100, g = (f1 * f2 - 1) * 100;
+      var txt = auf ? 'zuerst um ' + a + ' % erhöht und anschließend um ' + b + ' % gesenkt' : 'zuerst um ' + a + ' % gesenkt und anschließend um ' + b + ' % erhöht';
+      return A('Ein Preis wird ' + txt + '. Um wie viel Prozent hat er sich insgesamt verändert? (Mit Vorzeichen, auf zwei Nachkommastellen.)',
+        [{ key: 'g', label: 'Gesamtänderung', einheit: '%', wert: g, tol: 0.01 }],
+        [['Jede Änderung als Faktor schreiben', '\\text{Faktoren: }' + tn(f1) + '\\ \\text{und}\\ ' + tn(f2)],
+         ['Faktoren multiplizieren (Prozentsätze nicht addieren)', tn(f1) + '\\cdot ' + tn(f2) + gl(f1 * f2, 4)],
+         ['Gesamtfaktor minus 1 ergibt die relative Änderung', '(' + tn(f1 * f2) + '-1)\\cdot 100\\,\\%' + gl(g, 2) + '\\,\\%']], { typ: 'aenderung', a: a, b: b, auf: auf });
+    },
+    /* ---- Kapitel 2/3 ---- */
+    potenz: function () {
+      var d, r, m, neg, v;
+      do { d = W([2, 3, 4]); r = W([2, 3, 4, 5]); m = W([1, 2, 3, 5]); neg = Math.random() < 0.4; v = neg ? 1 / Math.pow(r, m) : Math.pow(r, m); }
+      while (m === d || m % d === 0 || Math.pow(r, d) > 625 || !ex(v, 4) || v > 200);
+      var b = Math.pow(r, d), e = (neg ? '-' : '') + '\\frac{' + m + '}{' + d + '}';
+      return A('Berechnen Sie ' + K(b + '^{' + e + '}') + ' ohne Taschenrechner (Ergebnis als Dezimalzahl).',
+        [{ key: 'v', label: 'Ergebnis', wert: v, nk: 4 }],
+        [['Gebrochener Exponent: Nenner = Wurzel, Zähler = Potenz', 'a^{\\frac mn}=\\left(\\sqrt[n]{a}\\right)^m' + (neg ? ',\\qquad a^{-k}=\\frac1{a^k}' : '')],
+         [{ 2: 'Quadratwurzel', 3: 'Dritte Wurzel', 4: 'Vierte Wurzel' }[d] + ' ziehen', '\\sqrt' + (d === 2 ? '' : '[' + d + ']') + '{' + b + '}=' + r],
+         ['Potenzieren' + (neg ? ' und Kehrwert bilden' : ''), b + '^{' + e + '}=' + (neg ? '\\frac{1}{' + r + '^{' + m + '}}=\\frac{1}{' + Math.pow(r, m) + '}=' : r + '^{' + m + '}=') + tn(v)]], { typ: 'potenz', b: b, e: (neg ? -m : m) / d });
+    },
+    log: function () {
+      var a, b;
+      do { a = W([2, 3, 5, 1.5, 4]); b = Z(5, 300); } while (Math.abs(Math.log(b) / Math.log(a) - Math.round(Math.log(b) / Math.log(a))) < 0.02);
+      var x = Math.log(b) / Math.log(a);
+      return A('Lösen Sie die Gleichung ' + K(tn(a) + '^x=' + b) + ' (auf zwei Nachkommastellen).',
+        [{ key: 'x', label: 'x', wert: x, tol: 0.01 }],
+        [['Beide Seiten logarithmieren und die Regel ' + K('\\ln(a^x)=x\\ln a') + ' anwenden', 'x\\cdot\\ln ' + tn(a) + '=\\ln ' + b],
+         ['Nach x auflösen', 'x=\\frac{\\ln ' + b + '}{\\ln ' + tn(a) + '}\\approx\\frac{' + tz(Math.log(b), 4) + '}{' + tz(Math.log(a), 4) + '}' + gl(x, 2)],
+         ['Probe', tn(a) + '^{' + tz(x, 4) + '}\\approx ' + tz(Math.pow(a, Number(x.toFixed(4))), 2)]], { typ: 'log', a: a, b: b });
+    },
+    dauer: function () {
+      var i, k, n;
+      do { i = W([2, 2.5, 3, 4, 5, 6, 8]); k = W([1.5, 2, 3]); n = Math.log(k) / Math.log(1 + i / 100); } while (Math.abs(n - Math.round(n)) < 0.03);
+      var nv = Math.ceil(n);
+      return A('Ein Kapital wird mit ' + f(i) + ' % pro Jahr verzinst (Zinseszins). Nach wie vielen Jahren hat es sich ' + (k === 2 ? 'verdoppelt' : k === 3 ? 'verdreifacht' : 'auf das 1,5-Fache erhöht') + '? Geben Sie die rechnerische Laufzeit (auf zwei Nachkommastellen) und die Anzahl der vollen Jahre an, nach denen das Ziel erstmals erreicht ist.',
+        [{ key: 'n', label: 'Rechnerische Laufzeit', einheit: 'Jahre', wert: n, tol: 0.01 }, { key: 'v', label: 'Volle Jahre', einheit: 'Jahre', wert: nv, nk: 0 }],
+        [['Ansatz mit dem Zinsfaktor ' + K('q=' + tn(1 + i / 100)), tn(1 + i / 100) + '^n=' + tn(k)],
+         ['Logarithmieren', 'n=\\frac{\\ln ' + tn(k) + '}{\\ln ' + tn(1 + i / 100) + '}\\approx\\frac{' + tz(Math.log(k), 4) + '}{' + tz(Math.log(1 + i / 100), 4) + '}' + gl(n, 2)],
+         ['Zinsen werden am Jahresende gutgeschrieben: auf volle Jahre aufrunden', 'n=' + nv + '\\quad(\\text{Kontrolle: }' + tn(1 + i / 100) + '^{' + (nv - 1) + '}\\approx ' + tz(Math.pow(1 + i / 100, nv - 1), 3) + ',\\ ' + tn(1 + i / 100) + '^{' + nv + '}\\approx ' + tz(Math.pow(1 + i / 100, nv), 3) + ')']], { typ: 'dauer', i: i, k: k });
+    },
+    /* ---- Kapitel 5 ---- */
+    quadr: function () {
+      var a = W([1, 1, 2, 3, -1]), r1, r2;
+      do { r1 = Z(-9, 9); r2 = Z(-9, 9); } while (r1 >= r2);
+      var b = -a * (r1 + r2), c = a * r1 * r2, p = b / a, q = c / a;
+      var steps = [];
+      if (a !== 1) steps.push(['Durch ' + tp(a) + ' teilen (Normalform)', poly([[1, 2], [p, 1], [q, 0]]) + '=0']);
+      steps.push(['p-q-Formel mit ' + K('p=' + tn(p)) + ' und ' + K('q=' + tn(q)), 'x_{1,2}=-\\frac p2\\pm\\sqrt{\\Bigl(\\frac p2\\Bigr)^2-q}=' + tn(-p / 2) + '\\pm\\sqrt{' + tn(p * p / 4) + (q < 0 ? '+' + tn(-q) : '-' + tn(q)) + '}=' + tn(-p / 2) + '\\pm ' + tn((r2 - r1) / 2)]);
+      steps.push(['Lösungen', 'x_1=' + r1 + ',\\qquad x_2=' + r2]);
+      steps.push(['Probe über die Linearfaktoren', (a === 1 ? '' : a === -1 ? '-' : tn(a)) + '(x' + (r1 < 0 ? '+' + (-r1) : r1 === 0 ? '' : '-' + r1) + ')(x' + (r2 < 0 ? '+' + (-r2) : r2 === 0 ? '' : '-' + r2) + ')=' + poly([[a, 2], [b, 1], [c, 0]])]);
+      return A('Lösen Sie die quadratische Gleichung ' + K(poly([[a, 2], [b, 1], [c, 0]]) + '=0') + '.',
+        [{ key: 'x1', label: 'Kleinere Lösung', wert: r1, nk: 2 }, { key: 'x2', label: 'Größere Lösung', wert: r2, nk: 2 }], steps, { typ: 'quadr', a: a, b: b, c: c });
+    },
+    linear: function () {
+      var x0, a, b, c, d;
+      do { x0 = Z(-8, 8); a = W([2, 3, 4, 5, -2, -3]); b = Z(-6, 6); c = Z(-5, 5); } while (c === a || b === 0 || c === 0);
+      d = a * (x0 - b) - c * x0;
+      return A('Lösen Sie die Gleichung ' + K(tn(a) + '\\,(x' + (b < 0 ? '+' + (-b) : '-' + b) + ')=' + poly([[c, 1], [d, 0]])) + '.',
+        [{ key: 'x', label: 'x', wert: x0, nk: 2 }],
+        [['Klammer ausmultiplizieren', poly([[a, 1], [-a * b, 0]]) + '=' + poly([[c, 1], [d, 0]])],
+         ['x-Terme nach links, Zahlen nach rechts', poly([[a - c, 1]]) + '=' + tn(d + a * b)],
+         ['Durch ' + tp(a - c) + ' teilen', 'x=\\frac{' + tn(d + a * b) + '}{' + tn(a - c) + '}=' + tn(x0)]], { typ: 'linear', a: a, b: b, c: c, d: d });
+    },
+    /* ---- Kapitel 6 ---- */
+    lgs: function () {
+      var a1, b1, a2, b2, x, y, det;
+      do { a1 = Z(-5, 6); b1 = Z(-5, 6); a2 = Z(-5, 6); b2 = Z(-5, 6); x = Z(-6, 9); y = Z(-6, 9); det = a1 * b2 - a2 * b1; }
+      while (!det || !a1 || !b1 || !a2 || !b2 || Math.abs(det) > 30);
+      var c1 = a1 * x + b1 * y, c2 = a2 * x + b2 * y;
+      var g1 = poly([[a1, 1]]) + poly([[b1, 1]]).replace(/^(?!-)/, '+').replace(/x/, 'y') + '=' + c1, g2 = poly([[a2, 1]]) + poly([[b2, 1]]).replace(/^(?!-)/, '+').replace(/x/, 'y') + '=' + c2;
+      // Additionsverfahren: I·a2 − II·a1 eliminiert x
+      var by = b1 * a2 - b2 * a1, cy = c1 * a2 - c2 * a1;
+      return A('Lösen Sie das lineare Gleichungssystem ' + K('\\text{I: }' + g1) + ' und ' + K('\\text{II: }' + g2) + '.',
+        [{ key: 'x', label: 'x', wert: x, nk: 2 }, { key: 'y', label: 'y', wert: y, nk: 2 }],
+        [['Additionsverfahren: ' + K(tp(a2) + '\\cdot\\text{I}-' + tp(a1) + '\\cdot\\text{II}') + ' eliminiert x', tn(by) + 'y=' + tn(cy)],
+         ['Nach y auflösen', 'y=\\frac{' + tn(cy) + '}{' + tn(by) + '}=' + y],
+         ['In Gleichung I einsetzen', tn(a1) + 'x' + (b1 * y < 0 ? '' : '+') + tn(b1 * y) + '=' + c1 + '\\;\\Rightarrow\\;x=\\frac{' + tn(c1 - b1 * y) + '}{' + tn(a1) + '}=' + x],
+         ['Probe in II', tn(a2) + '\\cdot ' + tp(x) + '+' + tp(b2) + '\\cdot ' + tp(y) + '=' + c2]], { typ: 'lgs', A: [[a1, b1], [a2, b2]], c: [c1, c2] });
+    },
+    /* ---- Kapitel 7 ---- */
+    gewinn: function () {
+      var a = W([0.5, 1, 2, 2.5]), xs = Z(10, 60, 5), b = 2 * a * xs, gm, c;
+      do { c = Z(1, Math.floor(a * xs * xs * 0.8 / 10)) * 10; gm = a * xs * xs - c; } while (gm <= 0);
+      return A('Die Gewinnfunktion eines Unternehmens lautet ' + K('G(x)=' + poly([[-a, 2], [b, 1], [-c, 0]])) + ' (x in Stück, G in €). Bei welcher Menge ist der Gewinn maximal, und wie hoch ist er?',
+        [{ key: 'x', label: 'Gewinnmaximale Menge', einheit: 'Stück', wert: xs, nk: 2 }, { key: 'g', label: 'Maximaler Gewinn', einheit: '€', wert: gm, nk: 2 }],
+        [['Nach unten geöffnete Parabel: Maximum im Scheitel', 'x_S=-\\frac{b}{2a}=-\\frac{' + tn(b) + '}{2\\cdot(' + tn(-a) + ')}=' + xs],
+         ['Alternativ: ' + K("G'(x)=" + poly([[-2 * a, 1], [b, 0]]) + '=0'), 'x=' + xs],
+         ['Gewinn einsetzen', 'G(' + xs + ')=' + tn(-a) + '\\cdot ' + xs + '^2+' + tn(b) + '\\cdot ' + xs + '-' + tn(c) + '=' + tn(gm)]], { typ: 'gewinn', a: a, b: b, c: c });
+    },
+    breakeven: function () {
+      var x0 = Z(20, 400, 10), db = W([2, 4, 5, 8, 10, 12, 15, 20, 25]), kv = Z(5, 80), p = kv + db, kf = x0 * db;
+      return A('Ein Produkt wird zu ' + fz(p, 2).replace(/,00$/, '') + ' € je Stück verkauft. Die Kostenfunktion lautet ' + K('K(x)=' + tn(kf) + '+' + tn(kv) + 'x') + '. Bei welcher Menge liegt die Gewinnschwelle?',
+        [{ key: 'x', label: 'Gewinnschwelle', einheit: 'Stück', wert: x0, nk: 2 }],
+        [['Gewinnfunktion aufstellen', 'G(x)=E(x)-K(x)=' + tn(p) + 'x-' + tn(kf) + '-' + tn(kv) + 'x=' + tn(db) + 'x-' + tn(kf)],
+         ['Gewinnschwelle: G(x) = 0', 'x=\\frac{' + tn(kf) + '}{' + tn(db) + '}=' + tn(x0)],
+         ['Deutung: Jedes Stück deckt ' + f(db) + ' € Fixkosten (Deckungsbeitrag); nach ' + f(x0) + ' Stück sind die Fixkosten gedeckt.', '']], { typ: 'breakeven', p: p, kf: kf, kv: kv });
+    },
+    /* ---- Kapitel 8 ---- */
+    zins: function () {
+      var art = W(['end', 'bar', 'rente']), i = W([1.5, 2, 2.5, 3, 4, 5, 6]), n = Z(3, 12), q = 1 + i / 100, v;
+      if (art === 'end') {
+        var K0 = Z(10, 200) * 100; v = K0 * Math.pow(q, n);
+        return A(f(K0) + ' € werden ' + n + ' Jahre lang zu ' + f(i) + ' % p. a. mit Zinseszins angelegt. Wie hoch ist das Endkapital (in €, auf zwei Nachkommastellen)?',
+          [{ key: 'k', label: 'Endkapital', einheit: '€', wert: v, tol: 0.01 }],
+          [['Zinseszinsformel', 'K_n=K_0\\,q^n\\quad\\text{mit } q=' + tn(q)], ['Einsetzen', 'K_{' + n + '}=' + tn(K0) + '\\cdot ' + tn(q) + '^{' + n + '}\\approx ' + tn(K0) + '\\cdot ' + tz(Math.pow(q, n), 6) + gl(v, 2)]], { typ: 'end', K0: K0, i: i, n: n });
+      }
+      if (art === 'bar') {
+        var Kn = Z(10, 200) * 100; v = Kn / Math.pow(q, n);
+        return A('Welchen Barwert hat eine Zahlung von ' + f(Kn) + ' €, die in ' + n + ' Jahren fällig ist, bei ' + f(i) + ' % p. a. (in €, auf zwei Nachkommastellen)?',
+          [{ key: 'k', label: 'Barwert', einheit: '€', wert: v, tol: 0.01 }],
+          [['Abzinsen', 'K_0=\\frac{K_n}{q^n}\\quad\\text{mit } q=' + tn(q)], ['Einsetzen', 'K_0=\\frac{' + tn(Kn) + '}{' + tn(q) + '^{' + n + '}}\\approx\\frac{' + tn(Kn) + '}{' + tz(Math.pow(q, n), 6) + '}' + gl(v, 2)]], { typ: 'bar', Kn: Kn, i: i, n: n });
+      }
+      var r = Z(5, 60) * 50; v = r * (Math.pow(q, n) - 1) / (q - 1);
+      return A('Sie zahlen ' + n + ' Jahre lang jeweils am Jahresende ' + f(r) + ' € auf ein Konto mit ' + f(i) + ' % Zinsen p. a. Wie hoch ist das Guthaben direkt nach der letzten Zahlung (in €, auf zwei Nachkommastellen)?',
+        [{ key: 'k', label: 'Endwert', einheit: '€', wert: v, tol: 0.01 }],
+        [['Nachschüssiger Rentenendwert (geometrische Reihe)', 'R_n=r\\,\\frac{q^n-1}{q-1}\\quad\\text{mit } q=' + tn(q)],
+         ['Einsetzen', 'R_{' + n + '}=' + tn(r) + '\\cdot\\frac{' + tn(q) + '^{' + n + '}-1}{' + tn(q - 1) + '}\\approx ' + tn(r) + '\\cdot ' + tz((Math.pow(q, n) - 1) / (q - 1), 6) + gl(v, 2)]], { typ: 'rente', r: r, i: i, n: n });
+    },
+    /* ---- Kapitel 9 ---- */
+    ableitung: function () {
+      var art = W(['poly', 'kette']);
+      if (art === 'poly') {
+        var a = Z(-4, 5), b = Z(-6, 6), c = Z(-9, 9), d = Z(-9, 9), x0 = Z(-3, 4);
+        if (!a) a = 2;
+        var v = 3 * a * x0 * x0 + 2 * b * x0 + c;
+        return A('Gegeben ist ' + K('f(x)=' + poly([[a, 3], [b, 2], [c, 1], [d, 0]])) + '. Berechnen Sie ' + K("f'(" + x0 + ')') + '.',
+          [{ key: 'v', label: "f'(" + x0 + ')', wert: v, nk: 2 }],
+          [['Potenz-, Faktor- und Summenregel; die Konstante fällt weg', "f'(x)=" + poly([[3 * a, 2], [2 * b, 1], [c, 0]])],
+           ['x = ' + x0 + ' einsetzen', "f'(" + x0 + ')=' + tn(3 * a) + '\\cdot ' + tp(x0) + '^2' + (2 * b < 0 ? '' : '+') + tn(2 * b) + '\\cdot ' + tp(x0) + (c < 0 ? '' : '+') + tn(c) + '=' + tn(v)]], { typ: 'poly', k: [a, b, c, d], x0: x0 });
+      }
+      var a2 = W([2, 3, 4, -2]), b2 = Z(-5, 5), n = W([2, 3, 4]), x1 = Z(-2, 3);
+      if (!b2) b2 = 1;
+      if (a2 * x1 + b2 === 0) x1 = x1 === 3 ? 2 : x1 + 1;   // innere Funktion ≠ 0, sonst trivial
+      var inn = a2 * x1 + b2, v2 = n * a2 * Math.pow(inn, n - 1);
+      return A('Gegeben ist ' + K('f(x)=(' + poly([[a2, 1], [b2, 0]]) + ')^{' + n + '}') + '. Berechnen Sie ' + K("f'(" + x1 + ')') + '.',
+        [{ key: 'v', label: "f'(" + x1 + ')', wert: v2, nk: 2 }],
+        [['Kettenregel: äußere Ableitung mal innere Ableitung', "f'(x)=" + n + '\\cdot(' + poly([[a2, 1], [b2, 0]]) + ')' + (n > 2 ? '^{' + (n - 1) + '}' : '') + '\\cdot ' + tp(a2)],
+         ['x = ' + x1 + ' einsetzen', "f'(" + x1 + ')=' + n + '\\cdot ' + tp(inn) + (n > 2 ? '^{' + (n - 1) + '}' : '') + '\\cdot ' + tp(a2) + '=' + tn(v2)]], { typ: 'kette', a: a2, b: b2, n: n, x0: x1 });
+    },
+    elastizitaet: function () {
+      var a, b, p;
+      do { a = Z(100, 600, 20); b = W([1, 2, 3, 4, 5]); p = Z(5, 150, 5); } while (a - b * p <= 10 || Math.abs(b * p / (a - b * p) - 1) < 0.05);
+      var x = a - b * p, e = -b * p / x;
+      return A('Die Nachfragefunktion lautet ' + K('x(p)=' + tn(a) + '-' + (b === 1 ? '' : tn(b)) + 'p') + '. Berechnen Sie die Preiselastizität der Nachfrage beim Preis ' + K('p=' + p) + ' (mit Vorzeichen, auf zwei Nachkommastellen) und entscheiden Sie, ob die Nachfrage dort elastisch ist.',
+        [{ key: 'e', label: 'Preiselastizität', wert: e, tol: 0.01 }, { key: 'w', label: 'Nachfrage bei diesem Preis', wahl: ['elastisch', 'unelastisch'], wert: Math.abs(e) > 1 ? 'elastisch' : 'unelastisch' }],
+        [['Formel', "\\varepsilon=x'(p)\\cdot\\frac{p}{x(p)}"],
+         ['Ableitung und Menge', "x'(p)=-" + tn(b) + ',\\qquad x(' + p + ')=' + tn(a) + '-' + tn(b) + '\\cdot ' + p + '=' + tn(x)],
+         ['Einsetzen', '\\varepsilon=-' + tn(b) + '\\cdot\\frac{' + p + '}{' + tn(x) + '}' + gl(e, 2)],
+         [Math.abs(e) > 1 ? K('\\lvert\\varepsilon\\rvert\\gt 1') + ': elastisch – eine Preiserhöhung um 1 % senkt die Menge um mehr als 1 %.' : K('\\lvert\\varepsilon\\rvert\\lt 1') + ': unelastisch – eine Preiserhöhung um 1 % senkt die Menge um weniger als 1 %.', '']], { typ: 'elast', a: a, b: b, p: p });
+    },
+    /* ---- Kapitel 10 ---- */
+    integral: function () {
+      var c = Z(-2, 3), d = Z(-4, 5), e = Z(-6, 8), lo = Z(-2, 2), hi;
+      do { hi = Z(lo + 1, lo + 4); } while (hi === lo);
+      if (!c && !d) c = 1;
+      var F = function (x) { return c * x * x * x + d * x * x + e * x; }, v = F(hi) - F(lo);
+      return A('Berechnen Sie ' + K('\\displaystyle\\int_{' + lo + '}^{' + hi + '}\\bigl(' + poly([[3 * c, 2], [2 * d, 1], [e, 0]]) + '\\bigr)\\,dx') + '.',
+        [{ key: 'v', label: 'Wert des Integrals', wert: v, nk: 2 }],
+        [['Stammfunktion mit ' + K('\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}'), 'F(x)=' + poly([[c, 3], [d, 2], [e, 1]])],
+         ['Obere minus untere Grenze', 'F(' + hi + ')-F(' + lo + ')=' + tp(F(hi)) + '-' + tp(F(lo)) + '=' + tn(v)]], { typ: 'integral', k: [3 * c, 2 * d, e], lo: lo, hi: hi });
+    },
+    rente: function () {
+      var b = W([0.5, 1, 2, 4]), xs = Z(10, 60, 5), ps = Z(5, 60, 5), a = ps + b * xs, KR = 0.5 * xs * (a - ps), bx = (b === 1 ? '' : tn(b)) + 'x';
+      return A('Die Nachfragefunktion lautet ' + K('p(x)=' + tn(a) + '-' + (b === 1 ? '' : tn(b)) + 'x') + ', der Marktpreis beträgt ' + K('p^*=' + ps) + '. Berechnen Sie die Konsumentenrente.',
+        [{ key: 'k', label: 'Konsumentenrente', wert: KR, nk: 2 }],
+        [['Absatzmenge beim Marktpreis', tn(a) + '-' + bx + '=' + ps + '\\;\\Rightarrow\\;x^*=' + xs],
+         ['Konsumentenrente = Fläche unter der Nachfragekurve minus Ausgaben', 'KR=\\int_0^{' + xs + '}(' + tn(a) + '-' + bx + ')\\,dx-' + ps + '\\cdot ' + xs],
+         ['Stammfunktion einsetzen', '=\\Bigl[' + tn(a) + 'x-' + tn(b / 2) + 'x^2\\Bigr]_0^{' + xs + '}-' + tn(ps * xs) + '=' + tn(a * xs - b / 2 * xs * xs) + '-' + tn(ps * xs) + '=' + tn(KR)],
+         ['Kontrolle als Dreiecksfläche', '\\tfrac12\\cdot ' + xs + '\\cdot(' + tn(a) + '-' + ps + ')=' + tn(KR)]], { typ: 'rente', a: a, b: b, ps: ps });
+    }
+  };
+  var THEMEN = { k1: ['netto', 'aenderung'], k3: ['potenz', 'log', 'dauer'], k5: ['quadr', 'linear'], k6: ['lgs'], k7: ['gewinn', 'breakeven'], k8: ['zins'], k9: ['ableitung', 'elastizitaet'], k10: ['integral', 'rente'] };
+  function neu(thema) {
+    var k = THEMEN[thema] ? thema : W(Object.keys(THEMEN));
+    return G[W(THEMEN[k])]();
+  }
+  return { neu: neu, G: G, THEMEN: THEMEN };
+})();
+// UEB-END
+(function () {
+  if (!window.BMW || !BMW.uebung) return;
+  var sel = document.getElementById('bk-thema'), m = document.getElementById('bk-ueb');
+  var u = BMW.uebung(m, { titel: 'Zufallsaufgabe', hinweis: 'Neue Aufgabe würfeln, selbst rechnen, Ergebnis eintragen – die Eingabe wird geprüft, auf Wunsch erscheint der vollständige Lösungsweg. Dezimalzahlen mit Komma oder Punkt; bei gerundeten Ergebnissen gilt eine Abweichung in der letzten geforderten Stelle als richtig.', neu: function () { return BKU.neu(sel.value); } });
+  // Notlösung: „Prüfen“ steht in bm-werkzeug.js v3 außerhalb des Formulars – per form-Attribut verbinden
+  var f = m.querySelector('form.bmw-ueb-form'), k = m.querySelector('.bmw-ueb-btns button[type=submit]');
+  if (f && k && !k.form) { f.id = 'bk-ueb-form'; k.setAttribute('form', f.id); }
+  sel.addEventListener('change', function () { u.neu(); });
+  BMW.leiste(document.querySelector('header'), { drucken: true, druckText: 'Kurs drucken / als PDF' });
 })();
 </script>
 </body>

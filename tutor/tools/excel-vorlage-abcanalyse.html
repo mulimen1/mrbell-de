@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>ABC-Analyse – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Bis 15 Artikel nach Verbrauchswert sortieren, kumulierte Anteile bilden und in A-, B-, C-Güter einteilen. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 192 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-abcanalyse">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"ABC-Analyse (Excel-Vorlage)","description":"Bis 15 Artikel nach Verbrauchswert sortieren, kumulierte Anteile bilden und in A-, B-, C-Güter einteilen.","url":"https://www.bwlmax.de/tools/excel-vorlage-abcanalyse","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Beschaffung, Produktion & Logistik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Beschaffung, Produktion &amp; Logistik</p>
+<h1>Excel-Vorlage: ABC-Analyse</h1>
+<p class="lead">Bis 15 Artikel nach Verbrauchswert sortieren, kumulierte Anteile bilden und in A-, B-, C-Güter einteilen. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>47</b> Eingabefelder</li><li><b>192</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="abcanalyse">
+<div class="xl-keys"><div class="xl-key"><small>A-Güter – Anzahl Artikel</small><b>3</b></div><div class="xl-key"><small>A-Güter – Wertanteil</small><b>80,00 %</b></div><div class="xl-key"><small>A-Güter – Mengenanteil</small><b>2,26 %</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">ABC-Analyse.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „ABC-Analyse“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:178px"><col style="width:163px"><col style="width:104px"><col style="width:126px"><col style="width:96px"><col style="width:126px"><col style="width:111px"><col style="width:74px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">ABC-Analyse</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">1. Artikeldaten (bis 15 Artikel, freie Zeilen leer lassen)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Artikel</td><td class="xs-th">Jahresverbrauch (Menge)</td><td class="xs-th">Preis je Einheit</td><td class="xs-th">Verbrauchswert</td><td class="xs-th">Rang</td><td class="xs-th">Sortierwert (Hilfsspalte)</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-in">Getriebe</td><td class="xs-in num">200,00</td><td class="xs-in num">210,00 €</td><td class="xs-out num">42.000,00 €</td><td class="xs-out num">1</td><td class="xs-out num">42.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-in">Schrauben M6</td><td class="xs-in num">20.000,00</td><td class="xs-in num">0,10 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">8</td><td class="xs-out num">2.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Gehäuse</td><td class="xs-in num">1.000,00</td><td class="xs-in num">5,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">3</td><td class="xs-out num">5.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Elektromotor</td><td class="xs-in num">150,00</td><td class="xs-in num">220,00 €</td><td class="xs-out num">33.000,00 €</td><td class="xs-out num">2</td><td class="xs-out num">33.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Dichtungen</td><td class="xs-in num">2.000,00</td><td class="xs-in num">1,50 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">6</td><td class="xs-out num">3.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">Steuerung</td><td class="xs-in num">40,00</td><td class="xs-in num">125,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">4</td><td class="xs-out num">5.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in">Kabelsatz</td><td class="xs-in num">800,00</td><td class="xs-in num">5,00 €</td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">5</td><td class="xs-out num">4.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-in">Unterlegscheiben</td><td class="xs-in num">25.000,00</td><td class="xs-in num">0,04 €</td><td class="xs-out num">1.000,00 €</td><td class="xs-out num">10</td><td class="xs-out num">1.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-in">Kugellager</td><td class="xs-in num">500,00</td><td class="xs-in num">6,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">7</td><td class="xs-out num">3.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-in">Etiketten</td><td class="xs-in num">10.000,00</td><td class="xs-in num">0,20 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">9</td><td class="xs-out num">2.000,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num">-1,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num">-1,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num">-1,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num">-1,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-in"></td><td class="xs-in num"></td><td class="xs-in num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num">-1,00</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Summe</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-tot num">100.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-sec" colspan="8">2. Klassengrenzen (kumulierter Wertanteil)</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">A-Güter bis kumuliert</td><td class="xs-in num">80,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">B-Güter bis kumuliert</td><td class="xs-in num">95,00 %</td><td class="xs-out" colspan="4">✓</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Anzahl erfasster Artikel</td><td class="xs-out num">10</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-sec" colspan="8">3. ABC-Tabelle (absteigend nach Verbrauchswert)</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-th">Rang</td><td class="xs-th">Artikel</td><td class="xs-th">Menge</td><td class="xs-th">Verbrauchswert</td><td class="xs-th">Wertanteil</td><td class="xs-th">Wertanteil kumuliert</td><td class="xs-th">Mengenanteil</td><td class="xs-th">Klasse</td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-out num">1</td><td class="xs-out">Getriebe</td><td class="xs-out num">200,00</td><td class="xs-out num">42.000,00 €</td><td class="xs-out num">42,00 %</td><td class="xs-out num">42,00 %</td><td class="xs-out num">0,34 %</td><td class="xs-out">A</td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-out num">2</td><td class="xs-out">Elektromotor</td><td class="xs-out num">150,00</td><td class="xs-out num">33.000,00 €</td><td class="xs-out num">33,00 %</td><td class="xs-out num">75,00 %</td><td class="xs-out num">0,25 %</td><td class="xs-out">A</td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out num">3</td><td class="xs-out">Gehäuse</td><td class="xs-out num">1.000,00</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">5,00 %</td><td class="xs-out num">80,00 %</td><td class="xs-out num">1,68 %</td><td class="xs-out">A</td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out num">4</td><td class="xs-out">Steuerung</td><td class="xs-out num">40,00</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">5,00 %</td><td class="xs-out num">85,00 %</td><td class="xs-out num">0,07 %</td><td class="xs-out">B</td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-out num">5</td><td class="xs-out">Kabelsatz</td><td class="xs-out num">800,00</td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">4,00 %</td><td class="xs-out num">89,00 %</td><td class="xs-out num">1,34 %</td><td class="xs-out">B</td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-out num">6</td><td class="xs-out">Dichtungen</td><td class="xs-out num">2.000,00</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">3,00 %</td><td class="xs-out num">92,00 %</td><td class="xs-out num">3,35 %</td><td class="xs-out">B</td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-out num">7</td><td class="xs-out">Kugellager</td><td class="xs-out num">500,00</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">3,00 %</td><td class="xs-out num">95,00 %</td><td class="xs-out num">0,84 %</td><td class="xs-out">B</td></tr><tr><th class="xl-rh" scope="row">35</th><td class="xs-out num">8</td><td class="xs-out">Schrauben M6</td><td class="xs-out num">20.000,00</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">2,00 %</td><td class="xs-out num">97,00 %</td><td class="xs-out num">33,51 %</td><td class="xs-out">C</td></tr><tr><th class="xl-rh" scope="row">36</th><td class="xs-out num">9</td><td class="xs-out">Etiketten</td><td class="xs-out num">10.000,00</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">2,00 %</td><td class="xs-out num">99,00 %</td><td class="xs-out num">16,75 %</td><td class="xs-out">C</td></tr><tr><th class="xl-rh" scope="row">37</th><td class="xs-out num">10</td><td class="xs-out">Unterlegscheiben</td><td class="xs-out num">25.000,00</td><td class="xs-out num">1.000,00 €</td><td class="xs-out num">1,00 %</td><td class="xs-out num">100,00 %</td><td class="xs-out num">41,88 %</td><td class="xs-out">C</td></tr><tr><th class="xl-rh" scope="row">38</th><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">39</th><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">40</th><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">41</th><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">42</th><td class="xs-out num"></td><td class="xs-out"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">43</th><td class="xs-lab">Summe</td><td class="xs-empty"></td><td class="xs-tot num">59.690,00</td><td class="xs-tot num">100.000,00 €</td><td class="xs-tot num">100,00 %</td><td class="xs-empty"></td><td class="xs-tot num">100,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">44</th><td class="xs-sec" colspan="8">4. Ergebnis je Klasse</td></tr><tr><th class="xl-rh" scope="row">45</th><td class="xs-th">Klasse</td><td class="xs-th">Anzahl Artikel</td><td class="xs-th">Anteil an Artikeln</td><td class="xs-th">Verbrauchswert</td><td class="xs-th">Wertanteil</td><td class="xs-th">Mengenanteil</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">46</th><td class="xs-txt">A-Güter</td><td class="xs-res num">3</td><td class="xs-out num">30,00 %</td><td class="xs-out num">80.000,00 €</td><td class="xs-res num">80,00 %</td><td class="xs-res num">2,26 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">47</th><td class="xs-txt">B-Güter</td><td class="xs-out num">4</td><td class="xs-out num">40,00 %</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">15,00 %</td><td class="xs-out num">5,60 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">48</th><td class="xs-txt">C-Güter</td><td class="xs-out num">3</td><td class="xs-out num">30,00 %</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">5,00 %</td><td class="xs-out num">92,14 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">49</th><td class="xs-lab">Gesamt</td><td class="xs-tot num">10</td><td class="xs-tot num">100,00 %</td><td class="xs-tot num">100.000,00 €</td><td class="xs-tot num">100,00 %</td><td class="xs-tot num">100,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">50</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">51</th><td class="xs-note" colspan="8">Einteilung: Ein Artikel ist A-Gut, solange der kumulierte Wertanteil die A-Grenze nicht überschreitet (der wertvollste Artikel ist immer A), danach B bis zur B-Grenze, der Rest C. Gleiche Verbrauchswerte behalten die Reihenfolge der Eingabe. Ist der Gesamtverbrauchswert 0, sind Wertanteile und Klassen nicht bestimmbar („–“).</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „ABC-Analyse“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Bis 15 Artikel nach Verbrauchswert sortieren, kumulierte Anteile bilden und in A-, B-, C-Güter einteilen. Die Vorlage gehört zum Bereich Beschaffung, Produktion &amp; Logistik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 47 Werte ein; die Datei berechnet daraus unter anderem „A-Güter – Anzahl Artikel“, „A-Güter – Wertanteil“ und „A-Güter – Mengenanteil“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Einteilung: Ein Artikel ist A-Gut, solange der kumulierte Wertanteil die A-Grenze nicht überschreitet (der wertvollste Artikel ist immer A), danach B bis zur B-Grenze, der Rest C. Gleiche Verbrauchswerte behalten die Reihenfolge der Eingabe. Ist der Gesamtverbrauchswert 0, sind Wertanteile und Klassen nicht bestimmbar („–“).</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Artikel (Zeile 6)</td><td><code>A6</code></td><td class="xlw-v" data-xi="A6">Getriebe</td><td>Text</td></tr>
+<tr><td>Getriebe · Jahresverbrauch (Menge)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">200,00</td><td>ab 0,00</td></tr>
+<tr><td>Getriebe · Preis je Einheit</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">210,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 7)</td><td><code>A7</code></td><td class="xlw-v" data-xi="A7">Schrauben M6</td><td>Text</td></tr>
+<tr><td>Schrauben M6 · Jahresverbrauch (Menge)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">20.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Schrauben M6 · Preis je Einheit</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">0,10 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Gehäuse</td><td>Text</td></tr>
+<tr><td>Gehäuse · Jahresverbrauch (Menge)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">1.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Gehäuse · Preis je Einheit</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">5,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Elektromotor</td><td>Text</td></tr>
+<tr><td>Elektromotor · Jahresverbrauch (Menge)</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">150,00</td><td>ab 0,00</td></tr>
+<tr><td>Elektromotor · Preis je Einheit</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">220,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Dichtungen</td><td>Text</td></tr>
+<tr><td>Dichtungen · Jahresverbrauch (Menge)</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">2.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Dichtungen · Preis je Einheit</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">1,50 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">Steuerung</td><td>Text</td></tr>
+<tr><td>Steuerung · Jahresverbrauch (Menge)</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">40,00</td><td>ab 0,00</td></tr>
+<tr><td>Steuerung · Preis je Einheit</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">125,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">Kabelsatz</td><td>Text</td></tr>
+<tr><td>Kabelsatz · Jahresverbrauch (Menge)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">800,00</td><td>ab 0,00</td></tr>
+<tr><td>Kabelsatz · Preis je Einheit</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">5,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 13)</td><td><code>A13</code></td><td class="xlw-v" data-xi="A13">Unterlegscheiben</td><td>Text</td></tr>
+<tr><td>Unterlegscheiben · Jahresverbrauch (Menge)</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">25.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Unterlegscheiben · Preis je Einheit</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">0,04 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 14)</td><td><code>A14</code></td><td class="xlw-v" data-xi="A14">Kugellager</td><td>Text</td></tr>
+<tr><td>Kugellager · Jahresverbrauch (Menge)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">500,00</td><td>ab 0,00</td></tr>
+<tr><td>Kugellager · Preis je Einheit</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">6,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 15)</td><td><code>A15</code></td><td class="xlw-v" data-xi="A15">Etiketten</td><td>Text</td></tr>
+<tr><td>Etiketten · Jahresverbrauch (Menge)</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">10.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Etiketten · Preis je Einheit</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">0,20 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Artikel (Zeile 16)</td><td><code>A16</code></td><td class="xlw-v" data-xi="A16">(leer)</td><td>Text</td></tr>
+<tr><td>Jahresverbrauch (Menge) (Zeile 16)</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Preis je Einheit (Zeile 16)</td><td><code>C16</code></td><td class="xlw-v" data-xi="C16">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Artikel (Zeile 17)</td><td><code>A17</code></td><td class="xlw-v" data-xi="A17">(leer)</td><td>Text</td></tr>
+<tr><td>Jahresverbrauch (Menge) (Zeile 17)</td><td><code>B17</code></td><td class="xlw-v" data-xi="B17">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Preis je Einheit (Zeile 17)</td><td><code>C17</code></td><td class="xlw-v" data-xi="C17">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Artikel (Zeile 18)</td><td><code>A18</code></td><td class="xlw-v" data-xi="A18">(leer)</td><td>Text</td></tr>
+<tr><td>Jahresverbrauch (Menge) (Zeile 18)</td><td><code>B18</code></td><td class="xlw-v" data-xi="B18">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Preis je Einheit (Zeile 18)</td><td><code>C18</code></td><td class="xlw-v" data-xi="C18">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Artikel (Zeile 19)</td><td><code>A19</code></td><td class="xlw-v" data-xi="A19">(leer)</td><td>Text</td></tr>
+<tr><td>Jahresverbrauch (Menge) (Zeile 19)</td><td><code>B19</code></td><td class="xlw-v" data-xi="B19">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Preis je Einheit (Zeile 19)</td><td><code>C19</code></td><td class="xlw-v" data-xi="C19">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Artikel (Zeile 20)</td><td><code>A20</code></td><td class="xlw-v" data-xi="A20">(leer)</td><td>Text</td></tr>
+<tr><td>Jahresverbrauch (Menge) (Zeile 20)</td><td><code>B20</code></td><td class="xlw-v" data-xi="B20">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>Preis je Einheit (Zeile 20)</td><td><code>C20</code></td><td class="xlw-v" data-xi="C20">(leer)</td><td>beliebig; darf leer bleiben</td></tr>
+<tr><td>A-Güter bis kumuliert</td><td><code>B23</code></td><td class="xlw-v" data-xi="B23">80,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>B-Güter bis kumuliert</td><td><code>B24</code></td><td class="xlw-v" data-xi="B24">95,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>A-Güter – Anzahl Artikel</td><td><code>B46</code></td><td class="xlw-v"><b data-xv="B46">3</b></td></tr>
+<tr><td>A-Güter – Wertanteil</td><td><code>E46</code></td><td class="xlw-v"><b data-xv="E46">80,00 %</b></td></tr>
+<tr><td>A-Güter – Mengenanteil</td><td><code>F46</code></td><td class="xlw-v"><b data-xv="F46">2,26 %</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 192 Formeln des Blatts „ABC-Analyse“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>D6</td><td>Getriebe</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A6)=0;ANZAHL(B6:C6)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B6*C6*100;6);0)/100)</td><td><small>Verbrauchswert = Jahresverbrauch × Preis je Einheit (auf Cent gerundet).</small></td></tr>
+<tr><td>E6</td><td>Getriebe</td><td class="xlw-f">=WENN(D6=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F6)+ZÄHLENWENN($F$6:F6;F6))</td><td><small>Rang = Anzahl größerer Verbrauchswerte + 1; bei Gleichstand zählt die Reihenfolge der Eingabe (zweites ZÄHLENWENN).</small></td></tr>
+<tr><td>F6</td><td>Getriebe</td><td class="xlw-f">=WENN(D6=&quot;&quot;;-1;D6)</td><td></td></tr>
+<tr><td>D7</td><td>Schrauben M6</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A7)=0;ANZAHL(B7:C7)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B7*C7*100;6);0)/100)</td><td></td></tr>
+<tr><td>E7</td><td>Schrauben M6</td><td class="xlw-f">=WENN(D7=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F7)+ZÄHLENWENN($F$6:F7;F7))</td><td></td></tr>
+<tr><td>F7</td><td>Schrauben M6</td><td class="xlw-f">=WENN(D7=&quot;&quot;;-1;D7)</td><td></td></tr>
+<tr><td>D8</td><td>Gehäuse</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A8)=0;ANZAHL(B8:C8)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B8*C8*100;6);0)/100)</td><td></td></tr>
+<tr><td>E8</td><td>Gehäuse</td><td class="xlw-f">=WENN(D8=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F8)+ZÄHLENWENN($F$6:F8;F8))</td><td></td></tr>
+<tr><td>F8</td><td>Gehäuse</td><td class="xlw-f">=WENN(D8=&quot;&quot;;-1;D8)</td><td></td></tr>
+<tr><td>D9</td><td>Elektromotor</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A9)=0;ANZAHL(B9:C9)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B9*C9*100;6);0)/100)</td><td></td></tr>
+<tr><td>E9</td><td>Elektromotor</td><td class="xlw-f">=WENN(D9=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F9)+ZÄHLENWENN($F$6:F9;F9))</td><td></td></tr>
+<tr><td>F9</td><td>Elektromotor</td><td class="xlw-f">=WENN(D9=&quot;&quot;;-1;D9)</td><td></td></tr>
+<tr><td>D10</td><td>Dichtungen</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A10)=0;ANZAHL(B10:C10)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B10*C10*100;6);0)/100)</td><td></td></tr>
+<tr><td>E10</td><td>Dichtungen</td><td class="xlw-f">=WENN(D10=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F10)+ZÄHLENWENN($F$6:F10;F10))</td><td></td></tr>
+<tr><td>F10</td><td>Dichtungen</td><td class="xlw-f">=WENN(D10=&quot;&quot;;-1;D10)</td><td></td></tr>
+<tr><td>D11</td><td>Steuerung</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A11)=0;ANZAHL(B11:C11)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B11*C11*100;6);0)/100)</td><td></td></tr>
+<tr><td>E11</td><td>Steuerung</td><td class="xlw-f">=WENN(D11=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F11)+ZÄHLENWENN($F$6:F11;F11))</td><td></td></tr>
+<tr><td>F11</td><td>Steuerung</td><td class="xlw-f">=WENN(D11=&quot;&quot;;-1;D11)</td><td></td></tr>
+<tr><td>D12</td><td>Kabelsatz</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A12)=0;ANZAHL(B12:C12)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B12*C12*100;6);0)/100)</td><td></td></tr>
+<tr><td>E12</td><td>Kabelsatz</td><td class="xlw-f">=WENN(D12=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F12)+ZÄHLENWENN($F$6:F12;F12))</td><td></td></tr>
+<tr><td>F12</td><td>Kabelsatz</td><td class="xlw-f">=WENN(D12=&quot;&quot;;-1;D12)</td><td></td></tr>
+<tr><td>D13</td><td>Unterlegscheiben</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A13)=0;ANZAHL(B13:C13)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B13*C13*100;6);0)/100)</td><td></td></tr>
+<tr><td>E13</td><td>Unterlegscheiben</td><td class="xlw-f">=WENN(D13=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F13)+ZÄHLENWENN($F$6:F13;F13))</td><td></td></tr>
+<tr><td>F13</td><td>Unterlegscheiben</td><td class="xlw-f">=WENN(D13=&quot;&quot;;-1;D13)</td><td></td></tr>
+<tr><td>D14</td><td>Kugellager</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A14)=0;ANZAHL(B14:C14)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B14*C14*100;6);0)/100)</td><td></td></tr>
+<tr><td>E14</td><td>Kugellager</td><td class="xlw-f">=WENN(D14=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F14)+ZÄHLENWENN($F$6:F14;F14))</td><td></td></tr>
+<tr><td>F14</td><td>Kugellager</td><td class="xlw-f">=WENN(D14=&quot;&quot;;-1;D14)</td><td></td></tr>
+<tr><td>D15</td><td>Etiketten</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A15)=0;ANZAHL(B15:C15)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B15*C15*100;6);0)/100)</td><td></td></tr>
+<tr><td>E15</td><td>Etiketten</td><td class="xlw-f">=WENN(D15=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F15)+ZÄHLENWENN($F$6:F15;F15))</td><td></td></tr>
+<tr><td>F15</td><td>Etiketten</td><td class="xlw-f">=WENN(D15=&quot;&quot;;-1;D15)</td><td></td></tr>
+<tr><td>D16</td><td>Verbrauchswert (Zeile 16)</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A16)=0;ANZAHL(B16:C16)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B16*C16*100;6);0)/100)</td><td></td></tr>
+<tr><td>E16</td><td>Rang (Zeile 16)</td><td class="xlw-f">=WENN(D16=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F16)+ZÄHLENWENN($F$6:F16;F16))</td><td></td></tr>
+<tr><td>F16</td><td>Sortierwert (Hilfsspalte) (Zeile 16)</td><td class="xlw-f">=WENN(D16=&quot;&quot;;-1;D16)</td><td></td></tr>
+<tr><td>D17</td><td>Verbrauchswert (Zeile 17)</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A17)=0;ANZAHL(B17:C17)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B17*C17*100;6);0)/100)</td><td></td></tr>
+<tr><td>E17</td><td>Rang (Zeile 17)</td><td class="xlw-f">=WENN(D17=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F17)+ZÄHLENWENN($F$6:F17;F17))</td><td></td></tr>
+<tr><td>F17</td><td>Sortierwert (Hilfsspalte) (Zeile 17)</td><td class="xlw-f">=WENN(D17=&quot;&quot;;-1;D17)</td><td></td></tr>
+<tr><td>D18</td><td>Verbrauchswert (Zeile 18)</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A18)=0;ANZAHL(B18:C18)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B18*C18*100;6);0)/100)</td><td></td></tr>
+<tr><td>E18</td><td>Rang (Zeile 18)</td><td class="xlw-f">=WENN(D18=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F18)+ZÄHLENWENN($F$6:F18;F18))</td><td></td></tr>
+<tr><td>F18</td><td>Sortierwert (Hilfsspalte) (Zeile 18)</td><td class="xlw-f">=WENN(D18=&quot;&quot;;-1;D18)</td><td></td></tr>
+<tr><td>D19</td><td>Verbrauchswert (Zeile 19)</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A19)=0;ANZAHL(B19:C19)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B19*C19*100;6);0)/100)</td><td></td></tr>
+<tr><td>E19</td><td>Rang (Zeile 19)</td><td class="xlw-f">=WENN(D19=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F19)+ZÄHLENWENN($F$6:F19;F19))</td><td></td></tr>
+<tr><td>F19</td><td>Sortierwert (Hilfsspalte) (Zeile 19)</td><td class="xlw-f">=WENN(D19=&quot;&quot;;-1;D19)</td><td></td></tr>
+<tr><td>D20</td><td>Verbrauchswert (Zeile 20)</td><td class="xlw-f">=WENN(ODER(ANZAHL2(A20)=0;ANZAHL(B20:C20)&lt;2);&quot;&quot;;RUNDEN(RUNDEN(B20*C20*100;6);0)/100)</td><td></td></tr>
+<tr><td>E20</td><td>Rang (Zeile 20)</td><td class="xlw-f">=WENN(D20=&quot;&quot;;&quot;&quot;;ZÄHLENWENN($F$6:$F$20;&quot;&gt;&quot;&amp;F20)+ZÄHLENWENN($F$6:F20;F20))</td><td></td></tr>
+<tr><td>F20</td><td>Sortierwert (Hilfsspalte) (Zeile 20)</td><td class="xlw-f">=WENN(D20=&quot;&quot;;-1;D20)</td><td></td></tr>
+<tr><td>D21</td><td>Summe</td><td class="xlw-f">=SUMME(D6:D20)</td><td></td></tr>
+<tr><td>C24</td><td>B-Güter bis kumuliert</td><td class="xlw-f">=WENN(B24&lt;B23;&quot;Grenze B muss ≥ Grenze A sein&quot;;&quot;✓&quot;)</td><td></td></tr>
+<tr><td>B25</td><td>Anzahl erfasster Artikel</td><td class="xlw-f">=ANZAHL(D6:D20)</td><td></td></tr>
+<tr><td>A28</td><td>Rang (Zeile 28)</td><td class="xlw-f">=WENN(1&lt;=$B$25;1;&quot;&quot;)</td><td></td></tr>
+<tr><td>B28</td><td>Artikel (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A28;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C28</td><td>Menge (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A28;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D28</td><td>Verbrauchswert (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;1))</td><td><small>KGRÖSSTE holt den k-größten Verbrauchswert, INDEX/VERGLEICH den Artikel mit Rang k – so wird ohne SORTIEREN absteigend sortiert.</small></td></tr>
+<tr><td>E28</td><td>Wertanteil (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D28/$D$21))</td><td></td></tr>
+<tr><td>F28</td><td>Wertanteil kumuliert (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D28)/$D$21))</td><td></td></tr>
+<tr><td>G28</td><td>Mengenanteil (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C28/$C$43))</td><td></td></tr>
+<tr><td>H28</td><td>Klasse (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A28=1;RUNDEN(F28;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F28;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td><small>Klasse nach kumuliertem Wertanteil und den Grenzen aus Abschnitt 2.</small></td></tr>
+<tr><td>A29</td><td>Rang (Zeile 29)</td><td class="xlw-f">=WENN(2&lt;=$B$25;2;&quot;&quot;)</td><td></td></tr>
+<tr><td>B29</td><td>Artikel (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A29;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C29</td><td>Menge (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A29;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D29</td><td>Verbrauchswert (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;2))</td><td></td></tr>
+<tr><td>E29</td><td>Wertanteil (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D29/$D$21))</td><td></td></tr>
+<tr><td>F29</td><td>Wertanteil kumuliert (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D29)/$D$21))</td><td></td></tr>
+<tr><td>G29</td><td>Mengenanteil (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C29/$C$43))</td><td></td></tr>
+<tr><td>H29</td><td>Klasse (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A29=1;RUNDEN(F29;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F29;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A30</td><td>Rang (Zeile 30)</td><td class="xlw-f">=WENN(3&lt;=$B$25;3;&quot;&quot;)</td><td></td></tr>
+<tr><td>B30</td><td>Artikel (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A30;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C30</td><td>Menge (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A30;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D30</td><td>Verbrauchswert (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;3))</td><td></td></tr>
+<tr><td>E30</td><td>Wertanteil (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D30/$D$21))</td><td></td></tr>
+<tr><td>F30</td><td>Wertanteil kumuliert (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D30)/$D$21))</td><td></td></tr>
+<tr><td>G30</td><td>Mengenanteil (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C30/$C$43))</td><td></td></tr>
+<tr><td>H30</td><td>Klasse (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A30=1;RUNDEN(F30;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F30;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A31</td><td>Rang (Zeile 31)</td><td class="xlw-f">=WENN(4&lt;=$B$25;4;&quot;&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>Artikel (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A31;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C31</td><td>Menge (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A31;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D31</td><td>Verbrauchswert (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;4))</td><td></td></tr>
+<tr><td>E31</td><td>Wertanteil (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D31/$D$21))</td><td></td></tr>
+<tr><td>F31</td><td>Wertanteil kumuliert (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D31)/$D$21))</td><td></td></tr>
+<tr><td>G31</td><td>Mengenanteil (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C31/$C$43))</td><td></td></tr>
+<tr><td>H31</td><td>Klasse (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A31=1;RUNDEN(F31;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F31;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A32</td><td>Rang (Zeile 32)</td><td class="xlw-f">=WENN(5&lt;=$B$25;5;&quot;&quot;)</td><td></td></tr>
+<tr><td>B32</td><td>Artikel (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A32;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C32</td><td>Menge (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A32;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D32</td><td>Verbrauchswert (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;5))</td><td></td></tr>
+<tr><td>E32</td><td>Wertanteil (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D32/$D$21))</td><td></td></tr>
+<tr><td>F32</td><td>Wertanteil kumuliert (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D32)/$D$21))</td><td></td></tr>
+<tr><td>G32</td><td>Mengenanteil (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C32/$C$43))</td><td></td></tr>
+<tr><td>H32</td><td>Klasse (Zeile 32)</td><td class="xlw-f">=WENN(A32=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A32=1;RUNDEN(F32;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F32;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A33</td><td>Rang (Zeile 33)</td><td class="xlw-f">=WENN(6&lt;=$B$25;6;&quot;&quot;)</td><td></td></tr>
+<tr><td>B33</td><td>Artikel (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A33;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C33</td><td>Menge (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A33;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D33</td><td>Verbrauchswert (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;6))</td><td></td></tr>
+<tr><td>E33</td><td>Wertanteil (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D33/$D$21))</td><td></td></tr>
+<tr><td>F33</td><td>Wertanteil kumuliert (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D33)/$D$21))</td><td></td></tr>
+<tr><td>G33</td><td>Mengenanteil (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C33/$C$43))</td><td></td></tr>
+<tr><td>H33</td><td>Klasse (Zeile 33)</td><td class="xlw-f">=WENN(A33=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A33=1;RUNDEN(F33;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F33;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A34</td><td>Rang (Zeile 34)</td><td class="xlw-f">=WENN(7&lt;=$B$25;7;&quot;&quot;)</td><td></td></tr>
+<tr><td>B34</td><td>Artikel (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A34;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C34</td><td>Menge (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A34;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D34</td><td>Verbrauchswert (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;7))</td><td></td></tr>
+<tr><td>E34</td><td>Wertanteil (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D34/$D$21))</td><td></td></tr>
+<tr><td>F34</td><td>Wertanteil kumuliert (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D34)/$D$21))</td><td></td></tr>
+<tr><td>G34</td><td>Mengenanteil (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C34/$C$43))</td><td></td></tr>
+<tr><td>H34</td><td>Klasse (Zeile 34)</td><td class="xlw-f">=WENN(A34=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A34=1;RUNDEN(F34;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F34;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A35</td><td>Rang (Zeile 35)</td><td class="xlw-f">=WENN(8&lt;=$B$25;8;&quot;&quot;)</td><td></td></tr>
+<tr><td>B35</td><td>Artikel (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A35;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C35</td><td>Menge (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A35;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D35</td><td>Verbrauchswert (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;8))</td><td></td></tr>
+<tr><td>E35</td><td>Wertanteil (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D35/$D$21))</td><td></td></tr>
+<tr><td>F35</td><td>Wertanteil kumuliert (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D35)/$D$21))</td><td></td></tr>
+<tr><td>G35</td><td>Mengenanteil (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C35/$C$43))</td><td></td></tr>
+<tr><td>H35</td><td>Klasse (Zeile 35)</td><td class="xlw-f">=WENN(A35=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A35=1;RUNDEN(F35;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F35;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A36</td><td>Rang (Zeile 36)</td><td class="xlw-f">=WENN(9&lt;=$B$25;9;&quot;&quot;)</td><td></td></tr>
+<tr><td>B36</td><td>Artikel (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A36;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C36</td><td>Menge (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A36;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D36</td><td>Verbrauchswert (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;9))</td><td></td></tr>
+<tr><td>E36</td><td>Wertanteil (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D36/$D$21))</td><td></td></tr>
+<tr><td>F36</td><td>Wertanteil kumuliert (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D36)/$D$21))</td><td></td></tr>
+<tr><td>G36</td><td>Mengenanteil (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C36/$C$43))</td><td></td></tr>
+<tr><td>H36</td><td>Klasse (Zeile 36)</td><td class="xlw-f">=WENN(A36=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A36=1;RUNDEN(F36;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F36;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A37</td><td>Rang (Zeile 37)</td><td class="xlw-f">=WENN(10&lt;=$B$25;10;&quot;&quot;)</td><td></td></tr>
+<tr><td>B37</td><td>Artikel (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A37;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C37</td><td>Menge (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A37;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D37</td><td>Verbrauchswert (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;10))</td><td></td></tr>
+<tr><td>E37</td><td>Wertanteil (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D37/$D$21))</td><td></td></tr>
+<tr><td>F37</td><td>Wertanteil kumuliert (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D37)/$D$21))</td><td></td></tr>
+<tr><td>G37</td><td>Mengenanteil (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C37/$C$43))</td><td></td></tr>
+<tr><td>H37</td><td>Klasse (Zeile 37)</td><td class="xlw-f">=WENN(A37=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A37=1;RUNDEN(F37;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F37;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A38</td><td>Rang (Zeile 38)</td><td class="xlw-f">=WENN(11&lt;=$B$25;11;&quot;&quot;)</td><td></td></tr>
+<tr><td>B38</td><td>Artikel (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A38;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C38</td><td>Menge (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A38;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D38</td><td>Verbrauchswert (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;11))</td><td></td></tr>
+<tr><td>E38</td><td>Wertanteil (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D38/$D$21))</td><td></td></tr>
+<tr><td>F38</td><td>Wertanteil kumuliert (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D38)/$D$21))</td><td></td></tr>
+<tr><td>G38</td><td>Mengenanteil (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C38/$C$43))</td><td></td></tr>
+<tr><td>H38</td><td>Klasse (Zeile 38)</td><td class="xlw-f">=WENN(A38=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A38=1;RUNDEN(F38;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F38;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A39</td><td>Rang (Zeile 39)</td><td class="xlw-f">=WENN(12&lt;=$B$25;12;&quot;&quot;)</td><td></td></tr>
+<tr><td>B39</td><td>Artikel (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A39;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C39</td><td>Menge (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A39;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D39</td><td>Verbrauchswert (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;12))</td><td></td></tr>
+<tr><td>E39</td><td>Wertanteil (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D39/$D$21))</td><td></td></tr>
+<tr><td>F39</td><td>Wertanteil kumuliert (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D39)/$D$21))</td><td></td></tr>
+<tr><td>G39</td><td>Mengenanteil (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C39/$C$43))</td><td></td></tr>
+<tr><td>H39</td><td>Klasse (Zeile 39)</td><td class="xlw-f">=WENN(A39=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A39=1;RUNDEN(F39;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F39;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A40</td><td>Rang (Zeile 40)</td><td class="xlw-f">=WENN(13&lt;=$B$25;13;&quot;&quot;)</td><td></td></tr>
+<tr><td>B40</td><td>Artikel (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A40;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C40</td><td>Menge (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A40;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D40</td><td>Verbrauchswert (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;13))</td><td></td></tr>
+<tr><td>E40</td><td>Wertanteil (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D40/$D$21))</td><td></td></tr>
+<tr><td>F40</td><td>Wertanteil kumuliert (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D40)/$D$21))</td><td></td></tr>
+<tr><td>G40</td><td>Mengenanteil (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C40/$C$43))</td><td></td></tr>
+<tr><td>H40</td><td>Klasse (Zeile 40)</td><td class="xlw-f">=WENN(A40=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A40=1;RUNDEN(F40;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F40;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A41</td><td>Rang (Zeile 41)</td><td class="xlw-f">=WENN(14&lt;=$B$25;14;&quot;&quot;)</td><td></td></tr>
+<tr><td>B41</td><td>Artikel (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A41;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C41</td><td>Menge (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A41;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D41</td><td>Verbrauchswert (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;14))</td><td></td></tr>
+<tr><td>E41</td><td>Wertanteil (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D41/$D$21))</td><td></td></tr>
+<tr><td>F41</td><td>Wertanteil kumuliert (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D41)/$D$21))</td><td></td></tr>
+<tr><td>G41</td><td>Mengenanteil (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C41/$C$43))</td><td></td></tr>
+<tr><td>H41</td><td>Klasse (Zeile 41)</td><td class="xlw-f">=WENN(A41=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A41=1;RUNDEN(F41;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F41;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>A42</td><td>Rang (Zeile 42)</td><td class="xlw-f">=WENN(15&lt;=$B$25;15;&quot;&quot;)</td><td></td></tr>
+<tr><td>B42</td><td>Artikel (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;INDEX($A$6:$A$20;VERGLEICH(A42;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>C42</td><td>Menge (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;INDEX($B$6:$B$20;VERGLEICH(A42;$E$6:$E$20;0)))</td><td></td></tr>
+<tr><td>D42</td><td>Verbrauchswert (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;KGRÖSSTE($D$6:$D$20;15))</td><td></td></tr>
+<tr><td>E42</td><td>Wertanteil (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;D42/$D$21))</td><td></td></tr>
+<tr><td>F42</td><td>Wertanteil kumuliert (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;SUMME($D$28:D42)/$D$21))</td><td></td></tr>
+<tr><td>G42</td><td>Mengenanteil (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;WENN($C$43=0;&quot;–&quot;;C42/$C$43))</td><td></td></tr>
+<tr><td>H42</td><td>Klasse (Zeile 42)</td><td class="xlw-f">=WENN(A42=&quot;&quot;;&quot;&quot;;WENN($D$21=0;&quot;–&quot;;WENN(ODER(A42=1;RUNDEN(F42;8)&lt;=RUNDEN($B$23;8));&quot;A&quot;;WENN(RUNDEN(F42;8)&lt;=RUNDEN($B$24;8);&quot;B&quot;;&quot;C&quot;))))</td><td></td></tr>
+<tr><td>C43</td><td>Summe</td><td class="xlw-f">=SUMME(C28:C42)</td><td></td></tr>
+<tr><td>D43</td><td>Summe</td><td class="xlw-f">=SUMME(D28:D42)</td><td></td></tr>
+<tr><td>E43</td><td>Summe</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMME(E28:E42))</td><td></td></tr>
+<tr><td>G43</td><td>Summe</td><td class="xlw-f">=WENN($C$43=0;&quot;–&quot;;SUMME(G28:G42))</td><td></td></tr>
+<tr><td>B46</td><td>A-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;ZÄHLENWENN($H$28:$H$42;&quot;A&quot;))</td><td></td></tr>
+<tr><td>C46</td><td>A-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;B46/$B$25)</td><td></td></tr>
+<tr><td>D46</td><td>A-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($D$28:$D$42;$H$28:$H$42;&quot;A&quot;))</td><td></td></tr>
+<tr><td>E46</td><td>A-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;D46/$D$21)</td><td></td></tr>
+<tr><td>F46</td><td>A-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($C$28:$C$42;$H$28:$H$42;&quot;A&quot;)/$C$43)</td><td></td></tr>
+<tr><td>B47</td><td>B-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;ZÄHLENWENN($H$28:$H$42;&quot;B&quot;))</td><td></td></tr>
+<tr><td>C47</td><td>B-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;B47/$B$25)</td><td></td></tr>
+<tr><td>D47</td><td>B-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($D$28:$D$42;$H$28:$H$42;&quot;B&quot;))</td><td></td></tr>
+<tr><td>E47</td><td>B-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;D47/$D$21)</td><td></td></tr>
+<tr><td>F47</td><td>B-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($C$28:$C$42;$H$28:$H$42;&quot;B&quot;)/$C$43)</td><td></td></tr>
+<tr><td>B48</td><td>C-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;ZÄHLENWENN($H$28:$H$42;&quot;C&quot;))</td><td></td></tr>
+<tr><td>C48</td><td>C-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;B48/$B$25)</td><td></td></tr>
+<tr><td>D48</td><td>C-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($D$28:$D$42;$H$28:$H$42;&quot;C&quot;))</td><td></td></tr>
+<tr><td>E48</td><td>C-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;D48/$D$21)</td><td></td></tr>
+<tr><td>F48</td><td>C-Güter</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;SUMMEWENNS($C$28:$C$42;$H$28:$H$42;&quot;C&quot;)/$C$43)</td><td></td></tr>
+<tr><td>B49</td><td>Gesamt</td><td class="xlw-f">=B25</td><td></td></tr>
+<tr><td>C49</td><td>Gesamt</td><td class="xlw-f">=WENN(B25=0;&quot;–&quot;;B49/B25)</td><td></td></tr>
+<tr><td>D49</td><td>Gesamt</td><td class="xlw-f">=D21</td><td></td></tr>
+<tr><td>E49</td><td>Gesamt</td><td class="xlw-f">=WENN($D$21=0;&quot;–&quot;;D49/$D$21)</td><td></td></tr>
+<tr><td>F49</td><td>Gesamt</td><td class="xlw-f">=WENN($C$43=0;&quot;–&quot;;C43/$C$43)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>4.032 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 192 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: A-Güter (B46), A-Güter (E46), A-Güter (F46).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 192 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 192 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>4.032 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Beschaffung, Produktion &amp; Logistik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-bestellmenge">Optimale Bestellmenge (Andler)</a><p>Andler-Formel: optimale Bestellmenge, Anzahl Bestellungen, Bestellrhythmus und Kostenverlauf als Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-lagerkennzahlen">Lagerkennzahlen</a><p>Ø Lagerbestand aus 13 Beständen, Umschlagshäufigkeit, Ø Lagerdauer, Lagerzinssatz und Lagerzinsen.</p></li>
+<li><a href="/tools/excel-vorlage-meldebestand">Melde-, Sicherheits- und Höchstbestand</a><p>Wann muss bestellt werden? Tagesverbrauch, Sicherheitsbestand, Meldebestand, Höchstbestand und Reichweite.</p></li>
+<li><a href="/tools/excel-vorlage-losgroesse">Optimale Losgröße (Andler)</a><p>Kostenminimale Losgröße aus Rüstkosten und Lagerkostensatz, Anzahl Lose, Produktionszyklus und Kostentabelle.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

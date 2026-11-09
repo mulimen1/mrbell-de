@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Rentenrechnung: Barwert, Endwert, ewige Rente – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 7 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-rentenrechnung">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Rentenrechnung: Barwert, Endwert, ewige Rente (Excel-Vorlage)","description":"Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig.","url":"https://www.bwlmax.de/tools/excel-vorlage-rentenrechnung","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Finanzierung & Finanzmathematik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Finanzierung &amp; Finanzmathematik</p>
+<h1>Excel-Vorlage: Rentenrechnung: Barwert, Endwert, ewige Rente</h1>
+<p class="lead">Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>4</b> Eingabefelder</li><li><b>7</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="rentenrechnung">
+<div class="xl-keys"><div class="xl-key"><small>Rentenbarwert</small><b>77.217,35 €</b></div><div class="xl-key"><small>Rentenendwert</small><b>125.778,93 €</b></div><div class="xl-key"><small>Barwert der ewigen Rente</small><b>200.000,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Rentenrechnung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Rentenrechnung“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:296px"><col style="width:118px"><col style="width:148px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="3">Rentenrechnung: Barwert, Endwert, ewige Rente</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="3">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="3">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Rentenrate r (je Periode)</td><td class="xs-in num">10.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Zinssatz je Periode i</td><td class="xs-in num">5,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Laufzeit n (Perioden)</td><td class="xs-in num">10</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Vorschüssig? (1 = ja, 0 = nachschüssig)</td><td class="xs-in num">0</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-sec" colspan="3">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-th">Größe</td><td class="xs-th">Faktor</td><td class="xs-th">Betrag</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Rentenbarwert</td><td class="xs-out num">7,7217</td><td class="xs-res num">77.217,35 €</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Rentenendwert</td><td class="xs-out num">12,5779</td><td class="xs-res num">125.778,93 €</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Barwert der ewigen Rente</td><td class="xs-out num">20,0000</td><td class="xs-res num">200.000,00 €</td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Zum Vergleich: Summe der Raten (n × r)</td><td class="xs-empty"></td><td class="xs-out num">100.000,00 €</td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-note" colspan="3">Nachschüssig: RBF = (q^n − 1) / (i · q^n), REF = (q^n − 1) / i, ewige Rente r / i. Vorschüssig: jeweils × q (Zahlung am Periodenanfang), q = 1 + i.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Rentenrechnung“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig. Die Vorlage gehört zum Bereich Finanzierung &amp; Finanzmathematik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 4 Werte ein; die Datei berechnet daraus unter anderem „Rentenbarwert“, „Rentenendwert“ und „Barwert der ewigen Rente“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Nachschüssig: RBF = (q^n − 1) / (i · q^n), REF = (q^n − 1) / i, ewige Rente r / i. Vorschüssig: jeweils × q (Zahlung am Periodenanfang), q = 1 + i.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Rentenrate r (je Periode)</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">10.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Zinssatz je Periode i</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">5,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Laufzeit n (Perioden)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">10</td><td>1 bis 100, ganze Zahl</td></tr>
+<tr><td>Vorschüssig? (1 = ja, 0 = nachschüssig)</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">0</td><td>0 oder 1</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Rentenbarwert</td><td><code>C12</code></td><td class="xlw-v"><b data-xv="C12">77.217,35 €</b></td></tr>
+<tr><td>Rentenendwert</td><td><code>C13</code></td><td class="xlw-v"><b data-xv="C13">125.778,93 €</b></td></tr>
+<tr><td>Barwert der ewigen Rente</td><td><code>C14</code></td><td class="xlw-v"><b data-xv="C14">200.000,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 7 Formeln des Blatts „Rentenrechnung“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B12</td><td>Rentenbarwert</td><td class="xlw-f">=WENN(B6=0;B7;((1+B6)^B7-1)/(B6*(1+B6)^B7))*WENN(B8=1;1+B6;1)</td><td><small>Rentenbarwertfaktor (q^n − 1) / (i · q^n); vorschüssig zusätzlich × q.</small></td></tr>
+<tr><td>C12</td><td>Rentenbarwert</td><td class="xlw-f">=B5*B12</td><td></td></tr>
+<tr><td>B13</td><td>Rentenendwert</td><td class="xlw-f">=WENN(B6=0;B7;((1+B6)^B7-1)/B6)*WENN(B8=1;1+B6;1)</td><td><small>Rentenendwertfaktor (q^n − 1) / i; vorschüssig zusätzlich × q.</small></td></tr>
+<tr><td>C13</td><td>Rentenendwert</td><td class="xlw-f">=B5*B13</td><td></td></tr>
+<tr><td>B14</td><td>Barwert der ewigen Rente</td><td class="xlw-f">=WENN(B6=0;&quot;–&quot;;WENN(B8=1;(1+B6)/B6;1/B6))</td><td></td></tr>
+<tr><td>C14</td><td>Barwert der ewigen Rente</td><td class="xlw-f">=WENN(B6=0;&quot;nicht definiert (i = 0)&quot;;B5*B14)</td><td><small>Ewige Rente: r / i (nachschüssig) bzw. r · q / i (vorschüssig).</small></td></tr>
+<tr><td>C15</td><td>Zum Vergleich: Summe der Raten (n × r)</td><td class="xlw-f">=B5*B7</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>147 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 7 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>63 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Rentenbarwert (C12), Rentenendwert (C13), Barwert der ewigen Rente (C14).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 7 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 7 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>147 Formelergebnisse in LibreOffice neu berechnet, 63 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Finanzierung &amp; Finanzmathematik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-annuitaet">Annuitätendarlehen &amp; Tilgungsplan</a><p>Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-ratendarlehen">Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</a><p>Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-sparplan">Zinseszins &amp; Sparplan</a><p>Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-effektivzins">Effektivzins eines Kredits</a><p>Effektivzins eines Annuitätendarlehens mit Disagio und Gebühr – plus Nominal- vs. Effektivzins.</p></li>
+<li><a href="/tools/excel-vorlage-skonto">Lieferantenkredit vs. Skonto</a><p>Effektiver Jahreszins des Lieferantenkredits und Entscheidung: Skonto ziehen oder Ziel ausnutzen?</p></li>
+<li><a href="/tools/excel-vorlage-leverage">Leverage-Effekt</a><p>EK-Rendite in Abhängigkeit vom Verschuldungsgrad – mit Chance und Risiko im Krisenfall.</p></li>
+<li><a href="/tools/excel-vorlage-wacc">WACC – gewichtete Kapitalkosten</a><p>Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalbedarf">Kapitalbedarfsplanung (Gründung)</a><p>Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

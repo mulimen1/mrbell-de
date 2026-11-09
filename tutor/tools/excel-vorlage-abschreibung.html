@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Abschreibung: linear vs. degressiv – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 107 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-abschreibung">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Abschreibung: linear vs. degressiv (Excel-Vorlage)","description":"Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre.","url":"https://www.bwlmax.de/tools/excel-vorlage-abschreibung","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Buchführung & Jahresabschluss","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Buchführung &amp; Jahresabschluss</p>
+<h1>Excel-Vorlage: Abschreibung: linear vs. degressiv</h1>
+<p class="lead">Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>4</b> Eingabefelder</li><li><b>107</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="abschreibung">
+<div class="xl-keys"><div class="xl-key"><small>Lineare AfA pro Jahr</small><b>5.000,00 €</b></div><div class="xl-key"><small>Wechsel zur linearen AfA ab Jahr</small><b>6</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Abschreibung_linear_degressiv.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Abschreibung“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:252px"><col style="width:118px"><col style="width:126px"><col style="width:126px"><col style="width:118px"><col style="width:126px"><col style="width:96px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Abschreibung: linear vs. geometrisch-degressiv</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Anschaffungskosten</td><td class="xs-in num">50.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Nutzungsdauer (1 – 15 Jahre)</td><td class="xs-in num">10</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Restwert am Ende (höchstens Anschaffungskosten)</td><td class="xs-in num">0,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Degressiver Satz</td><td class="xs-in num">20,00 %</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-note" colspan="7">Steuerlich ist die degressive AfA für bewegliche Wirtschaftsgüter mit Anschaffung vom 01.07.2025 bis 31.12.2027 erlaubt (höchstens das Dreifache des linearen Satzes, maximal 30 %; die Vorlage rechnet volle Jahre ohne Monatsanteil im Anschaffungsjahr) – für Klausuren gilt der Satz aus der Aufgabe.</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-sec" colspan="7">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">Lineare AfA pro Jahr</td><td class="xs-res num">5.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Wechsel zur linearen AfA ab Jahr</td><td class="xs-res num">6</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-th">Jahr</td><td class="xs-th">AfA linear</td><td class="xs-th">Buchwert linear</td><td class="xs-th">Buchwert Anfang</td><td class="xs-th">AfA degressiv</td><td class="xs-th">Buchwert Ende</td><td class="xs-th">Methode</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-out num">1</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">45.000,00 €</td><td class="xs-out num">50.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out">degressiv</td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-out num">2</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-out num">8.000,00 €</td><td class="xs-out num">32.000,00 €</td><td class="xs-out">degressiv</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-out num">3</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">35.000,00 €</td><td class="xs-out num">32.000,00 €</td><td class="xs-out num">6.400,00 €</td><td class="xs-out num">25.600,00 €</td><td class="xs-out">degressiv</td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-out num">4</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">25.600,00 €</td><td class="xs-out num">5.120,00 €</td><td class="xs-out num">20.480,00 €</td><td class="xs-out">degressiv</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-out num">5</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">25.000,00 €</td><td class="xs-out num">20.480,00 €</td><td class="xs-out num">4.096,00 €</td><td class="xs-out num">16.384,00 €</td><td class="xs-out">degressiv</td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-out num">6</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">20.000,00 €</td><td class="xs-out num">16.384,00 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">13.107,20 €</td><td class="xs-out">linear</td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-out num">7</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">15.000,00 €</td><td class="xs-out num">13.107,20 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">9.830,40 €</td><td class="xs-out">linear</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-out num">8</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-out num">9.830,40 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">6.553,60 €</td><td class="xs-out">linear</td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-out num">9</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">6.553,60 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out">linear</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-out num">10</td><td class="xs-out num">5.000,00 €</td><td class="xs-out num">0,00 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">3.276,80 €</td><td class="xs-out num">0,00 €</td><td class="xs-out">linear</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out"></td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Abschreibung“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Abschreibungsplan mit Buchwerten und automatischem Wechsel zur linearen AfA – bis 15 Jahre. Die Vorlage gehört zum Bereich Buchführung &amp; Jahresabschluss und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 4 Werte ein; die Datei berechnet daraus unter anderem „Lineare AfA pro Jahr“ und „Wechsel zur linearen AfA ab Jahr“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Steuerlich ist die degressive AfA für bewegliche Wirtschaftsgüter mit Anschaffung vom 01.07.2025 bis 31.12.2027 erlaubt (höchstens das Dreifache des linearen Satzes, maximal 30 %; die Vorlage rechnet volle Jahre ohne Monatsanteil im Anschaffungsjahr) – für Klausuren gilt der Satz aus der Aufgabe.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Anschaffungskosten</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">50.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Nutzungsdauer (1 – 15 Jahre)</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">10</td><td>1 bis 15, ganze Zahl</td></tr>
+<tr><td>Restwert am Ende (höchstens Anschaffungskosten)</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Degressiver Satz</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">20,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Lineare AfA pro Jahr</td><td><code>B12</code></td><td class="xlw-v"><b data-xv="B12">5.000,00 €</b></td></tr>
+<tr><td>Wechsel zur linearen AfA ab Jahr</td><td><code>B13</code></td><td class="xlw-v"><b data-xv="B13">6</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 107 Formeln des Blatts „Abschreibung“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B12</td><td>Lineare AfA pro Jahr</td><td class="xlw-f">=(B5-B7)/B6</td><td><small>Lineare AfA = (Anschaffungskosten − Restwert) / Nutzungsdauer.</small></td></tr>
+<tr><td>B13</td><td>Wechsel zur linearen AfA ab Jahr</td><td class="xlw-f">=WENNFEHLER(INDEX(A17:A31;VERGLEICH(&quot;linear&quot;;G17:G31;0));&quot;kein Wechsel&quot;)</td><td></td></tr>
+<tr><td>A17</td><td>Jahr (Zeile 17)</td><td class="xlw-f">=WENN(1&lt;=$B$6;1;&quot;&quot;)</td><td></td></tr>
+<tr><td>B17</td><td>AfA linear (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C17</td><td>Buchwert linear (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;$B$5-B17)</td><td></td></tr>
+<tr><td>D17</td><td>Buchwert Anfang (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;$B$5)</td><td></td></tr>
+<tr><td>E17</td><td>AfA degressiv (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;MIN(MAX(D17*$B$8;(D17-$B$7)/($B$6-A17+1));D17-$B$7))</td><td><small>Degressiv: Restbuchwert × Satz. Sobald (Restbuchwert − Restwert) / Restnutzungsdauer mindestens so groß ist wie die degressive Abschreibung, wird linear weiter abgeschrieben.</small></td></tr>
+<tr><td>F17</td><td>Buchwert Ende (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;D17-E17)</td><td></td></tr>
+<tr><td>G17</td><td>Methode (Zeile 17)</td><td class="xlw-f">=WENN(A17=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D17-$B$7)/($B$6-A17+1)-D17*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A18</td><td>Jahr (Zeile 18)</td><td class="xlw-f">=WENN(2&lt;=$B$6;2;&quot;&quot;)</td><td></td></tr>
+<tr><td>B18</td><td>AfA linear (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C18</td><td>Buchwert linear (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;C17-B18)</td><td></td></tr>
+<tr><td>D18</td><td>Buchwert Anfang (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;F17)</td><td></td></tr>
+<tr><td>E18</td><td>AfA degressiv (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;MIN(MAX(D18*$B$8;(D18-$B$7)/($B$6-A18+1));D18-$B$7))</td><td></td></tr>
+<tr><td>F18</td><td>Buchwert Ende (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;D18-E18)</td><td></td></tr>
+<tr><td>G18</td><td>Methode (Zeile 18)</td><td class="xlw-f">=WENN(A18=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D18-$B$7)/($B$6-A18+1)-D18*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A19</td><td>Jahr (Zeile 19)</td><td class="xlw-f">=WENN(3&lt;=$B$6;3;&quot;&quot;)</td><td></td></tr>
+<tr><td>B19</td><td>AfA linear (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C19</td><td>Buchwert linear (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;C18-B19)</td><td></td></tr>
+<tr><td>D19</td><td>Buchwert Anfang (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;F18)</td><td></td></tr>
+<tr><td>E19</td><td>AfA degressiv (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;MIN(MAX(D19*$B$8;(D19-$B$7)/($B$6-A19+1));D19-$B$7))</td><td></td></tr>
+<tr><td>F19</td><td>Buchwert Ende (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;D19-E19)</td><td></td></tr>
+<tr><td>G19</td><td>Methode (Zeile 19)</td><td class="xlw-f">=WENN(A19=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D19-$B$7)/($B$6-A19+1)-D19*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A20</td><td>Jahr (Zeile 20)</td><td class="xlw-f">=WENN(4&lt;=$B$6;4;&quot;&quot;)</td><td></td></tr>
+<tr><td>B20</td><td>AfA linear (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C20</td><td>Buchwert linear (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;C19-B20)</td><td></td></tr>
+<tr><td>D20</td><td>Buchwert Anfang (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;F19)</td><td></td></tr>
+<tr><td>E20</td><td>AfA degressiv (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;MIN(MAX(D20*$B$8;(D20-$B$7)/($B$6-A20+1));D20-$B$7))</td><td></td></tr>
+<tr><td>F20</td><td>Buchwert Ende (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;D20-E20)</td><td></td></tr>
+<tr><td>G20</td><td>Methode (Zeile 20)</td><td class="xlw-f">=WENN(A20=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D20-$B$7)/($B$6-A20+1)-D20*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A21</td><td>Jahr (Zeile 21)</td><td class="xlw-f">=WENN(5&lt;=$B$6;5;&quot;&quot;)</td><td></td></tr>
+<tr><td>B21</td><td>AfA linear (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C21</td><td>Buchwert linear (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;C20-B21)</td><td></td></tr>
+<tr><td>D21</td><td>Buchwert Anfang (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;F20)</td><td></td></tr>
+<tr><td>E21</td><td>AfA degressiv (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;MIN(MAX(D21*$B$8;(D21-$B$7)/($B$6-A21+1));D21-$B$7))</td><td></td></tr>
+<tr><td>F21</td><td>Buchwert Ende (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;D21-E21)</td><td></td></tr>
+<tr><td>G21</td><td>Methode (Zeile 21)</td><td class="xlw-f">=WENN(A21=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D21-$B$7)/($B$6-A21+1)-D21*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A22</td><td>Jahr (Zeile 22)</td><td class="xlw-f">=WENN(6&lt;=$B$6;6;&quot;&quot;)</td><td></td></tr>
+<tr><td>B22</td><td>AfA linear (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C22</td><td>Buchwert linear (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;C21-B22)</td><td></td></tr>
+<tr><td>D22</td><td>Buchwert Anfang (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;F21)</td><td></td></tr>
+<tr><td>E22</td><td>AfA degressiv (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;MIN(MAX(D22*$B$8;(D22-$B$7)/($B$6-A22+1));D22-$B$7))</td><td></td></tr>
+<tr><td>F22</td><td>Buchwert Ende (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;D22-E22)</td><td></td></tr>
+<tr><td>G22</td><td>Methode (Zeile 22)</td><td class="xlw-f">=WENN(A22=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D22-$B$7)/($B$6-A22+1)-D22*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A23</td><td>Jahr (Zeile 23)</td><td class="xlw-f">=WENN(7&lt;=$B$6;7;&quot;&quot;)</td><td></td></tr>
+<tr><td>B23</td><td>AfA linear (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C23</td><td>Buchwert linear (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;C22-B23)</td><td></td></tr>
+<tr><td>D23</td><td>Buchwert Anfang (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;F22)</td><td></td></tr>
+<tr><td>E23</td><td>AfA degressiv (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;MIN(MAX(D23*$B$8;(D23-$B$7)/($B$6-A23+1));D23-$B$7))</td><td></td></tr>
+<tr><td>F23</td><td>Buchwert Ende (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;D23-E23)</td><td></td></tr>
+<tr><td>G23</td><td>Methode (Zeile 23)</td><td class="xlw-f">=WENN(A23=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D23-$B$7)/($B$6-A23+1)-D23*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A24</td><td>Jahr (Zeile 24)</td><td class="xlw-f">=WENN(8&lt;=$B$6;8;&quot;&quot;)</td><td></td></tr>
+<tr><td>B24</td><td>AfA linear (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C24</td><td>Buchwert linear (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;C23-B24)</td><td></td></tr>
+<tr><td>D24</td><td>Buchwert Anfang (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;F23)</td><td></td></tr>
+<tr><td>E24</td><td>AfA degressiv (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;MIN(MAX(D24*$B$8;(D24-$B$7)/($B$6-A24+1));D24-$B$7))</td><td></td></tr>
+<tr><td>F24</td><td>Buchwert Ende (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;D24-E24)</td><td></td></tr>
+<tr><td>G24</td><td>Methode (Zeile 24)</td><td class="xlw-f">=WENN(A24=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D24-$B$7)/($B$6-A24+1)-D24*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A25</td><td>Jahr (Zeile 25)</td><td class="xlw-f">=WENN(9&lt;=$B$6;9;&quot;&quot;)</td><td></td></tr>
+<tr><td>B25</td><td>AfA linear (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C25</td><td>Buchwert linear (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;C24-B25)</td><td></td></tr>
+<tr><td>D25</td><td>Buchwert Anfang (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;F24)</td><td></td></tr>
+<tr><td>E25</td><td>AfA degressiv (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;MIN(MAX(D25*$B$8;(D25-$B$7)/($B$6-A25+1));D25-$B$7))</td><td></td></tr>
+<tr><td>F25</td><td>Buchwert Ende (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;D25-E25)</td><td></td></tr>
+<tr><td>G25</td><td>Methode (Zeile 25)</td><td class="xlw-f">=WENN(A25=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D25-$B$7)/($B$6-A25+1)-D25*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A26</td><td>Jahr (Zeile 26)</td><td class="xlw-f">=WENN(10&lt;=$B$6;10;&quot;&quot;)</td><td></td></tr>
+<tr><td>B26</td><td>AfA linear (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C26</td><td>Buchwert linear (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;C25-B26)</td><td></td></tr>
+<tr><td>D26</td><td>Buchwert Anfang (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;F25)</td><td></td></tr>
+<tr><td>E26</td><td>AfA degressiv (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;MIN(MAX(D26*$B$8;(D26-$B$7)/($B$6-A26+1));D26-$B$7))</td><td></td></tr>
+<tr><td>F26</td><td>Buchwert Ende (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;D26-E26)</td><td></td></tr>
+<tr><td>G26</td><td>Methode (Zeile 26)</td><td class="xlw-f">=WENN(A26=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D26-$B$7)/($B$6-A26+1)-D26*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A27</td><td>Jahr (Zeile 27)</td><td class="xlw-f">=WENN(11&lt;=$B$6;11;&quot;&quot;)</td><td></td></tr>
+<tr><td>B27</td><td>AfA linear (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C27</td><td>Buchwert linear (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;C26-B27)</td><td></td></tr>
+<tr><td>D27</td><td>Buchwert Anfang (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;F26)</td><td></td></tr>
+<tr><td>E27</td><td>AfA degressiv (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;MIN(MAX(D27*$B$8;(D27-$B$7)/($B$6-A27+1));D27-$B$7))</td><td></td></tr>
+<tr><td>F27</td><td>Buchwert Ende (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;D27-E27)</td><td></td></tr>
+<tr><td>G27</td><td>Methode (Zeile 27)</td><td class="xlw-f">=WENN(A27=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D27-$B$7)/($B$6-A27+1)-D27*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A28</td><td>Jahr (Zeile 28)</td><td class="xlw-f">=WENN(12&lt;=$B$6;12;&quot;&quot;)</td><td></td></tr>
+<tr><td>B28</td><td>AfA linear (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C28</td><td>Buchwert linear (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;C27-B28)</td><td></td></tr>
+<tr><td>D28</td><td>Buchwert Anfang (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;F27)</td><td></td></tr>
+<tr><td>E28</td><td>AfA degressiv (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;MIN(MAX(D28*$B$8;(D28-$B$7)/($B$6-A28+1));D28-$B$7))</td><td></td></tr>
+<tr><td>F28</td><td>Buchwert Ende (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;D28-E28)</td><td></td></tr>
+<tr><td>G28</td><td>Methode (Zeile 28)</td><td class="xlw-f">=WENN(A28=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D28-$B$7)/($B$6-A28+1)-D28*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A29</td><td>Jahr (Zeile 29)</td><td class="xlw-f">=WENN(13&lt;=$B$6;13;&quot;&quot;)</td><td></td></tr>
+<tr><td>B29</td><td>AfA linear (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C29</td><td>Buchwert linear (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;C28-B29)</td><td></td></tr>
+<tr><td>D29</td><td>Buchwert Anfang (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;F28)</td><td></td></tr>
+<tr><td>E29</td><td>AfA degressiv (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;MIN(MAX(D29*$B$8;(D29-$B$7)/($B$6-A29+1));D29-$B$7))</td><td></td></tr>
+<tr><td>F29</td><td>Buchwert Ende (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;D29-E29)</td><td></td></tr>
+<tr><td>G29</td><td>Methode (Zeile 29)</td><td class="xlw-f">=WENN(A29=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D29-$B$7)/($B$6-A29+1)-D29*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A30</td><td>Jahr (Zeile 30)</td><td class="xlw-f">=WENN(14&lt;=$B$6;14;&quot;&quot;)</td><td></td></tr>
+<tr><td>B30</td><td>AfA linear (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C30</td><td>Buchwert linear (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;C29-B30)</td><td></td></tr>
+<tr><td>D30</td><td>Buchwert Anfang (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;F29)</td><td></td></tr>
+<tr><td>E30</td><td>AfA degressiv (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;MIN(MAX(D30*$B$8;(D30-$B$7)/($B$6-A30+1));D30-$B$7))</td><td></td></tr>
+<tr><td>F30</td><td>Buchwert Ende (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;D30-E30)</td><td></td></tr>
+<tr><td>G30</td><td>Methode (Zeile 30)</td><td class="xlw-f">=WENN(A30=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D30-$B$7)/($B$6-A30+1)-D30*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+<tr><td>A31</td><td>Jahr (Zeile 31)</td><td class="xlw-f">=WENN(15&lt;=$B$6;15;&quot;&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>AfA linear (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;$B$12)</td><td></td></tr>
+<tr><td>C31</td><td>Buchwert linear (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;C30-B31)</td><td></td></tr>
+<tr><td>D31</td><td>Buchwert Anfang (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;F30)</td><td></td></tr>
+<tr><td>E31</td><td>AfA degressiv (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;MIN(MAX(D31*$B$8;(D31-$B$7)/($B$6-A31+1));D31-$B$7))</td><td></td></tr>
+<tr><td>F31</td><td>Buchwert Ende (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;D31-E31)</td><td></td></tr>
+<tr><td>G31</td><td>Methode (Zeile 31)</td><td class="xlw-f">=WENN(A31=&quot;&quot;;&quot;&quot;;WENN(RUNDEN((D31-$B$7)/($B$6-A31+1)-D31*$B$8;6)&gt;=0;&quot;linear&quot;;&quot;degressiv&quot;))</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>2.247 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 107 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Lineare AfA pro Jahr (B12), Wechsel zur linearen AfA ab Jahr (B13).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 107 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 107 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>2.247 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Buchführung &amp; Jahresabschluss</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-kennzahlen">Bilanzkennzahlen &amp; Rentabilität</a><p>Bilanz eintragen – 13 Kennzahlen von EK-Quote bis ROI mit Einschätzung.</p></li>
+<li><a href="/tools/excel-vorlage-umsatzsteuer">Umsatzsteuer-Zahllast</a><p>Umsatzsteuer minus Vorsteuer: Zahllast an das Finanzamt oder Vorsteuerüberhang – mit 19 % und 7 %.</p></li>
+<li><a href="/tools/excel-vorlage-guvverfahren">GuV: Gesamtkosten- und Umsatzkostenverfahren</a><p>GuV nach § 275 HGB in beiden Verfahren – mit Prüfzeile, dass der Jahresüberschuss gleich ist.</p></li>
+<li><a href="/tools/excel-vorlage-cashflow">Kapitalflussrechnung (Cashflow indirekt)</a><p>Cashflow aus laufender Geschäfts-, Investitions- und Finanzierungstätigkeit und Veränderung der Finanzmittel.</p></li>
+<li><a href="/tools/excel-vorlage-leistungsafa">Leistungsabschreibung</a><p>Abschreibung nach Inanspruchnahme (km, Stunden, Stück) – AfA je Einheit und Buchwerte bis 10 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-vorratsbewertung">Vorratsbewertung: Durchschnitt, FIFO &amp; Niederstwertprinzip</a><p>Endbestand nach gewogenem Durchschnitt und FIFO bewerten – Bilanzansatz nach strengem Niederstwertprinzip.</p></li>
+<li><a href="/tools/excel-vorlage-gewinnverteilung">Gewinnverteilung OHG &amp; KG</a><p>Jahresgewinn nach Gesellschaftsvertrag verteilen: Kapitalverzinsung, Tätigkeitsvergütung, Rest nach Quoten.</p></li>
+<li><a href="/tools/excel-vorlage-rechnungsabgrenzung">Rechnungsabgrenzung (ARAP &amp; PRAP)</a><p>Monatsgenau: Aufwand bzw. Ertrag des Geschäftsjahres, Rechnungsabgrenzungsposten und Abschlussbuchung.</p></li>
+<li><a href="/tools/excel-vorlage-bewegungsbilanz">Strukturbilanz &amp; Bewegungsbilanz</a><p>Zwei Bilanzen vergleichen: Struktur in %, Veränderungen und Mittelherkunft / Mittelverwendung.</p></li>
+<li><a href="/tools/excel-vorlage-anlagenspiegel">Anlagenspiegel (Anlagengitter)</a><p>Bis zu 5 Anlagen: AK/HK, Zugänge, Abgänge, Umbuchungen, kumulierte AfA und Buchwerte – Bruttomethode.</p></li>
+<li><a href="/tools/excel-vorlage-inventar">Inventar, Reinvermögen &amp; Betriebsvermögensvergleich</a><p>Vom Inventar zum Eigenkapital an zwei Stichtagen – Gewinn per Betriebsvermögensvergleich.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>WACC – gewichtete Kapitalkosten – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 9 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-wacc">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"WACC – gewichtete Kapitalkosten (Excel-Vorlage)","description":"Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM.","url":"https://www.bwlmax.de/tools/excel-vorlage-wacc","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Finanzierung & Finanzmathematik","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Finanzierung &amp; Finanzmathematik</p>
+<h1>Excel-Vorlage: WACC – gewichtete Kapitalkosten</h1>
+<p class="lead">Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>9</b> Eingabefelder</li><li><b>9</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="wacc">
+<div class="xl-keys"><div class="xl-key"><small>Eigenkapitalkosten r_EK</small><b>9,10 %</b></div><div class="xl-key"><small>WACC</small><b>6,86 %</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">WACC_Kapitalkosten.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „WACC“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:340px"><col style="width:141px"><col style="width:54px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="3">WACC – gewichtete Kapitalkosten</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="3">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="3">Kapitalstruktur (Marktwerte)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Eigenkapital</td><td class="xs-in num">6.000.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-lab">Fremdkapital</td><td class="xs-in num">4.000.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-lab">Gesamtkapital</td><td class="xs-tot num">10.000.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-lab">Eigenkapitalanteil (EK / GK)</td><td class="xs-out num">60,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-lab">Fremdkapitalanteil (FK / GK)</td><td class="xs-out num">40,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-sec" colspan="3">Eigenkapitalkosten</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-lab">CAPM verwenden? (1 = ja, 0 = direkt eingeben)</td><td class="xs-in num">1</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-lab">Risikoloser Zinssatz r_f</td><td class="xs-in num">2,50 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-lab">Betafaktor β</td><td class="xs-in num">1,20</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-lab">Erwartete Marktrendite r_M</td><td class="xs-in num">8,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Eigenkapitalkosten direkt (wenn ohne CAPM)</td><td class="xs-in num">9,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-lab">Marktrisikoprämie r_M − r_f</td><td class="xs-out num">5,50 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-lab">Eigenkapitalkosten r_EK</td><td class="xs-res num">9,10 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-sec" colspan="3">Fremdkapitalkosten</td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Fremdkapitalzins vor Steuern r_FK</td><td class="xs-in num">5,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Ertragsteuersatz s</td><td class="xs-in num">30,00 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Fremdkapitalkosten nach Steuern r_FK × (1 − s)</td><td class="xs-out num">3,50 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-sec" colspan="3">Ergebnis</td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">WACC</td><td class="xs-res num">6,86 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-lab">WACC ohne Tax Shield (zum Vergleich)</td><td class="xs-out num">7,46 %</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Tax Shield p. a. (FK × r_FK × s)</td><td class="xs-out num">60.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-note" colspan="3">WACC = EK/GK × r_EK + FK/GK × r_FK × (1 − s). CAPM: r_EK = r_f + β × (r_M − r_f). Gewichtung mit Marktwerten, nicht Buchwerten. Tax Shield vereinfacht: Zinsen voll abzugsfähig und die Steuerersparnis wird genutzt.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „WACC“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Gewichtete Kapitalkosten mit Tax Shield – Eigenkapitalkosten direkt oder per CAPM. Die Vorlage gehört zum Bereich Finanzierung &amp; Finanzmathematik und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 9 Werte ein; die Datei berechnet daraus unter anderem „Eigenkapitalkosten r_EK“ und „WACC“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>WACC = EK/GK × r_EK + FK/GK × r_FK × (1 − s). CAPM: r_EK = r_f + β × (r_M − r_f). Gewichtung mit Marktwerten, nicht Buchwerten. Tax Shield vereinfacht: Zinsen voll abzugsfähig und die Steuerersparnis wird genutzt.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Eigenkapital</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">6.000.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Fremdkapital</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">4.000.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>CAPM verwenden? (1 = ja, 0 = direkt eingeben)</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">1</td><td>0 oder 1</td></tr>
+<tr><td>Risikoloser Zinssatz r_f</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">2,50 %</td><td>-10,00 % bis 100,00 %</td></tr>
+<tr><td>Betafaktor β</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">1,20</td><td>-5,00 bis 10,00</td></tr>
+<tr><td>Erwartete Marktrendite r_M</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">8,00 %</td><td>-100,00 % bis 100,00 %</td></tr>
+<tr><td>Eigenkapitalkosten direkt (wenn ohne CAPM)</td><td><code>B16</code></td><td class="xlw-v" data-xi="B16">9,00 %</td><td>-100,00 % bis 100,00 %</td></tr>
+<tr><td>Fremdkapitalzins vor Steuern r_FK</td><td><code>B21</code></td><td class="xlw-v" data-xi="B21">5,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+<tr><td>Ertragsteuersatz s</td><td><code>B22</code></td><td class="xlw-v" data-xi="B22">30,00 %</td><td>0,00 % bis 100,00 %</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Eigenkapitalkosten r_EK</td><td><code>B18</code></td><td class="xlw-v"><b data-xv="B18">9,10 %</b></td></tr>
+<tr><td>WACC</td><td><code>B26</code></td><td class="xlw-v"><b data-xv="B26">6,86 %</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 9 Formeln des Blatts „WACC“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>B7</td><td>Gesamtkapital</td><td class="xlw-f">=B5+B6</td><td></td></tr>
+<tr><td>B8</td><td>Eigenkapitalanteil (EK / GK)</td><td class="xlw-f">=WENN(B7=0;&quot;–&quot;;B5/B7)</td><td></td></tr>
+<tr><td>B9</td><td>Fremdkapitalanteil (FK / GK)</td><td class="xlw-f">=WENN(B7=0;&quot;–&quot;;B6/B7)</td><td></td></tr>
+<tr><td>B17</td><td>Marktrisikoprämie r_M − r_f</td><td class="xlw-f">=B15-B13</td><td></td></tr>
+<tr><td>B18</td><td>Eigenkapitalkosten r_EK</td><td class="xlw-f">=WENN(B12=1;B13+B14*B17;B16)</td><td><small>CAPM: r_EK = r_f + β × (r_M − r_f) – oder der direkt eingegebene Wert.</small></td></tr>
+<tr><td>B23</td><td>Fremdkapitalkosten nach Steuern r_FK × (1 − s)</td><td class="xlw-f">=B21*(1-B22)</td><td></td></tr>
+<tr><td>B26</td><td>WACC</td><td class="xlw-f">=WENN(B7=0;&quot;nicht bestimmbar – Gesamtkapital ist 0&quot;;B8*B18+B9*B23)</td><td><small>WACC = EK-Anteil × r_EK + FK-Anteil × r_FK × (1 − s).</small></td></tr>
+<tr><td>B27</td><td>WACC ohne Tax Shield (zum Vergleich)</td><td class="xlw-f">=WENN(B7=0;&quot;nicht bestimmbar&quot;;B8*B18+B9*B21)</td><td></td></tr>
+<tr><td>B28</td><td>Tax Shield p. a. (FK × r_FK × s)</td><td class="xlw-f">=B6*B21*B22</td><td><small>Steuerersparnis, weil Fremdkapitalzinsen die Steuerbemessungsgrundlage mindern.</small></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>189 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 9 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>42 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Eigenkapitalkosten r_EK (B18), WACC (B26).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 9 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 9 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>189 Formelergebnisse in LibreOffice neu berechnet, 42 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Finanzierung &amp; Finanzmathematik</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-annuitaet">Annuitätendarlehen &amp; Tilgungsplan</a><p>Rate, Zinsen und Tilgung Jahr für Jahr – Restschuld bis auf 0, bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-ratendarlehen">Ratendarlehen (Tilgungsdarlehen) &amp; Tilgungsplan</a><p>Gleiche Tilgung, sinkende Raten: Zinsen, Raten und Restschuld Jahr für Jahr – bis 20 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-sparplan">Zinseszins &amp; Sparplan</a><p>Endwert aus Einmalanlage und Sparrate – jährlich oder monatlich, vor- oder nachschüssig, bis 40 Jahre.</p></li>
+<li><a href="/tools/excel-vorlage-rentenrechnung">Rentenrechnung: Barwert, Endwert, ewige Rente</a><p>Rentenbarwert, Rentenendwert und ewige Rente mit Faktoren – vorschüssig oder nachschüssig.</p></li>
+<li><a href="/tools/excel-vorlage-effektivzins">Effektivzins eines Kredits</a><p>Effektivzins eines Annuitätendarlehens mit Disagio und Gebühr – plus Nominal- vs. Effektivzins.</p></li>
+<li><a href="/tools/excel-vorlage-skonto">Lieferantenkredit vs. Skonto</a><p>Effektiver Jahreszins des Lieferantenkredits und Entscheidung: Skonto ziehen oder Ziel ausnutzen?</p></li>
+<li><a href="/tools/excel-vorlage-leverage">Leverage-Effekt</a><p>EK-Rendite in Abhängigkeit vom Verschuldungsgrad – mit Chance und Risiko im Krisenfall.</p></li>
+<li><a href="/tools/excel-vorlage-kapitalbedarf">Kapitalbedarfsplanung (Gründung)</a><p>Anlage- und Umlaufkapitalbedarf über die Kapitalbindungsdauer – Gesamtbedarf für die Gründung.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

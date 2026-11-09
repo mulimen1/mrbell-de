@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Kostenauflösung &amp; Kostenfunktion – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 53 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-kostenaufloesung">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Kostenauflösung & Kostenfunktion (Excel-Vorlage)","description":"Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x.","url":"https://www.bwlmax.de/tools/excel-vorlage-kostenaufloesung","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Kosten- & Leistungsrechnung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Kosten- &amp; Leistungsrechnung</p>
+<h1>Excel-Vorlage: Kostenauflösung &amp; Kostenfunktion</h1>
+<p class="lead">Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>25</b> Eingabefelder</li><li><b>53</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="kostenaufloesung">
+<div class="xl-keys"><div class="xl-key"><small>Variable Kosten je Einheit kv = ΔK / Δx</small><b>13,00 €</b></div><div class="xl-key"><small>Fixkosten Kf = K(hoch) − kv · x(hoch)</small><b>13.600,00 €</b></div><div class="xl-key"><small>Prognose Gesamtkosten bei der Beschäftigung aus B5</small><b>33.100,00 €</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Kostenaufloesung.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „Kostenaufloesung“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:370px"><col style="width:118px"><col style="width:163px"><col style="width:104px"><col style="width:104px"><col style="width:118px"><col style="width:104px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="7">Kostenauflösung &amp; Kostenfunktion</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="7">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="7">Eingaben</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-lab">Beschäftigung für die Prognose</td><td class="xs-in num">1.500,00</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-th">Periode</td><td class="xs-th">Beschäftigung x</td><td class="xs-th">Gesamtkosten K</td><td class="xs-th">x (gültig)</td><td class="xs-th">K (gültig)</td><td class="xs-th">x · K</td><td class="xs-th">x²</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Januar</td><td class="xs-in num">1.000,00</td><td class="xs-in num">26.000,00 €</td><td class="xs-out num">1.000,00</td><td class="xs-out num">26.000,00 €</td><td class="xs-out num">26.000.000,00</td><td class="xs-out num">1.000.000,00</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Februar</td><td class="xs-in num">1.400,00</td><td class="xs-in num">31.000,00 €</td><td class="xs-out num">1.400,00</td><td class="xs-out num">31.000,00 €</td><td class="xs-out num">43.400.000,00</td><td class="xs-out num">1.960.000,00</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">März</td><td class="xs-in num">1.200,00</td><td class="xs-in num">28.500,00 €</td><td class="xs-out num">1.200,00</td><td class="xs-out num">28.500,00 €</td><td class="xs-out num">34.200.000,00</td><td class="xs-out num">1.440.000,00</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">April</td><td class="xs-in num">1.800,00</td><td class="xs-in num">37.000,00 €</td><td class="xs-out num">1.800,00</td><td class="xs-out num">37.000,00 €</td><td class="xs-out num">66.600.000,00</td><td class="xs-out num">3.240.000,00</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-in">Mai</td><td class="xs-in num">1.600,00</td><td class="xs-in num">34.000,00 €</td><td class="xs-out num">1.600,00</td><td class="xs-out num">34.000,00 €</td><td class="xs-out num">54.400.000,00</td><td class="xs-out num">2.560.000,00</td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-in">Juni</td><td class="xs-in num">800,00</td><td class="xs-in num">24.000,00 €</td><td class="xs-out num">800,00</td><td class="xs-out num">24.000,00 €</td><td class="xs-out num">19.200.000,00</td><td class="xs-out num">640.000,00</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-in"></td><td class="xs-in num">0,00</td><td class="xs-in num">0,00 €</td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-in"></td><td class="xs-in num">0,00</td><td class="xs-in num">0,00 €</td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td><td class="xs-out num"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-lab">Anzahl / Summen</td><td class="xs-out num">6</td><td class="xs-empty"></td><td class="xs-out num">7.800,00</td><td class="xs-out num">180.500,00 €</td><td class="xs-out num">243.800.000,00</td><td class="xs-out num">10.840.000,00</td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-sec" colspan="7">Hoch-Tief-Punkt-Methode (mathematische Kostenauflösung)</td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-th"></td><td class="xs-th">Beschäftigung x</td><td class="xs-th">Gesamtkosten K</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-lab">Höchste Beschäftigung</td><td class="xs-out num">1.800,00</td><td class="xs-out num">37.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Niedrigste Beschäftigung</td><td class="xs-out num">800,00</td><td class="xs-out num">24.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-lab">Differenz</td><td class="xs-out num">1.000,00</td><td class="xs-out num">13.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-lab">Variable Kosten je Einheit kv = ΔK / Δx</td><td class="xs-res num">13,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Fixkosten Kf = K(hoch) − kv · x(hoch)</td><td class="xs-res num">13.600,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-sec" colspan="7">Kostenfunktion K = Kf + kv · x</td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-th"></td><td class="xs-th">Hoch-Tief-Punkt</td><td class="xs-th">Regression (kleinste Quadrate)</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-lab">Fixkosten Kf</td><td class="xs-out num">13.600,00 €</td><td class="xs-out num">13.090,48 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Variable Kosten je Einheit kv</td><td class="xs-out num">13,00 €</td><td class="xs-out num">13,07 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">Prognose Gesamtkosten bei der Beschäftigung aus B5</td><td class="xs-res num">33.100,00 €</td><td class="xs-out num">32.697,62 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">Prognose Stückkosten</td><td class="xs-out num">22,07 €</td><td class="xs-out num">21,80 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-note" colspan="7">Hoch-Tief-Punkt: nur die Perioden mit höchster und niedrigster Beschäftigung zählen. Die Regression nutzt alle Perioden und reagiert aber empfindlich auf Ausreißer – die vorher prüfen. Zeilen ohne Periodenname werden ignoriert.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „Kostenaufloesung“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x. Die Vorlage gehört zum Bereich Kosten- &amp; Leistungsrechnung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 25 Werte ein; die Datei berechnet daraus unter anderem „Variable Kosten je Einheit kv = ΔK / Δx“, „Fixkosten Kf = K(hoch) − kv · x(hoch)“ und „Prognose Gesamtkosten bei der Beschäftigung aus B5“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Hoch-Tief-Punkt: nur die Perioden mit höchster und niedrigster Beschäftigung zählen. Die Regression nutzt alle Perioden und reagiert aber empfindlich auf Ausreißer – die vorher prüfen. Zeilen ohne Periodenname werden ignoriert.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Beschäftigung für die Prognose</td><td><code>B5</code></td><td class="xlw-v" data-xi="B5">1.500,00</td><td>ab 0,00</td></tr>
+<tr><td>Periode (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Januar</td><td>Text</td></tr>
+<tr><td>Januar · Beschäftigung x</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">1.000,00</td><td>ab 0,00</td></tr>
+<tr><td>Januar · Gesamtkosten K</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">26.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Februar</td><td>Text</td></tr>
+<tr><td>Februar · Beschäftigung x</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">1.400,00</td><td>ab 0,00</td></tr>
+<tr><td>Februar · Gesamtkosten K</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">31.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">März</td><td>Text</td></tr>
+<tr><td>März · Beschäftigung x</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">1.200,00</td><td>ab 0,00</td></tr>
+<tr><td>März · Gesamtkosten K</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">28.500,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">April</td><td>Text</td></tr>
+<tr><td>April · Beschäftigung x</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">1.800,00</td><td>ab 0,00</td></tr>
+<tr><td>April · Gesamtkosten K</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">37.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 12)</td><td><code>A12</code></td><td class="xlw-v" data-xi="A12">Mai</td><td>Text</td></tr>
+<tr><td>Mai · Beschäftigung x</td><td><code>B12</code></td><td class="xlw-v" data-xi="B12">1.600,00</td><td>ab 0,00</td></tr>
+<tr><td>Mai · Gesamtkosten K</td><td><code>C12</code></td><td class="xlw-v" data-xi="C12">34.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 13)</td><td><code>A13</code></td><td class="xlw-v" data-xi="A13">Juni</td><td>Text</td></tr>
+<tr><td>Juni · Beschäftigung x</td><td><code>B13</code></td><td class="xlw-v" data-xi="B13">800,00</td><td>ab 0,00</td></tr>
+<tr><td>Juni · Gesamtkosten K</td><td><code>C13</code></td><td class="xlw-v" data-xi="C13">24.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 14)</td><td><code>A14</code></td><td class="xlw-v" data-xi="A14"></td><td>Text</td></tr>
+<tr><td>Beschäftigung x (Zeile 14)</td><td><code>B14</code></td><td class="xlw-v" data-xi="B14">0,00</td><td>ab 0,00</td></tr>
+<tr><td>Gesamtkosten K (Zeile 14)</td><td><code>C14</code></td><td class="xlw-v" data-xi="C14">0,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Periode (Zeile 15)</td><td><code>A15</code></td><td class="xlw-v" data-xi="A15"></td><td>Text</td></tr>
+<tr><td>Beschäftigung x (Zeile 15)</td><td><code>B15</code></td><td class="xlw-v" data-xi="B15">0,00</td><td>ab 0,00</td></tr>
+<tr><td>Gesamtkosten K (Zeile 15)</td><td><code>C15</code></td><td class="xlw-v" data-xi="C15">0,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Variable Kosten je Einheit kv = ΔK / Δx</td><td><code>B23</code></td><td class="xlw-v"><b data-xv="B23">13,00 €</b></td></tr>
+<tr><td>Fixkosten Kf = K(hoch) − kv · x(hoch)</td><td><code>B24</code></td><td class="xlw-v"><b data-xv="B24">13.600,00 €</b></td></tr>
+<tr><td>Prognose Gesamtkosten bei der Beschäftigung aus B5</td><td><code>B30</code></td><td class="xlw-v"><b data-xv="B30">33.100,00 €</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 53 Formeln des Blatts „Kostenaufloesung“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>D8</td><td>Januar</td><td class="xlw-f">=WENN(A8=&quot;&quot;;&quot;&quot;;B8)</td><td></td></tr>
+<tr><td>E8</td><td>Januar</td><td class="xlw-f">=WENN(A8=&quot;&quot;;&quot;&quot;;C8)</td><td></td></tr>
+<tr><td>F8</td><td>Januar</td><td class="xlw-f">=WENN(A8=&quot;&quot;;&quot;&quot;;B8*C8)</td><td></td></tr>
+<tr><td>G8</td><td>Januar</td><td class="xlw-f">=WENN(A8=&quot;&quot;;&quot;&quot;;B8^2)</td><td></td></tr>
+<tr><td>D9</td><td>Februar</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;B9)</td><td></td></tr>
+<tr><td>E9</td><td>Februar</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;C9)</td><td></td></tr>
+<tr><td>F9</td><td>Februar</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;B9*C9)</td><td></td></tr>
+<tr><td>G9</td><td>Februar</td><td class="xlw-f">=WENN(A9=&quot;&quot;;&quot;&quot;;B9^2)</td><td></td></tr>
+<tr><td>D10</td><td>März</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;B10)</td><td></td></tr>
+<tr><td>E10</td><td>März</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;C10)</td><td></td></tr>
+<tr><td>F10</td><td>März</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;B10*C10)</td><td></td></tr>
+<tr><td>G10</td><td>März</td><td class="xlw-f">=WENN(A10=&quot;&quot;;&quot;&quot;;B10^2)</td><td></td></tr>
+<tr><td>D11</td><td>April</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;B11)</td><td></td></tr>
+<tr><td>E11</td><td>April</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;C11)</td><td></td></tr>
+<tr><td>F11</td><td>April</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;B11*C11)</td><td></td></tr>
+<tr><td>G11</td><td>April</td><td class="xlw-f">=WENN(A11=&quot;&quot;;&quot;&quot;;B11^2)</td><td></td></tr>
+<tr><td>D12</td><td>Mai</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;B12)</td><td></td></tr>
+<tr><td>E12</td><td>Mai</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;C12)</td><td></td></tr>
+<tr><td>F12</td><td>Mai</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;B12*C12)</td><td></td></tr>
+<tr><td>G12</td><td>Mai</td><td class="xlw-f">=WENN(A12=&quot;&quot;;&quot;&quot;;B12^2)</td><td></td></tr>
+<tr><td>D13</td><td>Juni</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;B13)</td><td></td></tr>
+<tr><td>E13</td><td>Juni</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;C13)</td><td></td></tr>
+<tr><td>F13</td><td>Juni</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;B13*C13)</td><td></td></tr>
+<tr><td>G13</td><td>Juni</td><td class="xlw-f">=WENN(A13=&quot;&quot;;&quot;&quot;;B13^2)</td><td></td></tr>
+<tr><td>D14</td><td>x (gültig) (Zeile 14)</td><td class="xlw-f">=WENN(A14=&quot;&quot;;&quot;&quot;;B14)</td><td></td></tr>
+<tr><td>E14</td><td>K (gültig) (Zeile 14)</td><td class="xlw-f">=WENN(A14=&quot;&quot;;&quot;&quot;;C14)</td><td></td></tr>
+<tr><td>F14</td><td>x · K (Zeile 14)</td><td class="xlw-f">=WENN(A14=&quot;&quot;;&quot;&quot;;B14*C14)</td><td></td></tr>
+<tr><td>G14</td><td>x² (Zeile 14)</td><td class="xlw-f">=WENN(A14=&quot;&quot;;&quot;&quot;;B14^2)</td><td></td></tr>
+<tr><td>D15</td><td>x (gültig) (Zeile 15)</td><td class="xlw-f">=WENN(A15=&quot;&quot;;&quot;&quot;;B15)</td><td></td></tr>
+<tr><td>E15</td><td>K (gültig) (Zeile 15)</td><td class="xlw-f">=WENN(A15=&quot;&quot;;&quot;&quot;;C15)</td><td></td></tr>
+<tr><td>F15</td><td>x · K (Zeile 15)</td><td class="xlw-f">=WENN(A15=&quot;&quot;;&quot;&quot;;B15*C15)</td><td></td></tr>
+<tr><td>G15</td><td>x² (Zeile 15)</td><td class="xlw-f">=WENN(A15=&quot;&quot;;&quot;&quot;;B15^2)</td><td></td></tr>
+<tr><td>B16</td><td>Anzahl / Summen</td><td class="xlw-f">=ANZAHL(D8:D15)</td><td></td></tr>
+<tr><td>D16</td><td>Anzahl / Summen</td><td class="xlw-f">=SUMME(D8:D15)</td><td></td></tr>
+<tr><td>E16</td><td>Anzahl / Summen</td><td class="xlw-f">=SUMME(E8:E15)</td><td></td></tr>
+<tr><td>F16</td><td>Anzahl / Summen</td><td class="xlw-f">=SUMME(F8:F15)</td><td></td></tr>
+<tr><td>G16</td><td>Anzahl / Summen</td><td class="xlw-f">=SUMME(G8:G15)</td><td></td></tr>
+<tr><td>B20</td><td>Höchste Beschäftigung</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;MAX(D8:D15))</td><td></td></tr>
+<tr><td>C20</td><td>Höchste Beschäftigung</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;INDEX(E8:E15;VERGLEICH(B20;D8:D15;0)))</td><td></td></tr>
+<tr><td>B21</td><td>Niedrigste Beschäftigung</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;MIN(D8:D15))</td><td></td></tr>
+<tr><td>C21</td><td>Niedrigste Beschäftigung</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;INDEX(E8:E15;VERGLEICH(B21;D8:D15;0)))</td><td></td></tr>
+<tr><td>B22</td><td>Differenz</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;B20-B21)</td><td></td></tr>
+<tr><td>C22</td><td>Differenz</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;C20-C21)</td><td></td></tr>
+<tr><td>B23</td><td>Variable Kosten je Einheit kv = ΔK / Δx</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;WENN(B22=0;&quot;–&quot;;C22/B22))</td><td><small>kv = (K hoch − K tief) / (x hoch − x tief).</small></td></tr>
+<tr><td>B24</td><td>Fixkosten Kf = K(hoch) − kv · x(hoch)</td><td class="xlw-f">=WENN(B16=0;&quot;–&quot;;WENN(B22=0;&quot;–&quot;;C20-B23*B20))</td><td><small>Kf = K hoch − kv × x hoch.</small></td></tr>
+<tr><td>B28</td><td>Fixkosten Kf</td><td class="xlw-f">=B24</td><td></td></tr>
+<tr><td>C28</td><td>Fixkosten Kf</td><td class="xlw-f">=WENN(ODER(B16&lt;2;B16*G16-D16^2=0);&quot;–&quot;;(E16-C29*D16)/B16)</td><td></td></tr>
+<tr><td>B29</td><td>Variable Kosten je Einheit kv</td><td class="xlw-f">=B23</td><td></td></tr>
+<tr><td>C29</td><td>Variable Kosten je Einheit kv</td><td class="xlw-f">=WENN(ODER(B16&lt;2;B16*G16-D16^2=0);&quot;–&quot;;(B16*F16-D16*E16)/(B16*G16-D16^2))</td><td><small>Steigung der Regressionsgeraden: (n·Σxy − Σx·ΣK) / (n·Σx² − (Σx)²).</small></td></tr>
+<tr><td>B30</td><td>Prognose Gesamtkosten bei der Beschäftigung aus B5</td><td class="xlw-f">=WENN(B23=&quot;–&quot;;&quot;–&quot;;B24+B23*B5)</td><td></td></tr>
+<tr><td>C30</td><td>Prognose Gesamtkosten bei der Beschäftigung aus B5</td><td class="xlw-f">=WENN(C29=&quot;–&quot;;&quot;–&quot;;C28+C29*B5)</td><td></td></tr>
+<tr><td>B31</td><td>Prognose Stückkosten</td><td class="xlw-f">=WENN(ODER(B30=&quot;–&quot;;B5=0);&quot;–&quot;;B30/B5)</td><td></td></tr>
+<tr><td>C31</td><td>Prognose Stückkosten</td><td class="xlw-f">=WENN(ODER(C30=&quot;–&quot;;B5=0);&quot;–&quot;;C30/B5)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.113 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 53 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>105 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Variable Kosten je Einheit kv = ΔK / Δx (B23), Fixkosten Kf = K(hoch) − kv · x(hoch) (B24), Prognose Gesamtkosten bei der Beschäftigung aus B5 (B30), Fixkosten Kf (C28), Variable Kosten je Einheit kv (C29).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 53 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 53 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.113 Formelergebnisse in LibreOffice neu berechnet, 105 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Kosten- &amp; Leistungsrechnung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-breakeven">Break-even-Analyse</a><p>Gewinnschwelle in Stück und Euro, Sicherheitsabstand und Gewinn-Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-deckungsbeitrag">Mehrstufige Deckungsbeitragsrechnung</a><p>3 Produkte, 2 Erzeugnisgruppen: DB I, II, III bis zum Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-zuschlag">Zuschlagskalkulation (Industrie)</a><p>Vom Material bis zum Listenverkaufspreis – mit Skonto, Provision und Rabatt im Hundert.</p></li>
+<li><a href="/tools/excel-vorlage-bab">Betriebsabrechnungsbogen (BAB)</a><p>Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln.</p></li>
+<li><a href="/tools/excel-vorlage-divisionskalkulation">Divisionskalkulation (einstufig &amp; zweistufig)</a><p>Selbstkosten je Stück ein- und zweistufig, Lagerbestandsveränderung zu Herstellkosten und Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-aequivalenzziffern">Äquivalenzziffernkalkulation</a><p>Bis 6 Sorten: Recheneinheiten, Kosten je Recheneinheit, Stückkosten und Sortenkosten je Sorte.</p></li>
+<li><a href="/tools/excel-vorlage-maschinenstundensatz">Maschinenstundensatzrechnung</a><p>Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt.</p></li>
+<li><a href="/tools/excel-vorlage-kuppelkalkulation">Kuppelkalkulation (Restwert- &amp; Verteilungsmethode)</a><p>Herstellkosten des Hauptprodukts per Restwertmethode und Kostenverteilung nach Marktwerten.</p></li>
+<li><a href="/tools/excel-vorlage-handelvorwaerts">Handelskalkulation (Vorwärtskalkulation)</a><p>Vom Listeneinkaufspreis zum Listenverkaufspreis – mit Kalkulationszuschlag, -faktor und Handelsspanne.</p></li>
+<li><a href="/tools/excel-vorlage-handelrueckwaerts">Handelskalkulation (Rückwärtskalkulation)</a><p>Vom erzielbaren Listenverkaufspreis zurück zum höchstens zahlbaren Listeneinkaufspreis.</p></li>
+<li><a href="/tools/excel-vorlage-makeorbuy">Make-or-Buy (kurzfristig)</a><p>Eigenfertigung oder Fremdbezug? Relevante Kosten, kritische Menge und Preisobergrenze für den Zukauf.</p></li>
+<li><a href="/tools/excel-vorlage-preisuntergrenze">Preisuntergrenze &amp; Zusatzauftrag</a><p>Kurz- und langfristige Preisuntergrenze und ob sich ein Zusatzauftrag lohnt – auch bei knapper Kapazität.</p></li>
+<li><a href="/tools/excel-vorlage-prozesskosten">Prozesskostenrechnung</a><p>Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>

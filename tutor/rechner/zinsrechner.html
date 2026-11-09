@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/tutor/tools/bm-werkzeug.js?v=2"></script>
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
 <link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <title>Zinsrechner: Zinseszins, Barwert, Rentenbarwert und Effektivzins | BWL Max</title>
 <meta name="description" content="Auf- und abzinsen, Rentenbarwert und -endwert, ewige Rente und Effektivzins berechnen – mit Formel und Rechenweg – kostenlos.">
@@ -113,8 +113,21 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
  a{color:#000;text-decoration:none}
  footer{margin-top:1em}
 }
+.bmw-weg .fx.steps{display:flex}
+.ueb-typ{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:.6em 0 0;font-size:.9rem;color:var(--muted)}
+.ueb-typ select{width:auto;max-width:100%}
+.druckkopf{display:none}
+@media print{
+ html.bmw-printing .druckkopf{display:block;font-weight:700;font-size:12pt;margin:0 0 .5em}
+ html.bmw-printing #h-rechner,html.bmw-printing #rechner>p.small{display:none}
+ .ueb-typ{display:none}
+ .steps,.d{overflow:visible}
+ .card.main,.out{break-inside:auto}
+ .out .big,.out .steps,.bmw-weg>li{break-inside:avoid}
+ tfoot{display:table-row-group}
+}
 </style>
-<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=1">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
 <div class="wrap">
@@ -125,23 +138,26 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 <header>
 <h1>Zinsrechner: Auf- und Abzinsen, Renten, Effektivzins</h1>
 <p class="lead">Endwert mit Zinseszins, Barwert, Rentenbarwert und Rentenendwert (nachschüssig und vorschüssig), ewige Rente und Effektivzins bei unterjähriger Verzinsung – jeweils mit Formel, eingesetztem Rechenweg und Faktor. Gedacht für Finanzmathematik, Investition und Finanzierung im Studium.</p>
-<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, nichts wird gespeichert oder übertragen.</p>
+<p class="small">Ohne Anmeldung. Alles wird direkt in deinem Browser berechnet, deine Eingaben werden weder gespeichert noch übertragen.</p>
 </header>
 
 <nav class="toc" aria-label="Inhalt">
 <strong>Inhalt</strong>
 <ol>
 <li><a href="#rechner">Rechner</a></li>
+<li><a href="#uebung">Übung: selbst rechnen</a></li>
 <li><a href="#formeln">Formeln und Faktoren</a></li>
 <li><a href="#beispiele">Klausurbeispiele mit Lösung</a></li>
 <li><a href="#grundlagen">Grundlagen</a></li>
 <li><a href="#faq">Häufige Fragen</a></li>
 <li><a href="#hinweise">Hinweise</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
 </ol>
 </nav>
 
 <section id="rechner" aria-labelledby="h-rechner">
 <h2 id="h-rechner">Rechner</h2>
+<p class="druckkopf">Zinsrechner · www.bwlmax.de/rechner/zinsrechner</p>
 <p class="small">Beträge in Euro, Zinssatz in Prozent pro Jahr. Komma und Punkt als Dezimalzeichen sind erlaubt, Tausenderpunkte auch. Das Ergebnis wird beim Tippen aktualisiert.</p>
 <form class="card main" id="c-z" onsubmit="return false">
 <fieldset class="opt">
@@ -169,10 +185,18 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </form>
 </section>
 
+<section id="uebung" aria-labelledby="h-uebung">
+<h2 id="h-uebung">Übung: selbst rechnen</h2>
+<p>Klausurtypische Aufgaben mit zufälligen Zahlen zu Auf- und Abzinsen, Renten (nachschüssig und vorschüssig), ewiger Rente und Effektivzins. Du rechnest selbst, das Werkzeug prüft dein Ergebnis und zeigt auf Wunsch den vollständigen Lösungsweg.</p>
+<label class="ueb-typ" for="z-ueb-typ">Aufgabentyp <select id="z-ueb-typ" data-bmw-nicht="1"><option value="mix">gemischt</option><option value="endwert">Endwert (aufzinsen)</option><option value="barwert">Barwert (abzinsen)</option><option value="rentenbarwert">Rentenbarwert</option><option value="rentenendwert">Rentenendwert</option><option value="ewige_rente">Ewige Rente</option><option value="effektivzins">Effektivzins</option><option value="unterjaehrig">Endwert bei unterjähriger Verzinsung</option></select></label>
+<div id="z-ueb"></div>
+</section>
+
 <section id="formeln" aria-labelledby="h-formeln">
 <h2 id="h-formeln">Formeln und Faktoren</h2>
 <p>Mit dem Zinssatz i (als Dezimalzahl, 5 % = 0,05), dem Zinsfaktor q = 1 + i und n Perioden gilt:</p>
 <div class="tw"><table class="dec">
+<caption>Zinsfaktoren im Überblick</caption>
 <thead><tr><th scope="col">Gesucht</th><th scope="col">nachschüssig</th><th scope="col">vorschüssig</th></tr></thead>
 <tbody>
 <tr><th scope="row">Endwert (Aufzinsen)</th><td colspan="2"><b>Aufzinsungsfaktor</b><span class="f m">K_n=K_0\cdot q^n</span><span class="ex">Kapital mit Zinseszins nach n Jahren</span></td></tr>
@@ -262,6 +286,17 @@ footer{margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font-size
 </ul>
 </section>
 
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Methode offen gelegt</b><span>Alle Formeln und Faktoren stehen im Abschnitt <a href="#formeln">Formeln und Faktoren</a>, der Rechenweg zeigt jede Zahl eingesetzt. Gerechnet wird mit ungerundeten Faktoren, siehe <a href="#hinweise">Hinweise</a>.</span></li>
+<li><b>Gegengerechnet</b><span>Rechenlogik und Übungsaufgaben sind automatisch gegen eine unabhängige Referenzrechnung in Python (Dezimalarithmetik mit hoher Stellenzahl) getestet: 613 zufällige und Randfälle aller sechs Rechenarten und 1.200 erzeugte Übungsaufgaben, ohne Abweichung.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
 <footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
 </div>
 
@@ -345,7 +380,28 @@ var ZR = (function () {
     if (r === 0) r = 0;
     return new Intl.NumberFormat('de-DE', { maximumFractionDigits: max || 8 }).format(r).replace('-', '−');
   }
-  return { R: R, zahl: zahl, rechne: rechne, nfmt: nfmt, nvar: nvar };
+  // ---------- Übungsaufgaben (klausurtypische Zufallszahlen) ----------
+  function zuf(rnd, a, b, s) { s = s || 1; return +(a + Math.floor(rnd() * (Math.floor((b - a) / s + 1e-9) + 1)) * s).toFixed(10); }
+  function wahl(rnd, arr) { return arr[Math.floor(rnd() * arr.length)]; }
+  var TYPEN = ['endwert', 'barwert', 'rentenbarwert', 'rentenendwert', 'ewige_rente', 'effektivzins', 'unterjaehrig'];
+  // Toleranzen: Faktor auf sechs Nachkommastellen, auch wenn q^n vorher auf sechs Stellen gerundet wurde
+  function aufgabe(typ, rnd) {
+    rnd = rnd || Math.random;
+    if (TYPEN.indexOf(typ) < 0) typ = wahl(rnd, TYPEN);
+    var ip = zuf(rnd, 1, 8, 0.5), art = typ === 'unterjaehrig' ? 'endwert' : typ, B = 0, n = 0, m = 1, vor = false, r, tolF = 1.5e-6, tolE;
+    if (typ === 'endwert') { B = zuf(rnd, 2, 100) * 500; n = zuf(rnd, 2, 25); }
+    else if (typ === 'barwert') { B = zuf(rnd, 4, 200) * 500; n = zuf(rnd, 2, 25); }
+    else if (typ === 'rentenbarwert' || typ === 'rentenendwert') { B = zuf(rnd, 2, 120) * 100; n = zuf(rnd, 3, 25); vor = rnd() < 0.35; }
+    else if (typ === 'ewige_rente') { B = zuf(rnd, 1, 100) * 100; ip = zuf(rnd, 2, 8, 0.5); vor = rnd() < 0.3; }
+    else if (typ === 'effektivzins') { ip = zuf(rnd, 2, 12, 0.5); m = wahl(rnd, [2, 4, 12]); }
+    else { B = zuf(rnd, 2, 100) * 500; n = zuf(rnd, 2, 15); m = wahl(rnd, [2, 4, 12]); }
+    r = rechne(art, B, ip, n, m, vor);
+    if (art === 'rentenbarwert' || art === 'rentenendwert') tolF = (1e-6 + 6e-7 / r.i) * (vor ? r.q : 1) + 1e-6;
+    if (art === 'effektivzins') return { typ: typ, art: art, i: ip, m: m, wert: r.effektivzins * 100, tol: 0.005 + 1e-9 };
+    tolE = art === 'ewige_rente' ? 0.01 : typ === 'unterjaehrig' ? 0.01 + 2e-6 * Math.abs(r.ergebnis) : 0.01 + Math.abs(B) * tolF;
+    return { typ: typ, art: art, B: B, i: ip, n: n, m: m, vor: r.vorschuessig, faktor: r.faktor, wert: r.ergebnis, tolF: tolF, tol: tolE };
+  }
+  return { R: R, zahl: zahl, rechne: rechne, nfmt: nfmt, nvar: nvar, aufgabe: aufgabe };
 })();
 // MATH-END
 
@@ -391,6 +447,46 @@ var ZR = (function () {
     $('z-i-t').textContent = art === 'effektivzins' ? 'Nominalzins i (% p. a.)' : 'Zinssatz i (% p. a.)';
   }
 
+  // Formel und Rechenweg mit eingesetzten Werten (auch für die Übung)
+  function zWeg(r) {
+    var art = r.art, m = r.m, unter = m > 1, iS = tv(r.i_nom, 10), qS = tv(r.q, 10);
+    var formel = [], pre = [], weg = [];
+    // Periodenzins und Periodenzahl bei unterjähriger Verzinsung
+    if (unter && art !== 'effektivzins') {
+      pre.push('i_p=\\dfrac{i}{m}=\\dfrac{' + tp(iS) + '}{' + m + '}' + (M.R(r.i, 10) === r.i ? '=' : '\\approx ') + tv(r.i, 10));
+      if (art !== 'ewige_rente') pre.push('N=n\\cdot m=' + tv(r.jahre, 6) + '\\cdot ' + m + '=' + tv(r.n, 6));
+    }
+    var iX = unter ? 'i_p' : 'i', nX = unter ? 'N' : 'n', nV = tv(r.n, 6), iV = tp(tv(r.i, 10)), qq = '\\cdot ' + qS, vq = r.vorschuessig ? '\\cdot q' : '';
+    if (art !== 'effektivzins') pre.push('q=1+' + iX + '=' + qS);
+    // „=“ nur, wenn die Rundung nichts ändert: Faktor auf 6, Ergebnis auf 2 Nachkommastellen
+    var gl = function (x, d) { return Math.abs(M.R(x, d) - x) <= 1e-9 * Math.max(1, Math.abs(x)) ? '=' : '\\approx '; };
+    var fS = gl(r.faktor, 6) + tm(r.betrag) + '\\cdot ' + tn(r.faktor, 6), eS = gl(r.ergebnis, 2) + tn(r.ergebnis);
+    if (art === 'endwert') {
+      formel = ['K_' + nX + '=K_0\\cdot q^{' + nX + '}'];
+      weg = ['K_{' + nV + '}=' + tm(r.betrag) + '\\cdot ' + qS + '^{' + nV + '}', fS, eS];
+    } else if (art === 'barwert') {
+      formel = ['K_0=K_' + nX + '\\cdot q^{-' + nX + '}=\\dfrac{K_' + nX + '}{q^{' + nX + '}}'];
+      weg = ['K_0=\\dfrac{' + tm(r.betrag) + '}{' + qS + '^{' + nV + '}}', fS, eS];
+    } else if (art === 'rentenbarwert') {
+      formel = ['R_0=r\\cdot\\dfrac{q^{' + nX + '}-1}{q^{' + nX + '}\\cdot ' + iX + '}' + vq];
+      weg = r.i === 0 ? ['R_0=r\\cdot ' + nX + (r.vorschuessig ? '' : '') + '=' + tm(r.betrag) + '\\cdot ' + nV]
+        : ['R_0=' + tm(r.betrag) + '\\cdot\\dfrac{' + qS + '^{' + nV + '}-1}{' + qS + '^{' + nV + '}\\cdot ' + iV + '}' + (r.vorschuessig ? qq : '')];
+      weg.push(fS, eS);
+    } else if (art === 'rentenendwert') {
+      formel = ['R_' + nX + '=r\\cdot\\dfrac{q^{' + nX + '}-1}{' + iX + '}' + vq];
+      weg = r.i === 0 ? ['R_{' + nV + '}=r\\cdot ' + nX + '=' + tm(r.betrag) + '\\cdot ' + nV]
+        : ['R_{' + nV + '}=' + tm(r.betrag) + '\\cdot\\dfrac{' + qS + '^{' + nV + '}-1}{' + iV + '}' + (r.vorschuessig ? qq : '')];
+      weg.push(fS, eS);
+    } else if (art === 'ewige_rente') {
+      formel = ['R_0=\\dfrac{r}{' + iX + '}' + vq];
+      weg = ['R_0=\\dfrac{' + tm(r.betrag) + '}{' + iV + '}' + (r.vorschuessig ? qq : ''), eS];
+    } else {
+      formel = ['i_{\\text{eff}}=\\left(1+\\dfrac{i_{\\text{nom}}}{m}\\right)^{m}-1'];
+      weg = ['i_{\\text{eff}}=\\left(1+\\dfrac{' + tp(iS) + '}{' + m + '}\\right)^{' + m + '}-1', '=' + qS + '^{' + m + '}-1', gl(r.effektivzins, 6) + tn(r.effektivzins, 6), '=' + tn(M.R(r.effektivzins, 6) * 100, 4) + '\\,\\%'];
+    }
+    return { formel: formel, pre: pre, weg: weg };
+  }
+
   function calc() {
     var art = radio('z-art');
     layout(art);
@@ -409,40 +505,8 @@ var ZR = (function () {
       if (/Jahre ×/.test(ex.message)) mark($('z-m'), true);
       $('z-out').innerHTML = err(ex.message); return;
     }
-    var m = r.m, unter = m > 1, ip = pi.v;
-    var iS = tv(r.i_nom, 10), qS = tv(r.q, 10), h = '<div class="name">' + TITEL[art] + (r.vorschuessig ? ' (vorschüssig)' : /rente/.test(art) ? ' (nachschüssig)' : '') + '</div>';
-    var formel = [], pre = [], weg = [];
-    // Periodenzins und Periodenzahl bei unterjähriger Verzinsung
-    if (unter && art !== 'effektivzins') {
-      pre.push('i_p=\\dfrac{i}{m}=\\dfrac{' + tp(iS) + '}{' + m + '}' + (M.R(r.i, 10) === r.i ? '=' : '\\approx ') + tv(r.i, 10));
-      if (art !== 'ewige_rente') pre.push('N=n\\cdot m=' + tv(r.jahre, 6) + '\\cdot ' + m + '=' + tv(r.n, 6));
-    }
-    var iX = unter ? 'i_p' : 'i', nX = unter ? 'N' : 'n', nV = tv(r.n, 6), iV = tp(tv(r.i, 10)), qq = '\\cdot ' + qS, vq = r.vorschuessig ? '\\cdot q' : '';
-    if (art !== 'effektivzins') pre.push('q=1+' + iX + '=' + qS);
-    var feq = function (x) { return (M.R(x, 6) === x ? '=' : '\\approx '); };
-    if (art === 'endwert') {
-      formel = ['K_' + nX + '=K_0\\cdot q^{' + nX + '}'];
-      weg = ['K_{' + nV + '}=' + tm(r.betrag) + '\\cdot ' + qS + '^{' + nV + '}', '=' + tm(r.betrag) + '\\cdot ' + tn(r.faktor, 6), '\\approx ' + tn(r.ergebnis)];
-    } else if (art === 'barwert') {
-      formel = ['K_0=K_' + nX + '\\cdot q^{-' + nX + '}=\\dfrac{K_' + nX + '}{q^{' + nX + '}}'];
-      weg = ['K_0=\\dfrac{' + tm(r.betrag) + '}{' + qS + '^{' + nV + '}}', '=' + tm(r.betrag) + '\\cdot ' + tn(r.faktor, 6), '\\approx ' + tn(r.ergebnis)];
-    } else if (art === 'rentenbarwert') {
-      formel = ['R_0=r\\cdot\\dfrac{q^{' + nX + '}-1}{q^{' + nX + '}\\cdot ' + iX + '}' + vq];
-      weg = r.i === 0 ? ['R_0=r\\cdot ' + nX + (r.vorschuessig ? '' : '') + '=' + tm(r.betrag) + '\\cdot ' + nV]
-        : ['R_0=' + tm(r.betrag) + '\\cdot\\dfrac{' + qS + '^{' + nV + '}-1}{' + qS + '^{' + nV + '}\\cdot ' + iV + '}' + (r.vorschuessig ? qq : '')];
-      weg.push('=' + tm(r.betrag) + '\\cdot ' + tn(r.faktor, 6), '\\approx ' + tn(r.ergebnis));
-    } else if (art === 'rentenendwert') {
-      formel = ['R_' + nX + '=r\\cdot\\dfrac{q^{' + nX + '}-1}{' + iX + '}' + vq];
-      weg = r.i === 0 ? ['R_{' + nV + '}=r\\cdot ' + nX + '=' + tm(r.betrag) + '\\cdot ' + nV]
-        : ['R_{' + nV + '}=' + tm(r.betrag) + '\\cdot\\dfrac{' + qS + '^{' + nV + '}-1}{' + iV + '}' + (r.vorschuessig ? qq : '')];
-      weg.push('=' + tm(r.betrag) + '\\cdot ' + tn(r.faktor, 6), '\\approx ' + tn(r.ergebnis));
-    } else if (art === 'ewige_rente') {
-      formel = ['R_0=\\dfrac{r}{' + iX + '}' + vq];
-      weg = ['R_0=\\dfrac{' + tm(r.betrag) + '}{' + iV + '}' + (r.vorschuessig ? qq : ''), feq(r.ergebnis) === '=' ? '=' + tn(r.ergebnis) : '\\approx ' + tn(r.ergebnis)];
-    } else {
-      formel = ['i_{\\text{eff}}=\\left(1+\\dfrac{i_{\\text{nom}}}{m}\\right)^{m}-1'];
-      weg = ['i_{\\text{eff}}=\\left(1+\\dfrac{' + tp(iS) + '}{' + m + '}\\right)^{' + m + '}-1', '=' + qS + '^{' + m + '}-1', (M.R(r.effektivzins, 6) === r.effektivzins ? '=' : '\\approx ') + tn(r.effektivzins, 6), '=' + tn(r.effektivzins * 100, 4) + '\\,\\%'];
-    }
+    var m = r.m, unter = m > 1, ip = pi.v, zw = zWeg(r), formel = zw.formel, pre = zw.pre, weg = zw.weg;
+    var h = '<div class="name">' + TITEL[art] + (r.vorschuessig ? ' (vorschüssig)' : /rente/.test(art) ? ' (nachschüssig)' : '') + '</div>';
     h += '<div class="lbl">Formel</div>' + stepsHtml('z-f') + (pre.length ? stepsHtml('z-p', 'defs') : '') + '<div class="lbl">Rechenweg</div>' + stepsHtml('z-w');
     if (art === 'effektivzins') {
       h += big('Effektiver Jahreszins', M.nfmt(r.effektivzins * 100, 4) + ' %') +
@@ -510,6 +574,72 @@ var ZR = (function () {
       $('rechner').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // ---------- Link teilen und Drucken ----------
+  if (!window.BMW || !BMW.leiste) return;
+  var teilen = BMW.teilen({
+    key: 'zins', root: $('c-z'), run: calc,
+    get: function () { var o = { art: radio('z-art'), v: radio('z-v') }; ['b', 'i', 'n', 'm'].forEach(function (k) { o[k] = $('z-' + k).value; }); return o; },
+    set: function (o) {
+      var ra = document.querySelector('input[name="z-art"][value="' + String(o.art).replace(/[^a-z_]/g, '') + '"]'), rv = document.querySelector('input[name="z-v"][value="' + (o.v === 'vor' ? 'vor' : 'nach') + '"]');
+      if (ra) ra.checked = true; if (rv) rv.checked = true;
+      ['b', 'i', 'n', 'm'].forEach(function (k) { if (typeof o[k] === 'string') $('z-' + k).value = o[k]; });
+    }
+  });
+  BMW.leiste($('c-z'), { teilen: teilen, drucken: true, druckScope: $('rechner') });
+
+  // ---------- Übungsmodus ----------
+  function ea(x) { return String(x).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+  function fx(parts) { return '<span class="fx steps" data-tex="' + ea(JSON.stringify(parts)) + '"></span>'; }
+  function texIn(el) { el.querySelectorAll('[data-tex]').forEach(function (s) { fillSteps(s, JSON.parse(s.getAttribute('data-tex'))); }); }
+  function betr(x) { return M.nfmt(x, Number.isInteger(M.R(x, 2)) ? 0 : 2) + '\u00a0€'; }
+  function zins(x) { return M.nvar(x, 4) + '\u00a0%'; }
+  function ab(x, d) { var p = Math.pow(10, d == null ? 2 : d); return Math.ceil(x * p - 1e-6) / p; }
+  function jahre(n) { return n + (n === 1 ? ' Jahr' : ' Jahre'); }
+  var MT = { 2: 'halbjährlich', 4: 'vierteljährlich', 12: 'monatlich' };
+  var FN = { endwert: 'Aufzinsungsfaktor', barwert: 'Abzinsungsfaktor', rentenbarwert: 'Rentenbarwertfaktor', rentenendwert: 'Rentenendwertfaktor' };
+  function neu() {
+    var a = M.aufgabe($('z-ueb-typ').value), r = M.rechne(a.art, a.B, a.i, a.n, a.m, a.vor), zw = zWeg(r), zp = a.vor ? 'jeweils am Jahresanfang (vorschüssig)' : 'jeweils am Jahresende (nachschüssig)';
+    var text, felder, schluss = '';
+    var fF = function () { return { key: 'f', label: FN[a.art] + (a.vor ? ' (vorschüssig)' : '') + ' auf 6 Stellen', wert: a.faktor, tol: ab(a.tolF, 6) }; };
+    var tolTxt = function () { return '<p class="small">Akzeptiert werden Rundungsdifferenzen bis ±' + M.nfmt(ab(a.tolF, 6), 6).replace(/0+$/, '') + ' beim Faktor und ±' + M.nfmt(ab(a.tol), 2) + ' € beim Ergebnis.</p>'; };
+    switch (a.typ) {
+      case 'endwert':
+        text = '<p>Ein Betrag von ' + betr(a.B) + ' wird für ' + jahre(a.n) + ' zu ' + zins(a.i) + ' p. a. angelegt. Die Zinsen werden jährlich gutgeschrieben und mitverzinst.</p><p><b>Aufgabe:</b> Berechne den Aufzinsungsfaktor (sechs Nachkommastellen) und das Endkapital (zwei Nachkommastellen).</p>' + tolTxt();
+        felder = [fF(), { key: 'e', label: 'Endkapital Kₙ', einheit: '€', wert: a.wert, tol: ab(a.tol) }];
+        schluss = 'Davon sind ' + eur(a.wert - a.B) + ' Zinsen und Zinseszinsen.'; break;
+      case 'barwert':
+        text = '<p>In ' + a.n + ' Jahren erhältst du eine Zahlung von ' + betr(a.B) + '. Der Zinssatz beträgt ' + zins(a.i) + ' p. a. (jährliche Verzinsung).</p><p><b>Aufgabe:</b> Berechne den Abzinsungsfaktor (sechs Nachkommastellen) und den heutigen Wert der Zahlung (zwei Nachkommastellen).</p>' + tolTxt();
+        felder = [fF(), { key: 'e', label: 'Barwert K₀', einheit: '€', wert: a.wert, tol: ab(a.tol) }]; break;
+      case 'rentenbarwert':
+        text = '<p>Eine Rente zahlt ' + jahre(a.n) + ' lang ' + zp + ' ' + betr(a.B) + '. Der Zinssatz beträgt ' + zins(a.i) + ' p. a.</p><p><b>Aufgabe:</b> Berechne den Rentenbarwertfaktor (sechs Nachkommastellen) und den Barwert der Rente (zwei Nachkommastellen).</p>' + tolTxt();
+        felder = [fF(), { key: 'e', label: 'Rentenbarwert R₀', einheit: '€', wert: a.wert, tol: ab(a.tol) }];
+        if (a.vor) schluss = 'Vorschüssig ist jede Zahlung eine Periode früher fällig, deshalb wird der nachschüssige Faktor zusätzlich mit q multipliziert.'; break;
+      case 'rentenendwert':
+        text = '<p>Auf ein Sparkonto werden ' + jahre(a.n) + ' lang ' + zp + ' ' + betr(a.B) + ' eingezahlt. Das Guthaben wird mit ' + zins(a.i) + ' p. a. verzinst.</p><p><b>Aufgabe:</b> Berechne den Rentenendwertfaktor (sechs Nachkommastellen) und das Guthaben am Ende des ' + a.n + '. Jahres (zwei Nachkommastellen).</p>' + tolTxt();
+        felder = [fF(), { key: 'e', label: 'Rentenendwert Rₙ', einheit: '€', wert: a.wert, tol: ab(a.tol) }];
+        schluss = 'Eingezahlt wurden ' + eur(a.B * a.n) + ', der Rest von ' + eur(a.wert - a.B * a.n) + ' sind Zinsen und Zinseszinsen.' + (a.vor ? ' Vorschüssig wird jede Rate eine Periode länger verzinst, deshalb der zusätzliche Faktor q.' : ''); break;
+      case 'ewige_rente':
+        text = '<p>Eine Stiftung soll ' + (a.vor ? 'jedes Jahr am Jahresanfang, erstmals sofort,' : 'jedes Jahr am Jahresende') + ' ' + betr(a.B) + ' ausschütten, ohne das Kapital aufzubrauchen. Das Kapital wird zu ' + zins(a.i) + ' p. a. angelegt.</p><p><b>Aufgabe:</b> Wie viel Kapital braucht die Stiftung heute? Ergebnis auf zwei Nachkommastellen.</p>';
+        felder = [{ key: 'e', label: 'Benötigtes Kapital R₀', einheit: '€', wert: a.wert, tol: ab(a.tol) }];
+        schluss = a.vor ? 'Vorschüssig wird die erste Ausschüttung sofort fällig, deshalb ist das Kapital um den Faktor q größer.' : 'Kontrolle: Die jährlichen Zinsen ' + eur(a.wert) + ' · ' + M.nvar(a.i / 100, 6) + ' = ' + eur(a.wert * a.i / 100) + ' decken genau die Ausschüttung.'; break;
+      case 'effektivzins':
+        text = '<p>Ein Sparkonto wird mit nominal ' + zins(a.i) + ' p. a. verzinst, die Zinsen werden ' + MT[a.m] + ' gutgeschrieben und mitverzinst.</p><p><b>Aufgabe:</b> Berechne den effektiven Jahreszins in Prozent auf zwei Nachkommastellen.</p>';
+        felder = [{ key: 'e', label: 'Effektiver Jahreszins', einheit: '%', wert: a.wert, nk: 2 }];
+        schluss = 'Der Effektivzins liegt über dem Nominalzins, weil die unterjährig gutgeschriebenen Zinsen im selben Jahr mitverzinst werden.'; break;
+      default:
+        text = '<p>Ein Betrag von ' + betr(a.B) + ' wird für ' + jahre(a.n) + ' zu nominal ' + zins(a.i) + ' p. a. angelegt. Die Zinsen werden ' + MT[a.m] + ' gutgeschrieben und mitverzinst.</p><p><b>Aufgabe:</b> Wie hoch ist das Endkapital? Rechne mit dem ungerundeten Periodenzins und runde das Ergebnis auf zwei Nachkommastellen.</p><p class="small">Akzeptiert werden Rundungsdifferenzen bis ±' + M.nfmt(ab(a.tol), 2) + ' €.</p>';
+        felder = [{ key: 'e', label: 'Endkapital nach ' + a.n + ' Jahren', einheit: '€', wert: a.wert, tol: ab(a.tol) }];
+        schluss = 'Bei jährlicher Verzinsung wären es nur ' + eur(a.B * Math.pow(1 + a.i / 100, a.n)) + '; der Unterschied ist der Zinseszinseffekt innerhalb des Jahres.';
+    }
+    var li = '<li>Formel:' + fx(zw.formel) + '</li>' + (zw.pre.length ? '<li>' + (a.m > 1 && a.art !== 'effektivzins' ? 'Periodenzins, Zahl der Zinsperioden und Zinsfaktor:' : 'Zinsfaktor:') + fx(zw.pre) + '</li>' : '') +
+      '<li>Werte einsetzen und ausrechnen:' + fx(zw.weg) + '</li>' + (schluss ? '<li>' + schluss + '</li>' : '');
+    return { text: text, felder: felder, loesung: '<ol class="bmw-weg">' + li + '</ol>' };
+  }
+  var ueb = BMW.uebung($('z-ueb'), { titel: 'Übungsaufgabe', neu: neu, nachher: texIn });
+  // „Prüfen“ liegt in bm-werkzeug.js (v3) außerhalb des <form> und löst dort nichts aus → per form-Attribut ans Formular binden
+  (function () { var f = $('z-ueb').querySelector('.bmw-ueb-form'), b = $('z-ueb').querySelector('.bmw-ueb-btns button[type=submit]'); if (f && b && !b.form) { f.id = f.id || 'z-ueb-form'; b.setAttribute('form', f.id); } })();
+  $('z-ueb-typ').addEventListener('change', function () { ueb.neu(); });
 })();
 </script>
 </body>

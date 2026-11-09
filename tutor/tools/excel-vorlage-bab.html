@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/tutor/tools/bm-werkzeug.js?v=5"></script>
+<link rel="preload" href="/tutor/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<title>Betriebsabrechnungsbogen (BAB) – Excel-Vorlage mit allen Formeln</title>
+<meta name="description" content="Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln. Kostenlose Excel-Vorlage (.xlsx) ohne Anmeldung: live rechnende Vorschau, Download mit eigenen Werten, alle 58 Formeln offengelegt und gegengerechnet.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.bwlmax.de/tools/excel-vorlage-bab">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"DigitalDocument","name":"Betriebsabrechnungsbogen (BAB) (Excel-Vorlage)","description":"Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln.","url":"https://www.bwlmax.de/tools/excel-vorlage-bab","inLanguage":"de-DE","encodingFormat":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","isAccessibleForFree":true,"dateModified":"2026-11-09","publisher":{"@type":"Organization","name":"BWL Max","url":"https://www.bwlmax.de/"},"about":"Kosten- & Leistungsrechnung","isPartOf":{"@type":"CollectionPage","name":"Excel-Vorlagen für BWL und Wirtschaftswissenschaften","url":"https://www.bwlmax.de/tools/excel-vorlagen"}}</script>
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="/tutor/tools/xl/xl-BNMDCTAY.css">
+<link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
+</head>
+<body>
+<div class="wrap">
+<div class="bmw-top">
+<span class="bmw-brand"><img src="/tutor/img/max-face-logo.png?v=1" width="44" height="44" alt=""><span class="bmw-bn">BWL Max</span></span>
+<button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+</div>
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Kosten- &amp; Leistungsrechnung</p>
+<h1>Excel-Vorlage: Betriebsabrechnungsbogen (BAB)</h1>
+<p class="lead">Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln. Die Datei rechnet mit echten Excel-Formeln: Die blauen Felder sind Eingaben, alle anderen Zellen berechnet die Tabelle selbst. Hier lässt sich die Vorlage direkt ausprobieren und mit den eigenen Werten als .xlsx-Datei herunterladen.</p>
+<p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Datei entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>38</b> Eingabefelder</li><li><b>58</b> Formeln</li><li>2 Tabellenblätter</li><li>Format .xlsx</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#vorlage">Vorschau und Download</a></li>
+<li><a href="#wofuer">Wofür die Vorlage gedacht ist</a></li>
+<li><a href="#eingaben">Eingaben</a></li>
+<li><a href="#ergebnisse">Ergebnisse</a></li>
+<li><a href="#formeln">So rechnet die Datei (alle Formeln)</a></li>
+<li><a href="#gegengerechnet">So haben wir gegengerechnet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+<li><a href="#verwandt">Verwandte Vorlagen</a></li>
+</ol>
+</nav>
+
+<section id="vorlage" class="xlw-win-wrap" aria-labelledby="h-vorlage">
+<h2 id="h-vorlage">Vorschau und Download</h2>
+<p class="small noprint">Blaue Felder anklicken und eigene Werte eintragen (z. B. <code>50.000</code> oder <code>8 %</code>) – alle Ergebnisse rechnen sofort neu. Der Knopf „Excel-Datei herunterladen“ speichert die Datei mit den gerade eingetragenen Werten.</p>
+<div class="xlw" id="xl-app" data-id="bab">
+<div class="xl-keys"><div class="xl-key"><small>Materialgemeinkosten-Zuschlag</small><b>11,10 %</b></div><div class="xl-key"><small>Fertigungsgemeinkosten-Zuschlag</small><b>85,58 %</b></div><div class="xl-key"><small>Verwaltungsgemeinkosten-Zuschlag</small><b>10,54 %</b></div><div class="xl-key"><small>Vertriebsgemeinkosten-Zuschlag</small><b>6,34 %</b></div></div>
+<div class="xl-win"><div class="xl-wbar"><span class="xlw-fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><path d="M8 11.5h8M8 14.5h8M8 17.5h8M11 10v9" stroke="#fff" stroke-width="1.3" fill="none"/></svg></span><b class="xl-fn">Betriebsabrechnungsbogen_BAB.xlsx</b></div><div class="xl-scroll"><table class="xl-t"><caption class="xlw-sr">Tabellenblatt „BAB“ mit Beispielwerten</caption><colgroup><col style="width:42px"><col style="width:281px"><col style="width:118px"><col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:96px"><col style="width:89px"><col style="width:81px"></colgroup><thead><tr><th class="xl-corner" scope="col"><span class="xlw-sr">Zeile</span></th><th class="xl-ch" scope="col">A</th><th class="xl-ch" scope="col">B</th><th class="xl-ch" scope="col">C</th><th class="xl-ch" scope="col">D</th><th class="xl-ch" scope="col">E</th><th class="xl-ch" scope="col">F</th><th class="xl-ch" scope="col">G</th><th class="xl-ch" scope="col">H</th></tr></thead><tbody><tr><th class="xl-rh" scope="row">1</th><td class="xs-title" colspan="8">Betriebsabrechnungsbogen (BAB)</td></tr><tr><th class="xl-rh" scope="row">2</th><td class="xs-sub" colspan="8">Blaue Felder ausfüllen – alles andere rechnet Excel automatisch.</td></tr><tr><th class="xl-rh" scope="row">3</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">4</th><td class="xs-sec" colspan="8">1. Gemeinkosten und Verteilungsschlüssel (in %)</td></tr><tr><th class="xl-rh" scope="row">5</th><td class="xs-th">Gemeinkostenart</td><td class="xs-th">Betrag gesamt</td><td class="xs-th">Material</td><td class="xs-th">Fertigung</td><td class="xs-th">Verwaltung</td><td class="xs-th">Vertrieb</td><td class="xs-th">Summe %</td><td class="xs-th">Prüfung</td></tr><tr><th class="xl-rh" scope="row">6</th><td class="xs-in">Hilfslöhne</td><td class="xs-in num">40.000,00 €</td><td class="xs-in num">10,0 %</td><td class="xs-in num">70,0 %</td><td class="xs-in num">10,0 %</td><td class="xs-in num">10,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">7</th><td class="xs-in">Gehälter</td><td class="xs-in num">60.000,00 €</td><td class="xs-in num">10,0 %</td><td class="xs-in num">20,0 %</td><td class="xs-in num">50,0 %</td><td class="xs-in num">20,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">8</th><td class="xs-in">Energie</td><td class="xs-in num">30.000,00 €</td><td class="xs-in num">10,0 %</td><td class="xs-in num">75,0 %</td><td class="xs-in num">5,0 %</td><td class="xs-in num">10,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">9</th><td class="xs-in">Miete</td><td class="xs-in num">24.000,00 €</td><td class="xs-in num">15,0 %</td><td class="xs-in num">50,0 %</td><td class="xs-in num">20,0 %</td><td class="xs-in num">15,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">10</th><td class="xs-in">Abschreibungen</td><td class="xs-in num">36.000,00 €</td><td class="xs-in num">10,0 %</td><td class="xs-in num">70,0 %</td><td class="xs-in num">10,0 %</td><td class="xs-in num">10,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">11</th><td class="xs-in">Sonstige Gemeinkosten</td><td class="xs-in num">10.000,00 €</td><td class="xs-in num">20,0 %</td><td class="xs-in num">30,0 %</td><td class="xs-in num">30,0 %</td><td class="xs-in num">20,0 %</td><td class="xs-out num">100,0 %</td><td class="xs-out">✓</td></tr><tr><th class="xl-rh" scope="row">12</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">13</th><td class="xs-sec" colspan="8">2. Verteilte Gemeinkosten (in €)</td></tr><tr><th class="xl-rh" scope="row">14</th><td class="xs-th">Gemeinkostenart</td><td class="xs-th"></td><td class="xs-th">Material</td><td class="xs-th">Fertigung</td><td class="xs-th">Verwaltung</td><td class="xs-th">Vertrieb</td><td class="xs-th">Summe</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">15</th><td class="xs-out">Hilfslöhne</td><td class="xs-empty"></td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">28.000,00 €</td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">4.000,00 €</td><td class="xs-out num">40.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">16</th><td class="xs-out">Gehälter</td><td class="xs-empty"></td><td class="xs-out num">6.000,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">30.000,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">60.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">17</th><td class="xs-out">Energie</td><td class="xs-empty"></td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">22.500,00 €</td><td class="xs-out num">1.500,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">30.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">18</th><td class="xs-out">Miete</td><td class="xs-empty"></td><td class="xs-out num">3.600,00 €</td><td class="xs-out num">12.000,00 €</td><td class="xs-out num">4.800,00 €</td><td class="xs-out num">3.600,00 €</td><td class="xs-out num">24.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">19</th><td class="xs-out">Abschreibungen</td><td class="xs-empty"></td><td class="xs-out num">3.600,00 €</td><td class="xs-out num">25.200,00 €</td><td class="xs-out num">3.600,00 €</td><td class="xs-out num">3.600,00 €</td><td class="xs-out num">36.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">20</th><td class="xs-out">Sonstige Gemeinkosten</td><td class="xs-empty"></td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">3.000,00 €</td><td class="xs-out num">2.000,00 €</td><td class="xs-out num">10.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">21</th><td class="xs-lab">Summe Gemeinkosten</td><td class="xs-empty"></td><td class="xs-tot num">22.200,00 €</td><td class="xs-tot num">102.700,00 €</td><td class="xs-tot num">46.900,00 €</td><td class="xs-tot num">28.200,00 €</td><td class="xs-tot num">200.000,00 €</td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">22</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">23</th><td class="xs-sec" colspan="8">3. Zuschlagsgrundlagen und Zuschlagssätze</td></tr><tr><th class="xl-rh" scope="row">24</th><td class="xs-lab">Materialeinzelkosten (MEK)</td><td class="xs-in num">200.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">25</th><td class="xs-lab">Fertigungslöhne (Fertigungseinzelkosten)</td><td class="xs-in num">120.000,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">26</th><td class="xs-lab">Herstellkosten (MEK + MGK + FL + FGK)</td><td class="xs-out num">444.900,00 €</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">27</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">28</th><td class="xs-th">Zuschlagssatz</td><td class="xs-th">Wert</td><td class="xs-th">Basis</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">29</th><td class="xs-lab">Materialgemeinkosten-Zuschlag</td><td class="xs-res num">11,10 %</td><td class="xs-txt" colspan="3">MGK / Materialeinzelkosten</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">30</th><td class="xs-lab">Fertigungsgemeinkosten-Zuschlag</td><td class="xs-res num">85,58 %</td><td class="xs-txt" colspan="3">FGK / Fertigungslöhne</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">31</th><td class="xs-lab">Verwaltungsgemeinkosten-Zuschlag</td><td class="xs-res num">10,54 %</td><td class="xs-txt" colspan="3">VwGK / Herstellkosten</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">32</th><td class="xs-lab">Vertriebsgemeinkosten-Zuschlag</td><td class="xs-res num">6,34 %</td><td class="xs-txt" colspan="3">VtGK / Herstellkosten</td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">33</th><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td><td class="xs-empty"></td></tr><tr><th class="xl-rh" scope="row">34</th><td class="xs-note" colspan="8">Herstellkosten ohne Bestandsveränderungen (Herstellkosten der Erzeugung = des Umsatzes). Jede Zeile im Schlüssel muss 100 % ergeben.</td></tr></tbody></table></div></div>
+<p class="xlw-nojs">Die live rechnende Vorschau und der Download brauchen JavaScript. Ohne JavaScript siehst du hier die Vorlage mit Beispielwerten; alle Formeln stehen unten.</p>
+</div>
+<div id="xl-leiste"></div>
+<p class="small">Die Datei hat zwei Blätter: „BAB“ (Eingaben blau, alle übrigen Zellen mit Blattschutz ohne Kennwort – er lässt sich jederzeit aufheben) und „So rechnet die Datei“ mit jeder Formel in deutscher Schreibweise und einer Erklärung. Geöffnet und neu berechnet haben wir die Datei in LibreOffice 24.2.7.2 (siehe <a href="#gegengerechnet">Prüfung</a>).</p>
+</section>
+
+<section id="wofuer" aria-labelledby="h-wofuer">
+<h2 id="h-wofuer">Wofür die Vorlage gedacht ist</h2>
+<p>Gemeinkosten per Schlüssel auf 4 Kostenstellen verteilen und Zuschlagssätze ermitteln. Die Vorlage gehört zum Bereich Kosten- &amp; Leistungsrechnung und ist für Übungsaufgaben, Klausurvorbereitung und kleine Praxisrechnungen gedacht. Du trägst 38 Werte ein; die Datei berechnet daraus unter anderem „Materialgemeinkosten-Zuschlag“, „Fertigungsgemeinkosten-Zuschlag“, „Verwaltungsgemeinkosten-Zuschlag“ und „Vertriebsgemeinkosten-Zuschlag“.</p>
+<h3>Hinweise aus der Datei</h3>
+<ul class="xlw-notes"><li>Herstellkosten ohne Bestandsveränderungen (Herstellkosten der Erzeugung = des Umsatzes). Jede Zeile im Schlüssel muss 100 % ergeben.</li></ul>
+</section>
+
+<section id="eingaben" aria-labelledby="h-eingaben">
+<h2 id="h-eingaben">Eingaben</h2>
+<p class="small">Die blauen Felder der Datei. Die Spalte „Wert“ zeigt die Beispielwerte und folgt deinen Eingaben in der Vorschau. Zulässige Werte prüft die Datei selbst (Datenüberprüfung).</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Eingabefelder der Vorlage</caption>
+<thead><tr><th scope="col">Eingabe</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th><th scope="col">Zulässig</th></tr></thead>
+<tbody>
+<tr><td>Gemeinkostenart (Zeile 6)</td><td><code>A6</code></td><td class="xlw-v" data-xi="A6">Hilfslöhne</td><td>Text</td></tr>
+<tr><td>Hilfslöhne · Betrag gesamt</td><td><code>B6</code></td><td class="xlw-v" data-xi="B6">40.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Hilfslöhne · Material</td><td><code>C6</code></td><td class="xlw-v" data-xi="C6">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Hilfslöhne · Fertigung</td><td><code>D6</code></td><td class="xlw-v" data-xi="D6">70,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Hilfslöhne · Verwaltung</td><td><code>E6</code></td><td class="xlw-v" data-xi="E6">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Hilfslöhne · Vertrieb</td><td><code>F6</code></td><td class="xlw-v" data-xi="F6">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gemeinkostenart (Zeile 7)</td><td><code>A7</code></td><td class="xlw-v" data-xi="A7">Gehälter</td><td>Text</td></tr>
+<tr><td>Gehälter · Betrag gesamt</td><td><code>B7</code></td><td class="xlw-v" data-xi="B7">60.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Gehälter · Material</td><td><code>C7</code></td><td class="xlw-v" data-xi="C7">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gehälter · Fertigung</td><td><code>D7</code></td><td class="xlw-v" data-xi="D7">20,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gehälter · Verwaltung</td><td><code>E7</code></td><td class="xlw-v" data-xi="E7">50,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gehälter · Vertrieb</td><td><code>F7</code></td><td class="xlw-v" data-xi="F7">20,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gemeinkostenart (Zeile 8)</td><td><code>A8</code></td><td class="xlw-v" data-xi="A8">Energie</td><td>Text</td></tr>
+<tr><td>Energie · Betrag gesamt</td><td><code>B8</code></td><td class="xlw-v" data-xi="B8">30.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Energie · Material</td><td><code>C8</code></td><td class="xlw-v" data-xi="C8">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Energie · Fertigung</td><td><code>D8</code></td><td class="xlw-v" data-xi="D8">75,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Energie · Verwaltung</td><td><code>E8</code></td><td class="xlw-v" data-xi="E8">5,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Energie · Vertrieb</td><td><code>F8</code></td><td class="xlw-v" data-xi="F8">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gemeinkostenart (Zeile 9)</td><td><code>A9</code></td><td class="xlw-v" data-xi="A9">Miete</td><td>Text</td></tr>
+<tr><td>Miete · Betrag gesamt</td><td><code>B9</code></td><td class="xlw-v" data-xi="B9">24.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Miete · Material</td><td><code>C9</code></td><td class="xlw-v" data-xi="C9">15,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Miete · Fertigung</td><td><code>D9</code></td><td class="xlw-v" data-xi="D9">50,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Miete · Verwaltung</td><td><code>E9</code></td><td class="xlw-v" data-xi="E9">20,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Miete · Vertrieb</td><td><code>F9</code></td><td class="xlw-v" data-xi="F9">15,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gemeinkostenart (Zeile 10)</td><td><code>A10</code></td><td class="xlw-v" data-xi="A10">Abschreibungen</td><td>Text</td></tr>
+<tr><td>Abschreibungen · Betrag gesamt</td><td><code>B10</code></td><td class="xlw-v" data-xi="B10">36.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Abschreibungen · Material</td><td><code>C10</code></td><td class="xlw-v" data-xi="C10">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Abschreibungen · Fertigung</td><td><code>D10</code></td><td class="xlw-v" data-xi="D10">70,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Abschreibungen · Verwaltung</td><td><code>E10</code></td><td class="xlw-v" data-xi="E10">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Abschreibungen · Vertrieb</td><td><code>F10</code></td><td class="xlw-v" data-xi="F10">10,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Gemeinkostenart (Zeile 11)</td><td><code>A11</code></td><td class="xlw-v" data-xi="A11">Sonstige Gemeinkosten</td><td>Text</td></tr>
+<tr><td>Sonstige Gemeinkosten · Betrag gesamt</td><td><code>B11</code></td><td class="xlw-v" data-xi="B11">10.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Sonstige Gemeinkosten · Material</td><td><code>C11</code></td><td class="xlw-v" data-xi="C11">20,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Sonstige Gemeinkosten · Fertigung</td><td><code>D11</code></td><td class="xlw-v" data-xi="D11">30,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Sonstige Gemeinkosten · Verwaltung</td><td><code>E11</code></td><td class="xlw-v" data-xi="E11">30,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Sonstige Gemeinkosten · Vertrieb</td><td><code>F11</code></td><td class="xlw-v" data-xi="F11">20,0 %</td><td>0,0 % bis 100,0 %</td></tr>
+<tr><td>Materialeinzelkosten (MEK)</td><td><code>B24</code></td><td class="xlw-v" data-xi="B24">200.000,00 €</td><td>ab 0,00 €</td></tr>
+<tr><td>Fertigungslöhne (Fertigungseinzelkosten)</td><td><code>B25</code></td><td class="xlw-v" data-xi="B25">120.000,00 €</td><td>ab 0,00 €</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="ergebnisse" aria-labelledby="h-ergebnisse">
+<h2 id="h-ergebnisse">Ergebnisse</h2>
+<p class="small">Die wichtigsten Ergebniszellen (in der Datei grün). Die Werte gelten für die Beispielwerte und rechnen mit deinen Eingaben in der Vorschau mit.</p>
+<div class="tw"><table class="dec">
+<caption class="xlw-sr">Ergebniszellen der Vorlage</caption>
+<thead><tr><th scope="col">Ergebnis</th><th scope="col">Zelle</th><th scope="col" class="xlw-v">Wert</th></tr></thead>
+<tbody>
+<tr><td>Materialgemeinkosten-Zuschlag</td><td><code>B29</code></td><td class="xlw-v"><b data-xv="B29">11,10 %</b></td></tr>
+<tr><td>Fertigungsgemeinkosten-Zuschlag</td><td><code>B30</code></td><td class="xlw-v"><b data-xv="B30">85,58 %</b></td></tr>
+<tr><td>Verwaltungsgemeinkosten-Zuschlag</td><td><code>B31</code></td><td class="xlw-v"><b data-xv="B31">10,54 %</b></td></tr>
+<tr><td>Vertriebsgemeinkosten-Zuschlag</td><td><code>B32</code></td><td class="xlw-v"><b data-xv="B32">6,34 %</b></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="formeln" aria-labelledby="h-formeln">
+<h2 id="h-formeln">So rechnet die Datei</h2>
+<p>Alle 58 Formeln des Blatts „BAB“, so wie sie im deutschen Excel erscheinen (Funktionsnamen auf Deutsch, Semikolon als Trennzeichen). Dieselbe Tabelle steht in der Datei auf dem Blatt „So rechnet die Datei“.</p>
+<div class="tw xlw-ftw"><table class="dec xlw-ft">
+<caption class="xlw-sr">Formeln der Vorlage mit Erklärung</caption>
+<thead><tr><th scope="col">Zelle</th><th scope="col">Was</th><th scope="col">Formel</th><th scope="col">Erklärung</th></tr></thead>
+<tbody>
+<tr><td>G6</td><td>Hilfslöhne</td><td class="xlw-f">=SUMME(C6:F6)</td><td></td></tr>
+<tr><td>H6</td><td>Hilfslöhne</td><td class="xlw-f">=WENN(RUNDEN(G6;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>G7</td><td>Gehälter</td><td class="xlw-f">=SUMME(C7:F7)</td><td></td></tr>
+<tr><td>H7</td><td>Gehälter</td><td class="xlw-f">=WENN(RUNDEN(G7;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>G8</td><td>Energie</td><td class="xlw-f">=SUMME(C8:F8)</td><td></td></tr>
+<tr><td>H8</td><td>Energie</td><td class="xlw-f">=WENN(RUNDEN(G8;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>G9</td><td>Miete</td><td class="xlw-f">=SUMME(C9:F9)</td><td></td></tr>
+<tr><td>H9</td><td>Miete</td><td class="xlw-f">=WENN(RUNDEN(G9;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>G10</td><td>Abschreibungen</td><td class="xlw-f">=SUMME(C10:F10)</td><td></td></tr>
+<tr><td>H10</td><td>Abschreibungen</td><td class="xlw-f">=WENN(RUNDEN(G10;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>G11</td><td>Sonstige Gemeinkosten</td><td class="xlw-f">=SUMME(C11:F11)</td><td></td></tr>
+<tr><td>H11</td><td>Sonstige Gemeinkosten</td><td class="xlw-f">=WENN(RUNDEN(G11;4)=1;&quot;✓&quot;;&quot;≠ 100 %&quot;)</td><td></td></tr>
+<tr><td>A15</td><td>Gemeinkostenart (Zeile 15)</td><td class="xlw-f">=A6</td><td></td></tr>
+<tr><td>C15</td><td>Material (Zeile 15)</td><td class="xlw-f">=$B6*C6</td><td><small>Betrag der Gemeinkostenart × Schlüssel der Kostenstelle.</small></td></tr>
+<tr><td>D15</td><td>Fertigung (Zeile 15)</td><td class="xlw-f">=$B6*D6</td><td></td></tr>
+<tr><td>E15</td><td>Verwaltung (Zeile 15)</td><td class="xlw-f">=$B6*E6</td><td></td></tr>
+<tr><td>F15</td><td>Vertrieb (Zeile 15)</td><td class="xlw-f">=$B6*F6</td><td></td></tr>
+<tr><td>G15</td><td>Summe (Zeile 15)</td><td class="xlw-f">=SUMME(C15:F15)</td><td></td></tr>
+<tr><td>A16</td><td>Gemeinkostenart (Zeile 16)</td><td class="xlw-f">=A7</td><td></td></tr>
+<tr><td>C16</td><td>Material (Zeile 16)</td><td class="xlw-f">=$B7*C7</td><td></td></tr>
+<tr><td>D16</td><td>Fertigung (Zeile 16)</td><td class="xlw-f">=$B7*D7</td><td></td></tr>
+<tr><td>E16</td><td>Verwaltung (Zeile 16)</td><td class="xlw-f">=$B7*E7</td><td></td></tr>
+<tr><td>F16</td><td>Vertrieb (Zeile 16)</td><td class="xlw-f">=$B7*F7</td><td></td></tr>
+<tr><td>G16</td><td>Summe (Zeile 16)</td><td class="xlw-f">=SUMME(C16:F16)</td><td></td></tr>
+<tr><td>A17</td><td>Gemeinkostenart (Zeile 17)</td><td class="xlw-f">=A8</td><td></td></tr>
+<tr><td>C17</td><td>Material (Zeile 17)</td><td class="xlw-f">=$B8*C8</td><td></td></tr>
+<tr><td>D17</td><td>Fertigung (Zeile 17)</td><td class="xlw-f">=$B8*D8</td><td></td></tr>
+<tr><td>E17</td><td>Verwaltung (Zeile 17)</td><td class="xlw-f">=$B8*E8</td><td></td></tr>
+<tr><td>F17</td><td>Vertrieb (Zeile 17)</td><td class="xlw-f">=$B8*F8</td><td></td></tr>
+<tr><td>G17</td><td>Summe (Zeile 17)</td><td class="xlw-f">=SUMME(C17:F17)</td><td></td></tr>
+<tr><td>A18</td><td>Gemeinkostenart (Zeile 18)</td><td class="xlw-f">=A9</td><td></td></tr>
+<tr><td>C18</td><td>Material (Zeile 18)</td><td class="xlw-f">=$B9*C9</td><td></td></tr>
+<tr><td>D18</td><td>Fertigung (Zeile 18)</td><td class="xlw-f">=$B9*D9</td><td></td></tr>
+<tr><td>E18</td><td>Verwaltung (Zeile 18)</td><td class="xlw-f">=$B9*E9</td><td></td></tr>
+<tr><td>F18</td><td>Vertrieb (Zeile 18)</td><td class="xlw-f">=$B9*F9</td><td></td></tr>
+<tr><td>G18</td><td>Summe (Zeile 18)</td><td class="xlw-f">=SUMME(C18:F18)</td><td></td></tr>
+<tr><td>A19</td><td>Gemeinkostenart (Zeile 19)</td><td class="xlw-f">=A10</td><td></td></tr>
+<tr><td>C19</td><td>Material (Zeile 19)</td><td class="xlw-f">=$B10*C10</td><td></td></tr>
+<tr><td>D19</td><td>Fertigung (Zeile 19)</td><td class="xlw-f">=$B10*D10</td><td></td></tr>
+<tr><td>E19</td><td>Verwaltung (Zeile 19)</td><td class="xlw-f">=$B10*E10</td><td></td></tr>
+<tr><td>F19</td><td>Vertrieb (Zeile 19)</td><td class="xlw-f">=$B10*F10</td><td></td></tr>
+<tr><td>G19</td><td>Summe (Zeile 19)</td><td class="xlw-f">=SUMME(C19:F19)</td><td></td></tr>
+<tr><td>A20</td><td>Gemeinkostenart (Zeile 20)</td><td class="xlw-f">=A11</td><td></td></tr>
+<tr><td>C20</td><td>Material (Zeile 20)</td><td class="xlw-f">=$B11*C11</td><td></td></tr>
+<tr><td>D20</td><td>Fertigung (Zeile 20)</td><td class="xlw-f">=$B11*D11</td><td></td></tr>
+<tr><td>E20</td><td>Verwaltung (Zeile 20)</td><td class="xlw-f">=$B11*E11</td><td></td></tr>
+<tr><td>F20</td><td>Vertrieb (Zeile 20)</td><td class="xlw-f">=$B11*F11</td><td></td></tr>
+<tr><td>G20</td><td>Summe (Zeile 20)</td><td class="xlw-f">=SUMME(C20:F20)</td><td></td></tr>
+<tr><td>C21</td><td>Summe Gemeinkosten</td><td class="xlw-f">=SUMME(C15:C20)</td><td></td></tr>
+<tr><td>D21</td><td>Summe Gemeinkosten</td><td class="xlw-f">=SUMME(D15:D20)</td><td></td></tr>
+<tr><td>E21</td><td>Summe Gemeinkosten</td><td class="xlw-f">=SUMME(E15:E20)</td><td></td></tr>
+<tr><td>F21</td><td>Summe Gemeinkosten</td><td class="xlw-f">=SUMME(F15:F20)</td><td></td></tr>
+<tr><td>G21</td><td>Summe Gemeinkosten</td><td class="xlw-f">=SUMME(C21:F21)</td><td></td></tr>
+<tr><td>B26</td><td>Herstellkosten (MEK + MGK + FL + FGK)</td><td class="xlw-f">=B24+C21+B25+D21</td><td></td></tr>
+<tr><td>B29</td><td>Materialgemeinkosten-Zuschlag</td><td class="xlw-f">=WENNFEHLER(C21/B24;&quot;–&quot;)</td><td><small>MGK-Zuschlag = Materialgemeinkosten / Materialeinzelkosten.</small></td></tr>
+<tr><td>B30</td><td>Fertigungsgemeinkosten-Zuschlag</td><td class="xlw-f">=WENNFEHLER(D21/B25;&quot;–&quot;)</td><td></td></tr>
+<tr><td>B31</td><td>Verwaltungsgemeinkosten-Zuschlag</td><td class="xlw-f">=WENNFEHLER(E21/B26;&quot;–&quot;)</td><td><small>VwGK-Zuschlag = Verwaltungsgemeinkosten / Herstellkosten.</small></td></tr>
+<tr><td>B32</td><td>Vertriebsgemeinkosten-Zuschlag</td><td class="xlw-f">=WENNFEHLER(F21/B26;&quot;–&quot;)</td><td></td></tr>
+</tbody></table></div>
+</section>
+
+<section id="gegengerechnet" aria-labelledby="h-gegengerechnet">
+<h2 id="h-gegengerechnet">So haben wir gegengerechnet</h2>
+<p>Automatischer Prüflauf vom 9. November 2026. Neben den Beispielwerten wurden 20 zufällige Eingabesätze erzeugt (jede von null verschiedene Zahl um bis zu ±40&nbsp;% verändert, Schalter wie 0/1 zufällig gesetzt, Grenzen der Datei eingehalten). Für jeden der 21 Sätze hat die Rechenengine dieser Seite die Werte berechnet und die .xlsx-Datei genau so erzeugt wie beim Download.</p>
+<ul class="xlw-check">
+<li><b>1.218 Formelergebnisse · 0 Abweichungen</b><span>Alle 21 Dateien in LibreOffice 24.2.7.2 geöffnet und vollständig neu berechnet; jede der 58 Formelzellen mit dem Wert der Vorschau verglichen (relative Toleranz 10<sup>−9</sup>).</span></li>
+<li><b>84 Referenzwerte · 0 Abweichungen</b><span>Kernergebnisse unabhängig in Python mit den Lehrbuchformeln nachgerechnet, ohne die Excel-Formeln zu verwenden: Materialgemeinkosten-Zuschlag (B29), Fertigungsgemeinkosten-Zuschlag (B30), Verwaltungsgemeinkosten-Zuschlag (B31), Vertriebsgemeinkosten-Zuschlag (B32).</span></li>
+<li><b>21 von 21 Dateien fehlerfrei</b><span>ZIP-Paket intakt, alle XML-Teile wohlgeformt, Öffnen mit LibreOffice und openpyxl ohne Fehler; das Blatt „So rechnet die Datei“ enthält genau die 58 Formeln.</span></li>
+</ul>
+<p class="small">Keine Abweichung gefunden. Über alle 60 Vorlagen: 1.260 Dateien, 60.711 Formelergebnisse in LibreOffice, 3.906 Referenzwerte – 0 Abweichungen. Microsoft Excel selbst und Google Tabellen waren nicht Teil dieses automatischen Prüflaufs; die Datei nutzt nur Standardfunktionen des .xlsx-Formats.</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Rechnet nur in deinem Browser</b><span>Vorschau und Excel-Datei entstehen auf deinem Gerät. Deine Eingaben werden nicht übertragen und nicht gespeichert. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Formeln offen gelegt</b><span>Alle 58 Formeln stehen im Abschnitt <a href="#formeln">So rechnet die Datei</a> und in der Datei auf einem eigenen Blatt. Nichts ist versteckt oder gesperrt, der Blattschutz hat kein Kennwort.</span></li>
+<li><b>Gegengerechnet</b><span>1.218 Formelergebnisse in LibreOffice neu berechnet, 84 Kernwerte unabhängig in Python nachgerechnet – 0 Abweichungen. Details unter <a href="#gegengerechnet">So haben wir gegengerechnet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: 9. November 2026 · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<section id="verwandt" aria-labelledby="h-verwandt">
+<h2 id="h-verwandt">Verwandte Vorlagen: Kosten- &amp; Leistungsrechnung</h2>
+<ul class="xlw-rel">
+<li><a href="/tools/excel-vorlage-breakeven">Break-even-Analyse</a><p>Gewinnschwelle in Stück und Euro, Sicherheitsabstand und Gewinn-Tabelle.</p></li>
+<li><a href="/tools/excel-vorlage-deckungsbeitrag">Mehrstufige Deckungsbeitragsrechnung</a><p>3 Produkte, 2 Erzeugnisgruppen: DB I, II, III bis zum Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-zuschlag">Zuschlagskalkulation (Industrie)</a><p>Vom Material bis zum Listenverkaufspreis – mit Skonto, Provision und Rabatt im Hundert.</p></li>
+<li><a href="/tools/excel-vorlage-divisionskalkulation">Divisionskalkulation (einstufig &amp; zweistufig)</a><p>Selbstkosten je Stück ein- und zweistufig, Lagerbestandsveränderung zu Herstellkosten und Betriebsergebnis.</p></li>
+<li><a href="/tools/excel-vorlage-aequivalenzziffern">Äquivalenzziffernkalkulation</a><p>Bis 6 Sorten: Recheneinheiten, Kosten je Recheneinheit, Stückkosten und Sortenkosten je Sorte.</p></li>
+<li><a href="/tools/excel-vorlage-maschinenstundensatz">Maschinenstundensatzrechnung</a><p>Maschinenstundensatz aus kalk. AfA, Zinsen, Raum, Energie und Instandhaltung – fix/variabel getrennt.</p></li>
+<li><a href="/tools/excel-vorlage-kuppelkalkulation">Kuppelkalkulation (Restwert- &amp; Verteilungsmethode)</a><p>Herstellkosten des Hauptprodukts per Restwertmethode und Kostenverteilung nach Marktwerten.</p></li>
+<li><a href="/tools/excel-vorlage-handelvorwaerts">Handelskalkulation (Vorwärtskalkulation)</a><p>Vom Listeneinkaufspreis zum Listenverkaufspreis – mit Kalkulationszuschlag, -faktor und Handelsspanne.</p></li>
+<li><a href="/tools/excel-vorlage-handelrueckwaerts">Handelskalkulation (Rückwärtskalkulation)</a><p>Vom erzielbaren Listenverkaufspreis zurück zum höchstens zahlbaren Listeneinkaufspreis.</p></li>
+<li><a href="/tools/excel-vorlage-makeorbuy">Make-or-Buy (kurzfristig)</a><p>Eigenfertigung oder Fremdbezug? Relevante Kosten, kritische Menge und Preisobergrenze für den Zukauf.</p></li>
+<li><a href="/tools/excel-vorlage-preisuntergrenze">Preisuntergrenze &amp; Zusatzauftrag</a><p>Kurz- und langfristige Preisuntergrenze und ob sich ein Zusatzauftrag lohnt – auch bei knapper Kapazität.</p></li>
+<li><a href="/tools/excel-vorlage-kostenaufloesung">Kostenauflösung &amp; Kostenfunktion</a><p>Fixe und variable Kosten per Hoch-Tief-Punkt-Methode (und Regression) – Kostenfunktion K = Kf + kv · x.</p></li>
+<li><a href="/tools/excel-vorlage-prozesskosten">Prozesskostenrechnung</a><p>Bis 4 Teilprozesse: Prozesskostensätze lmi, Umlage lmn, Gesamtsätze und Prozesskosten je Produkt.</p></li>
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle 60 Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<p class="xlw-tm">Microsoft und Excel sind Marken der Microsoft Corporation. BWL Max steht in keiner Verbindung zu Microsoft und wird von Microsoft weder unterstützt noch gesponsert.</p>
+<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>
+</div>
+<script type="module" src="/tutor/tools/xl/xl-LX4Z3ULX.js"></script>
+</body>
+</html>
