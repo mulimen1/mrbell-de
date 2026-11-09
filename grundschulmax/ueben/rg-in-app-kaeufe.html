@@ -1111,8 +1111,8 @@ main.pz{overflow-x:clip}
 .pzadt{margin:14px auto 8px;max-width:720px;font-size:clamp(28px,4.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
 .pzadh p{margin:0 auto;max-width:560px;color:var(--mut);font-size:16.5px;line-height:1.5}
 .pzadpc{max-width:640px;margin:0 auto;padding:24px 24px 22px;border-radius:24px;background:#fff;border:2px solid #E3C67A;box-shadow:var(--sh);text-align:center}
-.pzadpc small{display:block;font-size:12.5px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:#c2501c}
-.pzadpc b{display:block;margin:6px 0 6px;font-size:clamp(22px,3.2vw,30px);line-height:1.15;letter-spacing:-.02em;color:var(--nv)}
+.pzadpc>small{display:block;font-size:12.5px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:#c2501c}
+.pzadpc>b{display:block;margin:6px 0 6px;font-size:clamp(22px,3.2vw,30px);line-height:1.15;letter-spacing:-.02em;color:var(--nv)}
 .pzadpc>span{display:block;color:var(--mut);font-size:15px}
 .pzadpc .pzadg{display:inline-flex;align-items:center;gap:7px;margin-top:10px;color:#0e7a4f;font-weight:650;font-size:14px}
 .pzadpc .pzadg svg{width:17px;height:17px}
@@ -1172,6 +1172,41 @@ main.pz{overflow-x:clip}
 #pzdemo .pzdo{gap:8px}
 #pzdemo .pzdo button{padding-top:12px;padding-bottom:12px}
 }
+/* Preisbox: die beiden Führerscheine als Karten */
+.pzadlics{display:flex;justify-content:center;margin:2px 0 18px;padding:6px 0 4px}
+.pzlic{position:relative;width:min(250px,46%);padding:14px 15px 12px;border-radius:16px;color:#fff;text-align:left;background:radial-gradient(120% 140% at 0% 0%,#34478f 0%,#1d2a57 45%,#0f1631 100%);box-shadow:0 18px 30px -18px rgba(10,15,40,.7),inset 0 0 0 1.5px rgba(227,198,122,.55)}
+.pzlic.i{transform:rotate(-4deg) translateX(10px);z-index:1}
+.pzlic.k{transform:rotate(4deg) translate(-10px,8px);background:radial-gradient(120% 140% at 0% 0%,#5a49b0 0%,#3b2d78 45%,#1d1645 100%)}
+.pzlt{display:flex;align-items:center;gap:9px}.pzlt svg{width:26px;height:26px;flex:none;color:#E3C67A}
+.pzlic .pzlt small{display:block;margin:0;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#aab3e0;font-weight:700}
+.pzlic .pzlt b{display:block;margin:1px 0 0;font-size:14.5px;line-height:1.15;letter-spacing:-.01em;color:#fff}
+.pzlic ul{list-style:none;margin:10px 0 10px;padding:0;display:grid;gap:5px}
+.pzlic li{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#dfe3f6}
+.pzlic li i{display:grid;place-items:center;width:15px;height:15px;border-radius:50%;background:rgba(255,255,255,.14)}.pzlic li svg{width:10px;height:10px;color:#E3C67A}
+.pzlf{display:flex;align-items:center;gap:8px;font-size:10.5px;color:#b9c0e6;font-weight:600}.pzlf span{white-space:nowrap}
+.pzlf i{flex:1;height:4px;border-radius:9px;background:linear-gradient(90deg,#f3d58a 55%,rgba(255,255,255,.16) 55%)}
+@media(max-width:600px){.pzlic{padding:11px 11px 10px}.pzlic .pzlt b{font-size:12.5px}.pzlt svg{width:22px;height:22px}.pzlic li{font-size:10.5px}.pzlic.i{transform:rotate(-4deg) translateX(6px)}.pzlic.k{transform:rotate(4deg) translate(-6px,6px)}}
+.pzadlics{align-items:stretch;gap:4px}.pzlic{display:flex;flex-direction:column}.pzlf{margin-top:auto}
+.pzlic.i{transform:rotate(-3deg)}.pzlic.k{transform:rotate(3deg) translateY(6px)}
+@media(max-width:600px){.pzlic .pzlt small{display:none}.pzlic ul{margin:8px 0}.pzlic li{align-items:flex-start;line-height:1.25}.pzlic.i{transform:rotate(-3deg)}.pzlic.k{transform:rotate(3deg) translateY(5px)}.pzlic{width:48%}
+.pzadpc .pzadg{display:block;text-align:center}.pzadpc .pzadg svg{display:inline-block;vertical-align:-3px;margin-right:6px}}
+/* Preisbox: beide Führerscheine im echten Karten-Design, aufgefächert */
+.pzadlics{display:none}
+.pzadk{position:relative;width:min(520px,100%);margin:0 auto 22px;padding:26px 0 0}
+.pzadk .pzkx li{opacity:1;transform:none}
+.pzadk-f{position:relative;z-index:1;width:78%}
+.pzadk-f .pzk,.pzadk-f .pzk:hover{transform:rotate(-4deg)}
+.pzadk-b{position:absolute;z-index:0;right:0;top:0;width:78%}
+.pzadk-b .pzk,.pzadk-b .pzk:hover{transform:rotate(5deg) scale(.96);filter:brightness(.92)}
+@media(max-width:600px){.pzadk{padding-top:22px;margin-bottom:16px}.pzadk-f,.pzadk-b{width:84%}}
+.pzadk{padding-top:clamp(48px,11vw,72px)}
+.pzadk-b .pzk,.pzadk-b .pzk:hover{transform:rotate(4deg) scale(.97);filter:none}
+/* Sneak Peek: Video ohne Spiel-Kopfleiste, Titel als Leiste darunter statt über dem Spiel */
+.pzsgbig{aspect-ratio:auto;display:flex;flex-direction:column}
+.pzsgbig video{aspect-ratio:640/344;height:auto}
+.pzsgp{position:relative;left:auto;top:auto;order:2;display:flex;border-radius:0;padding:12px 16px;background:#1d2a57;backdrop-filter:none;-webkit-backdrop-filter:none;font-size:15px}
+.pzsgbar{bottom:auto;top:0;height:3px}
+.pzsgbig .pzsgbar{position:absolute}
 </style></head><body><header class="pzhead"><div class="w"><a class="pzlogo" href="/" aria-label="Grundschulmax Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="/ratgeber">Ratgeber</a><a href="/#probe">Testlektion</a><a href="/#kaufen">Preis</a><a href="/#forschung">Forschung</a></nav><a class="pzhb" href="/" data-app="Kopf"><span class="pzhbj">Zum Führerschein</span><span class="pzhbm">Führerschein</span></a></div></header>
 <main class="pz sa"><section class="sahero"><div class="w saw">
 <nav class="sabc" aria-label="Brotkrumen"><a href="/">Grundschulmax</a><span>›</span><a href="/ratgeber">Ratgeber</a><span>›</span>In-App-Käufe</nav>
