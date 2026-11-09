@@ -1101,13 +1101,11 @@ main.pz{overflow-x:clip}
 @media (max-width:760px){.pzgbox{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;padding:24px 20px;gap:14px}.pzgbox .pzgs{width:108px;height:108px}.pzgbox ul{justify-content:center}.pzgar{padding-right:14px}.pzgar .pzgs{width:48px;height:48px}}
 .pzintro{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;margin:0 auto 22px;max-width:760px;padding:14px 22px;border-radius:16px;background:#fff6e0;border:1.5px solid #E3C67A;color:#1d2a57;text-align:center;font-size:15.5px;line-height:1.45}
 .pzintro b{font-weight:800;color:#c2501c}
-/* Start für Besucher aus Anzeigen (html.adv): erst die echte Szene, dann der Preis */
-.pzadh,.pzadp{display:none}
-html.adv .pzhero{display:none}
-html.adv .pzadh{display:block;padding:22px 0 14px;text-align:center}
-html.adv .pzprobe{padding-top:0}
-html.adv .pzprobe .pzpt,html.adv .pzprobe .pzdcta{display:none}
-html.adv .pzadp{display:block;padding:8px 0 40px}
+/* Start für alle: erst die echte Szene, dann der Preis */
+.pzadh{padding:22px 0 14px;text-align:center}
+.pzprobe{padding-top:0}
+.pzprobe .pzpt,.pzprobe .pzdcta{display:none}
+.pzadp{padding:8px 0 40px}
 .pzadpill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 10px;border-radius:999px;background:var(--nv);color:#fff;font-weight:650;font-size:13.5px;letter-spacing:.01em}
 .pzadpill svg{width:17px;height:17px;color:#E3C67A}
 .pzadt{margin:14px auto 8px;max-width:720px;font-size:clamp(28px,4.4vw,46px);line-height:1.08;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
@@ -1119,7 +1117,7 @@ html.adv .pzadp{display:block;padding:8px 0 40px}
 .pzadpc .pzadg{display:inline-flex;align-items:center;gap:7px;margin-top:10px;color:#0e7a4f;font-weight:650;font-size:14px}
 .pzadpc .pzadg svg{width:17px;height:17px}
 .pzadpc .pzbtn{margin-top:16px}
-@media(max-width:600px){html.adv .pzadh{padding:14px 0 10px}.pzadt{font-size:27px;margin:10px auto 6px}.pzadh p{font-size:14.5px}.pzadpill{font-size:12.5px}.pzadpc{padding:18px 16px}}
+@media(max-width:600px){.pzadh{padding:14px 0 10px}.pzadt{font-size:27px;margin:10px auto 6px}.pzadh p{font-size:14.5px}.pzadpill{font-size:12.5px}.pzadpc{padding:18px 16px}}
 .pzadpr{display:inline-block;margin-top:10px;padding:6px 13px;border-radius:999px;background:#fbf3df;border:1px solid #ecd9a6;color:#8a4a12;font-weight:700;font-size:14px}
 @media(max-width:600px){.pzadpr{font-size:13px;margin-top:8px}}
 </style></head><body><header class="pzhead"><div class="w"><a class="pzlogo" href="/" aria-label="Grundschulmax Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="/ratgeber">Ratgeber</a><a href="/#probe">Testlektion</a><a href="/#kaufen">Preis</a><a href="/#forschung">Forschung</a></nav><a class="pzhb" href="/" data-app="Kopf"><span class="pzhbj">Zum Führerschein</span><span class="pzhbm">Führerschein</span></a></div></header>
@@ -1288,7 +1286,7 @@ html.adv .pzadp{display:block;padding:8px 0 40px}
   /* Aufruf erst zählen, wenn die Seite 1 Sekunde wirklich zu sehen war (vorgeladene Seiten aus Facebook zählen nicht) */
   var seen1 = false, visT = 0, t0 = Date.now(), left = false;
   var bucket = function (s) { return s < 10 ? 'unter 10 s' : s < 30 ? '10–30 s' : s < 60 ? '30–60 s' : s < 180 ? '1–3 min' : s < 600 ? '3–10 min' : 'über 10 min'; };
-  function seenChk() { if (seen1) return; if (d.hidden) { clearTimeout(visT); visT = 0; return; } if (!visT) visT = setTimeout(function () { visT = 0; if (seen1 || d.hidden) return; seen1 = true; t0 = Date.now() - 1000; ev('Übungsseite geöffnet', (C.slug && C.slug !== 'hub' ? C.slug : 'Übersicht') + (d.documentElement.classList.contains('adv') ? ' · Anzeigen-Start' : '')); }, 1000); }
+  function seenChk() { if (seen1) return; if (d.hidden) { clearTimeout(visT); visT = 0; return; } if (!visT) visT = setTimeout(function () { visT = 0; if (seen1 || d.hidden) return; seen1 = true; t0 = Date.now() - 1000; ev('Übungsseite geöffnet', (C.slug && C.slug !== 'hub' ? C.slug : 'Übersicht')); }, 1000); }
   d.addEventListener('visibilitychange', seenChk); seenChk();
   function bye() { if (left || !seen1) return; left = true; ev('Seite verlassen', 'ueben/' + (C.slug || 'Übersicht') + ' · ' + bucket((Date.now() - t0) / 1000)); }
   addEventListener('pagehide', bye); d.addEventListener('visibilitychange', function () { if (d.hidden) bye(); });
