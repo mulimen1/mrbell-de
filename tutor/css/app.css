@@ -9665,3 +9665,68 @@ html:root:root:root:root .fsx .btn.primary.fsx-cta { background: linear-gradient
 html:root:root:root:root .fsx .btn.primary.fsx-cta:hover:not(:disabled) { filter: brightness(1.05); }
 html:root:root:root:root .fsx .btn.primary.fsx-cta:disabled { opacity: .5; }
 html:root:root .fsx .fsx-ti { background: color-mix(in srgb, var(--c1) 20%, var(--panel)) !important; color: var(--c2) !important; }
+/* Fach-Seite v2: „Jetzt dran“ + Lernpfad als Weg + Werkzeug-Leiste */
+.fsx-now { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px 24px; padding: 22px 24px; border-radius: 24px; color: #fff; background: linear-gradient(135deg, var(--c1), var(--c2)); box-shadow: 0 22px 44px -26px var(--c2); }
+.fsx-now.done { grid-template-columns: auto minmax(0, 1fr); background: linear-gradient(135deg, #4cc38a, #1c7a47); box-shadow: 0 22px 44px -26px #1c7a47; }
+.fsx-now.done b { display: block; font-size: 18px; } .fsx-now.done small { opacity: .9; }
+.fsx-nowl { display: grid; gap: 10px; min-width: 0; }
+.fsx-nowlab { font: 700 11.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; opacity: .9; }
+.fsx-nowt { display: flex; align-items: center; gap: 14px; }
+.fsx-nowt b { display: block; font: 750 clamp(19px, 2.4vw, 24px)/1.2 var(--sans); letter-spacing: -.02em; text-wrap: balance; }
+.fsx-nowt small { display: block; margin-top: 3px; opacity: .88; font-size: 14px; }
+.fsx-nowi { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: rgba(255,255,255,.22); color: #fff; } .fsx-nowi svg { width: 24px; height: 24px; }
+.fsx-nowr { margin: 0; font-size: 14px; opacity: .9; }
+.fsx-nowb { display: grid; gap: 8px; justify-items: center; }
+html:root:root:root:root .fsx .fsx-now .btn.primary.fsx-cta { background: #fff !important; color: var(--c2) !important; box-shadow: 0 12px 24px -14px rgba(0,0,0,.45) !important; height: 52px; padding: 0 26px; font-size: 16.5px; font-weight: 750; }
+.fsx-now .fsx-link { color: rgba(255,255,255,.88); } .fsx-now .fsx-link:hover { color: #fff; }
+.fsx-path .fsx-road { display: grid; position: relative; margin-top: 4px; }
+.fsx-road::before { content: ""; position: absolute; left: 15px; top: 14px; bottom: 14px; width: 2px; background: var(--line); }
+.fsx-pdoc { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px 44px; font: 650 12px var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--mute); }
+.fsx-pdoc:first-child { margin-top: 0; } .fsx-pdoc span { display: grid; } .fsx-pdoc svg { width: 14px; height: 14px; }
+.fsx-st2 { position: relative; display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 0; }
+.fsx-dot { position: relative; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--panel); border: 2px solid var(--line2); color: #fff; }
+.fsx-dot svg { width: 16px; height: 16px; stroke-width: 2.6; }
+.fsx-st2.done .fsx-dot { background: #16a05c; border-color: #16a05c; }
+.fsx-st2.cur .fsx-dot { border-color: var(--c2); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c1) 25%, transparent); }
+.fsx-st2.cur .fsx-dot::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--c2); }
+.fsx-st2.goal .fsx-dot { background: color-mix(in srgb, var(--c1) 22%, var(--panel)); border-color: var(--c1); color: var(--c2); }
+.fsx-st2.goal.done .fsx-dot { background: #16a05c; border-color: #16a05c; color: #fff; }
+.fsx-st2.exam .fsx-dot { background: linear-gradient(135deg, var(--c1), var(--c2)); border-color: transparent; color: #fff; }
+.fsx-stx { display: grid; gap: 1px; min-width: 0; text-decoration: none; color: var(--ink); }
+.fsx-stx b { font-size: 15.5px; font-weight: 650; line-height: 1.3; } .fsx-stx small { color: var(--mute); font-size: 12.5px; }
+a.fsx-stx:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.fsx-st2.done .fsx-stx b { color: var(--mute); }
+.fsx-st2.cur { background: color-mix(in srgb, var(--c1) 10%, transparent); border-radius: 16px; margin: 4px -10px; padding: 10px; grid-template-columns: 32px minmax(0, 1fr) auto; }
+.fsx-st2.cur .fsx-stx b { font-weight: 750; }
+.fsx-st2.exam .fsx-stx b { font-weight: 750; }
+.fsx-mini2 { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); color: var(--ink2); font: 650 13px var(--sans); text-decoration: none; white-space: nowrap; }
+.fsx-mini2:hover { border-color: var(--c2); color: var(--c2); }
+.fsx-mini2.on { background: var(--c2); border-color: var(--c2); color: #fff; }
+.fsx-stt { font-weight: 650; } .fsx-stt.ok { color: #16a05c; } .fsx-stt.warn { color: #c2410c; }
+.fsx-tools2 { display: grid; gap: 8px; }
+.fsx-tbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.fsx-tb { --t1: #5aa2f7; --t2: #1a5fc4; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 6px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); font: 650 14px var(--sans); cursor: pointer; transition: border-color .15s, transform .15s var(--ease); }
+.fsx-tb:hover { border-color: var(--t2); transform: translateY(-1px); }
+.fsx-tb[data-tone="purple"] { --t1: #9b7cf0; --t2: #5b3fc4; } .fsx-tb[data-tone="pink"] { --t1: #f47ba0; --t2: #c8336f; } .fsx-tb[data-tone="orange"] { --t1: #f39b52; --t2: #d9601c; }
+.fsx-tb[data-tone="cyan"] { --t1: #3fc1c9; --t2: #0e7f8e; } .fsx-tb[data-tone="yellow"] { --t1: #f7c948; --t2: #b27a05; } .fsx-tb[data-tone="red"] { --t1: #ff7b7b; --t2: #d63031; }
+.fsx-tbi { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--t1), var(--t2)); color: #fff; } .fsx-tbi svg { width: 16px; height: 16px; }
+.fsx-tb em { font-style: normal; font: 700 11.5px var(--mono); padding: 2px 7px; border-radius: 999px; background: var(--t2); color: #fff; }
+.fsx-docsx { padding: 0; gap: 0; }
+.fsx-docsx summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 22px; cursor: pointer; list-style: none; font: 700 16px var(--sans); }
+.fsx-docsx summary::-webkit-details-marker { display: none; }
+.fsx-docsx[open] summary .fsx-go { transform: rotate(180deg); }
+.fsx-docsx .fsx-docs { padding: 0 22px 18px; }
+.fsx-add { justify-self: start; display: inline-flex; align-items: center; gap: 6px; } .fsx-add span { display: grid; } .fsx-add svg { width: 15px; height: 15px; }
+@media (max-width: 640px) {
+  .fsx-now { grid-template-columns: 1fr; padding: 18px; }
+  .fsx-nowb { justify-items: stretch; } html:root:root:root:root .fsx .fsx-now .btn.primary.fsx-cta { width: 100%; justify-content: center; }
+  .fsx-st2 { grid-template-columns: 32px minmax(0, 1fr); } .fsx-st2 .fsx-mini2 { display: none; } .fsx-st2.cur .fsx-mini2 { display: inline-flex; grid-column: 2; justify-self: start; }
+  .fsx-tb { height: 40px; font-size: 13.5px; }
+}
+.fsx-road::before { bottom: 24px; }
+/* Vollbild-Knopf oben (neben dem Seitenleisten-Knopf) */
+.fs-tog { flex: none; color: var(--mute); }
+.fs-tog:hover { color: var(--ink); }
+html:root[data-nv] .topbar .fs-tog { width: 44px; height: 44px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); box-shadow: 0 6px 16px -12px rgba(0,0,0,.35); order: 9; margin-left: 4px; }
+.fs-tog .ico, .fs-tog svg { width: 20px; height: 20px; }
+@media (max-width: 720px) { .fs-tog { display: none !important; } }

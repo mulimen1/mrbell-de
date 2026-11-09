@@ -124,6 +124,14 @@ function buildShell() {
   const backEl = h('a', { class: 'db-back', href: '#/app/lernen', hidden: true, title: L('Zurück zu Lernen', 'Back to Learn') }, h('span', { html: ico('left') }), h('span', {}, L('Lernen', 'Learn')));
   const docbar = h('div', { class: 'docbar', hidden: true }, backEl, title, tabs);
   const sideBtn = h('button', { class: 'iconbtn side-tog', type: 'button', 'aria-label': L('Seitenleiste', 'Sidebar'), title: L('Tools ein-/ausblenden (Strg/⌘ + \\)', 'Show/hide tools (Ctrl/⌘ + \\)'), html: ico('sidebar'), onclick: () => { if (isMob()) app.classList.toggle('sideopen'); else setSide(app.classList.contains('side-closed')); } });
+  // Vollbild: ganze Lern-App ohne Browser-Leisten (nur wo der Browser es kann, z. B. nicht am iPhone)
+  const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement;
+  const fsOk = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+  const fsBtn = fsOk ? h('button', { class: 'iconbtn fs-tog', type: 'button', 'aria-label': L('Vollbild', 'Full screen'), title: L('Vollbild', 'Full screen'), html: ico('expand'), onclick: () => {
+    const de = document.documentElement;
+    try { if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen).call(document); else { const r = (de.requestFullscreen || de.webkitRequestFullscreen).call(de, { navigationUI: 'hide' }); if (r && r.catch) r.catch(() => toast(L('Vollbild ist in diesem Browser gerade nicht möglich.', 'Full screen isn’t available in this browser right now.'))); } } catch (e) {}
+  } }) : null;
+  if (fsBtn) { const upd = () => { const on = !!fsEl(); fsBtn.innerHTML = ico(on ? 'shrink' : 'expand'); const t = on ? L('Vollbild beenden', 'Exit full screen') : L('Vollbild', 'Full screen'); fsBtn.title = t; fsBtn.setAttribute('aria-label', t); fsBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); document.documentElement.classList.toggle('is-fs', on); }; document.addEventListener('fullscreenchange', upd); document.addEventListener('webkitfullscreenchange', upd); }
   const view = h('main', { class: 'view', id: 'view' });
   const palBtn = h('button', { class: 'pal-btn', type: 'button', 'aria-label': L('Suchen', 'Search'), title: L('Suchen und Befehle (⌘K)', 'Search and commands (⌘K)'), onclick: () => import('./palette.js').then(m => m.openPalette()) }, h('span', { html: ico('search') }), h('span', { class: 'pal-btx' }, L('Suchen', 'Search')), h('kbd', {}, /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? '⌘K' : 'Strg K'));
   // Feedback ist immer einen Klick entfernt (oben rechts, in der Seitenleiste und im Menü)
@@ -161,7 +169,7 @@ function buildShell() {
   const tbBtn = h('button', { class: 'iconbtn tb-fold', type: 'button', title: L('Leiste einklappen – mehr Platz', 'Collapse bar – more space'), 'aria-label': L('Leiste einklappen', 'Collapse bar'), html: '<svg class="ico" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>', onclick: () => tbSet(true) });
   // Leiste einklappen gibt's nicht mehr – oben bleibt immer alles sichtbar
   document.documentElement.classList.remove('tb-hide'); ls.set('tutor.tbHide', 0);
-  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, palBtn, mActs, topset, tcorner), docbar, view);
+  const main = h('div', { class: 'main' }, h('div', { class: 'topbar' }, sideBtn, topnav, fsBtn, palBtn, mActs, topset, tcorner), docbar, view);
   const bbar = bottomBar(() => app);
   const app = h('div', { class: 'app' + (ls.get('tutor.sideClosed', false) ? ' side-closed' : '') }, side, main, bbar);
   function setSide(open) { app.classList.toggle('side-closed', !open); ls.set('tutor.sideClosed', !open); sideBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); }

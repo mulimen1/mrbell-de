@@ -55,7 +55,7 @@ function planDocs(f, ds, opts) {
 export function render(root, { id } = {}) {
   const wrap = h('div', { class: 'view-in fsx' });
   root.appendChild(wrap);
-  let editPlan = false, showWeek = false;
+  let editPlan = false;
   const draw = () => {
     if (!wrap.isConnected) return;
     const f = M.getMe().faecher.find(x => x.id === id);
@@ -68,7 +68,7 @@ export function render(root, { id } = {}) {
     const iso = f.klausur && f.klausur >= today ? f.klausur : null;
     const days = iso ? between(today, iso) : null;
     const rf = reife(ds, iso ? new Date(iso + 'T08:00').getTime() : 0);
-    wrap.replaceChildren(hero(f, ds, rf, iso, days), planCard(f, ds, iso), tools(f, ds, rf), scripts(f, ds));
+    wrap.replaceChildren(hero(f, ds, rf, iso, days), ...study(f, ds, iso), tools(f, ds), scripts(f, ds));
   };
 
   // ---------- Kopf: Name, Countdown, Prüfungsreife ----------
@@ -99,52 +99,84 @@ export function render(root, { id } = {}) {
       h('div', { class: 'fsx-exam' }, count, h('label', { class: 'fsx-dl' }, h('span', {}, iso ? L('ändern', 'change') : L('Datum', 'Date')), dateIn)));
   }
 
-  // ---------- Lernplan fürs Fach ----------
-  function planCard(f, ds, iso) {
-    const head = (t, s, extra) => h('div', { class: 'fsx-h' }, h('div', {}, h('h2', {}, t), s ? h('p', {}, s) : null), extra || null);
-    if (!ds.length) return h('section', { class: 'fsx-card fsx-plan' }, head(L('Dein Lernplan', 'Your study plan'), L('Leg zuerst deine Unterlagen ab – Skripte, Folien, Fotos oder Screenshots. Daraus baut Max den Plan.', 'Add your material first – slides, PDFs, photos or screenshots. Max builds the plan from it.')),
-      h('button', { class: 'btn primary lg fsx-cta', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('upload') }), L('Skripte hinzufügen', 'Add slides')));
+  // ---------- Jetzt dran + Lernpfad (Hauptteil) ----------
+  const head = (t, s, extra) => h('div', { class: 'fsx-h' }, h('div', {}, h('h2', {}, t), s ? h('p', {}, s) : null), extra || null);
+  function study(f, ds, iso) {
+    if (!ds.length) return [h('section', { class: 'fsx-card fsx-plan' }, head(L('Leg los mit deinen Unterlagen', 'Start with your material'), L('Skripte, Folien, Fotos oder Screenshots – Max macht daraus deinen Lernpfad bis zur Klausur.', 'Slides, PDFs, photos or screenshots – Max turns them into your study path to the exam.')),
+      h('button', { class: 'btn primary lg fsx-cta', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('upload') }), L('Skripte hinzufügen', 'Add slides')))];
     const planned = f.plan ? ds.filter(d => d.plan && d.plan.fach === f.id) : [];
-    if (!f.plan || !planned.length || editPlan) return planForm(f, ds, iso, head);
+    if (!f.plan || !planned.length || editPlan) return [planForm(f, ds, iso, head)];
     const today = dkey();
-    if (today >= f.plan.exam) return h('section', { class: 'fsx-card fsx-plan' }, head(L('Klausur geschafft?', 'Exam done?'), L('Trag deine Note ein oder leg einen neuen Termin fest.', 'Add your grade or set a new date.')),
-      h('div', { class: 'fsx-row' }, h('button', { class: 'btn', type: 'button', onclick: () => { editPlan = true; draw(); } }, L('Neuen Plan erstellen', 'Create a new plan'))));
-    // Tagesaufgaben aller Skripte zusammenführen
-    const byDate = {}; let total = 0, done = 0, expected = 0;
+    if (today >= f.plan.exam) return [h('section', { class: 'fsx-card fsx-plan' }, head(L('Klausur geschafft?', 'Exam done?'), L('Trag deine Note ein oder leg einen neuen Termin fest.', 'Add your grade or set a new date.')),
+      h('div', {}, h('button', { class: 'btn', type: 'button', onclick: () => { editPlan = true; draw(); } }, L('Neuen Plan erstellen', 'Create a new plan'))))];
+    // Alle Aufgaben aller Skripte
+    const all = []; let done = 0, total = 0, expected = 0;
     for (const d of planned) {
       const p = planSummary(d); if (!p) continue;
-      total += p.total; done += p.done; expected += p.expected;
-      for (const day of d.plan.days) for (const t of day.tasks) { if (t.missed) continue; (byDate[day.date] ||= []).push({ t, d }); }
+      done += p.done; total += p.total; expected += p.expected;
+      for (const day of d.plan.days) for (const t of day.tasks) if (!t.missed) all.push({ t, d, date: day.date });
     }
+    const RANK = { lesson: 0, mock: 0, quiz: 1, explain: 2, mistakes: 3, cards: 4, sheet: 5 };
+    const open = all.filter(x => !x.t.done).sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0) || (RANK[a.t.kind] ?? 9) - (RANK[b.t.kind] ?? 9));
+    const todayOpen = open.filter(x => x.date <= today), todayDone = all.filter(x => x.t.done && (x.t.doneAt === today || x.date === today));
+    const nowT = todayOpen[0] || open[0];
     const behind = expected - done;
-    const todayL = (byDate[today] || []).sort((a, b) => !!a.t.done - !!b.t.done);
-    const openMin = todayL.filter(x => !x.t.done).reduce((a, x) => a + x.t.minutes, 0);
-    const next = Object.keys(byDate).filter(k => k > today).sort().slice(0, showWeek ? 14 : 4);
-    const status = behind >= 2 ? h('span', { class: 'fsx-st warn' }, L(`${behind} Aufgaben im Rückstand – Max hat sie auf die nächsten Tage verteilt`, `${behind} tasks behind – Max moved them to the next days`))
-      : h('span', { class: 'fsx-st ok' }, L('Du liegst im Plan', 'You’re on track'));
-    const missing = ds.filter(d => !planned.includes(d));
-    return h('section', { class: 'fsx-card fsx-plan' },
-      head(L('Heute für ' + f.name, 'Today for ' + f.name), todayL.length ? (openMin ? L(`Noch ${minFmt(openMin)} – dann ist der Tag erledigt.`, `${minFmt(openMin)} left – then today is done.`) : L('Alles erledigt für heute. Stark.', 'All done for today. Nice.')) : L('Heute ist kein Lerntag. Morgen geht’s weiter.', 'No study day today. Back at it tomorrow.'),
-        h('button', { class: 'fsx-link', type: 'button', onclick: () => { editPlan = true; draw(); } }, h('span', { html: ico('tune') }), L('Plan anpassen', 'Adjust plan'))),
-      h('div', { class: 'fsx-prog' }, h('div', { class: 'fsx-bar' }, h('i', { style: { width: (total ? Math.round(100 * done / total) : 0) + '%' } }), h('u', { style: { left: (total ? Math.min(100, Math.round(100 * expected / total)) : 0) + '%' }, title: L('Soll heute', 'Target today') })),
-        h('div', { class: 'fsx-pl' }, h('span', {}, L(`${done} von ${total} Aufgaben`, `${done} of ${total} tasks`)), status)),
-      todayL.length ? h('div', { class: 'fsx-tasks' }, todayL.map(x => taskRow(x, planned.length > 1))) : null,
-      missing.length ? h('div', { class: 'fsx-note' }, h('span', {}, L(`${missing.length === 1 ? '„' + missing[0].name + '“ ist' : missing.length + ' Skripte sind'} noch nicht im Plan.`, `${missing.length === 1 ? '“' + missing[0].name + '” isn’t' : missing.length + ' sets of slides aren’t'} in the plan yet.`)),
-        h('button', { class: 'btn sm', type: 'button', onclick: () => { editPlan = true; draw(); } }, L('Plan aktualisieren', 'Update plan'))) : null,
-      next.length ? h('div', { class: 'fsx-next' }, h('div', { class: 'fsx-sub' }, L('Die nächsten Tage', 'Coming up')),
-        next.map(k => { const l = byDate[k], m = l.reduce((a, x) => a + x.t.minutes, 0);
-          return h('div', { class: 'fsx-day' }, h('b', {}, fmt(k, { weekday: 'short', day: 'numeric', month: 'short' })), h('span', {}, l.map(x => x.t.label).slice(0, 3).join(' · ') + (l.length > 3 ? ' …' : '')), h('em', {}, minFmt(m))); }),
-        Object.keys(byDate).filter(k => k > today).length > 4 ? h('button', { class: 'fsx-link', type: 'button', onclick: () => { showWeek = !showWeek; draw(); } }, showWeek ? L('Weniger zeigen', 'Show less') : L('Mehr Tage zeigen', 'Show more days')) : null) : null);
+    return [nowCard(f, nowT, todayOpen, todayDone, planned.length > 1, today), pathCard(f, planned, all, ds.filter(d => !planned.includes(d)), behind, today)];
   }
 
-  function taskRow({ t, d }, multi) {
-    const k = KIND[t.kind] || KIND.lesson;
-    const tog = h('button', { class: 'fsx-chk' + (t.done ? ' on' : ''), type: 'button', 'aria-label': t.done ? L('Als offen markieren', 'Mark as open') : L('Als erledigt markieren', 'Mark as done'), 'aria-pressed': t.done ? 'true' : 'false', html: ico('check'),
-      onclick: () => { t.done = !t.done; t.auto = false; t.doneAt = t.done ? dkey() : null; save(d); draw(); } });
-    return h('div', { class: 'fsx-task' + (t.done ? ' done' : '') }, tog,
-      h('a', { class: 'fsx-tl', href: `#/app/${d.id}/${k.go(t)}` }, h('span', { class: 'fsx-ti', html: ico(k.ico) }),
-        h('span', { class: 'fsx-tx' }, h('b', {}, t.label || ''), multi || t.rolled ? h('small', {}, [multi ? d.name : null, t.rolled ? L('nachgeholt', 'carried over') : null].filter(Boolean).join(' · ')) : null),
-        h('em', {}, minFmt(t.minutes)), h('span', { class: 'fsx-go', html: ico('right') })));
+  function nowCard(f, x, todayOpen, todayDone, multi, today) {
+    if (!x) return h('section', { class: 'fsx-now done' }, h('span', { class: 'fsx-nowi', html: ico('check') }), h('div', {}, h('b', {}, L('Alles aus dem Plan erledigt.', 'Everything in the plan is done.')), h('small', {}, L('Wiederhol mit Karteikarten oder schreib eine Probeklausur.', 'Review with flashcards or take a mock exam.'))));
+    const k = KIND[x.t.kind] || KIND.lesson, isToday = x.date <= today;
+    const rest = todayOpen.filter(y => y !== x), restMin = rest.reduce((a, y) => a + y.t.minutes, 0);
+    const go = `#/app/${x.d.id}/${k.go(x.t)}`;
+    return h('section', { class: 'fsx-now' },
+      h('div', { class: 'fsx-nowl' }, h('span', { class: 'fsx-nowlab' }, isToday ? (todayDone.length ? L('Weiter geht’s', 'Up next') : L('Jetzt dran', 'Do this now')) : (todayDone.length ? L(`Für heute geschafft · als Nächstes am ${fmt(x.date, { weekday: 'short', day: 'numeric', month: 'short' })}`, `Done for today · next up on ${fmt(x.date, { weekday: 'short', day: 'numeric', month: 'short' })}`) : L(`Heute frei · nächster Lerntag ${fmt(x.date, { weekday: 'short', day: 'numeric', month: 'short' })}`, `Day off · next study day ${fmt(x.date, { weekday: 'short', day: 'numeric', month: 'short' })}`))),
+        h('div', { class: 'fsx-nowt' }, h('span', { class: 'fsx-nowi', html: ico(k.ico) }), h('div', {}, h('b', {}, x.t.label || ''), h('small', {}, [minFmt(x.t.minutes), multi ? x.d.name : null].filter(Boolean).join(' · ')))),
+        rest.length ? h('p', { class: 'fsx-nowr' }, L(`Danach heute noch ${rest.length} ${rest.length === 1 ? 'Aufgabe' : 'Aufgaben'} · ${minFmt(restMin)}`, `Then ${rest.length} more today · ${minFmt(restMin)}`)) : isToday ? h('p', { class: 'fsx-nowr' }, L('Danach ist dein Tag erledigt.', 'Then you’re done for today.')) : null),
+      h('div', { class: 'fsx-nowb' },
+        h('a', { class: 'btn primary lg fsx-cta', href: go }, isToday ? L('Los geht’s', 'Let’s go') : L('Trotzdem jetzt lernen', 'Study it now anyway'), h('span', { html: ico('right') })),
+        h('button', { class: 'fsx-link', type: 'button', onclick: () => { x.t.done = true; x.t.auto = false; x.t.doneAt = dkey(); save(x.d); draw(); toast(L('Abgehakt.', 'Ticked off.')); } }, h('span', { html: ico('check') }), L('Schon erledigt', 'Already done'))));
+  }
+
+  function pathCard(f, planned, all, missing, behind, today) {
+    // Kapitel aller Skripte als ein Weg; Datum = geplanter Tag der Lektion
+    const rows = []; let chDone = 0, chTotal = 0, current = null;
+    for (const d of planned) {
+      const chs = d.path?.chapters || [];
+      chs.forEach((c, i) => {
+        chTotal++; if (c.done) chDone++;
+        const les = all.find(x => x.d === d && x.t.kind === 'lesson' && x.t.chapter === i);
+        const isDone = c.done || (les && les.t.done);
+        const r = { d, c, i, done: isDone, date: les ? les.date : null };
+        if (!isDone && !current) { current = r; r.cur = true; }
+        rows.push(r);
+      });
+    }
+    chDone = rows.filter(r => r.done).length;
+    const mock = all.filter(x => x.t.kind === 'mock').sort((a, b) => a.date < b.date ? -1 : 1)[0];
+    const multi = planned.length > 1;
+    let lastDoc = null;
+    const items = [];
+    for (const r of rows) {
+      if (multi && r.d !== lastDoc) { items.push(h('div', { class: 'fsx-pdoc' }, h('span', { html: ico(r.d.src === 'bild' ? 'camera' : 'file') }), r.d.name)); lastDoc = r.d; }
+      const when = r.done ? L('erledigt', 'done') : r.date ? (r.date <= today ? L('heute', 'today') : fmt(r.date, { weekday: 'short', day: 'numeric', month: 'short' })) : '';
+      items.push(h('div', { class: 'fsx-st2' + (r.done ? ' done' : '') + (r.cur ? ' cur' : '') },
+        h('span', { class: 'fsx-dot', html: r.done ? ico('check') : '' }),
+        h('a', { class: 'fsx-stx', href: `#/app/${r.d.id}/pfad/${r.i}` }, h('b', {}, r.c.title), h('small', {}, when + (r.c.weight === 3 && !r.done ? L(' · klausurwichtig', ' · key for the exam') : ''))),
+        r.done ? h('a', { class: 'fsx-mini2', href: `#/app/${r.d.id}/quiz/k${r.i}` }, L('Quiz', 'Quiz')) : h('a', { class: 'fsx-mini2' + (r.cur ? ' on' : ''), href: `#/app/${r.d.id}/pfad/${r.i}` }, r.cur ? L('Starten', 'Start') : L('Öffnen', 'Open'))));
+    }
+    if (mock) items.push(h('div', { class: 'fsx-st2 goal' + (mock.t.done ? ' done' : '') }, h('span', { class: 'fsx-dot', html: ico(mock.t.done ? 'check' : 'exam') }),
+      h('a', { class: 'fsx-stx', href: `#/app/${mock.d.id}/quiz/exam` }, h('b', {}, L('Probeklausur', 'Mock exam')), h('small', {}, mock.t.done ? L('erledigt', 'done') : fmt(mock.date, { weekday: 'short', day: 'numeric', month: 'short' }))), h('span')));
+    items.push(h('div', { class: 'fsx-st2 goal exam' }, h('span', { class: 'fsx-dot', html: ico('trophy') }),
+      h('div', { class: 'fsx-stx' }, h('b', {}, M.artName(f.klausurArt || 'klausur')), h('small', {}, fmt(f.plan.exam, { weekday: 'long', day: 'numeric', month: 'long' }))), h('span')));
+    const status = behind >= 2 ? h('span', { class: 'fsx-stt warn' }, L(`${behind} Aufgaben im Rückstand`, `${behind} tasks behind`)) : h('span', { class: 'fsx-stt ok' }, L('im Plan', 'on track'));
+    return h('section', { class: 'fsx-card fsx-path' },
+      head(L('Dein Lernpfad', 'Your study path'), null, h('button', { class: 'fsx-link', type: 'button', onclick: () => { editPlan = true; draw(); } }, h('span', { html: ico('tune') }), L('Plan anpassen', 'Adjust plan'))),
+      h('div', { class: 'fsx-prog' }, h('div', { class: 'fsx-bar' }, h('i', { style: { width: (chTotal ? Math.round(100 * chDone / chTotal) : 0) + '%' } })),
+        h('div', { class: 'fsx-pl' }, h('span', {}, L(`${chDone} von ${chTotal} Kapiteln`, `${chDone} of ${chTotal} chapters`)), status)),
+      missing.length ? h('div', { class: 'fsx-note' }, h('span', {}, L(`${missing.length === 1 ? '„' + missing[0].name + '“ ist' : missing.length + ' Skripte sind'} noch nicht im Lernpfad.`, `${missing.length === 1 ? '“' + missing[0].name + '” isn’t' : missing.length + ' sets of slides aren’t'} in the path yet.`)),
+        h('button', { class: 'btn sm', type: 'button', onclick: () => { editPlan = true; draw(); } }, L('Aufnehmen', 'Add'))) : null,
+      h('div', { class: 'fsx-road' }, items));
   }
 
   function planForm(f, ds, iso, head) {
@@ -192,43 +224,44 @@ export function render(root, { id } = {}) {
     return box;
   }
 
-  // ---------- Lernen: Werkzeuge über alle Skripte des Fachs ----------
-  function tools(f, ds, rf) {
+  // ---------- Werkzeuge: schmale Leiste über alle Skripte des Fachs ----------
+  function tools(f, ds) {
     if (!ds.length) return h('span');
     const pick = async (title, path, cand = ds) => {
       if (cand.length === 1) { location.hash = `#/app/${cand[0].id}/${path}`; return; }
-      const v = await modal({ title, text: L('Für welches Skript?', 'For which slides?'), actions: [...cand.map(d => ({ label: d.name.length > 40 ? d.name.slice(0, 39) + '…' : d.name, value: d.id, primary: false })), { label: L('Abbrechen', 'Cancel'), value: null }] });
+      const v = await modal({ title, text: L('Für welches Skript?', 'For which slides?'), actions: [...cand.map(d => ({ label: d.name.length > 40 ? d.name.slice(0, 39) + '…' : d.name, value: d.id })), { label: L('Abbrechen', 'Cancel'), value: null }] });
       if (v) location.hash = `#/app/${v}/${path}`;
     };
     const due = ds.map(d => [d, dueCards(d).length]).sort((a, b) => b[1] - a[1]);
-    const dueN = due.reduce((a, x) => a + x[1], 0), cards = ds.reduce((a, d) => a + d.decks.reduce((b, k) => b + k.cards.length, 0), 0);
+    const dueN = due.reduce((a, x) => a + x[1], 0);
     const mis = ds.filter(d => d.mistakes?.length), misN = mis.reduce((a, d) => a + d.mistakes.length, 0);
-    const tile = (ic, tone, t, s, on) => h('button', { class: 'fsx-tool', type: 'button', 'data-tone': tone, onclick: on }, h('span', { class: 'fsx-toi', html: ico(ic) }), h('b', {}, t), h('small', {}, s));
     const askMax = () => { ls.set('tutor.room.focus', ds.map(d => d.id)); ls.set('tutor.room.focusAt', Date.now()); ls.set('tutor.attach.room', null); location.hash = '#/app/tutor'; };
-    return h('section', { class: 'fsx-card' },
-      h('div', { class: 'fsx-h' }, h('div', {}, h('h2', {}, L('Lernen', 'Study')), h('p', {}, L('Alles aus deinen Skripten zu ' + f.name + '.', 'Everything from your slides for ' + f.name + '.')))),
-      h('div', { class: 'fsx-tools' },
-        tile('cards', 'blue', L('Karteikarten', 'Flashcards'), dueN ? L(`${dueN} fällig`, `${dueN} due`) : cards ? L(`${cards} Karten`, `${cards} cards`) : L('Erstellen lassen', 'Have them made'), () => dueN ? (location.hash = `#/app/${due[0][0].id}/karten`) : pick(L('Karteikarten', 'Flashcards'), 'karten')),
-        tile('quiz', 'purple', 'Quiz', L('Wissen prüfen', 'Test yourself'), () => pick('Quiz', 'quiz')),
-        tile('exam', 'pink', L('Probeklausur', 'Mock exam'), L('Unter Zeitdruck', 'Timed'), () => pick(L('Probeklausur', 'Mock exam'), 'quiz/exam')),
-        tile('brain', 'orange', L('Lernzettel', 'Study sheet'), L('Alles auf einer Seite', 'All on one page'), () => pick(L('Lernzettel', 'Study sheet'), 'zettel')),
-        tile('pod', 'cyan', 'Podcast', L('Zum Hören unterwegs', 'Listen on the go'), () => pick('Podcast', 'podcast')),
-        tile('chat', 'yellow', L('Max fragen', 'Ask Max'), ds.length > 1 ? L(`Kennt alle ${ds.length} Skripte`, `Knows all ${ds.length} sets`) : L('Kennt dein Skript', 'Knows your slides'), askMax),
-        misN ? tile('refresh', 'red', L('Fehler wiederholen', 'Review mistakes'), L(`${misN} offen`, `${misN} open`), () => pick(L('Fehler wiederholen', 'Review mistakes'), 'quiz/fehler', mis)) : null));
+    const it = (ic, tone, t, n, on) => h('button', { class: 'fsx-tb', type: 'button', 'data-tone': tone, onclick: on }, h('span', { class: 'fsx-tbi', html: ico(ic) }), h('span', {}, t), n ? h('em', {}, n) : null);
+    return h('section', { class: 'fsx-tools2' },
+      h('div', { class: 'fsx-sub' }, L('Frei lernen', 'Study freely')),
+      h('div', { class: 'fsx-tbar' },
+        it('chat', 'yellow', L('Max fragen', 'Ask Max'), null, askMax),
+        it('cards', 'blue', L('Karteikarten', 'Flashcards'), dueN || null, () => dueN ? (location.hash = `#/app/${due[0][0].id}/karten`) : pick(L('Karteikarten', 'Flashcards'), 'karten')),
+        it('quiz', 'purple', 'Quiz', null, () => pick('Quiz', 'quiz')),
+        it('exam', 'pink', L('Probeklausur', 'Mock exam'), null, () => pick(L('Probeklausur', 'Mock exam'), 'quiz/exam')),
+        it('brain', 'orange', L('Lernzettel', 'Study sheet'), null, () => pick(L('Lernzettel', 'Study sheet'), 'zettel')),
+        it('pod', 'cyan', 'Podcast', null, () => pick('Podcast', 'podcast')),
+        misN ? it('refresh', 'red', L('Fehler', 'Mistakes'), misN, () => pick(L('Fehler wiederholen', 'Review mistakes'), 'quiz/fehler', mis)) : null));
   }
 
-  // ---------- Skripte ----------
+  // ---------- Skripte (eingeklappt) ----------
   function scripts(f, ds) {
-    return h('section', { class: 'fsx-card' },
-      h('div', { class: 'fsx-h' }, h('div', {}, h('h2', {}, L('Skripte', 'Slides')), h('p', {}, L('PDF, PowerPoint, Word, Fotos oder Screenshots.', 'PDF, PowerPoint, Word, photos or screenshots.'))),
-        h('button', { class: 'btn sm', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('plus') }), L('Hinzufügen', 'Add'))),
-      ds.length ? h('div', { class: 'fsx-docs' }, ds.map(d => {
+    if (!ds.length) return h('span');
+    const det = h('details', { class: 'fsx-card fsx-docsx' },
+      h('summary', {}, h('span', { class: 'fsx-sumt' }, L(`Skripte (${ds.length})`, `Slides (${ds.length})`)), h('span', { class: 'fsx-go', html: ico('down') })),
+      h('div', { class: 'fsx-docs' }, ds.map(d => {
         const ch = d.path?.chapters || [], dn = ch.filter(c => c.done).length, r = reife([d]);
         return h('a', { class: 'fsx-doc', href: `#/app/${d.id}/hub` }, h('span', { class: 'fsx-di', html: ico(d.src === 'bild' ? 'camera' : 'file') }),
           h('span', { class: 'fsx-dt' }, h('b', {}, d.name), h('small', {}, [L(`${d.pages.length} ${d.pages.length === 1 ? 'Seite' : 'Seiten'}`, `${d.pages.length} page${d.pages.length === 1 ? '' : 's'}`), ch.length ? L(`${dn}/${ch.length} Kapitel`, `${dn}/${ch.length} chapters`) : null, r.cards ? L(`${r.cards} Karten`, `${r.cards} cards`) : null].filter(Boolean).join(' · '))),
           ch.length ? h('span', { class: 'fsx-mini' }, h('i', { style: { width: Math.round(100 * dn / ch.length) + '%' } })) : null,
           h('span', { class: 'fsx-go', html: ico('right') }));
-      })) : h('button', { class: 'fsx-drop', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('upload') }), h('b', {}, L('Erstes Skript hinzufügen', 'Add your first slides')), h('small', {}, L('Datei wählen oder Fotos & Screenshots', 'Choose a file or photos & screenshots'))));
+      }), h('button', { class: 'btn sm fsx-add', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('plus') }), L('Skript hinzufügen', 'Add slides'))));
+    return det;
   }
 
   const off = M.onMe(() => draw());
