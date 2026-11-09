@@ -4,438 +4,373 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#ff8a2a">
+<meta name="theme-color" content="#1d2a57">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="GSM Zahlen">
 <title>Zahlen · Grundschulmax</title>
-<link rel="icon" type="image/png" href="/grundschulmax/max-96.png">
-<link rel="apple-touch-icon" href="/grundschulmax/max-96.png">
+<link rel="icon" type="image/png" href="/grundschulmax/mail/gsm-profil.png">
+<link rel="apple-touch-icon" href="/grundschulmax/mail/gsm-profil.png">
 <style>
 @font-face{font-family:G;src:url(/grundschulmax/geist.woff2) format('woff2');font-weight:100 900;font-display:swap}
-:root{--bg:#f3eee4;--card:#fff;--line:#ebe4d7;--line2:#ddd3c2;--ink:#15151a;--ink2:#3d3a35;--mute:#7a746a;--dim:#cfc6b6;--acc:#1a5fc4;--vio:#6c4fe0;--ok:#16a05c;--bad:#e5484d;--warn:#e08a12;--r:20px;--gap:14px}
+:root{--bg:#f7f4ef;--card:#fff;--ln:#e8e1d5;--ln2:#ddd4c5;--ink:#16181f;--ink2:#383b46;--mut:#6b6f7b;--dim:#c9c1b3;--nv:#1d2a57;--nv2:#2b3a72;--or:#e5622a;--or2:#c2501c;--gd:#e3c67a;--gd2:#f5ead0;--ok:#1b9e63;--okb:#e5f5ec;--bad:#d64545;--badb:#fdeceb;--warn:#c98612;--warnb:#fdf3df;--r:22px;--gap:14px}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 G,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-body{min-height:100dvh;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-button{font:inherit;color:inherit}
-.num,td.n,.v{font-variant-numeric:tabular-nums}
-.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 84%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.top-in{max-width:1380px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:10px;min-width:0}
-.brand img{width:38px;height:38px;border-radius:12px;background:#fff;object-fit:cover}
-.brand b{font-size:17px;letter-spacing:-.02em;display:block}
-.brand small{color:var(--mute);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-.sp{flex:1}
-.seg{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--line2);background:var(--card)}
-.seg button{height:30px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--mute);font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap}
-.seg button.on{background:var(--ink);color:#fff}
-.qseg button.on{background:#1877f2}
-.ib{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:var(--card);font-weight:600;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-.ib i{width:9px;height:9px;border-radius:50%;background:var(--dim)}
-.ib.on i{background:var(--ok)}
-.stand{color:var(--mute);font-size:12px;white-space:nowrap}
-.wrap{max-width:1380px;margin:0 auto;padding:16px 20px 80px}
+body{min-height:100dvh}
+button,input,select{font:inherit;color:inherit}
+.n,td.n,.v,.tn{font-variant-numeric:tabular-nums}
+a{color:var(--or2)}
+/* Kopf */
+.top{position:sticky;top:0;z-index:20;background:var(--nv);color:#fff;box-shadow:0 10px 28px -18px rgba(13,20,50,.7)}
+.top-in{max-width:1400px;margin:0 auto;padding:12px 20px 10px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;min-width:0;margin-right:auto}
+.brand img{width:40px;height:40px;border-radius:12px;background:#fff}
+.brand b{display:block;font-size:19px;font-weight:850;letter-spacing:-.02em}
+.brand b span{color:var(--gd)}
+.brand small{display:block;color:#aeb6d6;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700}
+.seg{display:inline-flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.1)}
+.seg button{height:30px;padding:0 12px;border:0;border-radius:999px;background:none;color:#d7dcf0;font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:#fff;color:var(--nv)}
+.qseg button.on{background:var(--gd);color:var(--nv)}
+.ib{height:36px;width:36px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-weight:800;cursor:pointer}
+.stand{color:#aeb6d6;font-size:12px;white-space:nowrap}
+.tabs{max-width:1400px;margin:0 auto;padding:0 20px 12px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;height:38px;padding:0 16px;border-radius:12px;border:0;background:rgba(255,255,255,.08);color:#e3e7f6;font-weight:750;font-size:14px;cursor:pointer}
+.tabs button.on{background:var(--or);color:#fff;box-shadow:0 3px 0 var(--or2)}
+/* Inhalt */
+.wrap{max-width:1400px;margin:0 auto;padding:18px 20px 80px;padding-bottom:max(80px,env(safe-area-inset-bottom))}
 .grid{display:grid;gap:var(--gap);margin-top:var(--gap)}
 .k6{grid-template-columns:repeat(6,minmax(0,1fr))}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.g21{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
-.k8{grid-template-columns:repeat(4,minmax(0,1fr))}
-.sec{margin:28px 2px 0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--mute)}
-.sub2{margin:14px 0 8px;font-size:13px;font-weight:700}
-.tw{overflow:auto;max-height:640px}
-.tw table{min-width:860px}
-.tw th{position:sticky;top:0;background:var(--card);z-index:1}
-.pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11.5px;font-weight:700;background:#eef6ee;color:var(--ok)}
-.pill.m{background:#f2efe8;color:var(--mute)}
-.six{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.six div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
-.six b{display:block;font-size:22px;letter-spacing:-.03em}
-.six small{color:var(--mute);font-weight:600;font-size:12px}
-.tabs{max-width:1380px;margin:0 auto;padding:0 20px 10px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:none;height:36px;padding:0 15px;border-radius:12px;border:1px solid var(--line2);background:var(--card);font-weight:700;font-size:13.5px;color:var(--ink2);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
-.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff}
-.tabs .cn{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:rgba(0,0,0,.08);font-size:11.5px;display:inline-grid;place-items:center}
-.tabs button.on .cn{background:rgba(255,255,255,.25)}
-.bst .dist{min-width:70px}
-@media (max-width:560px){.bst th,.bst td{padding:7px 4px;font-size:12.5px}.bst td .s{display:none}}
-.br.w{grid-template-columns:minmax(0,1fr) 96px}.br.w .c{white-space:nowrap}
-.lede{color:var(--mute);font-size:12.5px;margin:12px 2px 0;line-height:1.5}
-.dist{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#f2ede4;min-width:140px}
-.dist i{display:block;height:100%}
-.dleg{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--mute);font-weight:600;margin-top:10px}
-.dleg span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--c);margin-right:5px}
-.acc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin-top:10px;overflow:hidden}
-.acc>summary{list-style:none;cursor:pointer;padding:14px 18px;display:grid;grid-template-columns:44px minmax(160px,1.4fr) repeat(5,minmax(70px,1fr)) 24px;gap:12px;align-items:center}
-.acc>summary::-webkit-details-marker{display:none}
-.acc .av{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:18px;color:#fff;background:linear-gradient(180deg,#5aa2f7,#1a5fc4)}
-.acc.ben .av{background:linear-gradient(180deg,#b9b2a6,#857d70)}
-.acc .who{min-width:0}.acc .who b{display:block;font-size:15px}.acc .who small{display:block;color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.acc .st small{display:block;color:var(--mute);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}.acc .st b{font-size:16px}
-.acc .chev{color:var(--mute);font-size:22px;transition:transform .2s}.acc[open] .chev{transform:rotate(90deg)}
-.accb{padding:0 18px 18px;border-top:1px solid var(--line);background:#fbf9f5}
-.accb .card{background:#fff}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13.5px}.kv span{color:var(--mute)}.kv b{font-weight:650}
-@media (max-width:900px){.acc>summary{grid-template-columns:40px minmax(0,1fr) auto 18px;padding:12px 14px}.acc .st{display:none}.acc .st.k{display:block;text-align:right}.accb{padding:0 12px 12px}.tabs{padding:0 16px 10px}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0;overflow:hidden}
-.card h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.01em}
-.hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
-.hd small{color:var(--mute);font-size:11.5px;font-weight:600}
-.kpi .l{color:var(--mute);font-size:12.5px;font-weight:600}
-.kpi .v{font-size:32px;font-weight:700;letter-spacing:-.035em;line-height:1.1;margin-top:2px}
-.kpi .d{font-size:12px;color:var(--mute);font-weight:600;min-height:18px}
-.fun{display:grid;gap:8px}
-.fr{display:grid;grid-template-columns:minmax(120px,210px) minmax(0,1fr) 64px 62px 64px;gap:10px;align-items:center;font-size:13.5px}
-.fr .lb{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.fr .bar{height:26px;border-radius:9px;background:#f4efe6;position:relative;overflow:hidden}
-.fr .bar i{position:absolute;inset:0 auto 0 0;border-radius:9px;background:linear-gradient(90deg,var(--acc),var(--vio));min-width:3px}
-.fr .bar span.o{color:var(--ink);text-shadow:none}
-.fr .bar span{position:absolute;left:10px;top:50%;translate:0 -50%;font-weight:700;font-size:12.5px;color:#fff;mix-blend-mode:normal;text-shadow:0 1px 2px rgba(0,0,0,.25)}
-.fr .pc{text-align:right;font-weight:700}
-.fr .dr{text-align:right;font-weight:700;color:var(--bad)}
-.fr .dr.z{color:var(--dim)}
-.fr .u{text-align:right;color:var(--mute);font-size:12px}
-.fh{font-size:11px;color:var(--mute);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.fh .bar{background:none;height:auto}
-.note{color:var(--mute);font-size:12.5px;margin-top:12px;line-height:1.5}
+.g21{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.g12{grid-template-columns:minmax(0,1fr) minmax(0,1.55fr)}
+.sec{margin:30px 2px 0;font-size:12.5px;font-weight:850;text-transform:uppercase;letter-spacing:.08em;color:var(--or2);display:flex;align-items:center;gap:8px}
+.sec::before{content:"";width:18px;height:3px;border-radius:2px;background:var(--or)}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:var(--r);padding:17px 19px;min-width:0;overflow:hidden;box-shadow:0 14px 30px -26px rgba(29,42,87,.45)}
+.card h2{margin:0;font-size:17px;font-weight:850;letter-spacing:-.015em;color:var(--nv)}
+.hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:13px}
+.hd small{color:var(--mut);font-size:12px;font-weight:650;text-align:right}
+.kpi .l{color:var(--mut);font-size:12.5px;font-weight:700}
+.kpi .v{font-size:31px;font-weight:850;letter-spacing:-.035em;line-height:1.12;margin-top:3px;color:var(--nv)}
+.kpi .v.ok{color:var(--ok)}.kpi .v.bad{color:var(--bad)}
+.kpi .d{font-size:12px;color:var(--mut);font-weight:600;min-height:17px;margin-top:2px}
+/* Urteil */
+.hero{background:var(--nv);color:#fff;border:0;padding:22px 24px;position:relative}
+.hero h2{color:var(--gd);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+.hero .big{font-size:26px;font-weight:850;letter-spacing:-.025em;line-height:1.22;margin:8px 0 10px;max-width:980px}
+.hero p{margin:0;color:#d5daef;max-width:1000px;line-height:1.55}
+.hero p b{color:#fff}
+.verd{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 13px;border-radius:99px;font-weight:800;font-size:13px}
+.verd.ok{background:var(--okb);color:#0f6e43}.verd.bad{background:var(--badb);color:#a32b2b}.verd.wait{background:var(--warnb);color:#8a5a06}.verd.free{background:#eef0f7;color:#4a5170}
+.hero .verd{margin-bottom:4px}
+/* Tabellen */
 table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{text-align:left;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding:0 6px 8px;white-space:nowrap}
+th{text-align:left;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:750;padding:0 7px 8px;white-space:nowrap;vertical-align:bottom}
 th.n,td.n{text-align:right}
-td{padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
-td.n{font-weight:650;white-space:nowrap}
-td .s{color:var(--mute);font-weight:500;font-size:12px}
-.bad{color:var(--bad)}.ok{color:var(--ok)}
-.bars{display:grid;gap:6px}
-.br{display:grid;grid-template-columns:minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:13px}
-.br .t{position:relative;padding:5px 9px;border-radius:8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.br .t i{position:absolute;inset:0 auto 0 0;background:#ece5ff;border-radius:8px;z-index:0}
-.br .t span{position:relative;z-index:1}
-.br .c{text-align:right;font-weight:700}
-.empty{color:var(--mute);font-size:13px;padding:8px 0}
+td{padding:8px 7px;border-top:1px solid var(--ln);vertical-align:middle}
+td.n{font-weight:700;white-space:nowrap}
+td .s,.s{color:var(--mut);font-weight:550;font-size:11.5px}
+tr.hl td{background:#fff8ec}
+.tw{overflow:auto}
+.tw.h{max-height:620px}
+.tw.h th{position:sticky;top:0;background:#fff;z-index:1}
+.okc{color:var(--ok)}.badc{color:var(--bad)}.warnc{color:var(--warn)}
+/* Balken */
+.bars{display:grid;gap:7px}
+.br{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px}
+.br .t{position:relative;padding:6px 10px;border-radius:9px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#f6f2ea}
+.br .t i{position:absolute;inset:0 auto 0 0;background:var(--gd2);border-radius:9px}
+.br .t i.o{background:#fde0d2}.br .t i.n{background:#dfe4f4}.br .t i.g{background:#d9f0e4}
+.br .t span{position:relative}
+.br .c{text-align:right;font-weight:800;white-space:nowrap}
+.br .c small{color:var(--mut);font-weight:600;font-size:11.5px;margin-left:4px}
+.empty{color:var(--mut);font-size:13px;padding:6px 0}
+.note{color:var(--mut);font-size:12.5px;margin:12px 0 0;line-height:1.55}
+.lede{color:var(--mut);font-size:12.5px;margin:16px 2px 0;line-height:1.55}
+/* Trichter */
+.fun{display:grid;gap:9px}
+.fr{display:grid;grid-template-columns:minmax(140px,220px) minmax(0,1fr) 66px 70px;gap:10px;align-items:center;font-size:13.5px}
+.fr .lb b{display:block;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fr .lb small{display:block;color:var(--mut);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fr .bar{height:30px;border-radius:10px;background:#f3eee5;position:relative;overflow:hidden}
+.fr .bar i{position:absolute;inset:0 auto 0 0;border-radius:10px;background:linear-gradient(90deg,var(--nv),var(--nv2));min-width:3px}
+.fr .bar span{position:absolute;left:11px;top:50%;translate:0 -50%;font-weight:800;font-size:13px;color:#fff}
+.fr .bar span.o{color:var(--ink)}
+.fr .pc{text-align:right;font-weight:800}
+.fr .dr{text-align:right;font-weight:800;color:var(--bad);font-size:13px}
+.fr .dr.z{color:var(--dim)}
+.fr.leak .bar{box-shadow:0 0 0 2px var(--or)}
+.fr.leak .dr{color:#fff;background:var(--or);border-radius:8px;padding:3px 6px}
+.fr.fh{font-size:11px;color:var(--mut);font-weight:750;text-transform:uppercase;letter-spacing:.05em}
+.fr.fh .bar{background:none;height:auto}
+/* Kleinteile */
 .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
 .tri div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
-.tri b{display:block;font-size:24px;letter-spacing:-.03em}
-.tri small{color:var(--mute);font-weight:600;font-size:12px}
-.chart svg{width:100%;height:190px;display:block}
-.leg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);font-weight:600;margin-top:8px}
-.leg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
-.feed{max-height:520px;overflow:auto}
-.fe{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13px}
+.tri b{display:block;font-size:22px;letter-spacing:-.03em;color:var(--nv)}
+.tri small{color:var(--mut);font-weight:650;font-size:12px}
+.chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:750;background:#f1ece2;color:var(--ink2);margin:2px 3px 2px 0;white-space:nowrap}
+.chip.m{background:#e7ecfb;color:#2b47a8}.chip.g{background:#fdf0d6;color:#8a5a06}.chip.o{background:#eef0f4;color:#4a5170}
+.chip.ok{background:var(--okb);color:#0f6e43}.chip.or{background:#fde7dc;color:#a8441a}.chip.bad{background:var(--badb);color:#a32b2b}
+.hours{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;align-items:end;height:120px}
+.hours div{background:var(--gd);border-radius:4px 4px 0 0;min-height:2px;position:relative}
+.hours div.z{background:var(--or)}
+.hl24{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;font-size:10px;color:var(--mut);text-align:center;margin-top:4px}
+.src{font-size:12px;color:var(--mut);margin-top:10px;line-height:1.6}
+.feed{max-height:640px;overflow:auto}
+.fe{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;padding:8px 0;border-top:1px solid var(--ln);font-size:13px}
 .fe:first-child{border-top:0}
-.fe time{color:var(--mute);font-weight:600;font-size:12px}
-.fe b{font-weight:650}
-.fe .m{color:var(--mute);font-size:12px}
+.fe time{color:var(--mut);font-weight:650;font-size:12px}
+.fe .m{color:var(--mut);font-size:12px}
+.vi{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;padding:11px 0;border-top:1px solid var(--ln);font-size:13px}
+.vi:first-child{border-top:0}
+.vi time{color:var(--mut);font-weight:650;font-size:12px;padding-top:2px}
+.vt{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px}.vt b{font-weight:750}
+.vm{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:5px;color:var(--ink2)}
+.vm i{flex:1;min-width:80px;max-width:220px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--or) var(--w),#efe9df var(--w))}
+/* Kosten-Eingabe */
+.ko input,.ko select{width:100%;height:34px;border:1px solid var(--ln2);border-radius:10px;padding:0 8px;background:#fffdf9;font-size:13px}
+.ko td{padding:6px 4px}
+.ko .x{border:0;background:none;color:var(--bad);font-size:18px;cursor:pointer}
+.btn{height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--or);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 3px 0 var(--or2)}
+.btn.w{background:#fff;color:var(--nv);box-shadow:inset 0 0 0 1.5px var(--ln2),0 3px 0 var(--ln2)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
 .gate{max-width:460px;margin:12vh auto 0;text-align:center}
-.gate img{width:84px;height:84px;border-radius:24px;background:#fff}
-.gate h1{font-size:24px;letter-spacing:-.02em;margin:14px 0 6px}
+.gate img{width:84px;height:84px;border-radius:24px}
+.gate h1{font-size:24px;letter-spacing:-.02em;margin:14px 0 6px;color:var(--nv)}
 .gate p{color:var(--ink2);margin:0 0 18px}
-.gate a{display:inline-flex;height:46px;align-items:center;padding:0 20px;border-radius:14px;background:var(--acc);color:#fff;font-weight:700;text-decoration:none}
-.skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#ece6db,#f6f2ea,#ece6db);background-size:200% 100%;animation:sk 1.2s infinite}
+.gate a{display:inline-flex;height:46px;align-items:center;padding:0 20px;border-radius:14px;background:var(--or);color:#fff;font-weight:800;text-decoration:none}
+.skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#efe9df,#f8f5ef,#efe9df);background-size:200% 100%;animation:sk 1.2s infinite}
 @keyframes sk{to{background-position:-200% 0}}
-.err{background:#fff1f0;border:1px solid #f6c6c3;color:#9b1c1c;border-radius:14px;padding:10px 14px;font-size:13.5px;margin-top:var(--gap)}
-@media (max-width:1100px){.k8{grid-template-columns:repeat(2,minmax(0,1fr))}.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21{grid-template-columns:1fr}}
-@media (max-width:720px){.top-in{padding:10px 16px}.wrap{padding:12px 16px 60px}.k6,.g2,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g2>.wide,.g3>.wide{grid-column:1/-1}.kpi .v{font-size:26px}
- .fr{grid-template-columns:minmax(0,1fr) 54px 54px;row-gap:4px}.fr .bar{grid-column:1/-1;order:5}.fr .u{display:none}.fr.fh{display:none}
- .stand{order:9;width:100%}}
-@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}.tri b{font-size:20px}.seg button{padding:0 9px}}
-
-/* ===== Look wie die Startseite: weiß, kräftige Akzente ===== */
-:root{--bg:#fff;--card:#fff;--line:#eceef7;--line2:#e3e6f5;--ink:#161a3a;--ink2:#2a3150;--mute:#5a6083;--dim:#c9cde3;--acc:#2f7bff;--vio:#8a4dff;--pink:#ff4f9a;--ok:#19b36b;--bad:#ef3e5c;--warn:#f08a1c;--r:24px}
-html,body{background:#fff}
-body{background:radial-gradient(700px 360px at 6% 0%,#e7edff 0,transparent 70%),radial-gradient(640px 340px at 96% 4%,#ffe6f2 0,transparent 70%),radial-gradient(800px 400px at 50% 100%,#e6f8f1 0,transparent 72%) fixed,#fff}
-.top{background:rgba(255,255,255,.96);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:0;box-shadow:0 1px 0 rgba(22,26,58,.07),0 10px 28px -18px rgba(22,26,58,.35)}
-.brand{gap:12px}
-.brand img{width:44px;height:44px;border-radius:50%;background:linear-gradient(160deg,#3b7bff,#1a4fd6);box-shadow:0 6px 14px -6px rgba(47,123,255,.8)}
-.brand b{font-weight:900;font-size:22px;letter-spacing:-.03em;color:var(--ink)}
-.brand b em{font-style:normal;background:linear-gradient(90deg,#2f7bff,#8a4dff 55%,#ff4f9a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand small{color:var(--mute);letter-spacing:.08em;font-weight:750}
-.stand{color:var(--mute)}
-.seg{background:#f4f5fb;border:0;box-shadow:inset 0 0 0 1.5px var(--line2)}
-.seg button{color:var(--ink2);font-weight:800}
-.seg button.on{color:#fff;background:linear-gradient(115deg,#2f7bff,#5b5bff 48%,#8a4dff);box-shadow:0 6px 14px -6px rgba(80,70,255,.7)}
-.qseg button.on{background:linear-gradient(115deg,#1877f2,#3b5bff);box-shadow:0 6px 14px -6px rgba(24,119,242,.7)}
-.ib{background:#fff;border:0;color:#5b5bff;font-weight:900;box-shadow:inset 0 0 0 1.5px var(--line2),0 3px 0 var(--line2)}
-.tabs{padding-bottom:14px}
-.tabs button{height:40px;border:0;border-radius:14px;background:#fff;color:var(--ink2);font-weight:800;box-shadow:inset 0 0 0 1.5px var(--line2),0 3px 0 var(--line2)}
-.tabs button.on{color:#fff;background:linear-gradient(115deg,#2f7bff,#5b5bff 48%,#8a4dff);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 4px 0 #3a2db5,0 12px 24px -10px rgba(80,70,255,.65)}
-.tabs .cn{background:#eef1ff;color:#4b4bd8}.tabs button.on .cn{background:rgba(255,255,255,.25);color:#fff}
-.card{border:0;border-radius:24px;box-shadow:inset 0 0 0 1.5px var(--line),0 18px 34px -26px rgba(60,60,160,.5)}
-.card h2{font-weight:900;font-size:18px;letter-spacing:-.02em;color:var(--ink)}
-.hd small{color:var(--mute)}
-.kpi .l{color:var(--mute);font-weight:750}
-.kpi .v{font-weight:900;font-size:36px;letter-spacing:-.035em;background:linear-gradient(160deg,color-mix(in srgb,var(--c,#2f7bff) 70%,#fff),var(--c,#2f7bff));-webkit-background-clip:text;background-clip:text;color:transparent}
-.k8>.kpi:nth-child(8n+1),.k6>.kpi:nth-child(6n+1){--c:#2f7bff}.k8>.kpi:nth-child(8n+2),.k6>.kpi:nth-child(6n+2){--c:#8a4dff}.k8>.kpi:nth-child(8n+3),.k6>.kpi:nth-child(6n+3){--c:#ff4f9a}.k8>.kpi:nth-child(8n+4),.k6>.kpi:nth-child(6n+4){--c:#19b36b}
-.k8>.kpi:nth-child(8n+5),.k6>.kpi:nth-child(6n+5){--c:#0bb3c0}.k8>.kpi:nth-child(8n+6),.k6>.kpi:nth-child(6n+6){--c:#f08a1c}.k8>.kpi:nth-child(8n+7){--c:#5b5bff}.k8>.kpi:nth-child(8n+8){--c:#e3367c}
-.fr .bar{background:#f2f4fc}
-.fr .bar i{background:linear-gradient(90deg,#2f7bff,#8a4dff 60%,#ff4f9a)}
-.br .t i{background:linear-gradient(90deg,#e6ecff,#f1e8ff)}
-.tri div,.six div{background:#f7f8ff;box-shadow:inset 0 0 0 1.5px var(--line)}
-.sec{font-weight:900;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:#6a4cff;display:flex;align-items:center;gap:8px}
-.sec::before{content:"";width:7px;height:7px;border-radius:50%;background:#6a4cff;box-shadow:0 0 0 3px #e4ddff}
-.acc{border:0;box-shadow:inset 0 0 0 1.5px var(--line),0 14px 28px -24px rgba(60,60,160,.5)}
-.acc .av{font-weight:900;background:linear-gradient(150deg,#2f7bff,#8a4dff);box-shadow:0 8px 16px -8px rgba(90,70,255,.7)}
-.acc.ben .av{background:linear-gradient(150deg,#b8bdd6,#8a90b0);box-shadow:none}
-.accb{background:#f9faff;border-top-color:var(--line)}
-.pill{background:#e6f8ef;color:#0f7a4a}.pill.m{background:#f2f3f9;color:var(--mute)}
-th{color:var(--mute)}
-td{border-top-color:var(--line)}
-.dist{background:#f2f4fc}
-.gate h1{font-weight:900;color:var(--ink)}
-.gate a{background:linear-gradient(115deg,#2f7bff,#8a4dff);box-shadow:0 4px 0 #3a2db5}
-.skel{background:linear-gradient(90deg,#eef1fb,#f8f9ff,#eef1fb);background-size:200% 100%}
-@media (max-width:720px){.brand b{font-size:19px}.brand img{width:38px;height:38px}.kpi .v{font-size:30px}}
+.err{background:var(--badb);border:1px solid #f3c2bf;color:#8c1f1f;border-radius:14px;padding:10px 14px;font-size:13.5px;margin-top:var(--gap)}
+@media (max-width:1150px){.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21,.g12{grid-template-columns:1fr}}
+@media (max-width:720px){.top-in{padding:10px 14px 8px}.tabs{padding:0 14px 10px}.wrap{padding:12px 12px 60px}.k6,.g2,.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g2>.wide,.g3>.wide{grid-column:1/-1}
+ .kpi .v{font-size:25px}.card{padding:14px 14px}.hero{padding:18px}.hero .big{font-size:21px}.brand b{font-size:17px}.brand img{width:34px;height:34px}
+ .fr{grid-template-columns:minmax(0,1fr) 54px 58px;row-gap:5px}.fr .bar{grid-column:1/-1;order:5;height:24px}.fr.fh{display:none}.stand{width:100%;order:9}}
+@media (max-width:520px){.g2,.g3{grid-template-columns:1fr}.seg button{padding:0 9px;font-size:12.5px}}
 </style>
 </head>
 <body>
 <div class="top"><div class="top-in">
-  <div class="brand"><img src="/grundschulmax/tut-max-128.webp" alt=""><div><b>Grundschul<em>max</em> Zahlen</b><small>Nur für Ben</small></div></div>
-  <div class="sp"></div>
+  <div class="brand"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><div><b>Grundschul<span>max</span> Zahlen</b><small>Nur für Ben</small></div></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
-  <div class="seg qseg" id="qseg"><button data-q="alle">Alle Besucher</button><button data-q="gads">Nur Google Ads</button><button data-q="fb">Nur Facebook</button></div>
+  <div class="seg qseg" id="qseg"><button data-q="alle">Alle</button><button data-q="meta">Meta</button><button data-q="gads">Google</button><button data-q="org">Ohne Anzeige</button></div>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
   <span class="stand" id="stand"></span>
 </div><nav class="tabs" id="tabs"></nav></div>
-<main class="wrap" id="main"><div class="grid k6">
-<div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div></main>
+<main class="wrap" id="main"><div class="grid k6"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div></main>
 <script>
 (function () {
   var API = 'https://hub.mrbell.de/n8n/webhook/gsm-zahlen-764dba';
-  var $ = function (s) { return document.querySelector(s); };
+  var $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return [].slice.call(document.querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var fmt = function (n) { return (+n || 0).toLocaleString('de-DE'); };
-  var pct = function (a, b) { return b ? Math.round(a / b * 1000) / 10 : 0; };
-  var pc = function (a, b) { a = +a || 0; b = +b || 0; return b ? String(pct(a, b)).replace('.', ',') + ' %' : '–'; };
+  var eur = function (n, d) { return n == null || isNaN(n) ? '–' : (+n).toLocaleString('de-DE', { style: 'currency', currency: 'EUR', minimumFractionDigits: d == null ? 2 : d, maximumFractionDigits: d == null ? 2 : d }); };
+  var pr = function (v, d) { return v == null || isNaN(v) || !isFinite(v) ? '–' : (v * 100).toLocaleString('de-DE', { minimumFractionDigits: d == null ? 1 : d, maximumFractionDigits: d == null ? 1 : d }) + ' %'; };
+  var pc = function (a, b) { return b ? pr(a / b) : '–'; };
   var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  var Z = ls.get('gsmz.z2') || 'alle', timer = 0, busy = false;
-  // Interne Besuche ausschließen (Cookie wird von der Middleware geprüft)
-  // Wer diese Seite öffnet, ist Ben: dieses Gerät zählt nie mit
+  /* Wer diese Seite öffnet, ist Ben: dieses Gerät zählt nie mit */
   document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax; Secure';
-  var Q = ls.get('gsmz.q2') || 'alle';
-  [].forEach.call(document.querySelectorAll('#qseg button'), function (b) { b.classList.toggle('on', b.dataset.q === Q); b.onclick = function () { Q = b.dataset.q; ls.set('gsmz.q2', Q); [].forEach.call(document.querySelectorAll('#qseg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
-  [].forEach.call(document.querySelectorAll('#seg button'), function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('gsmz.z2', Z); [].forEach.call(document.querySelectorAll('#seg button'), function (x) { x.classList.toggle('on', x === b); }); load(); }; });
+  var Z = ls.get('gsmz.z3') || 'alle', Q = ls.get('gsmz.q3') || 'alle', T = ls.get('gsmz.t3') || 'geld', D = null, busy = false, KED = null;
+  var KN = { meta: 'Meta (Facebook/Instagram)', gads: 'Google Ads', org: 'Ohne Anzeige', alle: 'Alle Besucher' }, KS = { meta: 'Meta', gads: 'Google', org: 'Ohne Anzeige', sonst: 'Sonstiges' };
+  /* Vergleichswerte (Quellen unten auf der Geld-Seite) */
+  var BM = { cr: 0.016, crLo: 0.012, crHi: 0.0202, cpcEdu: 0.80, cpcAll: 0.65, ctrEdu: 0.0145, ctrAll: 0.0171 };
+  function segs(id, key, val, set) { $$('#' + id + ' button').forEach(function (b) { b.classList.toggle('on', b.dataset[key] === val); b.onclick = function () { set(b.dataset[key]); $$('#' + id + ' button').forEach(function (x) { x.classList.toggle('on', x === b); }); }; }); }
+  segs('seg', 'z', Z, function (v) { Z = v; ls.set('gsmz.z3', v); load(); });
+  segs('qseg', 'q', Q, function (v) { Q = v; ls.set('gsmz.q3', v); if (D) draw(D); });
   $('#reload').onclick = function () { load(); };
-
-  function gate(title, text) {
-    $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/max-96.png" alt=""><h1>' + esc(title) + '</h1><p>' + esc(text) + '</p><a href="/">Zu Grundschulmax</a></div>';
-    $('#stand').textContent = '';
-  }
-  function load() {
-    var tok = ls.get('gsm-token');
-    if (!tok) { gate('Bitte anmelden', 'Melde dich auf grundschulmax.de mit deinem Konto an und öffne dann diese Seite noch einmal.'); return; }
+  function gate(t, x) { $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><h1>' + esc(t) + '</h1><p>' + esc(x) + '</p><a href="/app#anmelden">Anmelden</a></div>'; $('#stand').textContent = ''; }
+  function load(extra) {
+    var tok = ls.get('gsm-token'); if (!tok) { gate('Bitte anmelden', 'Melde dich auf grundschulmax.de mit deinem Konto an und öffne dann diese Seite noch einmal.'); return; }
     if (busy) return; busy = true; $('#reload').textContent = '…';
-    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify({ token: tok, zeit: Z, quelle: Q }) })
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        if (!d || !d.ok) { gate(d && d.grund === 'Dieses Konto hat keinen Zugriff.' ? 'Kein Zugriff' : 'Bitte neu anmelden', (d && d.grund) || 'Die Anmeldung ist abgelaufen.'); return; }
-        draw(d);
-      })
+    var body = { token: tok, zeit: Z, quelle: 'alle' }; if (extra) for (var k in extra) body[k] = extra[k];
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(body) }).then(function (r) { return r.json(); })
+      .then(function (d) { if (!d || !d.ok) { gate(d && d.grund === 'Dieses Konto hat keinen Zugriff.' ? 'Kein Zugriff' : 'Bitte neu anmelden', (d && d.grund) || 'Die Anmeldung ist abgelaufen.'); return; } if (!d.x) { $('#main').innerHTML = '<div class="err">Die Auswertung ist gerade nicht vollständig. Bitte gleich neu laden.</div>'; return; } draw(d); })
       .catch(function () { var m = $('#main'); if (!m.querySelector('.err')) m.insertAdjacentHTML('afterbegin', '<div class="err">Die Zahlen konnten gerade nicht geladen werden. Ich versuche es gleich wieder.</div>'); })
       .then(function () { busy = false; $('#reload').textContent = '↻'; });
   }
-  function card(title, sub, body, cls) { return '<section class="card ' + (cls || '') + '"><div class="hd"><h2>' + esc(title) + '</h2>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div>' + body + '</section>'; }
-  function bars(list, max) {
-    if (!list || !list.length) return '<div class="empty">Noch keine Daten.</div>';
-    var m = Math.max.apply(null, list.map(function (x) { return x[1]; })) || 1;
-    return '<div class="bars">' + list.slice(0, max || 12).map(function (x) { return '<div class="br"><div class="t"><i style="width:' + Math.max(2, x[1] / m * 100) + '%"></i><span>' + esc(x[0]) + '</span></div><div class="c">' + fmt(x[1]) + '</div></div>'; }).join('') + '</div>';
-  }
-  function sfa(list, label) {
-    if (!list || !list.length) return '<div class="empty">Noch keine Daten.</div>';
-    return '<table><tr><th>' + label + '</th><th class="n">Gestartet</th><th class="n">Fertig</th><th class="n">Abgebr.</th></tr>' + list.slice(0, 30).map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n ok">' + fmt(o.f) + ' <span class="s">' + pc(o.f, o.s) + '</span></td><td class="n bad">' + fmt(o.a) + ' <span class="s">' + pc(o.a, o.s) + '</span></td></tr>'; }).join('') + '</table>';
-  }
-  function tri(o) { return '<div class="tri"><div><small>Gestartet</small><b>' + fmt(o.s) + '</b></div><div><small>Fertig</small><b class="ok">' + fmt(o.f) + '</b><small>' + pc(o.f, o.s) + '</small></div><div><small>Abgebrochen</small><b class="bad">' + fmt(o.a) + '</b><small>' + pc(o.a, o.s) + '</small></div></div>'; }
-  function chart(tage) {
-    if (!tage || !tage.length) return '<div class="empty">Noch keine Daten.</div>';
-    var W = 760, H = 190, P = 26, n = tage.length, m = 1;
-    tage.forEach(function (t) { m = Math.max(m, t[1].b, t[1].a, t[1].l); });
-    var bw = (W - P * 2) / n, s = '';
-    tage.forEach(function (t, i) {
-      var x = P + i * bw, o = t[1], h = function (v) { return v / m * (H - 40); };
-      s += '<rect x="' + (x + bw * .1) + '" y="' + (H - 22 - h(o.b)) + '" width="' + bw * .26 + '" height="' + h(o.b) + '" rx="2" fill="#1a5fc4"><title>' + t[0] + ': ' + o.b + ' Besuche</title></rect>';
-      s += '<rect x="' + (x + bw * .38) + '" y="' + (H - 22 - h(o.a)) + '" width="' + bw * .26 + '" height="' + h(o.a) + '" rx="2" fill="#6c4fe0"><title>' + t[0] + ': ' + o.a + ' Ausprobieren</title></rect>';
-      s += '<rect x="' + (x + bw * .66) + '" y="' + (H - 22 - h(o.l)) + '" width="' + bw * .26 + '" height="' + h(o.l) + '" rx="2" fill="#16a05c"><title>' + t[0] + ': ' + o.l + ' erste Lektionen</title></rect>';
-      if (o.z) s += '<text x="' + (x + bw / 2) + '" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="#e08a12">' + o.z + ' Abo</text>';
-      if (n <= 14 || i % Math.ceil(n / 10) === 0) s += '<text x="' + (x + bw / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="10.5" fill="#7a746a">' + t[0].slice(8) + '.' + t[0].slice(5, 7) + '.</text>';
-    });
-    return '<div class="chart"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none">' + s + '</svg></div><div class="leg"><span style="--c:#1a5fc4">Besuche</span><span style="--c:#6c4fe0">Ausprobieren</span><span style="--c:#16a05c">Erste Lektion</span><span style="--c:#e08a12">Abos</span></div>';
-  }
-  function zeitHM(t) { var d = new Date(t), now = new Date(), hm = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); return d.toDateString() === now.toDateString() ? hm : d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + '<br>' + hm; }
-  var NM = { home: 'Abenteuer', path: 'Lernpfad', games: 'Spiele', hw: 'Hausaufgaben', test: 'Probetest', play: 'Spielen',
-    lena: 'Lena', jonas: 'Jonas', mia: 'Mia', amara: 'Amara', luca: 'Luca', noah: 'Noah',
-    schueler: 'Schüler', astro: 'Astronaut', fuss: 'Fußballer', polizei: 'Polizist', feuer: 'Feuerwehr', arzt: 'Arzt', forsch: 'Forscher', koch: 'Koch', kunst: 'Künstler', pilot: 'Pilot',
-    dog: 'Hund', cat: 'Katze', fox: 'Fuchs', rabbit: 'Hase', panda: 'Panda', turtle: 'Schildkröte', owl: 'Eule', raccoon: 'Waschbär' };
-  var nm = function (v) { return NM[v] || v; };
-  var nl = function (list) { return (list || []).map(function (x) { return [nm(x[0]), x[1]]; }); };
-  function sub(t) { return '<div class="sub2">' + esc(t) + '</div>'; }
+  function card(t, s, b, c) { return '<section class="card ' + (c || '') + '"><div class="hd"><h2>' + esc(t) + '</h2>' + (s ? '<small>' + s + '</small>' : '') + '</div>' + b + '</section>'; }
+  function k(l, v, sb, cls) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v ' + (cls || '') + '">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; }
   function sec(t) { return '<div class="sec">' + esc(t) + '</div>'; }
-  function six(list) { return '<div class="six">' + list.map(function (x) { return '<div><small>' + esc(x[0]) + '</small><b class="' + (x[2] || '') + '">' + fmt(x[1]) + '</b>' + (x[3] ? '<small>' + x[3] + '</small>' : '') + '</div>'; }).join('') + '</div>'; }
-  function datum(t) { if (!t) return '–'; var d = new Date(t); if (isNaN(d)) return esc(t); return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
-  function tag(s) { return s ? s.slice(8, 10) + '.' + s.slice(5, 7) + '.' : '–'; }
-  var TABS = [['fs', 'Führerschein'], ['ueber', 'Überblick'], ['weg', 'Weg & Absprung'], ['verh', 'Verhalten'], ['klick', 'Klicks'], ['konten', 'Konten'], ['live', 'Live']];
-  var T = ls.get('gsmz.tab2') || 'fs', D = null;
-  if (!TABS.some(function (x) { return x[0] === T; })) T = 'fs';
+  function sub(t) { return '<div class="note" style="margin:14px 0 8px;color:var(--ink);font-weight:750">' + esc(t) + '</div>'; }
+  function bars(list, tot, cls, n) {
+    if (!list || !list.some(function (x) { return x[1]; })) return '<div class="empty">Noch keine Daten.</div>';
+    var m = Math.max.apply(null, list.map(function (x) { return x[1]; })) || 1;
+    return '<div class="bars">' + list.slice(0, n || 30).map(function (x) { return '<div class="br"><div class="t"><i class="' + (cls || '') + '" style="width:' + Math.max(2, x[1] / m * 100) + '%"></i><span>' + esc(x[0]) + '</span></div><div class="c">' + fmt(x[1]) + (tot ? '<small>' + pc(x[1], tot) + '</small>' : '') + '</div></div>'; }).join('') + '</div>';
+  }
+  function zeit(s) { if (s == null) return '–'; s = Math.round(+s); return s < 60 ? s + ' s' : s < 3600 ? Math.floor(s / 60) + ' min' + (s % 60 ? ' ' + (s % 60) + ' s' : '') : Math.floor(s / 3600) + ' h ' + Math.round(s % 3600 / 60) + ' min'; }
+  function hm(t) { var d = new Date(t), now = new Date(), h = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); return d.toDateString() === now.toDateString() ? h : d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + '<br>' + h; }
+  function dat(t) { if (!t) return '–'; var d = new Date(t); return isNaN(d) ? esc(t) : d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', timeZone: 'Europe/Berlin' }) + ' ' + d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }); }
+  function chipK(c) { return '<span class="chip ' + (c === 'meta' ? 'm' : c === 'gads' ? 'g' : 'o') + '">' + (KS[c] || c) + '</span>'; }
+  /* Statistik: obere Grenze der echten Kaufrate (95 %), Wilson bzw. Dreierregel bei 0 */
+  function upper(k, n) { if (!n) return null; if (!k) return Math.min(1, 3 / n); var z = 1.96, p = k / n, d = 1 + z * z / n; return Math.min(1, (p + z * z / (2 * n) + z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / d); }
+  function lower(k, n) { if (!n || !k) return 0; var z = 1.96, p = k / n, d = 1 + z * z / n; return Math.max(0, (p + z * z / (2 * n) - z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / d); }
+  function urteil(c) {
+    if (!c.kosten) return ['free', 'kostet nichts'];
+    if (!c.besuche) return ['wait', 'noch keine Besuche'];
+    var cr = c.kaeufe / c.besuche, be = c.beCr;
+    if (c.kaeufe && lower(c.kaeufe, c.besuche) > be) return ['ok', 'profitabel'];
+    if (upper(c.kaeufe, c.besuche) < be) return ['bad', 'unprofitabel'];
+    if (cr >= be) return ['wait', 'sieht gut aus, noch unsicher'];
+    return ['wait', 'noch offen'];
+  }
+  function verd(u) { return '<span class="verd ' + u[0] + '">' + (u[0] === 'ok' ? '✓ ' : u[0] === 'bad' ? '✕ ' : '') + esc(u[1]) + '</span>'; }
+
+  /* ---------- GELD ---------- */
+  function vGeld(d) {
+    var X = d.x, U = X.umsatz, ks = X.kostenSum, erg = U.netto - ks, C = X.kanaele, paid = C.filter(function (c) { return c.kosten > 0; });
+    var adB = paid.reduce(function (a, c) { return a + c.besuche; }, 0), adK = paid.reduce(function (a, c) { return a + c.kaeufe; }, 0), adKo = paid.reduce(function (a, c) { return a + c.kosten; }, 0);
+    var cpv = adB ? adKo / adB : null, be = cpv != null ? cpv / X.db : null, up = upper(adK, adB), cr = adB ? adK / adB : null;
+    var big, txt, u;
+    if (!adB) { u = ['wait', 'noch keine Daten']; big = 'Noch keine Besucher über bezahlte Anzeigen im Zeitraum.'; txt = 'Sobald die Anzeigen laufen, steht hier, ob sie sich rechnen.'; }
+    else {
+      u = urteil({ kosten: adKo, besuche: adB, kaeufe: adK, beCr: be });
+      var need = Math.ceil(3 / be);
+      big = u[0] === 'ok' ? 'Die Werbung verdient Geld: ' + eur(erg) + ' Ergebnis im Zeitraum.' : u[0] === 'bad' ? 'So rechnet sich die Werbung nicht.' : adK ? 'Erste Käufe da, aber noch zu wenig Daten für ein sicheres Urteil.' : 'Noch nicht entscheidbar.';
+      txt = '<b>' + fmt(adB) + ' Besuche</b> über Anzeigen für <b>' + eur(adKo) + '</b>, also <b>' + eur(cpv) + ' pro Besuch</b>. Ein Kauf bringt im Schnitt <b>' + eur(X.db) + '</b> (nach Stripe-Gebühr). Damit sich das trägt, muss <b>jeder ' + fmt(Math.ceil(1 / be)) + '. Besucher kaufen (' + pr(be) + ')</b>. Meta-Shops schaffen im Mittel ' + pr(BM.cr) + '. ' +
+        (adK ? 'Bisher: <b>' + fmt(adK) + (adK === 1 ? ' Kauf' : ' Käufe') + ' = ' + pr(cr) + '</b>. ' : 'Bisher: <b>0 Käufe</b>. ') +
+        (u[0] === 'bad' ? 'Selbst im besten Fall liegt die echte Kaufrate mit 95 % Sicherheit unter ' + pr(up) + ', also unter der Schwelle.' : u[0] === 'ok' ? 'Auch im ungünstigen Fall liegt die Kaufrate über der Schwelle.' : 'Ein sicheres Urteil gibt es nach etwa <b>' + fmt(need) + ' Besuchen</b> (bei der Schwelle wären das 3 Käufe), das sind ' + eur(need * cpv, 0) + ' Werbung. Noch ' + fmt(Math.max(0, need - adB)) + ' Besuche.');
+    }
+    var h = '<div class="grid"><section class="card hero"><h2>Lohnt sich die Werbung?</h2>' + verd(u) + '<div class="big">' + big + '</div><p>' + txt + '</p></section></div>';
+    h += '<div class="grid k6">' + k('Werbekosten', eur(ks), X.kosten.some(function (x) { return x.art === 'Tagesbudget'; }) ? 'teils aus Tagesbudget geschätzt' : 'aus deinen Einträgen') +
+      k('Umsatz netto', eur(U.netto), U.n ? eur(U.brutto) + ' brutto · ' + eur(U.geb) + ' Gebühr' + (U.zur ? ' · ' + eur(U.zur) + ' erstattet' : '') : 'echte Stripe-Zahlungen') +
+      k('Ergebnis', eur(erg), 'Umsatz netto minus Werbung', erg > 0 ? 'ok' : erg < 0 ? 'bad' : '') +
+      k('Käufe', fmt(U.n), U.nZur ? fmt(U.nZur) + ' mit Erstattung' : 'bezahlt bei Stripe') +
+      k('Kosten pro Kauf', adK ? eur(adKo / adK) : '–', 'darf höchstens ' + eur(X.db) + ' sein') +
+      k('ROAS', adKo ? (U.netto / ks).toLocaleString('de-DE', { maximumFractionDigits: 2 }) + '×' : '–', 'Umsatz je 1 € Werbung, ab 1× im Plus') + '</div>';
+    /* Kanäle */
+    var rows = C.map(function (c) { var u2 = urteil(c); return '<tr><td><b>' + esc(KN[c.c]) + '</b></td><td class="n">' + (c.c === 'org' ? '<span class="s">–</span>' : eur(c.kosten)) + '</td><td class="n">' + fmt(c.besuche) + '</td><td class="n">' + (c.cpv != null ? eur(c.cpv) : '–') + '</td><td class="n">' + fmt(c.z10) + ' <span class="s">' + pc(c.z10, c.besuche) + '</span></td><td class="n">' + fmt(c.test) + ' <span class="s">' + pc(c.test, c.besuche) + '</span></td><td class="n">' + fmt(c.preis) + ' <span class="s">' + pc(c.preis, c.besuche) + '</span></td><td class="n">' + fmt(c.zahl) + ' <span class="s">' + pc(c.zahl, c.besuche) + '</span></td><td class="n okc">' + fmt(c.kaeufe) + '</td><td class="n">' + pc(c.kaeufe, c.besuche) + '</td><td class="n">' + (c.beCr != null ? pr(c.beCr) : '–') + '</td><td class="n">' + (c.cac != null ? eur(c.cac) : '–') + '</td><td class="n">' + (c.roas != null ? c.roas.toLocaleString('de-DE') + '×' : '–') + '</td><td>' + verd(u2) + '</td></tr>'; }).join('');
+    h += sec('Kanäle') + '<div class="grid">' + card('Was jeder Kanal bringt', 'Besuche = Aufrufe der Führerschein-Seiten', '<div class="tw"><table style="min-width:1100px"><tr><th>Kanal</th><th class="n">Kosten</th><th class="n">Besuche</th><th class="n">€ / Besuch</th><th class="n">&gt; 10 s</th><th class="n">Testlektion</th><th class="n">Preis gesehen</th><th class="n">Zur Zahlung</th><th class="n">Käufe</th><th class="n">Kaufrate</th><th class="n">nötig</th><th class="n">€ / Kauf</th><th class="n">ROAS</th><th>Urteil</th></tr>' + rows + '</table></div><p class="note">„nötig“: Kaufrate, ab der der Kanal kein Geld verliert (Kosten pro Besuch ÷ ' + eur(X.db) + ' pro Kauf). Käufe pro Kanal kommen aus der Rückkehr von Stripe; wer auf einem anderen Gerät kauft, landet bei „Ohne Anzeige“. „Urteil“ rechnet mit 95-%-Sicherheit, damit 2 Zufallskäufe nichts vortäuschen.</p>') + '</div>';
+    /* Vergleich + Schwelle */
+    var bmRows = [['Kosten pro Besuch', cpv != null ? eur(cpv) : '–', '≈ ' + eur(BM.cpcEdu) + ' (Bildung) · ' + eur(BM.cpcAll) + ' (alle Branchen)', cpv == null ? '' : cpv <= BM.cpcEdu ? 'okc' : 'badc'],
+      ['Kaufrate Besuch → Kauf', cr != null ? pr(cr) : '–', pr(BM.cr) + ' Median Shops (' + pr(BM.crLo) + '–' + pr(BM.crHi) + ')', cr == null ? '' : cr >= BM.cr ? 'okc' : 'badc'],
+      ['Nötige Kaufrate (bei uns)', be != null ? pr(be) : '–', be == null ? '' : be <= BM.cr ? 'unter dem Median: machbar' : be <= BM.crHi ? 'am oberen Rand: schwer' : 'über dem, was Shops schaffen', be == null ? '' : be <= BM.cr ? 'okc' : 'badc'],
+      ['Klickrate der Anzeige (CTR)', '<span class="s">im Ads-Manager</span>', pr(BM.ctrEdu, 2) + ' Bildung · ' + pr(BM.ctrAll, 2) + ' alle', ''],
+      ['Zur Zahlung → bezahlt', X.stripe.geoeffnet ? pc(X.stripe.bezahlt, X.stripe.geoeffnet) : '–', 'üblich: 25–50 % der geöffneten Kassen', '']];
+    var cmp = '<table><tr><th>Kennzahl</th><th class="n">Wir</th><th>Vergleich</th></tr>' + bmRows.map(function (r) { return '<tr><td>' + r[0] + '</td><td class="n ' + r[3] + '">' + r[1] + '</td><td class="s" style="font-size:12.5px">' + r[2] + '</td></tr>'; }).join('') + '</table><div class="src">Quellen: <a href="https://www.wordstream.com/blog/facebook-ads-benchmarks-2025" target="_blank" rel="noopener">WordStream, Facebook Ads Benchmarks 2025</a> (Traffic-Kampagnen, Bildung: CTR 1,45 %, CPC 0,86 $; alle: 1,71 %, 0,70 $) · <a href="https://superscale.ai/learn/meta-ads-benchmarks-by-industry/" target="_blank" rel="noopener">Superscale über Triple Whale 2025</a> (Kaufrate Shops Median 1,6 %, Spanne 1,2–2,0 %). US-Werte, in Euro umgerechnet; deutsche Klicks sind meist etwas günstiger.</div>';
+    var CRS = [0.005, 0.01, 0.016, 0.02, 0.03, 0.05], P = X.preise, dbOf = function (p) { return p - (0.25 + p * 0.015); };
+    var tb = '<table><tr><th>Kaufrate</th><th class="n">Internet ' + P.fs + ' €</th><th class="n">KI ' + P.fk + ' €</th><th class="n">Paket ' + P.fp + ' €</th><th class="n">Ø Mix</th>' + (cpv != null ? '<th class="n">je 100 € Werbung</th>' : '') + '</tr>' + CRS.map(function (c) { var g = cpv != null ? 100 / cpv * c * X.db - 100 : null, near = cr != null && Math.abs(c - BM.cr) < 1e-9; return '<tr' + (near ? ' class="hl"' : '') + '><td><b>' + pr(c) + '</b>' + (Math.abs(c - BM.cr) < 1e-9 ? ' <span class="s">Median</span>' : '') + '</td><td class="n">' + eur(c * dbOf(P.fs)) + '</td><td class="n">' + eur(c * dbOf(P.fk)) + '</td><td class="n">' + eur(c * dbOf(P.fp)) + '</td><td class="n">' + eur(c * X.db) + '</td>' + (g != null ? '<td class="n ' + (g >= 0 ? 'okc' : 'badc') + '">' + (g >= 0 ? '+' : '') + eur(g, 0) + '</td>' : '') + '</tr>'; }).join('') + '</table><p class="note">So viel darf ein Besuch höchstens kosten, damit es plus/minus null ausgeht. ' + (cpv != null ? 'Wir zahlen gerade <b>' + eur(cpv) + '</b> pro Besuch. ' : '') + '„Ø Mix“ nutzt ' + eur(X.db) + ' pro Kauf (' + (X.umsatz.n ? 'echte Käufe' : 'aus den gewählten Tarifen') + '). Kleinunternehmer: keine Umsatzsteuer abgezogen.</p>';
+    h += sec('Rechnet es sich?') + '<div class="grid g2">' + card('Wo wir im Vergleich stehen', 'Meta-Durchschnittswerte', cmp) + card('Was ein Besuch kosten darf', 'Deckungsbeitrag je Besuch', tb) + '</div>';
+    /* Kasse */
+    var S = X.stripe, sl = S.liste || [];
+    var kasse = !S.ok ? '<div class="err">Stripe: ' + esc(S.fehler) + '</div>' : '<div class="tri"><div><small>Kasse geöffnet</small><b>' + fmt(S.geoeffnet) + '</b></div><div><small>Bezahlt</small><b class="okc">' + fmt(S.bezahlt) + '</b><small>' + pc(S.bezahlt, S.geoeffnet) + '</small></div><div><small>Nicht bezahlt</small><b class="badc">' + fmt(S.offen + S.abgelaufen) + '</b><small>' + pc(S.offen + S.abgelaufen, S.geoeffnet) + '</small></div></div>' +
+      (sl.length ? '<table><tr><th>Wann</th><th>Tarif</th><th class="n">Klasse</th><th>Stand</th></tr>' + sl.map(function (s) { return '<tr><td>' + dat(s.t) + '</td><td>' + esc(s.plan) + '</td><td class="n">' + esc(s.klasse) + '</td><td><span class="chip ' + (s.status === 'bezahlt' ? 'ok' : s.status === 'offen' ? 'or' : 'bad') + '">' + s.status + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch niemand an der Kasse.</div>') + '<p class="note">Direkt aus Stripe. Gezählt werden nur Kassen, zu denen ein echter Besucher „Zur Zahlung“ gedrückt hat; eigene Tests (' + fmt(S.tests) + ') sind herausgefiltert. „offen“ = Stripe-Seite noch nicht abgelaufen (24 h).</p>';
+    var kl = X.kaeufe || [], kt = kl.length ? '<div class="tw"><table><tr><th>Wann</th><th>Tarif</th><th class="n">Klasse</th><th class="n">Brutto</th><th class="n">Gebühr</th><th class="n">Erstattet</th><th class="n">Netto</th><th>E-Mail</th></tr>' + kl.map(function (x) { return '<tr><td>' + dat(x.t) + '</td><td>' + esc(x.name) + '</td><td class="n">' + esc(x.klasse) + '</td><td class="n">' + eur(x.brutto) + '</td><td class="n">' + eur(x.geb) + (x.gebEcht ? '' : ' <span class="s">ca.</span>') + '</td><td class="n ' + (x.zur ? 'badc' : '') + '">' + (x.zur ? eur(x.zur) : '–') + '</td><td class="n okc">' + eur(x.netto) + '</td><td class="s">' + esc(x.mail) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine bezahlten Führerscheine im Zeitraum.</div>';
+    h += sec('Kasse und Käufe') + '<div class="grid g12">' + card('Kasse', 'Stripe-Checkout', kasse) + card('Käufe', 'bezahlt, nach Gebühren und Erstattungen', kt) + '</div>';
+    /* Kosten eintragen */
+    h += sec('Werbekosten') + '<div class="grid">' + card('Werbekosten eintragen', 'gilt für alle Zeiträume, anteilig gerechnet', kostenForm(X)) + '</div>';
+    return h;
+  }
+  function kostenForm(X) {
+    if (!KED) KED = JSON.parse(JSON.stringify(X.kosten.map(function (x) { return { id: x.id, kanal: x.kanal, name: x.name, seit: x.seit, bis: x.bis, tag: x.tag, ist: x.ist, stand: x.stand }; })));
+    var byId = {}; X.kosten.forEach(function (x) { byId[x.id] = x; });
+    var r = KED.map(function (x, i) { var c = byId[x.id]; return '<tr data-i="' + i + '"><td><input data-f="name" value="' + esc(x.name) + '" placeholder="z. B. Meta Video"></td><td><select data-f="kanal">' + ['meta', 'gads', 'sonst'].map(function (v) { return '<option value="' + v + '"' + (x.kanal === v ? ' selected' : '') + '>' + KS[v] + '</option>'; }).join('') + '</select></td><td><input type="date" data-f="seit" value="' + esc(x.seit) + '"></td><td><input type="date" data-f="bis" value="' + esc(x.bis) + '"></td><td><input inputmode="decimal" data-f="tag" value="' + (x.tag || '') + '" placeholder="0"></td><td><input inputmode="decimal" data-f="ist" value="' + (x.ist == null ? '' : String(x.ist).replace('.', ',')) + '" placeholder="leer = Budget"></td><td><input type="date" data-f="stand" value="' + esc(x.stand) + '"></td><td class="n">' + (c ? eur(c.eur) + '<br><span class="s">' + esc(c.art) + '</span>' : '<span class="s">neu</span>') + '</td><td><button class="x" data-del="' + i + '" aria-label="Löschen">×</button></td></tr>'; }).join('');
+    return '<div class="tw ko"><table style="min-width:960px"><tr><th>Name</th><th>Kanal</th><th>läuft seit</th><th>bis</th><th class="n">€ pro Tag</th><th class="n">tatsächlich ausgegeben €</th><th>Stand vom</th><th class="n">im Zeitraum</th><th></th></tr>' + r + '</table></div><div class="row"><button class="btn w" id="kadd" type="button">+ Kampagne</button><button class="btn" id="ksave" type="button">Speichern</button><span class="s" id="kmsg"></span></div><p class="note">Am genauesten: „tatsächlich ausgegeben“ aus dem Ads-Manager mit Datum eintragen. Bis dahin rechnet die Seite mit dem Tagesbudget. Danach wird mit dem bisherigen Tagesschnitt weitergerechnet.</p>';
+  }
+  function bindKosten() {
+    var tb = document.querySelector('.ko'); if (!tb) return;
+    $$('.ko [data-f]').forEach(function (el) { el.oninput = el.onchange = function () { var i = +el.closest('tr').dataset.i, f = el.dataset.f, v = el.value; KED[i][f] = f === 'tag' ? (parseFloat(v.replace(',', '.')) || 0) : f === 'ist' ? (v.trim() === '' ? null : parseFloat(v.replace(',', '.'))) : v; }; });
+    $$('.ko [data-del]').forEach(function (b) { b.onclick = function () { KED.splice(+b.dataset.del, 1); draw(D); }; });
+    $('#kadd').onclick = function () { KED.push({ id: 'k' + Date.now().toString(36).slice(-5), kanal: 'meta', name: '', seit: new Date().toLocaleDateString('sv-SE'), bis: '', tag: 0, ist: null, stand: '' }); draw(D); };
+    $('#ksave').onclick = function () { $('#kmsg').textContent = 'Speichere …'; var data = KED.filter(function (x) { return x.seit; }); busy = false; KED = null; load({ kosten: data }); };
+  }
+
+  /* ---------- TRICHTER ---------- */
+  function funnel(st, besuche) {
+    var f0 = besuche || (st[0] && st[0][1]) || 0, leak = -1, lv = -1;
+    st.forEach(function (x, i) { if (!i) return; var p = st[i - 1][1]; if (p >= 3 && x[1] <= p) { var dropAbs = p - x[1]; if (dropAbs > lv) { lv = dropAbs; leak = i; } } });
+    var h = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">von allen</div><div class="dr">Verlust</div></div>';
+    st.forEach(function (x, i) {
+      var prev = i ? st[i - 1][1] : 0, w = f0 ? Math.max(.6, Math.min(100, x[1] / f0 * 100)) : 0, up = i && x[1] > prev, drop = i && prev && !up ? Math.round((1 - x[1] / prev) * 100) : 0;
+      h += '<div class="fr' + (i === leak && drop ? ' leak' : '') + '"><div class="lb"><b>' + esc(x[0]) + '</b><small>' + esc(x[2] || '') + '</small></div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 16 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x[1]) + '</span></div><div class="pc">' + (i ? pc(x[1], f0) : '100 %') + '</div><div class="dr' + (drop ? '' : ' z') + '">' + (i ? (drop ? '−' + drop + ' %' : '–') : '') + '</div></div>';
+    });
+    return h + '</div>' + (leak > 0 ? '<p class="note">Orange markiert: hier gehen die meisten Leute verloren (' + fmt(st[leak - 1][1] - st[leak][1]) + ' von ' + fmt(st[leak - 1][1]) + ' zwischen „' + esc(st[leak - 1][0]) + '“ und „' + esc(st[leak][0]) + '“).</p>' : '');
+  }
+  function vTrichter(d) {
+    var X = d.x, N = X.nach[Q], st = N.steps, b = N.besuche, g = function (i) { return st[i][1]; };
+    var h = '<div class="grid k6">' + k(Q === 'alle' ? 'Besuche' : 'Besuche · ' + KS[Q], fmt(b), 'Führerschein-Seiten, mind. 1 s zu sehen') + k('Sofort wieder weg', N.mitNr ? pc(N.sofort, N.mitNr) : pc(N.sofort, b), 'unter 10 Sekunden') + k('Verweildauer (Median)', zeit(N.med), N.mitNr ? 'nur sichtbare Zeit' : 'ab heute gemessen') + k('Testlektion', pc(g(3), b), fmt(g(3)) + ' begonnen · ' + fmt(g(4)) + ' fertig') + k('Zur Zahlung', pc(g(6), b), fmt(g(6)) + ' Klicks') + k('Gekauft', fmt(g(7)), pc(g(7), b) + ' der Besuche', g(7) ? 'ok' : '') + '</div>';
+    h += '<div class="grid g21">' + card('Vom Besuch zum Kauf', KN[Q], funnel(st, b) + (N.alt ? '<p class="note">' + fmt(N.alt) + ' Besuche vor dem 9.11. hatten noch keine Aufruf-Nummer: bei ihnen fehlen Verweildauer, Preis- und Testlektion-Werte. Ab jetzt wird jeder Schritt pro Aufruf erfasst.</p>' : '')) +
+      card('Nach dem Kauf', 'alle Kanäle', funnel([['Gekauft', X.umsatz.n || X.nach.alle.kaeufe, 'bezahlt']].concat(X.nach.alle.nach.map(function (x) { return [x[0], x[1], '']; }))) + '<p class="note">Antrag, Kurs, bestandene Prüfung und Bewertung kommen aus der App.</p>') + '</div>';
+    /* Kanäle nebeneinander */
+    var cs = ['alle', 'meta', 'gads', 'org'];
+    var t = '<table><tr><th>Schritt</th>' + cs.map(function (c) { return '<th class="n">' + (c === 'alle' ? 'Alle' : KS[c]) + '</th>'; }).join('') + '</tr>' + st.map(function (x, i) { return '<tr><td>' + esc(x[0]) + '</td>' + cs.map(function (c) { var s2 = X.nach[c].steps, v = s2[i][1], b0 = X.nach[c].besuche; return '<td class="n">' + fmt(v) + (i ? ' <span class="s">' + pc(v, b0) + '</span>' : '') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';
+    h += sec('Kanäle im Vergleich') + '<div class="grid">' + card('Gleicher Trichter, getrennt nach Herkunft', 'Anteil an den Besuchen des Kanals', '<div class="tw">' + t + '</div>') + '</div>';
+    /* Tag für Tag */
+    var cols = [['b', 'Besuche'], ['z10', '> 10 s'], ['h', 'halbe Seite'], ['t', 'Testlektion'], ['p', 'Preis gesehen'], ['z', 'Zur Zahlung'], ['k', 'Gekauft']];
+    var tt = N.tage.length ? '<div class="tw h"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' + N.tage.map(function (r) { var d0 = new Date(r[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = r[1][c[0]] || 0; return '<td class="n' + (c[0] === 'k' && v ? ' okc' : '') + '">' + (v ? fmt(v) + (c[0] !== 'b' && r[1].b ? ' <span class="s">' + pc(v, r[1].b) + '</span>' : '') : '<span class="s">–</span>') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
+    h += sec('Tag für Tag') + '<div class="grid">' + card('Jeder Tag', KN[Q], tt) + '</div>';
+    return h;
+  }
+
+  /* ---------- LANDINGPAGE ---------- */
+  function segTable(list, label) {
+    if (!list || !list.length) return '<div class="empty">Noch keine Daten.</div>';
+    return '<div class="tw"><table><tr><th>' + label + '</th><th class="n">Besuche</th><th class="n">&gt; 10 s</th><th class="n">Testlektion</th><th class="n">Preis</th><th class="n">Zahlung</th><th class="n">Median</th></tr>' + list.map(function (x) { var o = x[1]; return '<tr><td><b>' + esc(x[0]) + '</b></td><td class="n">' + fmt(o.b) + '</td><td class="n">' + pc(o.z10, o.b) + '</td><td class="n">' + pc(o.t, o.b) + '</td><td class="n">' + pc(o.p, o.b) + '</td><td class="n">' + fmt(o.z) + '</td><td class="n">' + zeit(o.med) + '</td></tr>'; }).join('') + '</table></div>';
+  }
+  function vLand(d) {
+    var N = d.x.nach[Q], b = N.besuche, nr = N.mitNr || 0;
+    var h = '<div class="grid g3">' + card('Wie lange sie bleiben', nr ? fmt(nr) + ' Aufrufe gemessen · Median ' + zeit(N.med) : 'beim Verlassen', bars(N.verweil, N.verweil.reduce(function (a, x) { return a + x[1]; }, 0), 'n')) +
+      card('Wie weit sie scrollen', nr ? 'tiefster Punkt je Aufruf' : 'ab heute je Aufruf', bars(N.scroll, nr, 'o')) +
+      card('Welche Bereiche sie sehen', 'in Seitenreihenfolge, Anteil der Besuche', bars(N.bereiche, b, 'g')) + '</div>';
+    var F = N.fragen, ft = F.length ? '<table><tr><th>Szene</th><th class="n">richtig</th><th class="n">falsch</th><th class="n">Quote</th></tr>' + F.map(function (x) { return '<tr><td>' + esc(x[0]) + '</td><td class="n okc">' + fmt(x[1]) + '</td><td class="n badc">' + fmt(x[2]) + '</td><td class="n">' + pc(x[1], x[1] + x[2]) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch niemand hat die Testlektion gespielt.</div>';
+    var T = N.tarife, tz = T.fs + T.fk + T.fp;
+    h += '<div class="grid g3">' + card('Testlektion', 'Antworten pro Szene', ft + (N.ergebnis.length ? sub('Ergebnis am Ende') + bars(N.ergebnis, 0, 'g') : '')) +
+      card('Kauf-Bereich', 'was am Ende passiert', '<div class="tri"><div><small>Zur Zahlung</small><b>' + fmt(N.zahl) + '</b></div><div><small>Kästchen vergessen</small><b class="warnc">' + fmt(N.fehlt) + '</b></div><div><small>Stripe abgebrochen</small><b class="badc">' + fmt(N.abbruch) + '</b></div></div>' + sub('Gewählter Tarif') + bars([['Paket', T.fp], ['Internet-Führerschein', T.fs], ['KI-Führerschein', T.fk]], tz, 'o')) +
+      card('Fragen im FAQ', 'aufgeklappt', bars(N.faq, 0, 'n', 10) + '<p class="note">„i“ bei den Stimmen geöffnet: ' + fmt(N.info) + '×</p>') + '</div>';
+    h += '<div class="grid g2">' + card('Geräte', '', segTable(N.geraete, 'Gerät')) + card('Landingpages', '', segTable(N.seiten, 'Seite')) + '</div>';
+    var H = N.stunden, mh = Math.max.apply(null, H.map(function (x) { return x[0]; })) || 1;
+    var hrs = '<div class="hours">' + H.map(function (x, i) { return '<div class="' + (x[1] ? 'z' : '') + '" style="height:' + Math.max(2, x[0] / mh * 100) + '%" title="' + i + ' Uhr: ' + x[0] + ' Besuche, ' + x[1] + ' zur Zahlung"></div>'; }).join('') + '</div><div class="hl24">' + H.map(function (x, i) { return '<span>' + (i % 3 ? '' : i) + '</span>'; }).join('') + '</div><p class="note">Orange: Stunden mit Klick auf „Zur Zahlung“. Deutsche Zeit.</p>';
+    h += '<div class="grid g21">' + card('Uhrzeit', 'Besuche je Stunde', hrs) + card('Wochentag', '', bars(N.wochentage, b, 'n')) + '</div>';
+    return h;
+  }
+
+  /* ---------- BESUCHE ---------- */
+  function vBesuche(d) {
+    var L = d.x.nach[Q].besuche2;
+    if (!L.length) return '<div class="grid">' + card('Einzelne Besuche', '', '<div class="empty">Ab jetzt erscheint hier jeder Besuch der Führerschein-Seiten einzeln: wie lange, wie weit gescrollt, Testlektion, Preis, Kasse. Anonym, nur dieser eine Seitenaufruf.</div>') + '</div>';
+    var rows = L.map(function (v) {
+      var c = []; if (v.test) c.push('<span class="chip ok">Testlektion ' + esc(v.test) + '</span>'); if (v.ber.indexOf('Preis') >= 0) c.push('<span class="chip">Preis gesehen</span>'); if (v.faq) c.push('<span class="chip">FAQ ' + v.faq + '×</span>'); if (v.bean) c.push('<span class="chip">Beantragen</span>'); if (v.fehlt) c.push('<span class="chip bad">Kästchen vergessen</span>'); if (v.z) c.push('<span class="chip or">Zur Zahlung: ' + esc(v.z) + '</span>');
+      return '<div class="vi"><time>' + hm(v.t) + '</time><div><div class="vt">' + chipK(v.k) + '<b>' + esc(v.s) + '</b><span class="s">' + esc(v.g || '') + '</span></div><div class="vm"><span><b>' + (v.sec ? zeit(v.sec) : esc(v.secB || '–')) + '</b> zu sehen</span><span><b>' + (v.sc ? v.sc + ' %' : '–') + '</b> gescrollt</span><i style="--w:' + (v.sc || 0) + '%"></i></div><div>' + (c.join('') || '<span class="s">nur angeschaut</span>') + '</div></div></div>';
+    }).join('');
+    return '<div class="grid">' + card('Einzelne Besuche', fmt(L.length) + ' neueste · ' + esc(KN[Q]), '<div class="feed">' + rows + '</div><p class="note">Ohne Cookie und ohne Kennung: Jeder Aufruf bekommt nur eine Zufallsnummer im Arbeitsspeicher. Wer zweimal kommt, steht zweimal da.</p>') + '</div>';
+  }
+
+  /* ---------- KUNDEN ---------- */
+  function vKunden(d) {
+    var K = d.x.kunden || [], E = K.filter(function (x) { return !x.ben; }), B = K.filter(function (x) { return x.ben; });
+    var tab = function (L) { return L.length ? '<div class="tw"><table style="min-width:900px"><tr><th>Konto</th><th>Führerschein</th><th class="n">Klasse</th><th>Antrag</th><th class="n">Internet</th><th class="n">KI</th><th>Bewertung</th><th>Zuletzt aktiv</th></tr>' + L.map(function (x) { var pi = function (n, ok) { return ok ? '<span class="chip ok">bestanden</span>' : n ? fmt(n) + ' <span class="s">/ 24</span>' : '<span class="s">–</span>'; }; return '<tr><td><b>' + esc(x.kind || 'ohne Namen') + '</b><br><span class="s">' + esc(x.email) + '</span></td><td>' + esc(x.plan) + '<br><span class="s">' + dat(x.seit) + '</span></td><td class="n">' + esc(x.klasse || '–') + '</td><td>' + (x.antrag ? '<span class="chip ok">ausgefüllt</span>' : '<span class="chip bad">fehlt</span>') + '</td><td class="n">' + pi(x.inet, x.inetOk) + '</td><td class="n">' + pi(x.ki, x.kiOk) + '</td><td>' + (x.bewertet ? '<span class="chip ok">ja</span>' : '<span class="s">–</span>') + '</td><td>' + dat(x.aktiv) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Führerschein-Kunden.</div>'; };
+    var ant = E.filter(function (x) { return x.antrag; }).length, lern = E.filter(function (x) { return x.inet + x.ki > 0; }).length, best = E.filter(function (x) { return x.inetOk || x.kiOk; }).length;
+    var h = '<div class="grid k6">' + k('Kunden', fmt(E.length), 'Konten mit Führerschein') + k('Antrag ausgefüllt', fmt(ant), pc(ant, E.length)) + k('Lernen schon', fmt(lern), pc(lern, E.length) + ' mit mind. 1 Lektion') + k('Bestanden', fmt(best), pc(best, E.length)) + k('Bewertet', fmt(E.filter(function (x) { return x.bewertet; }).length), '') + k('Aktiv letzte 7 Tage', fmt(E.filter(function (x) { return x.aktiv && Date.now() - Date.parse(x.aktiv) < 7 * 864e5; }).length), '') + '</div>';
+    h += '<div class="grid">' + card('Führerschein-Kunden', 'pro Kurs 24 Lektionen, dann Prüfung', tab(E)) + '</div>';
+    if (B.length) h += sec('Deine eigenen Konten') + '<div class="grid">' + card('Bens Konten', 'zählen nirgends mit', tab(B)) + '</div>';
+    return h;
+  }
+
+  /* ---------- LIVE ---------- */
+  function vLive(d) {
+    var F = (d.x.feed || []).filter(function (x) { return Q === 'alle' || x.k === Q; });
+    var fd = F.map(function (x) { return '<div class="fe"><time>' + hm(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + chipK(x.k) + esc([x.g, x.s, x.a ? 'Aufruf …' + x.a : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
+    return '<div class="grid">' + card('Gerade passiert', 'neueste zuerst', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + '</div>';
+  }
+
+  var TABS = [['geld', 'Geld'], ['trichter', 'Trichter'], ['land', 'Landingpage'], ['besuche', 'Besuche'], ['kunden', 'Kunden'], ['live', 'Live']];
+  if (!TABS.some(function (x) { return x[0] === T; })) T = 'geld';
   function tabs() {
-    var n = D ? (D.konten || []).filter(function (k) { return !k.ben; }).length : 0;
-    var tb = $('#tabs'); tb.innerHTML = TABS.map(function (t) { return '<button type="button" data-t="' + t[0] + '" class="' + (t[0] === T ? 'on' : '') + '">' + t[1] + (t[0] === 'konten' && D ? ' <span class="cn">' + n + '</span>' : '') + '</button>'; }).join('');
-    [].forEach.call(document.querySelectorAll('#tabs button'), function (b) { b.onclick = function () { T = b.dataset.t; ls.set('gsmz.tab2', T); if (D) draw(D); window.scrollTo(0, 0); }; });
+    var tb = $('#tabs'); tb.innerHTML = TABS.map(function (t) { return '<button type="button" data-t="' + t[0] + '" class="' + (t[0] === T ? 'on' : '') + '">' + t[1] + '</button>'; }).join('');
+    $$('#tabs button').forEach(function (b) { b.onclick = function () { T = b.dataset.t; ls.set('gsmz.t3', T); draw(D); window.scrollTo(0, 0); }; });
     var on = tb.querySelector('.on'); if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
-  var k = function (l, v, sb) { return '<section class="card kpi"><div class="l">' + esc(l) + '</div><div class="v">' + v + '</div><div class="d">' + (sb || '') + '</div></section>'; };
-  var BKN = ['unter 10 s', '10–30 s', '30–60 s', '1–3 min', '3–10 min', 'über 10 min'], BKC = ['#e5484d', '#f59e0b', '#facc15', '#86c96b', '#16a05c', '#0e6b3d'];
-  function zeit(s) { s = Math.round(+s || 0); return s < 60 ? s + ' s' : s < 3600 ? Math.floor(s / 60) + ' min' + (s % 60 >= 10 ? ' ' + (s % 60) + ' s' : '') : Math.floor(s / 3600) + ' h ' + Math.round(s % 3600 / 60) + ' min'; }
-  function steps(list, total) {
-    if (!list || !list.some(function (x) { return x[1]; })) return '<div class="empty">Noch keine Daten. Wird ab jetzt bei jedem Besuch gemessen.</div>';
-    var m = Math.max.apply(null, list.map(function (x) { return x[1]; })) || 1;
-    return '<div class="bars">' + list.filter(function (x) { return x[1]; }).map(function (x) { return '<div class="br w"><div class="t"><i style="width:' + Math.max(2, x[1] / m * 100) + '%;background:#ffe1dc"></i><span>' + esc(x[0]) + '</span></div><div class="c">' + fmt(x[1]) + ' <span class="s" style="color:var(--mute);font-weight:500;font-size:11.5px">' + pc(x[1], total) + '</span></div></div>'; }).join('') + '</div>';
-  }
-
-  function vUeber(d) {
-    var P = d.pfad && d.pfad.length ? d.pfad : (d.funnel || []), f0 = (P[0] && P[0].n) || 0;
-    var get = function (e) { var x = P.find(function (y) { return y.e === e; }); return x ? x.n : 0; };
-    var ew = d.einwilligung || { ja: 0, nein: 0 }, ewt = ew.ja + ew.nein, q = d.quellen || [];
-    var fb = q.filter(function (x) { return /facebook|instagram|meta/i.test(x[0]); }).reduce(function (a, x) { return a + (x[1].s || 0); }, 0);
-    var A = d.angebot || {}, L = d.lobby || {};
-    var isFb = Q === 'fb', AB = d.absprung || { neu: [], wieder: [], wo: [] }, abAll = {}, abTot = 0;
-    (AB.neu || []).concat(AB.wieder || []).forEach(function (x) { abAll[x[0]] = (abAll[x[0]] || 0) + x[1]; abTot += x[1]; });
-    var abList = (AB.neu || []).map(function (x) { return [x[0], abAll[x[0]] || 0]; }), sofort = abAll['nur Startseite'] || 0;
-    var h = '<div class="grid k8">' +
-      (isFb ? k('Über die Anzeige gekommen', fmt(f0), 'Seitenaufrufe mit Anzeigen-Link') : k('Besuche', fmt(f0), 'Aufrufe der Startseite')) +
-      (isFb ? k('Sofort wieder weg', fmt(sofort), pc(sofort, abTot) + ' ohne weiterzuklicken') : k('Von Facebook / Instagram', fmt(fb), 'nur Besucher mit Cookie')) +
-      k('Ausprobieren geklickt', fmt(get('Ausprobieren geklickt')), pc(get('Ausprobieren geklickt'), f0) + ' der Besuche') +
-      k('In der Lobby', fmt(L.auf || 0), pc(L.auf, f0) + ' der Besuche') +
-      k('Angebot angesehen', fmt(A.auf || 0), pc(A.auf, f0) + ' der Besuche') +
-      k('Abos', fmt(get('Abo abgeschlossen')), pc(get('Abo abgeschlossen'), f0) + ' der Besuche') +
-      k('Neue Konten', fmt(d.kontenNeu || 0), fmt(d.kontenAktiv || 0) + ' Konten aktiv im Zeitraum') +
-      k('Cookie erlaubt', ewt ? pc(ew.ja, ewt) : '–', fmt(ew.ja) + ' ja · ' + fmt(ew.nein) + ' nein (sonst anonym)') + '</div>';
-    if (isFb) h += '<div class="grid g2">' + card('Wie weit die Facebook-Besucher gekommen sind', fmt(abTot) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Der weiteste Schritt pro Besuch, bevor sie gegangen sind.</p>' + steps(abList, abTot)) + card('Wo sie gegangen sind', 'letzter Bildschirm', bars(AB.wo, 10) + sub('Wie lange sie geblieben sind') + bars(d.verlassen, 10)) + '</div>';
-    var T2 = d.tage2 || [], cols = [['b', 'Besuche'], ['a', 'Ausprobieren'], ['k', 'Klasse'], ['lo', 'Lobby'], ['l', '1. Lektion'], ['an', 'Angebot'], ['za', 'Zur Zahlung'], ['z', 'Abo'], ['ko', 'Konto']], sum = {};
-    T2.forEach(function (t) { cols.forEach(function (c) { sum[c[0]] = (sum[c[0]] || 0) + (t[1][c[0]] || 0); }); });
-    var tt = T2.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' +
-      T2.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'z' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span class="s">0</span>') + '</td>'; }).join('') + '</tr>'; }).join('') +
-      (T2.length > 1 ? '<tr><td><b>Summe</b></td>' + cols.map(function (c) { return '<td class="n"><b>' + fmt(sum[c[0]] || 0) + '</b></td>'; }).join('') + '</tr>' : '') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
-    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div>';
-    var qt = q.length ? '<table><tr><th>Quelle</th><th class="n">Besucher</th><th class="n">1. Lektion</th><th class="n">Fertig</th><th class="n">Probe zu Ende</th><th class="n">Abo</th></tr>' + q.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.s) + '</td><td class="n">' + fmt(o.lek) + ' <span class="s">' + pc(o.lek, o.s) + '</span></td><td class="n">' + fmt(o.fertig) + ' <span class="s">' + pc(o.fertig, o.s) + '</span></td><td class="n">' + fmt(o.probe) + '</td><td class="n ok">' + fmt(o.abo) + ' <span class="s">' + pc(o.abo, o.s) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Besucher mit erlaubtem Cookie.</div>';
-    h += '<div class="grid g21">' + card('Woher sie kommen', 'nur mit Einwilligung', qt + '<p class="note">' + fmt(d.sitzungen) + ' Besucher mit Cookie · mittlere Verweildauer ' + dauer(d.dauerMedian) + '. Ohne Cookie wird anonym gezählt, dann ohne Quelle. Alle Anzeigen-Klicks stehen im Meta-Werbeanzeigenmanager.</p>') +
-      card('Verlauf', (d.tage || []).length + ' Tage', chart(d.tage)) + '</div>';
-    h += '<div class="grid g3">' + card('Einwilligung', '', six([['Cookie ja', ew.ja, 'ok', pc(ew.ja, ewt)], ['Cookie nein', ew.nein, 'bad', pc(ew.nein, ewt)], ['Nicht entschieden', Math.max(0, f0 - ewt), '', '']])) + card('Geräte', '', bars(d.geraete, 4)) + card('Orte', 'nur mit Einwilligung', bars(d.orte, 8)) + '</div>';
-    /* Übungsseiten (Google & Co.) */
-    var U = d.ueben || { seiten: [], wo: [] }, us = U.seiten || [];
-    var ut = Q === 'fb' ? '<div class="empty">Übungsseiten kommen meist über Google, nicht über die Anzeige. Oben auf „Alle Besucher“ stellen.</div>' : us.length ? '<table><tr><th>Seite</th><th class="n">Aufrufe</th><th class="n">Übung gestartet</th><th class="n">Runde fertig</th><th class="n">Arbeitsblatt</th><th class="n">Weiter zur App</th></tr>' + us.map(function (x) { var o = x[1]; return '<tr><td>' + esc(x[0]) + '</td><td class="n">' + fmt(o.auf) + '</td><td class="n">' + fmt(o.start) + ' <span class="s">' + pc(o.start, o.auf) + '</span></td><td class="n">' + fmt(o.fertig) + '</td><td class="n">' + fmt(o.druck) + '</td><td class="n"><b>' + fmt(o.app) + '</b> <span class="s">' + pc(o.app, o.auf) + '</span></td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Aufrufe der Übungsseiten.</div>';
-    h += '<div class="grid">' + card('Übungsseiten', 'grundschulmax.de/ueben', '<div class="tw" style="max-height:none">' + ut + '</div>') + '</div>';
-    return h;
-  }
-
-  function vWeg(d) {
-    var P = d.pfad && d.pfad.length ? d.pfad : (d.funnel || []), f0 = (P[0] && P[0].n) || 0, F = d.funnel || [];
-    var uOf = function (e) { var x = F.find(function (y) { return y.e === e; }); return x && x.u != null ? x.u : null; };
-    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u">mit Cookie</div></div>';
-    P.forEach(function (x, i) {
-      var prev = i ? P[i - 1].n : 0, drop = i && prev ? Math.max(0, Math.round((1 - x.n / prev) * 100)) : 0, u = uOf(x.e), w = f0 ? Math.max(.6, Math.min(100, x.n / f0 * 100)) : 0, up = i && prev && x.n >= prev;
-      fr += '<div class="fr"><div class="lb" title="' + esc(x.e) + '">' + esc(x.l || x.e) + '</div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 14 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x.n) + '</span></div><div class="pc">' + (i ? pc(x.n, f0) : '100 %') + '</div><div class="dr' + (i && drop && !up ? '' : ' z') + '">' + (i ? (prev && !up ? '−' + drop + ' %' : '–') : '') + '</div><div class="u">' + (u == null ? '' : fmt(u)) + '</div></div>';
-    });
-    fr += '</div><p class="note">Jeder Schritt zählt höchstens einmal pro Seitenaufruf. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt („–“: kein fester Vorgänger).</p>';
-    var A = d.absprung || { neu: [], wieder: [], wo: [] }, nN = (A.neu || []).reduce(function (a, x) { return a + x[1]; }, 0), nW = (A.wieder || []).reduce(function (a, x) { return a + x[1]; }, 0);
-    var h = '<div class="grid g21">' + card('Vom Besuch zum Abo', P.length + ' Schritte', fr) +
-      card('Wo neue Besucher aufhören', fmt(nN) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Der weiteste Schritt, den ein neuer Besucher erreicht hat, bevor er gegangen ist.</p>' + steps(A.neu, nN) + sub('Letzter Bildschirm vor dem Gehen') + bars(A.wo, 10)) + '</div>';
-    h += '<div class="grid g2">' + card('Wiederkehrende Besucher', fmt(nW) + ' Besuche', '<p class="lede" style="margin:0 0 12px">Wer schon einmal da war: bis wohin sie diesmal gekommen sind.</p>' + steps(A.wieder, nW)) +
-      card('Wann sie die Seite verlassen', 'Bildschirm · Zeit seit Öffnen', bars(d.verlassen, 14) + sub('Weggewesen und zurückgekommen') + bars(d.weg, 6)) + '</div>';
-    return h;
-  }
-
-  function vVerh(d) {
-    var B = d.bildschirm || [], tot = B.reduce(function (a, x) { return a + x.n; }, 0);
-    var bt = B.length ? '<div><table class="bst"><tr><th>Bereich</th><th class="n">Aufrufe</th><th class="n">Ø Zeit</th><th>Wie lange</th></tr>' + B.map(function (x) { return '<tr><td><b>' + esc(nm(x.a)) + '</b></td><td class="n">' + fmt(x.n) + ' <span class="s">' + pc(x.n, tot) + '</span></td><td class="n">' + zeit(x.avg) + '</td><td><div class="dist">' + x.b.map(function (v, i) { return v ? '<i style="width:' + (v / x.n * 100) + '%;background:' + BKC[i] + '" title="' + BKN[i] + ': ' + v + '"></i>' : ''; }).join('') + '</div></td></tr>'; }).join('') + '</table></div><div class="dleg">' + BKN.map(function (b, i) { return '<span style="--c:' + BKC[i] + '">' + b + '</span>'; }).join('') + '</div>' : '<div class="empty">Noch keine Daten. Wird ab jetzt bei jedem Besuch gemessen.</div>';
-    var h = '<div class="grid">' + card('Was sie anschauen und wie lange', 'nur sichtbare Zeit', bt) + '</div>';
-    var L = d.lobby || {}, A = d.angebot || {}, E = d.eltern || {};
-    h += '<div class="grid g3">' +
-      card('Lobby', 'wie lange sie bleiben', six([['Geöffnet', L.auf || 0, '', ''], ['Aufgaben abgeholt', L.aufgaben || 0, 'ok', ''], ['Einrichten geklickt', L.einrichten || 0, '', '']]) + sub('Aufenthalt pro Besuch') + bars(L.zeit, 7) + sub('Klasse gewählt') + bars(d.klassen, 4)) +
-      card('Was sie in der Lobby machen', '', sub('Spielen gedrückt') + bars(nl(L.spielen), 6) + sub('Bereich geöffnet') + bars(nl(L.bereiche), 8) + sub('Tour') + bars(L.tour, 6) + (L.fehler ? '<p class="note bad">' + fmt(L.fehler) + '× Lobby konnte nicht laden</p>' : '')) +
-      card('Figuren, Berufe, Tiere', '', sub('Figur gewählt') + bars(nl(L.figuren), 8) + sub('Beruf gewechselt') + bars(nl(L.berufe), 8) + sub('Haustier gewählt') + bars(nl(L.haustiere), 8) + sub('Level erreicht') + bars(L.level, 10)) + '</div>';
-    h += '<div class="grid g3">' +
-      card('Angebot', 'Abo-Fenster', six([['Angesehen', A.auf || 0, '', ''], ['Weiter zum Test', (A.gewaehlt || []).reduce(function (a, x) { return a + x[1]; }, 0), '', ''], ['Zur Zahlung', A.zahlung || 0, '', pc(A.zahlung, A.auf)], ['Abgebrochen', A.abbruch || 0, 'bad', pc(A.abbruch, A.zahlung)], ['Abo', A.abo || 0, 'ok', pc(A.abo, A.auf)], ['Geschlossen', A.zu || 0, '', pc(A.zu, A.auf)]]) + sub('Tarif angetippt') + bars(A.angetippt, 4) + sub('Wo es aufging') + bars(A.wo, 6)) +
-      card('Eltern-Hinweis nach KI-Lektion', 'nur ohne Konto', six([['Gezeigt', E.gezeigt || 0, '', ''], ['Geklickt', E.geklickt || 0, 'ok', pc(E.geklickt, E.gezeigt)], ['', '', '', '']].slice(0, 2)) + sub('Thema') + bars(E.themen, 6)) +
-      card('Infoseiten', 'Sicherheit, Datenschutz, Preise', bars(d.info, 10) + sub('Startseite gescrollt') + bars(d.scroll, 4)) + '</div>';
-    h += '<div class="grid g3">' +
-      card('Erste Lektion', 'Probe', tri(d.ersteLektion || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteAbbruch, 8)) +
-      card('Erstes Spiel', 'im Abo', tri(d.ersteSpiel || { s: 0, f: 0, a: 0 }) + sub('Wo abgebrochen') + bars(d.ersteSpielAbbruch, 8)) +
-      card('Hausaufgaben und Konto', '', bars(d.hausaufgaben, 6) + sub('Konto') + bars(d.konto, 6)) + '</div>';
-    h += '<div class="grid g2">' + card('Lektionen', 'nach Fach', sfa(d.lektionen, 'Fach')) + card('Spiele', '', sfa(d.spiele, 'Spiel')) + '</div>';
-    return h;
-  }
-
-  function vKlick(d) {
-    var K = d.klicksBereich || [], BD = d.klicksBedienung || { n: 0, top: [] };
-    if (!K.length) return '<div class="grid">' + card('Klicks', '', '<div class="empty">Noch keine Klicks im Zeitraum.</div>') + '</div>';
-    var h = '<p class="lede">Klicks nach Bereich. Reine Bedienknöpfe (Weiter, Prüfen, Schließen …) sind herausgefiltert: ' + fmt(BD.n) + ' Stück.</p><div class="grid g3">';
-    h += K.map(function (x) { return card(nm(x.a), fmt(x.n) + ' Klicks', bars(x.top, 15)); }).join('');
-    return h + '</div>';
-  }
-
-  function vKonten(d) {
-    var K = (d.konten || []).slice(), echte = K.filter(function (x) { return !x.ben; }), ben = K.filter(function (x) { return x.ben; });
-    var h = '<div class="grid k8">' + k('Konten', fmt(echte.length), 'ohne deine eigenen') + k('Neu im Zeitraum', fmt(d.kontenNeu || 0), '') + k('Mit Abo', fmt(d.kontenAbo || 0), pc(d.kontenAbo, echte.length) + ' der Konten') + k('Aktiv im Zeitraum', fmt(d.kontenAktiv || 0), '') + '</div>';
-    var one = function (x) {
-      var init = (x.kind || x.email || '?').trim().charAt(0).toUpperCase();
-      var fa = x.faecher && x.faecher.length ? bars(x.faecher, 6) : '<div class="empty">Noch keine Lektion.</div>';
-      var td = x.tage && x.tage.length ? '<table><tr><th>Tag</th><th class="n">Min.</th><th class="n">Lekt.</th><th class="n">Antw.</th><th class="n">HA</th></tr>' + x.tage.map(function (t) { return '<tr><td>' + new Date(t.d + 'T12:00:00').toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</td><td class="n">' + fmt(t.min) + '</td><td class="n">' + fmt(t.les) + '</td><td class="n">' + fmt(t.ans) + '</td><td class="n">' + fmt(t.hw) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch keine Lernzeit.</div>';
-      var kv = [['Kind', x.kind || '–'], ['Klasse', x.klasse || '–'], ['Figur', nm(x.figur) || '–'], ['Traumberuf', nm(x.beruf) || '–'], ['Haustier', nm(x.haustier) || '–'], ['Level', x.level + ' · ' + fmt(x.ep) + ' EP'], ['Lektionen', fmt(x.lektionen) + (x.abenteuer ? ' (davon ' + fmt(x.abenteuer) + ' im Abenteuer)' : '')], ['Spiele gespielt', fmt(x.spiele)], ['Hausaufgaben', fmt(x.hausaufgaben)], ['Antworten', fmt(x.antworten) + (x.antworten ? ' · ' + x.richtig + ' % richtig' : '')], ['Lernzeit', fmt(x.minuten) + ' min an ' + fmt(x.aktivTage) + ' Tagen'], ['Anmeldungen', fmt(x.logins) + (x.letzterLogin ? ' · zuletzt ' + datum(x.letzterLogin) : '')], ['Besuche', fmt(x.besuche) + (x.letzterBesuch ? ' · zuletzt ' + datum(x.letzterBesuch) : '')], ['Abo', x.abo ? x.abo + (x.aboSeit ? ' seit ' + datum(x.aboSeit) : '') : 'Probe'], ['Eltern-Passwort', x.passwort ? 'gesetzt' : 'nein'], ['Konto erstellt', datum(x.erstellt)], ['Zuletzt aktiv', datum(x.aktiv)]];
-      return '<details class="acc' + (x.ben ? ' ben' : '') + '" data-e="' + esc(x.email) + '"><summary><span class="av">' + esc(init) + '</span><span class="who"><b>' + esc(x.kind || 'Noch kein Name') + (x.klasse ? ' · Klasse ' + esc(x.klasse) : '') + (x.ben ? ' · dein Konto' : '') + '</b><small>' + esc(x.email) + '</small></span>' +
-        '<span class="st"><small>Abo</small><b>' + (x.abo ? '<span class="pill">' + esc(x.abo) + '</span>' : '<span class="pill m">Probe</span>') + '</b></span><span class="st"><small>Lektionen</small><b>' + fmt(x.lektionen) + '</b></span><span class="st"><small>Lernzeit</small><b>' + fmt(x.minuten) + ' min</b></span><span class="st"><small>Anmeldungen</small><b>' + fmt(x.logins) + '</b></span><span class="st k"><small>Zuletzt aktiv</small><b>' + (x.letzterTag ? tag(x.letzterTag) : datum(x.aktiv)) + '</b></span><span class="chev">›</span></summary>' +
-        '<div class="accb"><div class="grid g3">' + card('Steckbrief', '', '<div class="kv">' + kv.map(function (r) { return '<span>' + esc(r[0]) + '</span><b>' + esc(r[1]) + '</b>'; }).join('') + '</div>') + card('Fächer', 'Lektionen geschafft', fa + (x.hwThemen && x.hwThemen.length ? sub('Hausaufgaben-Themen') + '<div class="kv" style="grid-template-columns:1fr">' + x.hwThemen.map(function (t) { return '<b>' + esc(t) + '</b>'; }).join('') + '</div>' : '')) + card('Letzte Tage', 'Lernzeit pro Tag', td) + '</div></div></details>';
-    };
-    h += '<div style="margin-top:6px">' + (echte.length ? echte.map(one).join('') : '<div class="grid">' + card('Konten', '', '<div class="empty">Noch keine Konten von Eltern.</div>') + '</div>') + '</div>';
-    if (ben.length) h += '<div class="sec">Deine eigenen Konten</div>' + ben.map(one).join('');
-    h += '<p class="lede">Anmeldungen und Besuche werden seit dem 6.11.2026, 14:40 Uhr pro Konto gezählt. Ein Besuch zählt neu, wenn 30 Minuten Pause dazwischen waren.</p>';
-    return h;
-  }
-
-  function vLive(d) {
-    var fd = (d.feed || []).filter(function (x) { return x.e !== 'Bildschirm'; }).map(function (x) { return '<div class="fe"><time>' + zeitHM(x.t) + '</time><div><b>' + esc(x.e) + '</b>' + (x.d ? ' · ' + esc(x.d) : '') + '<div class="m">' + esc([x.g, x.o, x.q, x.s ? '#' + x.s : ''].filter(Boolean).join(' · ')) + '</div></div></div>'; }).join('');
-    return '<div class="grid g21">' + card('Gerade passiert', 'letzte Ereignisse', '<div class="feed">' + (fd || '<div class="empty">Noch nichts passiert.</div>') + '</div>') + card('Alle Ereignisse', 'im Zeitraum', bars(d.events, 60)) + '</div>';
-  }
-
-  /* Führerschein: Landingpages grundschulmax.de, /internet-und-ki, /erstes-handy … bis zum bestandenen Führerschein */
-  function vFs(d) {
-    var F = d.fs; if (!F) return '<div class="empty">Noch keine Daten.</div>';
-    var P = F.trichter, f0 = P[0][1] || 0, g = function (l) { var x = P.find(function (y) { return y[0] === l; }); return x ? x[1] : 0; };
-    var h = '<div class="grid k6">' +
-      k(Q === 'gads' ? 'Über Google Ads gekommen' : 'Besuche Landingpage', fmt(f0), 'Aufrufe der Führerschein-Seiten') +
-      k('Sofort wieder weg', F.weg + ' %', fmt(F.kurz) + ' nach unter 10 Sekunden') +
-      k('Testlektion begonnen', fmt(g('Testlektion begonnen')), pc(g('Testlektion begonnen'), f0) + ' der Besuche') +
-      k('Zur Zahlung', fmt(g('Zur Zahlung geklickt')), pc(g('Zur Zahlung geklickt'), f0) + ' der Besuche') +
-      k('Gekauft', fmt(g('Gekauft')), pc(g('Gekauft'), f0) + ' der Besuche') +
-      k('Bestanden', fmt(g('Führerschein bestanden')), fmt(g('Kurs erstellt')) + ' Kurse erstellt') + '</div>';
-    var fr = '<div class="fun"><div class="fr fh"><div>Schritt</div><div class="bar"></div><div class="pc">vom Start</div><div class="dr">Absprung</div><div class="u"></div></div>';
-    P.forEach(function (x, i) {
-      var prev = i ? P[i - 1][1] : 0, drop = i && prev ? Math.max(0, Math.round((1 - x[1] / prev) * 100)) : 0, w = f0 ? Math.max(.6, Math.min(100, x[1] / f0 * 100)) : 0, up = i && prev && x[1] >= prev;
-      fr += '<div class="fr"><div class="lb" title="' + esc(x[0]) + '">' + esc(x[0]) + '</div><div class="bar"><i style="width:' + w + '%"></i><span' + (w < 14 ? ' class="o" style="left:calc(' + w + '% + 8px)"' : '') + '>' + fmt(x[1]) + '</span></div><div class="pc">' + (i ? pc(x[1], f0) : '100 %') + '</div><div class="dr' + (i && drop && !up ? '' : ' z') + '">' + (i ? (prev && !up ? '−' + drop + ' %' : '–') : '') + '</div><div class="u"></div></div>';
-    });
-    fr += '</div><p class="note">Ohne Cookie zählt jeder Seitenaufruf, mit Cookie zählt Neuladen innerhalb von 30 Minuten einmal. „Absprung“: Anteil, der vom Schritt davor nicht weiterkommt.</p>';
-    h += '<div class="grid g21">' + card('Vom Besuch zum Führerschein', P.length + ' Schritte', fr) + card('Wie lange sie bleiben', 'beim Verlassen der Seite', bars(F.verweil, 6) + sub('Woher') + bars(F.quellen, 6)) + '</div>';
-    var ft = F.fragen.length ? '<table><tr><th>Frage</th><th class="n">richtig</th><th class="n">falsch</th></tr>' + F.fragen.map(function (x) { return '<tr><td>' + esc(x[0]) + '</td><td class="n ok">' + fmt(x[1]) + '</td><td class="n">' + fmt(x[2]) + '</td></tr>'; }).join('') + '</table>' : '<div class="empty">Noch niemand hat die Testlektion gespielt.</div>';
-    h += '<div class="grid g3">' + card('Testlektion', 'Antworten pro Frage', ft + (F.ergebnis.length ? sub('Ergebnis am Ende') + bars(F.ergebnis, 4) : '')) +
-      card('Welche Landingpage', '', bars(F.seiten, 8) + sub('Geräte') + bars(F.geraete, 3)) +
-      card('Was sie sich ansehen', 'Bereiche, die im Bild waren', bars(F.bereiche, 12) + sub('Wie weit gescrollt') + bars(F.scroll, 4)) + '</div>';
-    h += '<div class="grid g3">' + card('Tarife', 'Zur Zahlung geklickt', bars(F.tarife, 6) + '<p class="note">Kästchen „volljährig“ vergessen: ' + fmt(F.fehlt) + '×</p>') +
-      card('Fragen im FAQ', 'aufgeklappt', bars(F.faq, 8) + '<p class="note">„i“ bei den Stimmen geöffnet: ' + fmt(F.info) + '×</p>') + card('Orte', 'nur mit Einwilligung', bars(F.orte, 8)) + '</div>';
-    var cols = [['b', 'Besuche'], ['w', 'Sofort weg'], ['s', 'Testlektion'], ['f', 'Test fertig'], ['z', 'Zur Zahlung'], ['k', 'Gekauft']];
-    var tt = F.tage.length ? '<div class="tw"><table><tr><th>Tag</th>' + cols.map(function (c) { return '<th class="n">' + c[1] + '</th>'; }).join('') + '</tr>' + F.tage.map(function (t) { var d0 = new Date(t[0] + 'T12:00:00'); return '<tr><td><b>' + d0.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit' }) + '</b></td>' + cols.map(function (c) { var v = t[1][c[0]] || 0; return '<td class="n' + (c[0] === 'k' && v ? ' ok' : '') + '">' + (v ? fmt(v) : '<span style="color:var(--dim)">–</span>') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
-    var st = F.sitzungen.length ? '<div class="tw"><table><tr><th>Start</th><th>Woher · Wo</th><th>Was</th><th class="n">Dauer</th></tr>' + F.sitzungen.map(function (s) { return '<tr><td>' + zeitHM(s.t) + '</td><td>' + esc([s.q, s.ort || 'Ort unbekannt', s.g].filter(Boolean).join(' · ')) + '</td><td>' + esc(s.was.join(', ') || 'nur angeschaut') + '</td><td class="n">' + dauer((Date.parse(s.bis) - Date.parse(s.t)) / 1000) + '</td></tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Besucher mit Cookie.</div>';
-    h += '<div class="grid">' + card('Tag für Tag', 'neuester Tag oben', tt) + '</div><div class="grid">' + card('Besucher mit Cookie', 'was sie gemacht haben', st) + '</div>';
-    return h;
-  }
-
   function draw(d) {
     D = d; tabs();
-    var V = { fs: vFs, ueber: vUeber, weg: vWeg, verh: vVerh, klick: vKlick, konten: vKonten, live: vLive }[T] || vUeber;
+    var V = { geld: vGeld, trichter: vTrichter, land: vLand, besuche: vBesuche, kunden: vKunden, live: vLive }[T];
     var np = d.nullpunkt ? new Date(d.nullpunkt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin' }) : '';
-    var op = [].map.call(document.querySelectorAll('details.acc[open]'), function (e) { return e.dataset.e; }), sy = window.scrollY;
-    $('#main').innerHTML = V(d) + (np ? '<p class="lede">' + (Q === 'fb' ? 'Nur Besucher, die über die Facebook- oder Instagram-Anzeige gekommen sind. ' : Q === 'gads' ? 'Nur Besucher, die über die Google-Anzeige gekommen sind. ' : 'Alle Besucher. ') + 'Gezählt ab ' + np + ' Uhr. Dein eigenes Konto zählt auf keinem Gerät mit.</p>' : '');
-    [].forEach.call(document.querySelectorAll('details.acc'), function (e) { if (op.indexOf(e.dataset.e) >= 0) e.open = true; }); if (op.length) window.scrollTo(0, sy);
-    $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.gesamt) + ' Ereignisse';
+    var sy = window.scrollY;
+    $('#main').innerHTML = V(d) + '<p class="lede">' + (T === 'geld' ? 'Geld-Seite zeigt immer alle Kanäle. ' : esc(KN[Q]) + '. ') + 'Gezählt ab ' + np + ' Uhr. Deine eigenen Geräte und Konten zählen nie mit. Ohne Cookie wird anonym gezählt; Anzeigen-Besuche sind trotzdem als solche erkennbar.</p>';
+    if (T === 'geld') bindKosten();
+    window.scrollTo(0, sy);
+    $('#stand').textContent = 'Stand ' + new Date(d.stand).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }) + ' · ' + fmt(d.x.gesamt) + ' Ereignisse';
   }
-  function dauer(s) { s = Math.round(+s || 0); return s < 60 ? s + ' s' : Math.floor(s / 60) + ' min ' + (s % 60) + ' s'; }
   load();
-  clearInterval(timer); timer = setInterval(function () { if (!document.hidden) load(); }, 60000);
+  setInterval(function () { if (!document.hidden && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('.ko'))) load(); }, 90000);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
 })();
 </script>
