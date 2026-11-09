@@ -356,6 +356,7 @@ export async function mountApp(parts) {
   }
   // Mein Bereich (nur Heute) und die festen Bereiche oben
   const SUBS = { me: ['', L('Mein Bereich', 'My space')], faecher: ['faecher', L('Fächer & Noten', 'Subjects & grades')], fortschritt: ['stats', L('Fortschritt', 'Progress')], stundenplan: ['plan', L('Stundenplan', 'Timetable')] };
+  if (a === 'faecher' && b) return page('fach:' + b, L('Fach', 'Subject'), async root => { const { render } = await import('./views/fach.js'); return render(root, { id: b }); });
   if (SUBS[a]) { const [sub, ttl] = SUBS[a]; return page('me:' + sub, ttl, async root => { const { render } = await import('./views/me.js'); return render(root, { sub, onLogin: () => openLogin({ title: L('Anmelden für deinen Bereich', 'Sign in for your space') }) }); }); }
   // Neuer Stoff: läuft gerade Upload/Kurzskript, zeigt das die Seite schon; direkt geöffnet (Neuladen, Link) → Upload-Seite
   // Kein Upload mehr aktiv (z. B. per Zurück-Taste oder nach Abbruch hierher): nicht auf der leeren Upload-Seite landen, sondern zurück in den Tutor

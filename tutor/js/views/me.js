@@ -349,9 +349,9 @@ function subjects(body) {
       : !rf.cards ? { t: L('Karteikarten erstellen', 'Create flashcards'), href: `#/app/${d0.id}/karten` }
       : { t: L('Quiz zur Kontrolle', 'Check yourself with a quiz'), href: `#/app/${d0.id}/quiz` };
     const fc = PAL[f.farbe]; const tone = BEN ? TONES[fi++ % TONES.length] : null;
-    grid.append(h('article', { class: 'me-sc' + (fc ? ' me-own' : ''), 'data-tone': tone, style: fc ? { '--c1': fc[0], '--c2': fc[1] } : null },
+    grid.append(h('article', { class: 'me-sc me-scopen' + (fc ? ' me-own' : ''), 'data-tone': tone, style: fc ? { '--c1': fc[0], '--c2': fc[1] } : null, onclick: e => { if (!e.target.closest('a, button, input, select')) location.hash = '#/app/faecher/' + f.id; } },
       h('div', { class: 'me-sch' }, f.icon ? h('span', { class: 'me-badge me-bico', html: ico(f.icon) }) : h('span', { class: 'me-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()), h('button', { class: 'iconbtn', type: 'button', 'aria-label': L('Bearbeiten', 'Edit'), html: ico('tune'), onclick: () => editFach(f) })),
-      h('h3', {}, f.name),
+      h('h3', {}, h('a', { class: 'me-sclink', href: '#/app/faecher/' + f.id }, f.name)),
       h('div', { class: 'me-scd' }, graded ? h('span', {}, L('Note ', 'Grade '), h('b', {}, N.fmt(+graded.note))) : dl == null ? h('span', { class: 'me-muted' }, L('Kein Klausurtermin', 'No exam date')) : dl < 0 ? h('span', { class: 'me-muted' }, L(`${M.artName(f.klausurArt)} vorbei`, `${M.artName(f.klausurArt)} over`)) : h('span', {}, h('b', {}, String(dl)), (dl === 1 ? L(' Tag bis ', ' day to ') : L(' Tage bis ', ' days to ')) + bisZu(f.klausurArt))),
       rf.hasData ? h('div', { class: 'me-rf' },
         h('div', { class: 'me-rft' }, h('span', {}, L('Prüfungsreife', 'Exam readiness')), h('b', {}, rf.score + ' %')),
@@ -359,7 +359,8 @@ function subjects(body) {
         h('small', { class: 'me-muted' }, rf.themen ? L(`${rf.fest} von ${rf.themen} Themen sitzen am Klausurtag sicher`, `${rf.fest} of ${rf.themen} topics will be secure on exam day`) : L('Lern Karten oder mach ein Quiz – dann sehe ich, was sitzt.', 'Study cards or take a quiz – then I can see what sticks.'))) : null,
       h('div', { class: 'me-scm' }, rf.due ? h('span', {}, L(`${rf.due} Karten fällig`, `${rf.due} cards due`)) : null, f.ects ? h('span', {}, f.ects + ' ECTS') : null,
         ...M.termineOf(f).filter(t => t.datum >= M.dayKey() && t.datum !== f.klausur).slice(0, 2).map(t => h('span', {}, M.artName(t.art) + ' ' + new Date(t.datum + 'T12:00').toLocaleDateString(LOCALE, { day: 'numeric', month: 'short' })))),
-      step ? h('a', { class: 'btn sm primary me-scstep', href: step.href }, step.t, h('span', { html: ico('right') })) : null,
+      h('a', { class: 'btn sm primary me-scstep me-scgo', href: '#/app/faecher/' + f.id }, f.plan ? L('Lernplan & Lernen', 'Plan & study') : L('Fach öffnen & Lernplan', 'Open & plan'), h('span', { html: ico('right') })),
+      step ? h('a', { class: 'btn sm me-scstep', href: step.href }, step.t, h('span', { html: ico('right') })) : null,
       dl != null && dl < 0 && !graded ? h('button', { class: 'btn sm', type: 'button', onclick: () => editNote({ name: f.name, ects: f.ects || '', fach: f.id }) }, L('Note eintragen', 'Add grade')) : null,
       h('div', { class: 'me-scdocs' }, ds.length ? ds.map(d => h('a', { class: 'chip', href: `#/app/${d.id}/hub` }, h('span', { html: ico('file') }), d.name.length > 26 ? d.name.slice(0, 25) + '…' : d.name))
         : h('button', { class: 'chip', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('plus') }), L('Skripte zuordnen', 'Assign slides')))));
@@ -475,7 +476,7 @@ function symbols(cur, onPick, getCol) {
   SYM.forEach(k => w.append(h('button', { type: 'button', 'data-v': k, html: ico(k), onclick: () => { onPick(k); paint(k); } })));
   paint(cur); w.recolor = () => { const c = PAL[getCol()] || PAL.blau; w.style.setProperty('--s1', c[0]); w.style.setProperty('--s2', c[1]); }; w.recolor(); return w;
 }
-async function editFach(f) {
+export async function editFach(f) {
   const isNew = !f; f = f ? JSON.parse(JSON.stringify(f)) : { name: '', kurz: '', klausur: '', ects: '', docs: [] };
   const name = h('input', { class: 'field', value: f.name, maxlength: 60, placeholder: L('Name, z. B. Kostenrechnung', 'Name, e.g. Cost accounting') });
   const kurz = h('input', { class: 'field', value: f.kurz || '', maxlength: 12, placeholder: L('Kürzel (optional), z. B. KLR', 'Short name (optional)') });
