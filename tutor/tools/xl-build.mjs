@@ -10,6 +10,10 @@
 //        tutor/tools/excel-vorlagen.html            → https://www.bwlmax.de/tools/excel-vorlagen
 //        tutor/tools/excel-vorlage-<id>.html (je Vorlage) → https://www.bwlmax.de/tools/excel-vorlage-<id>
 //      mit Eingaben, Beispielergebnissen und der kompletten Formel-Tabelle „So rechnet die Datei“.
+//   2b. bündelt den Excel-Trainer (tutor/tools/xl/trainer-seite.js + trainer-seite.css → tutor/tools/xl/xt-<hash>.js/.css) und schreibt
+//        tutor/tools/excel-trainer.html                → https://www.bwlmax.de/tools/excel-trainer
+//      (Lernpfad, Spickzettel und Testzahlen statisch; der Trainer selbst ist derselbe wie in der App, aber ohne Max und ohne App-JS).
+//      Testzahlen kommen aus tutor/tools/xl/trainer-pruefung.json (Playwright-Lauf außerhalb des Repos, /home/claude/w/tests-werkzeuge/trainer/).
 //   3. liest die Prüfzahlen aus tutor/tools/xl/pruefung.json (geschrieben vom Prüflauf außerhalb des Repos:
 //      LibreOffice-Neuberechnung, Python-Referenz, Dateiprüfung). Ohne diese Datei bricht das Skript ab – es werden nie Zahlen erfunden.
 //
@@ -28,20 +32,33 @@ const SITE = 'https://www.bwlmax.de';
 const { TEMPLATES, CATS } = await import(pathToFileURL(path.join(TUTOR, 'js/xl/templates.js')).href);
 const { show, deFormula, labelOf, sortRefs, bounds, colL, split } = await import(pathToFileURL(path.join(TUTOR, 'js/xl/core.js')).href);
 const E = await import(pathToFileURL(path.join(TUTOR, 'vendor/xlcalc@2.mjs')).href);
+const { LESSONS, LEVELS } = await import(pathToFileURL(path.join(TUTOR, 'js/xl/lessons.js')).href);
+const { keyset, CHEAT, CHEAT_NOTE_MAC, CHEAT_NOTE_WIN } = await import(pathToFileURL(path.join(TUTOR, 'js/xl/keys.js')).href);
+const TPF = path.join(XL, 'trainer-pruefung.json');
+if (!fs.existsSync(TPF)) throw new Error('tutor/tools/xl/trainer-pruefung.json fehlt – erst den Trainer-Testlauf ausführen (tests-werkzeuge/trainer).');
+const TP = JSON.parse(fs.readFileSync(TPF, 'utf8'));
 const PF = path.join(XL, 'pruefung.json');
 if (!fs.existsSync(PF)) throw new Error('tutor/tools/xl/pruefung.json fehlt – erst den Prüflauf ausführen.');
 const P = JSON.parse(fs.readFileSync(PF, 'utf8'));
 for (const t of TEMPLATES) if (!P.je[t.id]) throw new Error('Prüfzahlen fehlen für ' + t.id + ' – Prüflauf wiederholen.');
 
 // ---------- 1. Bundles ----------
-const old = fs.readdirSync(XL).filter(f => /^xl-[A-Za-z0-9]+\.(js|css)$/.test(f));
+const old = fs.readdirSync(XL).filter(f => /^(xl|xt)-[A-Za-z0-9]+\.(js|css)$/.test(f));
 const rj = await build({ absWorkingDir: TUTOR, entryPoints: ['tools/xl/seite.js'], bundle: true, format: 'esm', outdir: XL, entryNames: 'xl-[hash]',
   minify: true, metafile: true, external: ['/tutor/*'], target: ['es2020'], logLevel: 'warning', legalComments: 'none' });
 const jsFile = path.basename(Object.keys(rj.metafile.outputs).find(k => k.endsWith('.js')));
 const rc = await build({ absWorkingDir: TUTOR, entryPoints: ['tools/xl/seite.css'], bundle: false, minify: true, outdir: XL, entryNames: 'xl-[hash]', metafile: true, logLevel: 'warning', legalComments: 'none' });
 const cssFile = path.basename(Object.keys(rc.metafile.outputs).find(k => k.endsWith('.css')));
-for (const f of old) if (f !== jsFile && f !== cssFile) fs.unlinkSync(path.join(XL, f));
+const tj = await build({ absWorkingDir: TUTOR, entryPoints: ['tools/xl/trainer-seite.js'], bundle: true, format: 'esm', outdir: XL, entryNames: 'xt-[hash]',
+  minify: true, metafile: true, external: ['/tutor/*'], target: ['es2020'], logLevel: 'warning', legalComments: 'none' });
+const xtJs = path.basename(Object.keys(tj.metafile.outputs).find(k => k.endsWith('.js')));
+const tc = await build({ absWorkingDir: TUTOR, entryPoints: ['tools/xl/trainer-seite.css'], bundle: false, minify: true, outdir: XL, entryNames: 'xt-[hash]', metafile: true, logLevel: 'warning', legalComments: 'none' });
+const xtCss = path.basename(Object.keys(tc.metafile.outputs).find(k => k.endsWith('.css')));
+// Der Trainer darf kein App-JS mitbringen (nur tutor/js/xl/* und die Seite selbst)
+for (const k of Object.keys(tj.metafile.inputs)) if (!/^(js\/xl\/(trainer|grid|lessons|keys|dom|core)\.js|tools\/xl\/trainer-seite\.js)$/.test(k)) throw new Error('Unerwarteter Baustein im Trainer-Bundle: ' + k);
+for (const f of old) if (![jsFile, cssFile, xtJs, xtCss].includes(f)) fs.unlinkSync(path.join(XL, f));
 const JS = '/tutor/tools/xl/' + jsFile, CSS = '/tutor/tools/xl/' + cssFile;
+const XT_JS = '/tutor/tools/xl/' + xtJs, XT_CSS = '/tutor/tools/xl/' + xtCss;
 
 // ---------- Hilfen ----------
 const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -59,7 +76,7 @@ const TOP = `<div class="bmw-top">
 <button type="button" class="bmw-theme" id="bmw-theme" aria-pressed="false" aria-label="Dunkles Design einschalten" title="Dunkles Design einschalten"><svg class="bmw-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="bmw-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
 </div>`;
 const FOOT = '<footer>Bereitgestellt von BWL Max · <a href="/tutor/legal/impressum.html">Impressum</a> · <a href="/tutor/legal/datenschutz.html">Datenschutz</a></footer>';
-const head = ({ title, desc, canon, jsonld }) => `<!doctype html>
+const head = ({ title, desc, canon, jsonld, css2 }) => `<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
@@ -72,7 +89,7 @@ const head = ({ title, desc, canon, jsonld }) => `<!doctype html>
 <link rel="canonical" href="${canon}">
 <script type="application/ld+json">${ld(jsonld)}</script>
 <meta name="color-scheme" content="light">
-<link rel="stylesheet" href="${CSS}">
+<link rel="stylesheet" href="${CSS}">${css2 ? `\n<link rel="stylesheet" href="${css2}">` : ''}
 <link rel="stylesheet" href="/tutor/tools/bm-werkzeug.css?v=3">
 </head>
 <body>
@@ -306,6 +323,7 @@ function overview() {
 <p class="lead">${TEMPLATES.length} Excel-Vorlagen zu Standardrechnungen aus dem Studium – von Kapitalwert und Tilgungsplan über Zuschlagskalkulation und Plankostenrechnung bis zu Kapitalflussrechnung, ABC-Analyse und Preis-Absatz-Funktion. Jede Vorlage rechnet mit echten Excel-Formeln: blaue Felder ausfüllen, alles andere rechnet die Tabelle. Auf jeder Seite lässt sich die Vorlage im Browser ausprobieren und mit eigenen Werten herunterladen; alle Formeln sind dort offengelegt und erklärt.</p>
 <p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Dateien entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
 <ul class="xlw-facts" aria-label="Kurzinfo"><li><b>${TEMPLATES.length}</b> Vorlagen</li><li><b>${cats.length}</b> Bereiche</li><li><b>${nf(G.formelzellenVorlagen)}</b> Formeln offengelegt</li><li>Format .xlsx</li></ul>
+<p class="xlw-tr">Excel selbst lernen? Der kostenlose <a href="/tools/excel-trainer">Excel-Trainer</a> führt in ${LESSONS.length} Lektionen von der ersten Formel bis zu Kapitalwert und Tilgungsplan – mit echten Tastenkürzeln für Windows und Mac.</p>
 </header>
 
 <section id="vorlagen" aria-labelledby="h-vorlagen">
@@ -381,6 +399,130 @@ ${FOOT}
   return h;
 }
 
+// ---------- Excel-Trainer ----------
+function trainerPage() {
+  const canon = SITE + '/tools/excel-trainer';
+  const nSteps = LESSONS.reduce((a, l) => a + l.steps.length, 0), nMini = LESSONS.filter(l => l.steps.some(s => s.mini)).length;
+  const title = 'Excel-Trainer: Excel lernen mit BWL-Aufgaben – kostenlos im Browser';
+  const desc = `Kostenloser Excel-Trainer für Studierende: ${LESSONS.length} Lektionen in 3 Stufen, von der ersten Formel über SVERWEIS und WENN bis Kapitalwert und Tilgungsplan. Echte Tastenkürzel für Windows und Mac, sofortige Rückmeldung, ohne Anmeldung.`;
+  const jsonld = { '@context': 'https://schema.org', '@type': 'LearningResource', name: 'Excel-Trainer für BWL und Wirtschaftswissenschaften', description: desc, url: canon, inLanguage: 'de-DE', isAccessibleForFree: true,
+    learningResourceType: 'Interaktive Übung', educationalLevel: 'Hochschule', teaches: LEVELS.flatMap(l => l.can || []), dateModified: TP.stand, publisher: PUBLISHER };
+  const K = { win: keyset(false), mac: keyset(true) };
+  const kb = (ks, spec) => ks.keys(spec).map(k => `<kbd class="xk">${esc(k)}</kbd>`).join('+');
+  const cell = (ks, list) => list.map(sp => kb(ks, sp)).join(' <span class="small">oder</span> ');
+  const tpls = [...new Map(LESSONS.filter(l => l.tpl).map(l => [l.tpl[0], l])).values()];
+  for (const l of tpls) if (!TEMPLATES.some(t => t.id === l.tpl[0])) throw new Error('Lektion ' + l.id + ': Vorlage fehlt: ' + l.tpl[0]);
+  const tTitle = id => TEMPLATES.find(t => t.id === id).title;
+  const standT = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(TP.stand + 'T12:00:00Z'));
+  const W = TP.laeufe;
+  if (TP.entwurf) throw new Error('trainer-pruefung.json ist ein Entwurf – erst den Testlauf ausführen.');
+  let h = head({ title, desc, canon, jsonld, css2: XT_CSS });
+  h += `
+<header>
+<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Excel-Trainer</p>
+<h1>Excel-Trainer: Excel lernen mit BWL-Aufgaben</h1>
+<p class="lead">Ein Excel-Nachbau im Browser: Du tippst selbst, nutzt echte Tastenkürzel und bekommst zu jedem Schritt sofort Rückmeldung. ${LESSONS.length} Lektionen in drei Stufen führen von der ersten Formel über $-Bezüge, WENN und SVERWEIS bis zu Kapitalwert, Tilgungsplan und Deckungsbeitragsrechnung. Jede Lektion endet mit einer kleinen Aufgabe aus dem Wiwi-Studium.</p>
+<p class="small">Kostenlos, ohne Anmeldung. Der Trainer läuft komplett in deinem Browser, deine Eingaben werden nicht übertragen.</p>
+<ul class="xlw-facts" aria-label="Kurzinfo"><li><b>${LESSONS.length}</b> Lektionen</li><li><b>3</b> Stufen</li><li><b>${nSteps}</b> geprüfte Schritte</li><li>Kürzel für Windows und Mac</li></ul>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+<strong>Inhalt</strong>
+<ol>
+<li><a href="#trainer">Trainer starten</a></li>
+<li><a href="#lernpfad">Was du lernst</a></li>
+<li><a href="#spickzettel">Tastenkürzel-Spickzettel (Windows und Mac)</a></li>
+<li><a href="#so-gehts">So funktioniert der Trainer</a></li>
+<li><a href="#vorlagen">Passende Excel-Vorlagen</a></li>
+<li><a href="#getestet">So haben wir getestet</a></li>
+<li><a href="#vertrauen">Darauf kannst du dich verlassen</a></li>
+</ol>
+</nav>
+
+<section id="trainer" aria-labelledby="h-trainer">
+<h2 id="h-trainer">Trainer</h2>
+<div class="xt-mount" id="xt-app">
+<p class="xlw-nojs">Der Trainer braucht JavaScript. Ohne JavaScript siehst du unten den Lernpfad und den Spickzettel.</p>
+</div>
+</section>
+
+<section id="lernpfad" aria-labelledby="h-lernpfad">
+<h2 id="h-lernpfad">Was du lernst</h2>
+<p>Drei Stufen mit je fünf bis sechs Lektionen. Jeder Schritt wird am echten Zustand der Tabelle geprüft – zählt also nur, wenn Werte, Formeln oder Formate wirklich stimmen und, wo es ums Kürzel geht, das Kürzel auch benutzt wurde.</p>
+<ul class="xtp-path">
+${LEVELS.map(lv => `<li style="--lc:${lv.col}"><span class="xtp-lvn" style="color:${lv.col}">Stufe ${lv.n}</span><h3>${esc(lv.title)}</h3><p class="small">${esc(lv.sub)}</p>
+<ol>${LESSONS.filter(l => l.lvl === lv.n).map(l => `<li><a href="#lektion-${l.id}">${esc(l.title)}</a>${l.challenge ? ' (Challenge)' : ''}<br><small>${esc(l.desc)}</small></li>`).join('')}</ol>
+<p class="small"><b>Danach kannst du:</b></p><ul>${(lv.can || []).map(c => `<li>${esc(c)}</li>`).join('')}</ul></li>`).join('\n')}
+</ul>
+</section>
+
+<section id="spickzettel" aria-labelledby="h-spickzettel">
+<h2 id="h-spickzettel">Tastenkürzel-Spickzettel</h2>
+<p>Die wichtigsten Excel-Kürzel aus dem Trainer – links für das deutsche Excel unter Windows, rechts für Excel am Mac. <button type="button" class="xtp-print noprint" id="xt-print" hidden>Spickzettel drucken</button></p>
+<div class="tw"><table class="dec xtp-keys">
+<caption class="xlw-sr">Excel-Tastenkürzel für Windows und Mac</caption>
+<thead><tr><th scope="col">Aktion</th><th scope="col">Windows</th><th scope="col">Mac</th></tr></thead>
+<tbody>
+${CHEAT.map(([a, w, m]) => `<tr><td>${esc(a)}</td><td>${cell(K.win, w)}</td><td>${cell(K.mac, m)}</td></tr>`).join('\n')}
+</tbody></table></div>
+<p class="small">${esc(CHEAT_NOTE_WIN)}</p>
+<p class="small">${esc(CHEAT_NOTE_MAC)}</p>
+</section>
+
+<section id="so-gehts" aria-labelledby="h-so-gehts">
+<h2 id="h-so-gehts">So funktioniert der Trainer</h2>
+<ul>
+<li><b>Selbst machen statt zuschauen:</b> Die Aufgabe steht rechts, die Zielzelle ist gelb markiert. Du klickst, tippst und nutzt Kürzel wie im echten Excel – mit Formeln auf Deutsch (<code>SUMME</code>, <code>WENN</code>, <code>SVERWEIS</code>) und Semikolon als Trennzeichen.</li>
+<li><b>Sofortige Rückmeldung:</b> Typische Fehler (Ergebnis eingetippt statt Formel, Klammer vergessen, Bedingung vertauscht, falsche Zelle) erkennt der Trainer und sagt, was nicht stimmt. Bei Bedarf gibt es einen Tipp oder die Lösung.</li>
+<li><b>BWL-Bezug:</b> Jede Lektion endet mit einer Mini-Aufgabe aus dem Studium – Bruttobetrag, gewogener Durchschnitt, Zielerreichung, CAGR, Investitionsentscheidung, Programmentscheidung.</li>
+<li><b>Sterne und Fortschritt:</b> Drei Sterne gibt es ohne Tipp und mit höchstens einem Fehlversuch. Der Fortschritt bleibt nur in diesem Browser gespeichert (lokaler Speicher, kein Cookie) und lässt sich jederzeit löschen.</li>
+<li><b>Am besten am Laptop oder PC:</b> Viele Schritte üben Tastenkürzel. Auf dem Handy lassen sich die Lektionen ansehen und antippen, Kürzel-Schritte aber nur mit „Lösung zeigen“ abschließen.</li>
+<li><b>Grenzen:</b> Der Trainer ist ein eigener Nachbau für die Übungen, kein vollständiges Excel. Er rechnet die Funktionen aus den Lektionen und meldet ehrlich, wenn er eine Funktion nicht kennt.</li>
+</ul>
+</section>
+
+<section id="vorlagen" aria-labelledby="h-vorlagen">
+<h2 id="h-vorlagen">Passende Excel-Vorlagen</h2>
+<p>Mehrere Lektionen bauen eine Rechnung nach, die es auch als fertige, geprüfte Excel-Vorlage gibt – mit allen Formeln offengelegt:</p>
+<ul class="xtp-tpl">
+${tpls.map(l => `<li><a href="${url(l.tpl[0])}">${esc(tTitle(l.tpl[0]))}</a> <span class="small">– zur Lektion „${esc(l.title)}“</span></li>`).join('\n')}
+</ul>
+<p><a href="/tools/excel-vorlagen">Alle ${TEMPLATES.length} Excel-Vorlagen im Überblick</a></p>
+</section>
+
+<section id="getestet" aria-labelledby="h-getestet">
+<h2 id="h-getestet">So haben wir getestet</h2>
+<p>Automatischer Testlauf vom ${standT} in ${esc(TP.browser)}, mit echten Tastatur- und Mauseingaben wie bei einer Nutzerin oder einem Nutzer.</p>
+<ul class="xlw-check">
+<li><b>2 komplette Durchläufe · ${W.windows.lektionen + W.mac.lektionen} Lektionen · ${nf(W.windows.schritte + W.mac.schritte)} Schritte</b><span>Alle ${LESSONS.length} Lektionen mit allen ${nSteps} Schritten zweimal durchgespielt: einmal mit den Windows-Kürzeln, einmal mit den Mac-Kürzeln.</span></li>
+<li><b>${nf(TP.falscheEingaben)} falsche Eingaben · ${nf(TP.falschGewertet)} fälschlich als richtig gewertet</b><span>Zum Beispiel Ergebnis statt Formel, vergessene Klammer, vertauschte Bedingung, falsche Zelle, Punkt statt Komma. Jede wurde abgelehnt, ${TP.mitHinweis === TP.falscheEingaben ? 'jede' : nf(TP.mitHinweis) + ' davon'} mit einem passenden Hinweis.</span></li>
+<li><b>${nf(TP.referenzwerte)} Ergebniswerte · ${nf(TP.referenzAbweichungen)} Abweichungen</b><span>Die Werte in der Tabelle nach jeder Lektion mit einer unabhängigen Python-Rechnung verglichen, in beiden Durchläufen (${nf(TP.referenzVergleiche)} Vergleiche) – z. B. Kapitalwert, interner Zinsfuß, Annuität, Tilgungsplan, CAGR.</span></li>
+<li><b>${TP.ansichten} Ansichten · ${nf(TP.konsolenfehler)} Fehler · ${nf(TP.fremdeRequests)} externe Anfragen</b><span>Darstellung bei ${TP.breiten.join(', ')} Pixel Breite in hellem und dunklem Design geprüft. Die Seite lädt nichts von fremden Servern.</span></li>
+</ul>
+<p class="small">Andere Browser (Safari, Firefox) waren nicht Teil des automatischen Laufs. Einige Kürzel belegt der Browser selbst – dafür nennt der Trainer Ersatzkürzel (siehe Spickzettel).</p>
+</section>
+
+<section class="bmw-trust" id="vertrauen" aria-labelledby="h-vertrauen">
+<h2 id="h-vertrauen">Darauf kannst du dich verlassen</h2>
+<ul>
+<li><b>Läuft nur in deinem Browser</b><span>Tabelle, Prüfung und Rückmeldungen laufen auf deinem Gerät. Deine Eingaben werden nicht übertragen. Keine Anmeldung, keine Cookies, keine Werbung.</span></li>
+<li><b>Fortschritt nur lokal</b><span>Erledigte Lektionen und Sterne speichert der Browser im lokalen Speicher dieses Geräts – nicht bei uns. Ein Klick auf „Fortschritt löschen“ entfernt sie.</span></li>
+<li><b>Getestet</b><span>Alle Lektionen komplett mit Windows- und mit Mac-Kürzeln durchgespielt, ${nf(TP.falscheEingaben)} falsche Eingaben, ${nf(TP.referenzwerte)} Werte in Python nachgerechnet – Details unter <a href="#getestet">So haben wir getestet</a>.</span></li>
+<li><b>Fehler gefunden?</b><span>Schreib uns an <a href="mailto:kontakt@bwlmax.de">kontakt@bwlmax.de</a> – wir korrigieren schnell.</span></li>
+</ul>
+<p class="bmw-stand">Stand: ${standT} · Anonyme Aufrufzählung ohne Cookies (nur Seite und verweisende Website).</p>
+</section>
+
+<p class="xlw-tm">Der Excel-Trainer ist ein eigener Nachbau von BWL Max – keine Microsoft-Software. ${TM}</p>
+${FOOT}
+</div>
+<script type="module" src="${XT_JS}"></script>
+</body>
+</html>
+`;
+  return h;
+}
+
 // ---------- schreiben ----------
 const want = new Set(['excel-vorlagen.html', ...TEMPLATES.map(t => 'excel-vorlage-' + t.id + '.html')]);
 for (const f of fs.readdirSync(TOOLS)) if (/^excel-vorlage-[a-z0-9-]+\.html$/.test(f) && !want.has(f)) fs.unlinkSync(path.join(TOOLS, f));
@@ -389,4 +531,5 @@ for (const t of TEMPLATES) {
   fs.writeFileSync(path.join(TOOLS, 'excel-vorlage-' + t.id + '.html'), detail(t));
 }
 fs.writeFileSync(path.join(TOOLS, 'excel-vorlagen.html'), overview());
-console.log('Excel-Vorlagen:', TEMPLATES.length + 1, 'Seiten ·', JS, '·', CSS);
+fs.writeFileSync(path.join(TOOLS, 'excel-trainer.html'), trainerPage());
+console.log('Excel-Vorlagen:', TEMPLATES.length + 1, 'Seiten ·', JS, '·', CSS, '· Excel-Trainer:', XT_JS, '·', XT_CSS);

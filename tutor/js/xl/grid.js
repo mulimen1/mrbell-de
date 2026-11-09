@@ -1,14 +1,20 @@
 // Excel-Nachbau für den Excel-Trainer: Zellen, Formeln (deutsch wie im deutschen Excel), echte Tastenkürzel,
 // Zeigen mit Maus/Pfeilen beim Formel-Tippen, F4, Ausfüllen (Strg+D/R, Ausfüllkästchen, Doppelklick), Kopieren/Einfügen,
 // AutoSumme, Formate, Rückgängig. Gerechnet wird mit derselben Engine wie bei den Vorlagen.
-import { h } from '../util.js';
+// SVERWEIS, XVERWEIS und SUMMEWENN rechnet die Engine nicht selbst: Der Trainer übersetzt sie vor dem Rechnen
+// in gleichwertige INDEX/VERGLEICH- bzw. SUMMEWENNS-Formeln (lower). In der Zelle steht weiter die Original-Formel.
+import { h } from './dom.js';
 import { DE, colL, colN, split, deFormula } from './core.js';
 
 export const MAC = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent || '');
-const EN = Object.fromEntries(Object.entries(DE).map(([e, d]) => [d, e]));
-const NOT_EN = new Set(Object.keys(DE).filter(k => DE[k] !== k));   // englische Namen, die es im deutschen Excel anders heißt
+// Funktionsnamen: wie in core.js, dazu die Nachschlagefunktionen, die nur der Trainer kennt (core.js bleibt für die Vorlagen unverändert)
+const DE2 = Object.assign({}, DE, { VLOOKUP: 'SVERWEIS', XLOOKUP: 'XVERWEIS', HLOOKUP: 'WVERWEIS', LOOKUP: 'VERWEIS' });
+const EN = Object.fromEntries(Object.entries(DE2).map(([e, d]) => [d, e]));
+const NOT_EN = new Set(Object.keys(DE2).filter(k => DE2[k] !== k));   // englische Namen, die es im deutschen Excel anders heißt
 const nf = d => new Intl.NumberFormat('de-DE', { minimumFractionDigits: d, maximumFractionDigits: d });
-const nfg = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 4 });
+const nfg = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 4, useGrouping: false });   // Excel-Standardformat: ohne Tausenderpunkte
+// Echte Excel-Funktionen, die der Trainer nicht rechnet (für eine ehrliche Meldung statt „vertippt?“)
+const REAL_FN = new Set(['DATUM', 'DATE', 'HEUTE', 'TODAY', 'JETZT', 'NOW', 'JAHR', 'YEAR', 'MONAT', 'MONTH', 'TAG', 'DAY', 'TAGE', 'DAYS', 'DATEDIF', 'EDATUM', 'EDATE', 'MONATSENDE', 'EOMONTH', 'NETTOARBEITSTAGE', 'NETWORKDAYS', 'ARBEITSTAG', 'WORKDAY', 'BRTEILJAHRE', 'YEARFRAC', 'WVERWEIS', 'HLOOKUP', 'VERWEIS', 'LOOKUP', 'TEXT', 'LINKS', 'LEFT', 'RECHTS', 'RIGHT', 'TEIL', 'MID', 'LÄNGE', 'LEN', 'GLÄTTEN', 'TRIM', 'GROSS', 'UPPER', 'KLEIN', 'LOWER', 'TEXTVERKETTEN', 'TEXTJOIN', 'VERKETTEN', 'CONCAT', 'WENNS', 'IFS', 'ERSTERWERT', 'SWITCH', 'WENNNV', 'IFNA', 'ANZAHLLEEREZELLEN', 'COUNTBLANK', 'MITTELWERTWENNS', 'AVERAGEIFS', 'MAXWENNS', 'MAXIFS', 'MINWENNS', 'MINIFS', 'RANG', 'RANK', 'RANG.GLEICH', 'RANK.EQ', 'QUANTIL', 'PERCENTILE', 'KÜRZEN', 'TRUNC', 'VRUNDEN', 'MROUND', 'FILTER', 'SORTIEREN', 'SORT', 'EINDEUTIG', 'UNIQUE', 'SEQUENZ', 'SEQUENCE', 'BEREICH.VERSCHIEBEN', 'OFFSET', 'INDIREKT', 'INDIRECT', 'ZEILE', 'ROW', 'SPALTE', 'COLUMN', 'ISTZAHL', 'ISNUMBER', 'ISTFEHLER', 'ISERROR', 'ISTLEER', 'ISBLANK', 'XODER', 'XOR', 'ZUFALLSZAHL', 'RAND', 'ZUFALLSBEREICH', 'RANDBETWEEN', 'GDA', 'GDA2', 'DIA', 'VDB', 'ZINSZ', 'KAPZ', 'ZZR', 'ZINS', 'ZW', 'BW', 'QIKV', 'XINTZINSFUSS', 'XIRR', 'XKAPITALWERT', 'XNPV', 'MITTELWERTWENN', 'AVERAGEIF', 'TEILERGEBNIS', 'SUBTOTAL', 'AGGREGAT', 'AGGREGATE']);
 
 // ---------- Formeln: Eingabe (deutsch oder englisch) → interne englische Schreibweise ----------
 const REF_RE = /^\$?[A-Za-z]{1,2}\$?\d{1,4}(?![A-Za-z0-9(])/;
@@ -35,7 +41,62 @@ export function toEN(src) {
   }
   return out;
 }
-export const toDE = f => deFormula('=' + f);
+// Anzeige wie im deutschen Excel: Funktionsnamen deutsch, Semikolon, Dezimalkomma, WAHR/FALSCH
+export const toDE = f => { const d = deFormula('=' + f); let out = '', i = 0; while (i < d.length) { if (d[i] === '"') { const j = d.indexOf('"', i + 1); const k = j < 0 ? d.length : j + 1; out += d.slice(i, k); i = k; continue; } const fn = /^(VLOOKUP|XLOOKUP|HLOOKUP|LOOKUP)(?=\()/.exec(d.slice(i)); if (fn && !/[A-Z0-9_.$]/.test(d[i - 1] || '')) { out += DE2[fn[1]]; i += fn[1].length; continue; } const m = /^(TRUE|FALSE)(?![A-Z0-9_.(])/.exec(d.slice(i)); if (m && !/[A-Z0-9_.$]/.test(d[i - 1] || '')) { out += m[1] === 'TRUE' ? 'WAHR' : 'FALSCH'; i += m[1].length; continue; } out += d[i]; i++; } return out; };
+
+// ---------- Nachschlage- und Bedingungsfunktionen, die die Engine nicht (richtig) kann ----------
+// SVERWEIS(x; A2:C7; 3; FALSCH) → INDEX(A2:C7; VERGLEICH(x; A2:A7; 0); 3)   (WAHR/fehlt → VERGLEICH-Typ 1 = nächstkleinerer Wert)
+// XVERWEIS(x; Such; Rück[; nicht_gefunden]) → INDEX(Rück; VERGLEICH(x; Such; 0)) [mit WENNFEHLER für „nicht gefunden“]
+// SUMMEWENN(Bereich; Kriterium[; Summe_Bereich]) → SUMMEWENNS(Summe_Bereich; Bereich; Kriterium)
+const RANGE_RE = /^\$?([A-Z]{1,2})\$?(\d+):\$?([A-Z]{1,2})\$?(\d+)$/, CELL_RE = /^\$?([A-Z]{1,2})\$?(\d+)$/;
+export class LowerError extends Error {}
+function splitArgs(s) { const out = []; let d = 0, q = false, cur = ''; for (const ch of s) { if (ch === '"') q = !q; if (!q && ch === '(') d++; if (!q && ch === ')') d--; if (!q && d === 0 && ch === ',') { out.push(cur); cur = ''; continue; } cur += ch; } out.push(cur); return out; }
+export function lower(f) {
+  let out = '', i = 0;
+  while (i < f.length) {
+    if (f[i] === '"') { const j = f.indexOf('"', i + 1); const k = j < 0 ? f.length : j + 1; out += f.slice(i, k); i = k; continue; }
+    const m = /^(VLOOKUP|XLOOKUP|SUMIF)\(/.exec(f.slice(i));
+    if (m && !/[A-Z0-9_.$]/.test(f[i - 1] || '')) {
+      let d = 0, q = false, j = i + m[1].length;
+      for (; j < f.length; j++) { const ch = f[j]; if (ch === '"') q = !q; if (q) continue; if (ch === '(') d++; else if (ch === ')') { d--; if (!d) break; } }
+      if (j >= f.length) throw new LowerError('Da fehlt eine Klammer zu.');
+      const a = splitArgs(f.slice(i + m[1].length + 1, j)).map(x => lower(x.trim()));
+      out += lowerCall(m[1], a); i = j + 1; continue;
+    }
+    out += f[i]; i++;
+  }
+  return out;
+}
+function lowerCall(n, a) {
+  if (n === 'VLOOKUP') {
+    if (a.length < 3 || a.length > 4 || a.some(x => !x)) throw new LowerError('SVERWEIS braucht 3 oder 4 Angaben: Suchwert; Tabelle; Spalte; FALSCH');
+    const R = RANGE_RE.exec(a[1]); if (!R) throw new LowerError('Bei SVERWEIS muss die Tabelle ein Bereich sein, z. B. A2:C7.');
+    const first = R[1] + R[2] + ':' + R[1] + R[4];
+    const mt = a.length < 4 || /^(TRUE|1)$/.test(a[3]) ? '1' : /^(FALSE|0)$/.test(a[3]) ? '0' : 'IF(' + a[3] + ',1,0)';
+    return 'INDEX(' + a[1] + ',MATCH(' + a[0] + ',' + first + ',' + mt + '),' + a[2] + ')';
+  }
+  if (n === 'XLOOKUP') {
+    if (a.length < 3 || a.length > 4 || a.slice(0, 3).some(x => !x)) throw new LowerError(a.length > 4 ? 'Vergleichs- und Suchmodus von XVERWEIS kann der Trainer nicht – nimm drei oder vier Angaben: Suchwert; Suchbereich; Rückgabebereich; wenn nicht gefunden' : 'XVERWEIS braucht mindestens 3 Angaben: Suchwert; Suchbereich; Rückgabebereich');
+    const base = 'INDEX(' + a[2] + ',MATCH(' + a[0] + ',' + a[1] + ',0))';
+    return a.length === 4 && a[3] ? 'IFERROR(' + base + ',' + a[3] + ')' : base;
+  }
+  // SUMIF
+  if (a.length < 2 || a.length > 3 || !a[0] || !a[1]) throw new LowerError('SUMMEWENN braucht 2 oder 3 Angaben: Bereich; Kriterium; Summe_Bereich');
+  let sr = a[2] || a[0];
+  const R = RANGE_RE.exec(a[0]) || (CELL_RE.exec(a[0]) && [a[0], CELL_RE.exec(a[0])[1], CELL_RE.exec(a[0])[2], CELL_RE.exec(a[0])[1], CELL_RE.exec(a[0])[2]]);
+  const S = RANGE_RE.exec(sr) || (CELL_RE.exec(sr) && [sr, CELL_RE.exec(sr)[1], CELL_RE.exec(sr)[2], CELL_RE.exec(sr)[1], CELL_RE.exec(sr)[2]]);
+  if (R && S) {   // wie Excel: Summe_Bereich bekommt die Größe des Bereichs (ab seiner linken oberen Zelle)
+    const h0 = +R[4] - +R[2], w0 = colN(R[3]) - colN(R[1]);
+    sr = S[1] + S[2] + ':' + colL(colN(S[1]) + w0) + (+S[2] + h0);
+  }
+  return 'SUMIFS(' + sr + ',' + a[0] + ',' + a[1] + ')';
+}
+const lowerCells = cells => { const ec = {}; for (const [k, c] of Object.entries(cells)) { if (c.f != null) { let f; try { f = lower(c.f); } catch (e) { f = '1+"x"'; } ec[k] = { f }; } else if (c.v != null && c.v !== '') ec[k] = { v: c.v }; } return ec; };
+// Nicht gefunden: Die Engine meldet bei VERGLEICH #WERT!, Excel zeigt #NV
+const LOOKUP_RE = /^(VLOOKUP|XLOOKUP|MATCH|INDEX\(.*MATCH)\(/;
+// Formel-Ergebnis übernimmt das €-Format der ersten Zelle, auf die sie zeigt (wie Excel) – nicht bei Zähl-/Such-/Zinsfunktionen
+const NO_FMT = /^(COUNT|COUNTA|COUNTIF|COUNTIFS|MATCH|IRR|RATE|NPER|ROWS|COLUMNS)\(/;
+const firstRef = f => { const s = String(f).replace(/"[^"]*"/g, '""'); const m = /(?:^|[^A-Z0-9_.$])\$?([A-Z]{1,2})\$?(\d+)(?![A-Z0-9(])/.exec(s); return m ? m[1] + m[2] : null; };
 // Bezüge beim Kopieren/Ausfüllen verschieben ($ bleibt fest)
 export function shiftF(f, dr, dc) {
   let out = '', i = 0;
@@ -78,6 +139,7 @@ export function parseRaw(raw) {
   let s = t.replace(/\s/g, ''), fmt; if (/€$/.test(s)) { fmt = 'eur'; s = s.replace(/€$/, ''); } let pct = false; if (/%$/.test(s)) { pct = true; s = s.replace(/%$/, ''); }
   if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g, '');
   s = s.replace(',', '.');
+  if (/^-?\d+\.\d{1,2}$/.test(t.replace(/\s|€|%/g, ''))) return { v: t, dot: true };   // „1.50“: im deutschen Excel keine Zahl (Komma!) – bleibt Text
   if (/^-?\d+(\.\d+)?$/.test(s)) { const n = +s; return pct ? { v: n / 100, fmt: 'pct' } : { v: n, fmt }; }
   return { v: t };
 }
@@ -101,7 +163,7 @@ export class Grid {
   constructor({ E, cols, rows, widths, cells = {}, onEvent }) {
     this.E = E; this.cols = cols; this.rows = rows; this.onEvent = onEvent || (() => {});
     this.cells = {}; this.values = {}; this.log = []; this.undoS = []; this.clip = null; this.edit = null;
-    this.act = 'A1'; this.anc = 'A1'; this.target = null;
+    this.act = 'A1'; this.anc = 'A1'; this.target = null; this.tabCol = null;
     for (const [ref, x] of Object.entries(cells)) this.put(ref, x);
     this.build(widths || []); this.recalc();
   }
@@ -117,8 +179,9 @@ export class Grid {
     if (/^[=+]/.test(raw) && raw.length > 1) { c.f = toEN(raw); c.raw = toDE(c.f); }
     else { const p = parseRaw(raw); c.v = p.v; if (p.fmt && !c.fmt) c.fmt = p.fmt; }
   }
-  // Für „Zeig’s mir“: Zelle setzen wie getippt
-  setRaw(ref, raw) { if (this.edit) this.endEdit(); this.snap(); this.setRawIn(ref, String(raw)); this.recalc(); this.emit({ t: 'commit', ref, raw: String(raw), how: 'solve', f: this.fx(ref) }); }
+  // Für „Zeig’s mir“: Zelle setzen wie getippt (inkl. Format-Übernahme wie beim Tippen)
+  setRaw(ref, raw) { if (this.edit) this.endEdit(); this.snap(); const before = this.cells[ref] && this.cells[ref].fmt; this.setRawIn(ref, String(raw)); this.inherit(ref, before); this.recalc(); this.emit({ t: 'commit', ref, raw: String(raw), how: 'solve', f: this.fx(ref) }); }
+  inherit(ref, before) { const c = this.cells[ref]; if (!c || !c.f || before || NO_FMT.test(c.f)) return; const first = firstRef(c.f); const fc = first && this.cells[first]; if (fc && fc.fmt === 'eur') c.fmt = 'eur'; }
   // ---- Abfragen für die Lektionen ----
   v(ref) { const x = this.values[ref]; return x === undefined ? (this.cells[ref] ? this.cells[ref].v : undefined) : x; }
   raw(ref) { return this.cells[ref] ? this.cells[ref].raw || '' : ''; }
@@ -130,12 +193,12 @@ export class Grid {
   get range() { const R = this.rect; const a = colL(R.c1) + R.r1, b = colL(R.c2) + R.r2; return a === b ? a : a + ':' + b; }
   get editing() { return !!this.edit; }
   emit(ev) { this.log.push(ev); this.onEvent(ev); }
-  recalc() {
-    const ec = {}; for (const [k, c] of Object.entries(this.cells)) { if (c.f != null) ec[k] = { f: c.f }; else if (c.v != null && c.v !== '') ec[k] = { v: c.v }; }
-    let r; try { r = this.E.evaluate(ec); } catch (e) { r = { values: {}, errors: [] }; }
-    this.values = r.values; this.render();
+  evaluate(cells) {
+    let r; try { r = this.E.evaluate(lowerCells(cells)); } catch (e) { r = { values: {}, errors: [] }; }
+    for (const [k, c] of Object.entries(cells)) { const v = r.values[k]; if (c.f != null && v && typeof v === 'object' && v.error === '#VALUE!' && LOOKUP_RE.test(c.f)) r.values[k] = { error: '#N/A' }; }
     return r;
   }
+  recalc() { const r = this.evaluate(this.cells); this.values = r.values; this.render(); return r; }
   snap() { this.undoS.push(JSON.stringify(this.cells)); if (this.undoS.length > 60) this.undoS.shift(); }
   undo() { const s = this.undoS.pop(); if (!s) return; this.cells = JSON.parse(s); this.recalc(); this.emit({ t: 'undo' }); }
 
@@ -151,9 +214,10 @@ export class Grid {
     this.inner = h('div', { class: 'xt-inner' }, t, this.refLayer, this.tgt, this.ants, this.prev, this.selBox);
     this.scroll = h('div', { class: 'xt-scroll' }, this.inner);
     this.nameBox = h('span', { class: 'xt-nb' }, 'A1'); this.fxBox = h('div', { class: 'xt-fx' });
-    this.msg = h('div', { class: 'xt-msg', hidden: true });
-    this.el = h('div', { class: 'xt-grid', tabindex: 0, 'aria-label': 'Tabelle – Pfeiltasten zum Bewegen, tippen zum Eingeben' },
-      h('div', { class: 'xt-fbar' }, this.nameBox, h('i', {}, 'fx'), this.fxBox), this.scroll, this.msg);
+    this.msg = h('div', { class: 'xt-msg', hidden: true, role: 'status' });
+    this.sr = h('div', { class: 'xt-sr', 'aria-live': 'polite', 'aria-atomic': 'true' });
+    this.el = h('div', { class: 'xt-grid', tabindex: 0, role: 'application', 'aria-roledescription': 'Tabelle', 'aria-label': 'Tabelle. Pfeiltasten bewegen, tippen schreibt in die markierte Zelle, Enter bestätigt.' },
+      h('div', { class: 'xt-fbar' }, this.nameBox, h('i', { 'aria-hidden': 'true' }, 'fx'), this.fxBox), this.scroll, this.msg, this.sr);
     this.table = t; this.bind();
   }
   render() {
@@ -190,10 +254,12 @@ export class Grid {
     refsIn(this.edit.input.value).forEach((x, i) => { const A = split(x.a), B = split(x.b); if (!A || !B) return; const b = this.box(Math.min(A.r, B.r), Math.min(A.c, B.c), Math.max(A.r, B.r), Math.max(A.c, B.c)); if (!b) return; const d = h('div', { class: 'xt-ref' }); d.style.setProperty('--rc', COL[i % COL.length]); this.place(d, b); this.refLayer.append(d); });
   }
   setTarget(t) { this.target = t || null; this.paintSel(); }
+  // Für Screenreader: aktive Zelle mit Inhalt ansagen
+  say() { clearTimeout(this._st); this._st = setTimeout(() => { const c = this.cells[this.act]; const v = c ? (c.f != null ? this.values[this.act] : c.v) : undefined; const t = display(v, c && c.fmt); this.sr.textContent = (this.range.includes(':') ? 'Markiert ' + this.range.replace(':', ' bis ') + '. Aktiv ' : '') + this.act + ': ' + (t || 'leer') + (c && c.f ? ', Formel ' + c.raw : ''); }, 160); }
   showMsg(t, kind) { this.msg.textContent = t || ''; this.msg.hidden = !t; this.msg.className = 'xt-msg' + (kind ? ' ' + kind : ''); clearTimeout(this._mt); if (t) this._mt = setTimeout(() => { this.msg.hidden = true; }, 4200); }
   focus() { if (this.edit) this.edit.input.focus(); else this.el.focus({ preventScroll: true }); }
   select(ref, anc, how = 'set') {
-    this.act = ref; this.anc = anc || ref; this.paintSel();
+    this.act = ref; this.anc = anc || ref; if (how !== 'tab') this.tabCol = null; this.paintSel(); this.say();
     const td = this.td[ref]; if (td) { const s = this.scroll, o = s.getBoundingClientRect(), r = td.getBoundingClientRect(); if (r.bottom > o.bottom) s.scrollTop += r.bottom - o.bottom + 4; else if (r.top < o.top + 26) s.scrollTop -= o.top + 26 - r.top; if (r.right > o.right) s.scrollLeft += r.right - o.right + 4; else if (r.left < o.left + 40) s.scrollLeft -= o.left + 40 - r.left; }
     this.emit({ t: 'select', act: this.act, range: this.range, how });
   }
@@ -225,21 +291,23 @@ export class Grid {
   commit(how) {
     const e = this.edit; if (!e) return true; const raw = e.input.value, ref = e.ref;
     if (/^[=+]/.test(raw) && raw.trim().length > 1) {
-      const f = toEN(raw); const test = Object.assign({}, this.cells, { [ref]: Object.assign({}, this.cells[ref], { f }) });
-      const ec = {}; for (const [k, c] of Object.entries(test)) { if (c.f != null) ec[k] = { f: c.f }; else if (c.v != null && c.v !== '') ec[k] = { v: c.v }; }
-      let r; try { r = this.E.evaluate(ec); } catch (er) { r = { values: { [ref]: { error: '#ERROR!' } }, errors: [] }; }
-      const v = r.values[ref], unk = (r.errors || []).find(x => x.ref === ref);
-      if (unk || (v && v.error === '#ERROR!') || (v && v.error === '#NAME?')) {
-        const name = unk && /: (.+)$/.exec(unk.msg); const n = name ? name[1] : '';
-        this.showMsg(unk ? (/^(VLOOKUP|SVERWEIS|XLOOKUP|XVERWEIS)$/i.test(n) ? 'SVERWEIS gibt’s im echten Excel – hier im Trainer nimmst du INDEX & VERGLEICH (kommt in Stufe 3).' : `„${n}“ kennt Excel nicht – vertippt?`) : 'Die Formel kann Excel so nicht lesen – fehlt eine Klammer, ein Semikolon oder ein Rechenzeichen?', 'bad');
+      const f = toEN(raw);
+      try { lower(f); } catch (er) { if (er instanceof LowerError) { this.showMsg(er.message, 'bad'); this.emit({ t: 'badformula', ref, raw }); return false; } }
+      const test = Object.assign({}, this.cells, { [ref]: Object.assign({}, this.cells[ref], { f }) });
+      const r = this.evaluate(test);
+      const v = r.values[ref], unk = (r.errors || []).find(x => x.ref === ref && /Unbekannte Funktion/.test(x.msg)), circ = (r.errors || []).find(x => x.ref === ref && /Kreisbezug/.test(x.msg));
+      if (unk || circ || (v && v.error === '#ERROR!') || (v && v.error === '#NAME?')) {
+        const name = unk && /: (.+)$/.exec(unk.msg); const n = name ? name[1].split(',')[0].trim() : '';
+        const de = DE2[n] || n;
+        this.showMsg(circ ? 'Die Formel zeigt auf sich selbst (Zirkelbezug) – nimm andere Zellen.' : unk ? (REAL_FN.has(n) || REAL_FN.has(de) ? `„${de}“ gibt es im echten Excel, im Trainer aber nicht – für diese Aufgabe brauchst du sie nicht.` : `„${de}“ kennt Excel nicht – vertippt?`) : 'Die Formel kann Excel so nicht lesen – fehlt eine Klammer, ein Semikolon oder ein Rechenzeichen?', 'bad');
         this.emit({ t: 'badformula', ref, raw }); return false;
       }
     }
     this.snap();
     const before = this.cells[ref] && this.cells[ref].fmt;
     this.setRawIn(ref, raw);
-    const c = this.cells[ref];
-    if (c && c.f && !before) { const first = (c.f.match(/\$?[A-Z]{1,2}\$?\d+/) || [])[0]; const fc = first && this.cells[first.replace(/\$/g, '')]; if (fc && fc.fmt === 'eur') c.fmt = 'eur'; }
+    if (!/^[=+]/.test(raw)) { const pr = parseRaw(raw); if (pr && pr.dot) this.showMsg('Dezimalzahlen schreibt man im deutschen Excel mit Komma: ' + raw.trim().replace('.', ',') + '. Mit Punkt erkennt Excel darin keine Dezimalzahl.', 'bad'); }
+    this.inherit(ref, before);
     this.endEdit(); this.recalc();
     this.emit({ t: 'commit', ref, raw, how, f: this.fx(ref) });
     return true;
@@ -255,10 +323,10 @@ export class Grid {
   }
   editKey(e) {
     const ed = this.edit; if (!ed) return; const k = e.key;
-    if (k === 'Enter') { e.preventDefault(); if (this.commit('enter')) this.select(this.move(ed.ref, 0, e.shiftKey ? -1 : 1), null, 'key'); return; }
-    if (k === 'Tab') { e.preventDefault(); if (this.commit('tab')) this.select(this.move(ed.ref, e.shiftKey ? -1 : 1, 0), null, 'key'); return; }
+    if (k === 'Enter') { e.preventDefault(); const to = this.enterTo(ed.ref, e.shiftKey); if (this.commit('enter')) this.select(to, null, 'key'); return; }
+    if (k === 'Tab') { e.preventDefault(); if (this.tabCol == null) this.tabCol = split(ed.ref).c; if (this.commit('tab')) this.select(this.move(ed.ref, e.shiftKey ? -1 : 1, 0), null, 'tab'); return; }
     if (k === 'Escape') { e.preventDefault(); this.cancelEdit(); return; }
-    if (k === 'F4' || (MAC && e.metaKey && k.toLowerCase() === 't' && false)) { e.preventDefault(); const r = toggleAbs(ed.input.value, ed.input.selectionStart); if (r) { ed.input.value = r.text; ed.input.setSelectionRange(r.caret, r.caret); ed.pt = null; this.syncEdit(); this.emit({ t: 'f4', ref: ed.ref }); } return; }
+    if (k === 'F4') { e.preventDefault(); const r = toggleAbs(ed.input.value, ed.input.selectionStart); if (r) { ed.input.value = r.text; ed.input.setSelectionRange(r.caret, r.caret); ed.pt = null; this.syncEdit(); this.emit({ t: 'f4', ref: ed.ref }); } return; }
     const D = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[k];
     if (D) {
       if (this.canPoint()) { e.preventDefault(); const from = ed.pt ? ed.pt.c : ed.ref; this.pointTo(this.move(from, D[0], D[1]), e.shiftKey); return; }
@@ -266,6 +334,8 @@ export class Grid {
     }
   }
 
+  // Enter nach Tab springt (wie in Excel) zurück in die Spalte, in der das Tabben begonnen hat
+  enterTo(ref, up) { const p = split(ref); if (!up && this.tabCol != null) return colL(this.tabCol) + Math.min(this.rows, p.r + 1); return this.move(ref, 0, up ? -1 : 1); }
   // ---- Aktionen ----
   cellsIn(R) { const out = []; for (let r = R.r1; r <= R.r2; r++) for (let c = R.c1; c <= R.c2; c++) out.push(colL(c) + r); return out; }
   copyCell(src, dst) {
@@ -376,18 +446,22 @@ export class Grid {
     const D = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[k];
     const stop = () => { e.preventDefault(); e.stopPropagation(); };
     if (D) { stop(); const to = mod ? this.jump(this.act, D[0], D[1]) : this.move(this.act, D[0], D[1]); this.select(to, e.shiftKey ? this.anc : to, mod ? 'jump' : 'key'); return; }
-    if (mod && e.shiftKey && (e.code === 'Digit4' || e.code === 'Digit5' || e.code === 'Digit1')) { stop(); this.format(e.code === 'Digit4' ? 'eur' : e.code === 'Digit5' ? 'pct' : 'num'); return; }
-    if ((e.altKey && (e.code === 'Equal' || k === '=' || k === '≠')) || (mod && e.shiftKey && lk === 't')) { stop(); this.autosum(); return; }
+    if (mod && e.shiftKey && !e.altKey && (e.code === 'Digit4' || e.code === 'Digit5' || e.code === 'Digit1')) { stop(); this.format(e.code === 'Digit4' ? 'eur' : e.code === 'Digit5' ? 'pct' : 'num'); return; }
+    // AutoSumme: Alt + = (US), Alt + ⇧ + 0 (deutsche Tastatur), ⌥ + = am Mac; ⌘ + ⇧ + T, falls der Browser es durchlässt
+    if ((e.altKey && !mod && (e.code === 'Equal' || k === '=' || k === '≠' || (e.shiftKey && e.code === 'Digit0'))) || (mod && e.shiftKey && lk === 't')) { stop(); this.autosum(); return; }
+    // Fett im deutschen Excel: Strg + ⇧ + F
+    if (mod && e.shiftKey && !e.altKey && lk === 'f') { stop(); this.toggleBold(); return; }
     if (mod && !e.altKey && !e.shiftKey) {
       if (lk === 'c') { stop(); this.copy(false); return; } if (lk === 'x') { stop(); this.copy(true); return; } if (lk === 'v') { stop(); this.paste(); return; }
       if (lk === 'z') { stop(); this.undo(); return; } if (lk === 'd') { stop(); this.fillDown(); return; } if (lk === 'r') { stop(); this.fillRight(); return; }
-      if (lk === 'b') { stop(); this.toggleBold(); return; } if (k === 'Home') { stop(); this.select('A1', null, 'jump'); return; }
+      if (lk === 'b' || (!MAC && e.code === 'Digit2')) { stop(); this.toggleBold(); return; } if (k === 'Home') { stop(); this.select('A1', null, 'jump'); return; }
       if (MAC && e.ctrlKey && lk === 'u') { stop(); this.startEdit(null, 'edit'); return; }
+      if (!MAC && lk === 'u') { stop(); this.fillDown(); return; }   // deutsches Excel: Strg + U = nach unten ausfüllen
       return;
     }
     if (k === 'F2') { stop(); this.startEdit(null, 'edit'); return; }
-    if (k === 'Enter') { stop(); this.select(this.move(this.act, 0, e.shiftKey ? -1 : 1), null, 'key'); return; }
-    if (k === 'Tab') { stop(); this.select(this.move(this.act, e.shiftKey ? -1 : 1, 0), null, 'key'); return; }
+    if (k === 'Enter') { stop(); this.select(this.enterTo(this.act, e.shiftKey), null, 'key'); return; }
+    if (k === 'Tab') { stop(); if (this.tabCol == null) this.tabCol = split(this.act).c; this.select(this.move(this.act, e.shiftKey ? -1 : 1, 0), null, 'tab'); return; }
     if (k === 'Delete' || k === 'Backspace') { stop(); this.clear(); return; }
     if (k === 'Escape') { stop(); if (this.clip) { this.clip = null; this.paintSel(); } return; }
     if (k === 'Home') { stop(); this.select('A' + split(this.act).r, null, 'key'); return; }

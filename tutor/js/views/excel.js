@@ -36,7 +36,7 @@ export function render(root, { arg = '' } = {}) {
   const body = h('div', { class: 'xl-body' });
   wrap.append(head, tabs, body, h('p', { class: 'foot-tm' }, TM));
   if (tpl) openTemplate(body, tpl);
-  else if (tab === 'train') { body.append(h('p', { class: 'xl-sub' }, L('Excel wird geladen …', 'Loading Excel …'))); import('../xl/trainer.js').then(m => m.trainer(body)).catch(() => body.replaceChildren(h('p', {}, L('Der Trainer konnte nicht geladen werden – bitte neu laden.', 'Could not load the trainer – please reload.')))); }
+  else if (tab === 'train') { body.append(h('p', { class: 'xl-sub' }, L('Excel wird geladen …', 'Loading Excel …'))); Promise.all([import('../xl/trainer.js'), import('../face.js')]).then(([m, F]) => m.trainer(body, { app: true, key: 'tutor.xltrain', face: F.face, toast, track: (a, b) => { if (window.BM) window.BM.track(a, b); }, tplHref: id => '#/app/excel/' + id, full: (el, on) => { const w = el.closest('.xl'); if (w) w.classList.toggle('xt-full', on); if (on) scrollTo({ top: 0, behavior: 'smooth' }); } })).catch(() => body.replaceChildren(h('p', {}, L('Der Trainer konnte nicht geladen werden – bitte neu laden.', 'Could not load the trainer – please reload.')))); }
   else gallery(body);
 }
 
