@@ -112,7 +112,7 @@ const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'An
   'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt', 'Bildschirm', 'Abgesprungen', 'Eltern-Hinweis gezeigt', 'Eltern-Hinweis geklickt',
   'Übungsseite geöffnet', 'Übung gestartet', 'Übung gelöst', 'Übung zur App', 'Arbeitsblatt gedruckt',
   'Testlektion gestartet', 'Testlektion Frage', 'Testlektion fertig', 'Bereich gesehen', 'Bestätigung fehlt', 'FAQ geöffnet', 'Testphase-Info geöffnet', 'Cookie-Banner gezeigt',
-  'Antrag geöffnet', 'Antrag ausgefüllt', 'E-Mail bestätigt', 'Kurs erstellt', 'Bewertung abgegeben', 'Führerschein bestanden'];
+  'Antrag geöffnet', 'Antrag ausgefüllt', 'E-Mail bestätigt', 'Kurs erstellt', 'Bewertung abgegeben', 'Führerschein bestanden', 'Aufruf Stand'];
 function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
 function gsQuelle(url, ref) {
@@ -154,7 +154,9 @@ async function gsEreignis(req, ctx) {
   const e = kurz(d && d.e, 40); if (GS_EV.indexOf(e) < 0) return new Response(null, { status: 204 });
   // Freitext absichern: keine E-Mail-Adressen, keine langen Zahlen
   const det = kurz(d.d, 60).replace(/\S+@\S+/g, '…').replace(/\d{5,}/g, '…');
-  const offen = gsMelden({ ereignis: e, detail: det, seite: kurz(d.s, 40), quelle: kurz(d.q, 40), geraet: geraet(ua) }, req, ctx);
+  // Seitenaufruf-Nummer (nur im Arbeitsspeicher der Seite, keine Person): verbindet die Schritte eines einzelnen Aufrufs
+  const auf = /^p[0-9a-z]{8,10}$/.test(String(d.a || '')) ? String(d.a) : '';
+  const offen = gsMelden({ ereignis: e, detail: det, seite: kurz(d.s, 40), quelle: kurz(d.q, 40), geraet: geraet(ua), aufruf: auf }, req, ctx);
   if (offen) await Promise.race([offen, new Promise(function (r) { setTimeout(r, 1500); })]);
   return new Response(null, { status: 204, headers: { 'Cache-Control': 'no-store' } });
 }
