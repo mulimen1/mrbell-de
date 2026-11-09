@@ -1139,6 +1139,20 @@ main.pz{overflow-x:clip}
 .pzsgc{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:24px;color:#3b3f4f;font-weight:600;font-size:15px}
 .pzsgc span{display:inline-flex;align-items:center;gap:7px}.pzsgc svg{width:18px;height:18px;color:#1f9d63}
 @media(max-width:900px){.pzsgx{grid-template-columns:minmax(0,1fr)}.pzsgl{flex-direction:row;overflow-x:auto;margin:0 -22px;padding:2px 22px 8px;scrollbar-width:none}.pzsgl::-webkit-scrollbar{display:none}.pzsgi{flex:0 0 auto;width:auto;padding:6px 12px 6px 6px}.pzsgi img{width:56px;height:36px}.pzsgi small{display:none}.pzsgi b{font-size:14px;white-space:nowrap}}
+/* Spielbereich prominenter: Hinweis im Start, Preisbox, Raster mit 9 Spielen */
+.pzadpc .pzadg{display:flex;justify-content:center;margin-top:8px}
+.pzadpc .pzadg+.pzadg{margin-top:4px}
+.pzadsp{display:inline-flex;align-items:center;gap:12px;margin-top:14px;padding:8px 16px 8px 8px;border-radius:999px;background:#fff;border:1.5px solid #E3C67A;box-shadow:0 10px 24px -16px rgba(16,22,48,.45);color:var(--nv);text-decoration:none;text-align:left;transition:transform .2s,box-shadow .2s}
+.pzadsp:hover{transform:translateY(-1px);box-shadow:0 14px 28px -16px rgba(16,22,48,.55)}
+.pzadspi{display:flex;flex:none}
+.pzadspi img{width:40px;height:40px;object-fit:cover;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(16,22,48,.25)}
+.pzadspi img+img{margin-left:-12px}
+.pzadsp b{display:block;font-size:15px;font-weight:800;line-height:1.2}
+.pzadsp small{display:block;font-size:12.5px;color:var(--mut);font-weight:600}
+.pzadsp>svg{width:18px;height:18px;flex:none;color:#c2501c}
+@media(max-width:600px){.pzadsp{gap:9px;padding:6px 12px 6px 6px;margin-top:12px}.pzadspi img{width:32px;height:32px}.pzadsp b{font-size:13.5px}.pzadsp small{font-size:11.5px}}
+@media(min-width:901px){.pzsgl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-content:start}.pzsgi{flex-direction:column;align-items:stretch;gap:6px;padding:6px 6px 8px}.pzsgi img{width:100%;height:auto;aspect-ratio:16/10}.pzsgi b{font-size:13.5px;line-height:1.2;padding:0 2px}.pzsgi small{font-size:11.5px;line-height:1.25;padding:0 2px}}
+@media(min-width:901px){.pzsgx{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start}.pzsgbig{align-self:start}.pzsgi small{display:none}.pzsgi b{min-height:2.4em}}
 </style></head><body><header class="pzhead"><div class="w"><a class="pzlogo" href="/" aria-label="Grundschulmax Startseite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Grundschulmax</span></a><nav><a href="/ratgeber">Ratgeber</a><a href="/#probe">Testlektion</a><a href="/#kaufen">Preis</a><a href="/#forschung">Forschung</a></nav><a class="pzhb" href="/" data-app="Kopf"><span class="pzhbj">Zum Führerschein</span><span class="pzhbm">Führerschein</span></a></div></header>
 <main class="pz sa"><section class="sahero"><div class="w saw">
 <nav class="sabc" aria-label="Brotkrumen"><a href="/">Grundschulmax</a><span>›</span><a href="/ratgeber">Ratgeber</a><span>›</span>Surfschein</nav>
