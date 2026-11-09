@@ -1311,6 +1311,13 @@ main.pz{overflow-x:clip}
   function gtagLoad() { if (!ADS.id || !ok() || window.gtag) return; window.dataLayer = window.dataLayer || []; window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'granted' }); window.gtag('js', new Date()); window.gtag('config', ADS.id, { page_location: firstUrl });
     var s = d.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(ADS.id); d.head.appendChild(s); }
+  /* Meta-Pixel: nur mit Einwilligung; Schritte vor der Einwilligung werden in diesem Aufruf gemerkt und bei „Akzeptieren“ nachgereicht */
+  var PIX = '934732982903606', FQ = [];
+  function fbLoad() { if (!PIX || !ok() || window.fbq) return;
+    var n = window.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!window._fbq) window._fbq = n; n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+    var s = d.createElement('script'); s.async = true; s.src = 'https://connect.facebook.net/en_US/fbevents.js'; d.head.appendChild(s);
+    window.fbq('init', PIX); window.fbq('track', 'PageView'); while (FQ.length) { var q = FQ.shift(); window.fbq(q[0], q[1], q[2] || {}); } }
+  function fb(kind, name, params) { if (get() === 'nein') return; if (!ok()) { if (FQ.length < 12) FQ.push([kind, name, params]); return; } fbLoad(); try { window.fbq(kind, name, params || {}); } catch (e) {} }
   function conv(k, extra) { if (!ADS[k] || !ok()) return; gtagLoad(); try { var o = { send_to: ADS.id + '/' + ADS[k] }; for (var x in (extra || {})) o[x] = extra[x]; window.gtag('event', 'conversion', o); } catch (e) {} }
   function ev(e, x) { try { if (window.UBev) window.UBev(e, x); } catch (er) {} }
   var css = '.gsc{position:fixed;z-index:9000;left:20px;bottom:20px;width:min(420px,calc(100vw - 32px));padding:18px 18px 16px;border-radius:20px;background:#fff;color:#16181f;border:1px solid #e5dfd5;box-shadow:0 30px 70px -30px rgba(20,25,60,.55);font:14.5px/1.5 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;animation:gscin .35s cubic-bezier(.2,.8,.2,1)}'
@@ -1322,19 +1329,19 @@ main.pz{overflow-x:clip}
   function close(v) {
     if (v) { if (!has()) { var r = new Uint8Array(6); crypto.getRandomValues(r); var id = 'a'; for (var i = 0; i < 6; i++) id += ('0' + r[i].toString(16)).slice(-2); d.cookie = 'gsm_analyse=' + id + '; Max-Age=31536000; Path=/; SameSite=Lax' + sec; } put('ja'); }
     else { put('nein'); d.cookie = 'gsm_analyse=; Max-Age=0; Path=/; SameSite=Lax' + sec; }
-    ev(v ? 'Analyse erlaubt' : 'Analyse abgelehnt', location.pathname.slice(0, 40)); if (v) gtagLoad();
+    ev(v ? 'Analyse erlaubt' : 'Analyse abgelehnt', location.pathname.slice(0, 40)); if (v) { gtagLoad(); fbLoad(); } else FQ = [];
     if (box) { var b = box; box = null; b.classList.add('out'); setTimeout(function () { b.remove(); }, 320); }
   }
   function open() {
     if (box) return; if (!d.getElementById('gsc-css')) { var st = d.createElement('style'); st.id = 'gsc-css'; st.textContent = css; d.head.appendChild(st); }
     box = d.createElement('div'); box.className = 'gsc'; box.setAttribute('role', 'dialog'); box.setAttribute('aria-label', 'Cookie-Einstellungen');
-    box.innerHTML = '<b>Cookies erlauben?</b><p>Für unsere eigene Statistik und Google Ads. Ohne Zustimmung zählen wir nur anonym, ohne Cookies. <a href="/datenschutz#cookies" target="_blank" rel="noopener">Datenschutz</a></p><div class="r"><button type="button" class="n">Ablehnen</button><button type="button" class="y">Akzeptieren</button></div>';
+    box.innerHTML = '<b>Cookies erlauben?</b><p>Für unsere eigene Statistik und die Erfolgsmessung unserer Anzeigen bei Google, Facebook und Instagram. Ohne Zustimmung zählen wir nur anonym, ohne Cookies. <a href="/datenschutz#cookies" target="_blank" rel="noopener">Datenschutz</a></p><div class="r"><button type="button" class="n">Ablehnen</button><button type="button" class="y">Akzeptieren</button></div>';
     box.querySelector('.n').onclick = function () { close(false); }; box.querySelector('.y').onclick = function () { close(true); };
     d.body.appendChild(box); ev('Cookie-Banner gezeigt', location.pathname.slice(0, 40));
   }
   function foot() { var n = d.querySelector('footer nav'); if (!n || n.querySelector('.gscl')) return; var a = d.createElement('a'); a.href = '#'; a.className = 'gscl'; a.textContent = 'Cookie-Einstellungen'; a.onclick = function (e) { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (er) {} open(); }; n.appendChild(a); }
-  window.GSC = { ok: ok, open: open, conv: conv };
-  var go = function () { foot(); if (ok()) gtagLoad(); else if (!get()) later(); };
+  window.GSC = { ok: ok, open: open, conv: conv, fb: fb };
+  var go = function () { foot(); if (ok()) { gtagLoad(); fbLoad(); } else if (!get()) later(); };
   /* Banner nicht in den ersten Sekunden: erst nach dem ersten Scrollen oder nach 8 Sekunden (vorher wird ohnehin nichts gespeichert) */
   function later() { var done = false, t = 0; var fire = function () { if (done) return; done = true; clearTimeout(t); removeEventListener('scroll', sc); open(); }; var sc = function () { if (scrollY > 240) fire(); }; addEventListener('scroll', sc, { passive: true }); t = setTimeout(fire, 8000); }
   if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', go); else go();
@@ -1353,7 +1360,12 @@ main.pz{overflow-x:clip}
   window.UBev = function (e, x) { ev(e, x); };
   /* Nummer dieses Seitenaufrufs: zufällig, nur im Arbeitsspeicher, weg beim Schließen oder Neuladen. Verbindet nur die Schritte dieses einen Aufrufs. */
   var PV = 'p'; try { var rb = new Uint8Array(9); crypto.getRandomValues(rb); for (var ri = 0; ri < 9; ri++) PV += (rb[ri] % 36).toString(36); } catch (er) { PV += Math.random().toString(36).slice(2, 11); }
-  function ev(e, x) { try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : GA ? 'Google Ads' : '', a: PV }) }); } catch (er) {} }
+  var MS = {};
+  function meta(e, x) { if (!window.GSC || !GSC.fb) return; x = String(x || '');
+    if (e === 'Testlektion Frage' && !MS.q) { MS.q = 1; GSC.fb('trackCustom', 'SzeneBeantwortet'); GSC.fb('track', 'ViewContent', { content_name: 'Szene beantwortet' }); }
+    else if (e === 'Klick' && /^Spiel-Vorschau/.test(x) && !MS.s) { MS.s = 1; GSC.fb('trackCustom', 'SpieleAngesehen'); }
+    else if (e === 'Zur Zahlung geklickt') { var intro = Date.now() < Date.parse('2026-11-14T00:00:00+01:00'), v = /^Paket/.test(x) ? (intro ? 49 : 59) : /^KI/.test(x) ? (intro ? 19 : 29) : (intro ? 39 : 49); GSC.fb('track', 'InitiateCheckout', { value: v, currency: 'EUR' }); } }
+  function ev(e, x) { try { meta(e, x); } catch (er) {} try { fetch('/gs', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ e: e, d: String(x || '').slice(0, 60), s: 'ueben/' + C.slug, q: FB ? 'Facebook/Instagram Ads' : GA ? 'Google Ads' : '', a: PV }) }); } catch (er) {} }
 /* Ben: 5× schnell auf die große Überschrift tippen (oder ?ich=ben) = dieses Gerät zählt nie mit, auch im Facebook-Browser */
   (function () { var n = 0, t = 0; function mark() { document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); var x = document.createElement('div'); x.textContent = 'Dieses Gerät zählt ab jetzt nicht mehr mit.'; x.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1c1f2a;color:#fff;padding:12px 18px;border-radius:14px;font:600 15px system-ui,sans-serif;z-index:99999;box-shadow:0 10px 30px rgba(0,0,0,.3)'; document.body.appendChild(x); setTimeout(function () { x.remove(); }, 3000); }
     if (/[?&]ich=ben(&|$)/.test(location.search)) mark();
