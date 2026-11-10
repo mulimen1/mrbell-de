@@ -47,7 +47,7 @@ button{font:inherit;color:inherit}
 .btn:not(.gh):not(.wh){overflow:hidden;isolation:isolate;background:linear-gradient(180deg,#34343a 0%,#141417 55%,#050506 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(0,0,0,.6),0 0 0 1px #000,0 10px 24px -10px rgba(10,10,11,.6)}
 .btn:not(.gh):not(.wh)::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(120% 90% at 50% -20%,rgba(255,255,255,.22),transparent 55%)}
 .btn:not(.gh):not(.wh)::after{content:"";position:absolute;top:0;bottom:0;left:0;width:60%;z-index:1;pointer-events:none;background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,0) 20%,rgba(255,255,255,.42) 50%,rgba(255,255,255,0) 80%,transparent 100%);transform:translate3d(-160%,0,0) skewX(-18deg);animation:shine 4.2s var(--e) infinite}
-.btn:not(.gh):not(.wh):hover{background:linear-gradient(180deg,#45454c 0%,#1c1c20 55%,#09090a 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(0,0,0,.6),0 0 0 1px #000,0 0 0 5px rgba(45,75,240,.14),0 16px 34px -10px rgba(45,75,240,.45)}
+.btn:not(.gh):not(.wh):hover{background:linear-gradient(180deg,#45454c 0%,#1c1c20 55%,#09090a 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(0,0,0,.6),0 0 0 1px #000,0 18px 34px -12px rgba(10,10,11,.6)}
 .btn:not(.gh):not(.wh):hover::after{animation:shine 1.1s var(--e) infinite}
 @keyframes shine{0%{transform:translate3d(-160%,0,0) skewX(-18deg)}55%,100%{transform:translate3d(260%,0,0) skewX(-18deg)}}
 .btn svg{width:17px;height:17px;transition:transform .25s var(--e)}
