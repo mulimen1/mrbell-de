@@ -60,6 +60,10 @@ button{font:inherit;color:inherit}
 .nav a.ul{padding:4px 0}
 @media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:auto}}
 
+.lng{display:inline-flex;padding:3px;border-radius:999px;background:var(--bg2);box-shadow:inset 0 0 0 1px var(--ln);font-size:12.5px;font-weight:600}
+.lng a{padding:6px 10px;border-radius:999px;color:var(--mut);text-decoration:none;transition:background-color .25s,color .25s}
+.lng a.on{background:var(--ink);color:#fff}.lng a:not(.on):hover{color:var(--ink)}
+@media (max-width:860px){.nav .lng{margin-left:auto}.nav .lng+.btn{margin-left:0}}
 /* Hero */
 .hero{position:relative;padding:150px 0 0;text-align:center;overflow:clip}
 .hero .eye{margin-bottom:28px}
@@ -105,6 +109,26 @@ button{font:inherit;color:inherit}
 .nx svg{width:16px;height:16px;transition:transform .25s var(--e)}.nx:hover svg{transform:translateX(3px)}
 
 .stage::after{content:"";position:absolute;z-index:0;left:8%;right:8%;bottom:90px;height:80px;border-radius:50%;background:radial-gradient(closest-side,rgba(10,10,11,.22),transparent);filter:blur(10px);opacity:var(--p)}
+
+/* Das kann Ihr Kind */
+.can{padding:170px 0 160px;background:#fff}
+.chd{display:flex;align-items:end;justify-content:space-between;gap:48px;margin-bottom:80px}
+.chd .h2{font-size:clamp(44px,6.6vw,104px);line-height:.95}
+.chd .lead{max-width:430px}
+.chip2{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:9px 16px 9px 10px;border-radius:999px;background:var(--bg2);font-size:14px;font-weight:500;color:var(--ink2)}
+.chip2 i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:#fff}.chip2 svg{width:13px;height:13px}
+.cg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 72px}
+.cgh{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid var(--ink);font-size:14px;font-weight:600;letter-spacing:.01em}
+.cgh span{font-weight:400;color:var(--mut);font-variant-numeric:tabular-nums}
+.cl{margin:0;padding:0;list-style:none}
+.cl li{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 18px;align-items:start;padding:26px 0;border-bottom:1px solid var(--ln);transition:opacity .7s var(--e) var(--d,0ms),transform .45s var(--e)}
+.cl li:hover{transform:translate3d(8px,0,0)}
+.cl li>i{grid-row:span 2;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--bg2);color:var(--ink);transition:background-color .3s var(--e),color .3s var(--e),transform .5s var(--e)}
+.cl li>i svg{width:22px;height:22px}
+.cl li:hover>i{background:var(--ink);color:#fff;transform:rotate(-8deg) scale(1.06)}
+.cl b{font-size:clamp(22px,2.3vw,32px);line-height:1.12;letter-spacing:-.035em;font-weight:600}
+.cl span{font-size:16px;color:var(--mut);line-height:1.5}
+@media (max-width:899px){.can{padding:110px 0 100px}.chd{flex-direction:column;align-items:start;gap:20px;margin-bottom:48px}.cg{grid-template-columns:minmax(0,1fr);gap:56px}.cl li{grid-template-columns:42px minmax(0,1fr);gap:2px 14px;padding:20px 0}.cl li>i{width:42px;height:42px}.cl li>i svg{width:18px;height:18px}.cl b{font-size:21px}.cl span{font-size:15px}}
 
 /* Problem */
 .why{padding:200px 0 150px}
@@ -368,7 +392,7 @@ button{font:inherit;color:inherit}
 .rm .ask{opacity:1;transform:none;transition:none}
 .rm .stmt .wd{color:var(--ink)}
 .rm .dr{opacity:1}.rm .dr::before{background:var(--ink)}.rm .dl>.fill{transform:none}
-.rm .st::after{transform:none;transition:none}
+.rm .cl li{opacity:1}.rm .st::after{transform:none;transition:none}
 .rm .rf{stroke-dashoffset:0;transition:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
@@ -377,8 +401,8 @@ button{font:inherit;color:inherit}
 
 <header class="nav" id="nav"><div class="c">
 <a class="wm" href="#top" aria-label="Mission Internet, zum Seitenanfang">Mission Internet</a>
-<ul><li><a class="ul" href="#ablauf">So funktioniert’s</a></li><li><a class="ul" href="#szenen">Szenen</a></li><li><a class="ul" href="#fuehrerschein">Führerschein</a></li><li><a class="ul" href="#preis">Preis</a></li><li><a class="ul" href="#fragen">Fragen</a></li></ul>
-<a class="btn sm mag" href="#preis">Beantragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<ul><li><a class="ul" href="#koennen">Das lernt Ihr Kind</a></li><li><a class="ul" href="#ablauf">So funktioniert’s</a></li><li><a class="ul" href="#szenen">Szenen</a></li><li><a class="ul" href="#fuehrerschein">Führerschein</a></li><li><a class="ul" href="#preis">Preis</a></li><li><a class="ul" href="#fragen">Fragen</a></li></ul>
+<nav class="lng" aria-label="Sprache"><a class="on" href="/grundschulmax/entwurf-mi/" hreflang="de">DE</a><a href="/grundschulmax/entwurf-mi/en/" hreflang="en">EN</a></nav><a class="btn sm mag" href="#preis">Beantragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
 </div></header>
 
 <main id="top">
@@ -409,6 +433,19 @@ button{font:inherit;color:inherit}
   <div class="cta rv" style="--d:80ms"><a class="btn mag" href="#preis">Führerschein beantragen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn gh" href="#szenen">Weitere Szenen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a></div>
   <ul class="trust rv" style="--d:160ms"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>49 € einmalig, kein Abo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>24 Stunden Geld-zurück</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Ohne Werbung</li></ul>
   </div>
+</section>
+
+<section class="can" id="koennen" aria-labelledby="can-h">
+ <div class="c">
+  <div class="chd">
+   <div><p class="eye rv">Das Ergebnis</p><h2 class="h2" id="can-h" data-split>Das kann Ihr Kind <span class="gr">danach.</span></h2></div>
+   <div><p class="lead rv">Zwölf Fähigkeiten, die Ihr Kind in fünf Tagen an echten Szenen trainiert. Jede einzelne wird im Abschlusstest geprüft.</p><span class="chip2 rv"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Steht am Ende auf Urkunde und Führerschein</span></div>
+  </div>
+  <div class="cg">
+   <div><div class="cgh rv">Im Internet<span>06</span></div><ul class="cl"><li class="rv" style="--d:0ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Cybergrooming erkennen</b><span>Merkt, wenn sich Fremde als Kind ausgeben, und holt sofort Hilfe.</span></li><li class="rv" style="--d:70ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Private Daten schützen</b><span>Name, Adresse, Schule und Fotos bleiben privat.</span></li><li class="rv" style="--d:140ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Sichere Passwörter</b><span>Baut starke Passwörter und gibt sie niemandem weiter.</span></li><li class="rv" style="--d:210ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Fair im Klassenchat</b><span>Macht bei Mobbing nicht mit und holt Hilfe.</span></li><li class="rv" style="--d:280ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Abzocke durchschauen</b><span>Erkennt Fake-Gewinne, Fake-Mails und Countdown-Tricks.</span></li><li class="rv" style="--d:350ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Käufe im Spiel</b><span>Weiß, dass „Nur heute“ Druck machen soll, und fragt vorher.</span></li></ul></div>
+   <div><div class="cgh rv">Mit KI<span>06</span></div><ul class="cl"><li class="rv" style="--d:0ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Was KI ist und was nicht</b><span>Ein Programm, kein Freund und kein Mensch.</span></li><li class="rv" style="--d:70ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Wenn KI sich irrt</b><span>Prüft wichtige Antworten nach, statt alles zu glauben.</span></li><li class="rv" style="--d:140ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>KI-Bilder erkennen</b><span>Teilt nichts weiter, bevor es geprüft ist.</span></li><li class="rv" style="--d:210ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Fake-Stimmen erkennen</b><span>Fragt bei komischen Sprachnachrichten direkt nach.</span></li><li class="rv" style="--d:280ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>Keine Daten an KI</b><span>Verrät einem Chatbot nichts Privates.</span></li><li class="rv" style="--d:350ms"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><b>KI fair nutzen</b><span>Nutzt KI zum Lernen, nicht zum Abschreiben.</span></li></ul></div>
+  </div>
+ </div>
 </section>
 
 <section class="why" aria-labelledby="why-h">
@@ -638,6 +675,9 @@ if(HOVER&&!RM){
  $$('.spot').forEach(s=>s.addEventListener('pointermove',e=>{const r=s.getBoundingClientRect();s.style.setProperty('--sx',e.clientX-r.left+'px');s.style.setProperty('--sy',e.clientY-r.top+'px')}));
 }
 
+/* Sprache */
+$$('.lng a').forEach(a=>a.addEventListener('click',e=>{if(a.classList.contains('on')){e.preventDefault();return}try{sessionStorage.setItem('mi-y',scrollY)}catch(er){}}));
+try{const sy=sessionStorage.getItem('mi-y');if(sy!==null){sessionStorage.removeItem('mi-y');h.style.scrollBehavior='auto';requestAnimationFrame(()=>scrollTo(0,+sy))}}catch(er){}
 /* Scroll */
 const nav=$('#nav'),dl=$('#dl'),rows=$$('.dr'),gal=$('.gal'),track=$('#track'),gi=$('#gi'),gctr=$('#gctr'),GN=$$('.sc').length;
 let vh,vw,M={},lastY=scrollY,tick=false,pin=false,lastK=-1;
