@@ -323,7 +323,7 @@ function overview() {
 <p class="lead">${TEMPLATES.length} Excel-Vorlagen zu Standardrechnungen aus dem Studium – von Kapitalwert und Tilgungsplan über Zuschlagskalkulation und Plankostenrechnung bis zu Kapitalflussrechnung, ABC-Analyse und Preis-Absatz-Funktion. Jede Vorlage rechnet mit echten Excel-Formeln: blaue Felder ausfüllen, alles andere rechnet die Tabelle. Auf jeder Seite lässt sich die Vorlage im Browser ausprobieren und mit eigenen Werten herunterladen; alle Formeln sind dort offengelegt und erklärt.</p>
 <p class="small">Ohne Anmeldung und ohne Limit. Vorschau und Dateien entstehen direkt in deinem Browser, deine Eingaben werden weder gespeichert noch übertragen.</p>
 <ul class="xlw-facts" aria-label="Kurzinfo"><li><b>${TEMPLATES.length}</b> Vorlagen</li><li><b>${cats.length}</b> Bereiche</li><li><b>${nf(G.formelzellenVorlagen)}</b> Formeln offengelegt</li><li>Format .xlsx</li></ul>
-<p class="xlw-tr">Excel selbst lernen? Der kostenlose <a href="/tools/excel-trainer">Excel-Trainer</a> führt in ${LESSONS.length} Lektionen von der ersten Formel bis zu Kapitalwert und Tilgungsplan – mit echten Tastenkürzeln für Windows und Mac.</p>
+<p class="xlw-tr"><span>Excel selbst lernen? Der kostenlose Excel-Trainer führt in ${LESSONS.length} Lektionen von der ersten Formel bis zu Kapitalwert und Tilgungsplan – mit echten Tastenkürzeln für Windows und Mac.</span><a class="xlw-tr-btn" href="/tools/excel-trainer">Zum Excel-Trainer</a></p>
 </header>
 
 <section id="vorlagen" aria-labelledby="h-vorlagen">
