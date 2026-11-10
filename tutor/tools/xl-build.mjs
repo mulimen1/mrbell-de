@@ -419,7 +419,7 @@ function trainerPage() {
   let h = head({ title, desc, canon, jsonld, css2: XT_CSS });
   h += `
 <header>
-<p class="xlw-crumb"><a href="/tools/excel-vorlagen">Excel-Vorlagen</a> · Excel-Trainer</p>
+<p class="xlw-backp noprint"><a class="xlw-back" href="/tools/excel-vorlagen"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Zurück zu den Excel-Vorlagen</a></p>
 <h1>Excel-Trainer: Excel lernen mit BWL-Aufgaben</h1>
 <p class="lead">Ein Excel-Nachbau im Browser: Du tippst selbst, nutzt echte Tastenkürzel und bekommst zu jedem Schritt sofort Rückmeldung. ${LESSONS.length} Lektionen in drei Stufen führen von der ersten Formel über $-Bezüge, WENN und SVERWEIS bis zu Kapitalwert, Tilgungsplan und Deckungsbeitragsrechnung. Jede Lektion endet mit einer kleinen Aufgabe aus dem Wiwi-Studium.</p>
 <p class="small">Kostenlos, ohne Anmeldung. Der Trainer läuft komplett in deinem Browser, deine Eingaben werden nicht übertragen.</p>
