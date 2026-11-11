@@ -7494,6 +7494,22 @@ body{background:#f4f5fb}
 .les.fxl .praise.big b{background:linear-gradient(135deg,#f59e0b,#ef4444 60%,#ec4899);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 6px 18px rgba(239,68,68,.45))}
 /* Fliegende Funken in den Balken: leuchtende Kugeln in der Farbwelt */
 .flyp.fxfly{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 25%,var(--fxa2) 55%,var(--fxa1));box-shadow:0 0 10px 3px rgba(var(--fxgl),.75),0 0 2px #fff;filter:none!important}
+/* Partner-Vorschau: eigene Startseite und Weg zurück zum Partnerbereich */
+.fxpvl{margin-left:auto;display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 6px;border-radius:999px;background:#0a0a0b;color:#fff;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;box-shadow:0 10px 24px -14px rgba(10,10,11,.7);transition:transform .2s}
+.fxpvl:hover{transform:translateY(-1px)}.fxpvl i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--fxag)}.fxpvl svg{width:15px;height:15px}
+.fxwho+.fxpvl{margin-left:14px}.fxpvl+.fxhelp,.fxpvl+.fxfarbe{margin-left:14px!important}.fxpvl+.fxfarbe+.fxhelp{margin-left:14px!important}
+.fxpv{display:grid;gap:18px;max-width:720px;margin:0 auto}.fxpv .fxcard{max-width:none;margin:0}
+.fxpvh h1{margin:0 0 12px}.fxpvh .fxeye,.fxpvc .fxeye{color:var(--fxa1)}
+.fxpvgo{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.fxbtn2{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 24px;border-radius:999px;border:0;background:#fff;color:#0a0a0b;font:inherit;font-size:16px;font-weight:700;cursor:pointer;box-shadow:inset 0 0 0 1.5px #d9dce8;transition:box-shadow .2s,transform .2s}.fxbtn2:hover{box-shadow:inset 0 0 0 1.5px var(--fxa1);transform:translateY(-1px)}
+.fxpvs{margin:16px 0 0;color:#6b6f80;font-size:14.5px;line-height:1.5}
+.fxpvst{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:16px}.fxpvst li{display:flex;gap:14px;align-items:flex-start}
+.fxpvst i{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:12px;background:var(--fxag);color:#fff;font-style:normal;font-weight:800}
+.fxpvst b{display:block;font-size:17px;margin:4px 0 3px}.fxpvst span{color:#5b5f70;font-size:15px;line-height:1.5}
+.fxpvn{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 22px}.fxpvn div{padding:16px;border-radius:18px;background:rgba(var(--fxgl),.07)}
+.fxpvn b{display:block;font-size:26px;letter-spacing:-.02em;background:var(--fxag);-webkit-background-clip:text;background-clip:text;color:transparent}.fxpvn span{display:block;margin-top:4px;color:#5b5f70;font-size:14px;line-height:1.4}
+.fxpvm{display:none}
+@media (max-width:620px){.fxtop .fxpvl{display:none}.fxtop .fxpvl+.fxhelp{margin-left:auto!important}.fxpvm{display:inline-flex;position:fixed;left:max(14px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));z-index:60;margin:0!important;padding:6px 16px 6px 6px;font-size:14px}.fxpvl i{font-size:10px;padding:6px 9px}.fxw:has(.fxpvm){padding-bottom:70px}.fxpvn{grid-template-columns:1fr}.fxpvgo .fxbtn,.fxpvgo .fxbtn2{width:100%}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8087,6 +8103,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-95997a12.js"></script>
+<script defer src="/grundschulmax/gjs/app-8b8b0304.js"></script>
 </body>
 </html>
