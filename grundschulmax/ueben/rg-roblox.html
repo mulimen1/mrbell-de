@@ -479,7 +479,7 @@ try{var a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[
   /* Arbeitsblatt drucken */
   var pr = $('#print'); if (pr) pr.onclick = function () {
     var keep = N; N = C.type === 'mul' ? 30 : 30; var T = GEN[C.type](); N = keep;
-    var ws = $('#ws'); ws.innerHTML = '<h2>' + esc(C.ws) + (C.lab ? ' · ' + esc(C.lab()) : '') + '</h2><div class="meta">Name: ______________________ &nbsp; Datum: ____________ &nbsp; · grundschulmax.de/ueben/' + C.slug + '</div><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ______</div>'; }).join('') + '</div><div class="lsg"><h2>Lösungen</h2><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ' + t.a + '</div>'; }).join('') + '</div></div>';
+    var ws = $('#ws'); ws.innerHTML = '<h2>' + esc(C.ws) + (C.lab ? ' · ' + esc(C.lab()) : '') + '</h2><div class="meta">Name: ______________________ &nbsp; Datum: ____________ &nbsp; · missioninternet.de</div><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ______</div>'; }).join('') + '</div><div class="lsg"><h2>Lösungen</h2><div class="cols">' + T.map(function (t) { return '<div>' + esc(t.q) + ' ' + t.a + '</div>'; }).join('') + '</div></div>';
     ev('Arbeitsblatt gedruckt', C.slug + (C.lab ? ' · ' + C.lab() : '')); d.body.classList.add('pr-ws'); setTimeout(function () { window.print(); setTimeout(function () { d.body.classList.remove('pr-ws'); }, 400); }, 60);
   };
   start();
