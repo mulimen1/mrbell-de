@@ -7470,6 +7470,30 @@ body{background:#f4f5fb}
 .fx-lg>circle:last-of-type{fill:#fff;stroke:none}
 .fxstage .fxlic .fx-lg>circle:first-of-type{fill:rgba(255,255,255,.16)}
 .fxstage .fxlic .fxlt .fx-lg{box-shadow:0 6px 16px -8px rgba(0,0,0,.35)!important}
+/* ===== Lektion: Fortschrittsbalken als Held (dick, leuchtend, Komet am Ende, blitzt bei jeder richtigen Antwort) ===== */
+.les.fxl .lestop{padding:12px 16px!important;border-radius:20px!important;border-color:#e4e6f0!important;box-shadow:0 14px 34px -20px rgba(var(--fxgl),.55)!important}
+.les.fxl .lesbar{height:14px!important;margin-top:8px!important;border-radius:99px!important;background:#e9ebf3!important;box-shadow:inset 0 1px 2px rgba(20,20,60,.12)!important;overflow:visible!important;position:relative}
+.les.fxl .lesbar i{position:relative;height:100%!important;border-radius:99px!important;background:var(--fxag)!important;box-shadow:0 0 14px rgba(var(--fxgl),.55),inset 0 1px 0 rgba(255,255,255,.45)!important;overflow:hidden;transition:width .7s cubic-bezier(.3,1.3,.5,1)!important}
+.les.fxl .lesbar i::before{content:""!important;display:block!important;position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.22) 0 8px,transparent 8px 18px);background-size:40px 100%;animation:fxstripe 1.2s linear infinite}
+.les.fxl .lesbar i::after{content:""!important;display:block!important;position:absolute;right:2px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:#fff;box-shadow:0 0 8px 3px rgba(255,255,255,.9),0 0 18px 6px rgba(var(--fxgl),.7)}
+@keyframes fxstripe{to{background-position:40px 0}}
+.les.fxl .lesbar.zap{animation:fxzap .6s cubic-bezier(.3,1.6,.5,1)}
+.les.fxl .lesbar.zap i{filter:brightness(1.35) saturate(1.2)}
+@keyframes fxzap{0%{transform:scaleY(1)}35%{transform:scaleY(1.6)}100%{transform:scaleY(1)}}
+.flyp.fxfly{font-size:22px;color:var(--fxa2);filter:drop-shadow(0 0 6px rgba(var(--fxgl),.9)) drop-shadow(0 0 2px #fff)}
+.les.fxl .lesw[data-n]::after{font-size:13px!important;font-weight:800!important;color:var(--fxa1)!important}
+/* Serie in der Lektion: ab 2 richtigen Antworten am Stück */
+.les.fxl .lesstk{display:none!important}
+.les.fxl .lesstk.on{display:flex!important;align-items:center;gap:5px;height:34px;padding:0 12px 0 9px;border-radius:99px;background:linear-gradient(135deg,#f59e0b,#ef4444)!important;color:#fff!important;font:800 15px/1 G,system-ui,sans-serif!important;box-shadow:0 8px 18px -8px rgba(239,68,68,.8),inset 0 1px 0 rgba(255,255,255,.35)!important;opacity:1!important;animation:fxbadge .5s cubic-bezier(.3,1.6,.5,1)}
+.les.fxl .lesstk.on svg{width:16px;height:16px;color:#fff!important;filter:none!important;animation:none!important}
+.les.fxl .lesstk.on.bump{animation:fxzap .45s cubic-bezier(.3,1.6,.5,1)}
+@media (prefers-reduced-motion:reduce){.les.fxl .lesbar i::before,.les.fxl .lesbar.zap,.les.fxl .lesstk.on{animation:none!important}}
+/* Lob nach richtiger Antwort im Führerschein: modern statt Comic (kein Strahlenkranz, keine Kontur) */
+.les.fxl .praise::before{width:360px!important;height:360px!important;margin:-180px 0 0 -180px!important;background:radial-gradient(circle,rgba(var(--fxgl),.28),transparent 62%)!important;mask:none!important;-webkit-mask:none!important;animation:none!important}
+.les.fxl .praise b{font-family:G,system-ui,sans-serif!important;font-size:clamp(40px,6vw,64px)!important;font-weight:800!important;letter-spacing:-.04em!important;-webkit-text-stroke:0!important;background:var(--fxag);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important;filter:drop-shadow(0 6px 18px rgba(var(--fxgl),.45)) drop-shadow(0 0 1px #fff)}
+.les.fxl .praise.big b{background:linear-gradient(135deg,#f59e0b,#ef4444 60%,#ec4899);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 6px 18px rgba(239,68,68,.45))}
+/* Fliegende Funken in den Balken: leuchtende Kugeln in der Farbwelt */
+.flyp.fxfly{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0 25%,var(--fxa2) 55%,var(--fxa1));box-shadow:0 0 10px 3px rgba(var(--fxgl),.75),0 0 2px #fff;filter:none!important}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8063,6 +8087,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-db93333f.js"></script>
+<script defer src="/grundschulmax/gjs/app-7810eea3.js"></script>
 </body>
 </html>
