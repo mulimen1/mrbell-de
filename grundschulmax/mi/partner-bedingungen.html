@@ -240,7 +240,7 @@ var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;if(RM)d.documentEl
 var els=[].slice.call(d.querySelectorAll('.abody>h2,.abody>p,.abody>ul,.abody>ol,.abody>.tip,.abody>table,.mcta,.arc,.dfaq details'));
 if(!RM&&'IntersectionObserver' in window){els.forEach(function(e){e.classList.add('rv')});var io=new IntersectionObserver(function(es){es.forEach(function(e){var t=e.target;if(e.isIntersecting){t.classList.remove('up');t.classList.add('in')}else{t.classList.remove('in');t.classList.toggle('up',e.boundingClientRect.top<0)}})},{rootMargin:'-4% 0px -6% 0px'});els.forEach(function(e){io.observe(e)})}
 if(!RM&&matchMedia('(hover:hover) and (pointer:fine)').matches)[].forEach.call(d.querySelectorAll('.mag'),function(b){b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate3d('+((e.clientX-r.left-r.width/2)*.06).toFixed(1)+'px,'+((e.clientY-r.top-r.height/2)*.1).toFixed(1)+'px,0)'});b.addEventListener('pointerleave',function(){b.style.transform=''})});
-(function(){try{var PP=location.pathname;if(/^\/partner(-bedingungen)?$/.test(PP)){sessionStorage.setItem('mi.pz','/partner'+location.search+location.hash)}else{var PZU=localStorage.getItem('mi.pz')||sessionStorage.getItem('mi.pz');if(PZU&&PZU.charAt(0)==='/'){var PB=d.createElement('a');PB.className='pzback';PB.href=PZU;PB.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Zum Partnerbereich';d.body.appendChild(PB)}}}catch(e){}})();
+
 try{var a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[spk]$/.test(a.plan||'')){var b=d.querySelector('.nav .btn');if(b){b.setAttribute('href','/app#fuehrerschein');b.firstChild.textContent='Zum Kurs '}}}catch(e){}})();</script><script>window.UB={"slug": "partner-bedingungen"};</script><script>/* ---------- Cookie-Einwilligung (gemeinsam mit der App: gsm.consent + Cookie gsm_analyse) ----------
    Ohne Einwilligung: nur anonyme Ereignisse über /gs, kein Cookie, keine Kennung, kein Google.
    Mit Einwilligung: Zufallskennung (Sitzungen, ungefährer Ort) und Google-Ads-Conversion (AW, nur Kauf-Schritte). */
@@ -523,4 +523,4 @@ try{var a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[
   };
   start();
 })();
-</script></body></html>
+</script><script src="/grundschulmax/mi/pbar.js?v=1"></script></body></html>
