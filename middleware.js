@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/vorschau-b899cdb2db']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/vorschau-b899cdb2db', '/partner-terms', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -209,6 +209,21 @@ export default async function middleware(req, ctx) {
   let url;
   try { url = new URL(req.url); } catch (e) { return weiter(); }
   // ---------- Grundschulmax (grundschulmax.de) — eigene Seite unter /grundschulmax, keine Messung ----------
+  // ---------- Mission Internet USA (getmissioninternet.com) — englische Seiten und englische App ----------
+  if (/^(www\.)?getmissioninternet\.com$/i.test(url.hostname)) {
+    if (/^www\./i.test(url.hostname)) return Response.redirect('https://getmissioninternet.com' + url.pathname + url.search, 301);
+    if (url.pathname === '/gs') return gsEreignis(req, ctx);
+    const p = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    const EN = { '/': 'index', '/partner': 'partner', '/partner-terms': 'partner-terms', '/verify': 'verify', '/certificate': 'certificate', '/privacy': 'privacy', '/terms': 'terms', '/imprint': 'imprint', '/refund': 'refund' };
+    let z = '';
+    if (EN[p]) z = '/grundschulmax/mi/en/' + EN[p] + '.html';
+    else if (p === '/app') z = '/grundschulmax/index-en.html';
+    else if (p === '/robots.txt' || p === '/sitemap.xml') z = '/grundschulmax/mi/en' + p;
+    else if (p === '/favicon.ico') z = '/grundschulmax/mi/favicon.png';
+    else if (!/^\/grundschulmax\//.test(url.pathname)) return Response.redirect('https://getmissioninternet.com/' + url.search, 302);
+    if (z) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(z, url).toString() } });
+    return weiter();
+  }
   // ---------- Mission Internet (missioninternet.de) — neue Marke, gleiche Inhalte wie grundschulmax.de ----------
   const MI = /^(www\.)?missioninternet\.de$/i.test(url.hostname);
   if (MI && /^www\./i.test(url.hostname)) return Response.redirect('https://missioninternet.de' + url.pathname + url.search, 301);
