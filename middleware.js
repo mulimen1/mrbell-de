@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/favicon.ico']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/favicon.ico', '/partner', '/partner-bedingungen']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -223,6 +223,7 @@ export default async function middleware(req, ctx) {
     else if (MI && pfad === '/internet-fuehrerschein') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); }
     else if (MI && (pfad === '/robots.txt' || pfad === '/sitemap.xml')) ziel = '/grundschulmax/mi' + pfad;
     else if (MI && pfad === '/favicon.ico') ziel = '/grundschulmax/mi/favicon.png';
+    else if (MI && (pfad === '/partner' || pfad === '/partner-bedingungen')) ziel = '/grundschulmax/mi' + pfad + '.html';
     else if (/^\/(erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) { ziel = '/grundschulmax/mi/fs-' + pfad.slice(1) + '.html'; /* Landingpages für Anzeigen */ }
     else if (pfad === '/') { ziel = '/grundschulmax/ueben/internet-fuehrerschein.html'; /* Startseite = Internet-Führerschein; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
     else if (pfad === '/app') { ziel = '/grundschulmax/index.html'; /* Lern-App; Besuch zählt die Seite selbst (gt.js) */ }
