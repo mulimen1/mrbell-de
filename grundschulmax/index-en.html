@@ -7068,7 +7068,7 @@ body.tryon .afab{display:none!important}
 @media (max-width:760px){.fxlics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -14px 18px;padding:6px 14px 10px;scrollbar-width:none}.fxlics::-webkit-scrollbar{display:none}.fxlics .fxlic{flex:0 0 88%;scroll-snap-align:center}.fxlics.n1 .fxlic{flex-basis:88%}}
 /* Echte Bilder in den Szenen */
 .svpl.th{background-size:cover;background-position:center}.svpl.th>i{opacity:.92}
-.spim.school{background:url(/grundschulmax/sz/post-schultag.webp) 50% 45%/cover}
+.spim.school{background:url(/grundschulmax/sz/post-schultag-en.webp) 50% 45%/cover}
 .spim.dog{background:url(/grundschulmax/sz/post-hund-mond.webp) 50% 50%/cover}
 .spim.dino{background:url(/grundschulmax/sz/post-dino.webp) 50% 55%/cover}
 .sb.pic.photo .pici,.sb.pic.shark .pici,.sb.pic.dragon .pici,.sb.pic.unicorn .pici{height:auto;aspect-ratio:3/4;background-size:cover;background-position:center}
@@ -7626,6 +7626,16 @@ body{background:#f4f5fb}
 @media (max-width:420px){.mipb b{display:none}.mipb a{padding:0 13px;font-size:13.5px}}@media print{.mipb{display:none}}
 .fx .fxw:has(.mipb){padding-bottom:84px}
 .fxpvn{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.28);font-size:14.5px;line-height:1.5;color:inherit}.fxpvn svg{flex:none;width:18px;height:18px;margin-top:1px;color:#16a34a}.fxpvn .fxpvt{font-style:normal;font-weight:700}
+/* Echte Szenen: Chats und Karten am Laptop größer und mittig im freien Bereich links vom Antwortkasten (nie darunter) */
+@media (min-width:900px){
+  .simfs .sgchat{left:calc((100% - var(--sr)) / 2);transform:translateX(-50%);width:min(660px,calc(100% - var(--sr) - 56px));bottom:calc(var(--sb) + 40px);font-size:19px;line-height:1.45;padding:14px 20px 16px;border-radius:18px}
+  .simfs .sgtabs{font-size:14px}.simfs .sgm .sys{font-size:15px}.simfs .sgm p{margin:6px 0}.simfs .sgin{font-size:15px;padding:10px 14px}
+  .simfs .smb{justify-content:center}
+  .simfs .smc{max-width:700px}
+  .simfs .sb{font-size:19.5px;max-width:min(84%,600px);padding:10px 14px 8px}
+  .simfs .sfrc,.simfs .spc,.simfs .slc,.simfs .ssc,.simfs .spw2{zoom:1.18}
+  .simfs .smm{font-size:18px}.simfs .svc{font-size:17px}
+}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -7949,10 +7959,10 @@ body{background:#f4f5fb}
         <div class="wpane" data-w="quiz"><div class="qstart" id="qstart"></div></div>
         <div class="gstage" id="stage">
           <div class="stin">
-            <div class="stop"><button class="sx" id="sx" aria-label="Spiel schließen"><svg class="i"><use href="#i-x"/></svg></button>
+            <div class="stop"><button class="sx" id="sx" aria-label="Close game"><svg class="i"><use href="#i-x"/></svg></button>
               <div class="gname" id="gname"></div>
               <div class="lp"><div class="lpb"><i id="lpf"></i></div><div class="streak" id="streak"><svg class="i"><use href="#i-flame"/></svg><span id="strn">0</span></div></div>
-              <div class="dctl"><button class="snd" id="snd" aria-pressed="false"><svg class="i"><use href="#i-mute"/></svg><span>Ton an</span></button><div class="tot" id="tot"><svg class="i"><use href="#i-star"/></svg><b id="totn">0</b><span>Sterne</span></div></div>
+              <div class="dctl"><button class="snd" id="snd" aria-pressed="false"><svg class="i"><use href="#i-mute"/></svg><span>Sound on</span></button><div class="tot" id="tot"><svg class="i"><use href="#i-star"/></svg><b id="totn">0</b><span>Stars</span></div></div>
             </div>
             <div class="stbody">
               <div class="dhead">
@@ -7962,7 +7972,7 @@ body{background:#f4f5fb}
               <div class="gs" id="gs"></div>
               <div class="dfoot">
                 <div class="gstars" id="gst"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div>
-                <button class="lnk" id="again"><svg class="i"><use href="#i-again"/></svg>Neu starten</button>
+                <button class="lnk" id="again"><svg class="i"><use href="#i-again"/></svg>Start over</button>
               </div>
             </div>
           </div>
@@ -8219,6 +8229,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-en-c4a8452d.js"></script>
+<script defer src="/grundschulmax/gjs/app-en-379f8bc6.js"></script>
 </body>
 </html>

@@ -7626,6 +7626,16 @@ body{background:#f4f5fb}
 @media (max-width:420px){.mipb b{display:none}.mipb a{padding:0 13px;font-size:13.5px}}@media print{.mipb{display:none}}
 .fx .fxw:has(.mipb){padding-bottom:84px}
 .fxpvn{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 18px;border-radius:16px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.28);font-size:14.5px;line-height:1.5;color:inherit}.fxpvn svg{flex:none;width:18px;height:18px;margin-top:1px;color:#16a34a}.fxpvn .fxpvt{font-style:normal;font-weight:700}
+/* Echte Szenen: Chats und Karten am Laptop größer und mittig im freien Bereich links vom Antwortkasten (nie darunter) */
+@media (min-width:900px){
+  .simfs .sgchat{left:calc((100% - var(--sr)) / 2);transform:translateX(-50%);width:min(660px,calc(100% - var(--sr) - 56px));bottom:calc(var(--sb) + 40px);font-size:19px;line-height:1.45;padding:14px 20px 16px;border-radius:18px}
+  .simfs .sgtabs{font-size:14px}.simfs .sgm .sys{font-size:15px}.simfs .sgm p{margin:6px 0}.simfs .sgin{font-size:15px;padding:10px 14px}
+  .simfs .smb{justify-content:center}
+  .simfs .smc{max-width:700px}
+  .simfs .sb{font-size:19.5px;max-width:min(84%,600px);padding:10px 14px 8px}
+  .simfs .sfrc,.simfs .spc,.simfs .slc,.simfs .ssc,.simfs .spw2{zoom:1.18}
+  .simfs .smm{font-size:18px}.simfs .svc{font-size:17px}
+}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8219,6 +8229,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-73a996e6.js"></script>
+<script defer src="/grundschulmax/gjs/app-64e6bcf1.js"></script>
 </body>
 </html>
