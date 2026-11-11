@@ -168,6 +168,10 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 @media (max-width:899px){:root{--g:16px}.ahero{padding:110px 0 24px}.abody{font-size:17px}.mcta{grid-template-columns:minmax(0,1fr);padding:28px 22px 24px;gap:22px}.mcta .em{display:none}.arel,.hubw .arel{grid-template-columns:minmax(0,1fr)}.frow{flex-direction:column}.dfaq p{padding-right:0}}
 .rm [data-split] .w>span,.rm .rv{transform:none!important;opacity:1!important;transition:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Zurück in den Partnerbereich: immer sichtbar, wenn man von dort kommt */
+.pzback{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:90;display:inline-flex;align-items:center;gap:8px;padding:12px 18px 12px 14px;border-radius:999px;background:#0a0a0b;color:#fff;font:600 14.5px/1 Geist,G,system-ui,sans-serif;text-decoration:none;box-shadow:0 14px 30px -12px rgba(10,10,11,.6),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .2s}
+.pzback:hover{transform:translateY(-2px)}.pzback svg{width:16px;height:16px}
+@media print{.pzback{display:none}}
 
 .vz{padding:130px 0 90px}.vz h1{font-size:clamp(38px,5vw,64px);letter-spacing:-.05em;line-height:1;margin:14px 0 10px}.vz .lead{color:var(--mut);font-size:17px;max-width:640px;margin:0 0 40px}
 .vz h2{font-size:22px;letter-spacing:-.03em;margin:44px 0 14px}

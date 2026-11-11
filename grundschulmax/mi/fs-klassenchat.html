@@ -456,6 +456,10 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 .rm .cl li{opacity:1}.rm .st::after{transform:none;transition:none}
 .rm .rf{stroke-dashoffset:0;transition:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Zurück in den Partnerbereich: immer sichtbar, wenn man von dort kommt */
+.pzback{position:fixed;left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom));z-index:90;display:inline-flex;align-items:center;gap:8px;padding:12px 18px 12px 14px;border-radius:999px;background:#0a0a0b;color:#fff;font:600 14.5px/1 Geist,G,system-ui,sans-serif;text-decoration:none;box-shadow:0 14px 30px -12px rgba(10,10,11,.6),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .2s}
+.pzback:hover{transform:translateY(-2px)}.pzback svg{width:16px;height:16px}
+@media print{.pzback{display:none}}
 </style>
 </head>
 <body>
@@ -1075,6 +1079,7 @@ go.addEventListener('click',()=>{msg.hidden=true;const miss=['#fsa','#fsw'].filt
  fetch('https://hub.mrbell.de/n8n/webhook/gsm-abo-4h8t',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'checkout',plan:'fp',grade:2,ref:CODE||''})}).then(r=>r.json()).then(r=>{if(r&&r.ok&&r.url){location.href=r.url;return}throw 0}).catch(()=>{busy=0;go.classList.remove('wait');msg.textContent='Die Zahlung ist gerade nicht erreichbar. Bitte gleich nochmal versuchen.';msg.hidden=false})});
 if(/[?&]abbruch=1/.test(location.search)){EV('Zahlung abgebrochen','Stripe zurück');msg.textContent='Die Zahlung wurde abgebrochen. Sie können es jederzeit nochmal versuchen.';msg.hidden=false;setTimeout(()=>$('#pc').scrollIntoView({block:'center'}),300)}
 /* Kunden: direkt zum Kurs */
+(function(){try{var PP=location.pathname;if(/^\/partner(-bedingungen)?$/.test(PP)){sessionStorage.setItem('mi.pz','/partner'+location.search+location.hash)}else{var PZU=localStorage.getItem('mi.pz')||sessionStorage.getItem('mi.pz');if(PZU&&PZU.charAt(0)==='/'){var PB=document.createElement('a');PB.className='pzback';PB.href=PZU;PB.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Zum Partnerbereich';document.body.appendChild(PB)}}}catch(e){}})();
 try{const a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[spk]$/.test(a.plan||'')){$$('.nav .btn, .hero .cta .btn:not(.gh), .end .cta .btn:not(.gh)').forEach(b=>{b.setAttribute('href','/app#fuehrerschein');b.firstChild.textContent='Zum Kurs '})}}catch(e){}
 /* Bereiche + Scrolltiefe */
 if('IntersectionObserver' in window){const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io2.unobserve(e.target);EV('Bereich gesehen',e.target.id||'?')}}),{threshold:.35});$$('main>section[id]').forEach(s=>io2.observe(s))}
