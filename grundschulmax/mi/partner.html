@@ -211,13 +211,21 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 .sbar{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:2}.sbar i{flex:1;height:2.5px;border-radius:2px;background:rgba(255,255,255,.45)}.sbar i:first-child{background:#fff}
 .shead{position:absolute;top:24px;left:14px;right:14px;display:flex;align-items:center;gap:8px;z-index:2;font-size:13px}.shead b{font-weight:600}.shead em{font-style:normal;opacity:.7;font-size:12px}
 .sav{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#f3d9b1;color:#5a3b12;font-weight:700;font-size:13px;box-shadow:0 0 0 2px #fff}
-.sscene{position:absolute;left:14px;right:14px;top:30%;z-index:2}.sbub{background:#fff;color:#0a0a0b;border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
+.sgch{position:absolute;left:14px;right:26px;top:16%;z-index:2;background:rgba(12,14,30,.8);backdrop-filter:blur(6px);border-radius:14px;padding:9px 11px 11px;border:1px solid rgba(255,255,255,.12);box-shadow:0 16px 40px -14px rgba(0,0,0,.6)}
+.sgh{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-bottom:5px;display:flex;gap:6px;align-items:center}.sgh i{width:6px;height:6px;border-radius:50%;background:#22c55e}
+.sgch p{margin:4px 0 0;font-size:13px;line-height:1.35}.sgch b{color:#fbbf24;font-weight:700;margin-right:5px}
+.sscene{position:absolute;left:14px;right:14px;top:47%;z-index:2}.sbub{background:#fff;color:#0a0a0b;border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.4;box-shadow:0 10px 24px -10px rgba(0,0,0,.4)}
 .sstick{position:absolute;left:50%;bottom:20%;transform:translateX(-50%) rotate(-4deg);z-index:2;background:#fff;color:#0a0a0b;border-radius:14px;padding:10px 16px;text-align:center;box-shadow:0 12px 28px -10px rgba(0,0,0,.5)}.sstick b{display:block;font-size:20px;letter-spacing:-.02em}.sstick span{font-size:12.5px;color:#6c6c74}
 .slink{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:2;background:rgba(255,255,255,.92);color:#0a0a0b;border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:600}
 .story figcaption{position:absolute;left:0;right:0;bottom:-34px;text-align:center;font-size:13px;color:var(--mut)}
 .pst{margin:0 0 56px}.pmt{margin-bottom:22px!important}
 .pideas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.pideas div{padding:24px 22px;border-radius:22px;background:#faf8f5;border:1px solid #efe9e1}
 .pit{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8a7a66;margin-bottom:10px}.pideas p{margin:0;font-size:16px;line-height:1.55;color:var(--ink2)}
+.pvh{font-size:clamp(40px,6vw,76px)!important;line-height:.98!important;letter-spacing:-.055em!important;max-width:14ch;margin:14px 0 18px!important}.pvl{max-width:620px;margin:0 0 40px!important}
+.pvg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.pv{margin:0}.pv img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;border-radius:24px;box-shadow:0 30px 60px -34px rgba(10,10,11,.5),0 0 0 1px rgba(0,0,0,.05);transition:transform .3s}.pv:hover img{transform:translateY(-4px) rotate(-.6deg)}
+.pv figcaption{padding:16px 4px 0;display:grid;gap:4px}.pv figcaption b{font-size:17px;letter-spacing:-.02em}.pv figcaption span{font-size:14.5px;line-height:1.5;color:var(--mut)}.pv figcaption a{justify-self:start;margin-top:6px;font-weight:600;font-size:14.5px}
+.pvt3{margin:64px 0 16px;font-size:22px;letter-spacing:-.03em}
+@media (max-width:900px){.pvg{grid-template-columns:1fr;gap:34px}.pv img{max-width:320px}}
 .pcalc{margin:22px 0 0;font-size:17px;color:var(--mut)}.pcalc b{color:var(--ink)}
 .pextra{padding:40px 40px 38px;border-radius:28px;background:#faf8f5;border:1px solid #efe9e1;max-width:900px}.pextra h2{max-width:22ch}.pextra p{margin:0;max-width:640px;font-size:17px;line-height:1.6;color:var(--ink2)}
 .pxb{display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;background:#fff;border:1px solid #e6ddd0;font-size:12.5px;font-weight:600;color:#8a7a66}
@@ -235,7 +243,8 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
  <figure class="story" aria-label="Beispiel einer Instagram-Story">
   <div class="sbar"><i></i><i></i><i></i></div>
   <div class="shead"><span class="sav">L</span><b>lena.und.die.jungs</b><em>vor 2 Std.</em></div>
-  <div class="sscene"><div class="sbub">Heute mit Noah den Internet-Führerschein gemacht. Die Szene mit dem Fremden im Spiel-Chat hat ihn echt zum Nachdenken gebracht.</div></div>
+  <div class="sgch"><div class="sgh"><i></i>Spiel-Chat · Blockwelt</div><p><b>Kai_12</b>hey bist du auch 12?</p><p><b>Kai_12</b>lass uns mal treffen 😊</p><p><b>Kai_12</b>aber sag deinen eltern nix</p></div>
+  <div class="sscene"><div class="sbub">Diese Szene kam heute im Internet-Führerschein. Noah hat sofort gesagt: blockieren und Mama zeigen.</div></div>
   <div class="sstick"><b>Code LENA</b><span>10 € günstiger</span></div>
   <div class="slink">missioninternet.de</div>
   <figcaption>So könnte deine Story aussehen</figcaption>
@@ -246,7 +255,10 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
  <h2 class="pmt">So einfach geht es</h2>
  <ol class="psteps"><li><b>Anmelden</b><span>In einer Minute: Name, Mail, dein Kanal und dein Wunsch-Code.</span></li><li><b>Ausprobieren</b><span>Du bekommst den kompletten Kurs kostenlos und machst ihn mit deinem Kind.</span></li><li><b>Teilen</b><span>In Story, Reel oder Post: dein Code und dein Link. Deine Follower sparen 10 €.</span></li><li><b>Verdienen</b><span>15 € für jeden Kauf, 14 Tage nach dem Kauf bestätigt, monatlich überwiesen.</span></li></ol>
 </div></section>
-<section class="psec"><div class="c"><h2>Ideen für deinen Beitrag</h2><p class="sub">Am besten wirkt, was echt ist. Ein paar Beispiele, wie andere Eltern davon erzählen könnten:</p>
+<section class="psec pvt"><div class="c"><div class="k">Inspiration und Vorlagen</div><h2 class="pvh">Wir vertrauen dir. <span class="gr">Mach es in deinem Stil.</span></h2>
+ <p class="lead pvl">Du kennst deine Community am besten. Nimm unsere Story-Vorlagen, ändere sie, wie du willst, oder mach etwas ganz Eigenes. Wir reden dir nicht rein.</p>
+ <div class="pvg"><figure class="pv"><img src="/grundschulmax/mi/vorlagen/story-szene-klein.jpg" alt="Story-Vorlage: Die Szene" width="360" height="640" loading="lazy"><figcaption><b>Die Szene</b><span>Der echte Chat aus dem Kurs. Eltern sehen sofort, worum es geht.</span><a class="ul" href="/grundschulmax/mi/vorlagen/mission-internet-story-szene.jpg" download>Vorlage herunterladen</a></figcaption></figure><figure class="pv"><img src="/grundschulmax/mi/vorlagen/story-frage-klein.jpg" alt="Story-Vorlage: Frage an deine Community" width="360" height="640" loading="lazy"><figcaption><b>Frage an deine Community</b><span>Umfrage-Story: Was würde dein Kind tun? Bringt Antworten und Reichweite.</span><a class="ul" href="/grundschulmax/mi/vorlagen/mission-internet-story-frage.jpg" download>Vorlage herunterladen</a></figcaption></figure><figure class="pv"><img src="/grundschulmax/mi/vorlagen/story-bestanden-klein.jpg" alt="Story-Vorlage: Bestanden" width="360" height="640" loading="lazy"><figcaption><b>Bestanden</b><span>Zum Abschluss: die Urkunde deines Kindes, mit Platz für den Namen.</span><a class="ul" href="/grundschulmax/mi/vorlagen/mission-internet-story-bestanden.jpg" download>Vorlage herunterladen</a></figcaption></figure></div>
+ <h3 class="pvt3">Texte zum Übernehmen</h3>
  <div class="pideas"><div><span class="pit">Story</span><p>„Wir haben heute den Internet-Führerschein gemacht. Ich war überrascht, wie viel sie über Fremde im Spiel-Chat noch nicht wusste.“</p></div><div><span class="pit">Reel</span><p>„Drei Situationen, auf die mein Kind vor dem ersten Handy vorbereitet sein sollte. Nummer zwei hätte ich selbst nicht gewusst.“</p></div><div><span class="pit">Post</span><p>„Statt nur Regeln aufzustellen, hat mein Sohn an echten Szenen geübt, was er tun würde. Mit meinem Code spart ihr 10 €.“</p></div></div>
  <p class="pcalc">Ein Beispiel: <b>10 Käufe im Monat</b> mit deinem Code sind <b>150 € für dich</b>.</p>
 </div></section>
