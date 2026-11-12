@@ -456,7 +456,7 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 .rm .cl li{opacity:1}.rm .st::after{transform:none;transition:none}
 .rm .rf{stroke-dashoffset:0;transition:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-.ttb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:-6px 0 26px;padding:10px 14px 10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(255,64,129,.10),rgba(0,200,255,.10));border:1px solid rgba(255,64,129,.28);font-size:14.5px;line-height:1.35;color:var(--ink)}
+.ttb[hidden]{display:none!important}.ttb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:-6px 0 26px;padding:10px 14px 10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(255,64,129,.10),rgba(0,200,255,.10));border:1px solid rgba(255,64,129,.28);font-size:14.5px;line-height:1.35;color:var(--ink)}
 .ttb b{font-weight:650}.ttb .ttc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:8px;background:#0a0a0b;color:#fff;font-size:13px}.ttb .ttt{font-variant-numeric:tabular-nums;color:var(--mut)}
 </style>
 </head>
@@ -1060,7 +1060,7 @@ let hq=0,hok=0;
 /* Creator-Code: 10 € Rabatt, Kauf zählt für die Creatorin (Prüfung gegen die Partnerliste) */
 let CODE='';const PU='https://hub.mrbell.de/n8n/webhook/mi-partner-c53197';
 const ccm=$('#ccm'),cci=$('#cci');
-function ccSet(c,von,rb,pr){rb=+rb||10;pr=+pr||59-rb;CODE=c;$('#ppv').innerHTML='<s>59 €</s>'+pr+' €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen '+rb+' €.'+(c==='TIKTOK20'?' Gilt bis Sonntag, 15.11., 23:59 Uhr.':'');if(c==='TIKTOK20')ttShow();ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;if(c!=='TIKTOK20')try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
+function ccSet(c,von,rb,pr){rb=+rb||10;pr=+pr||59-rb;CODE=c;$('#ppv').innerHTML='<s>59 €</s>'+pr+' €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen '+rb+' €.'+(c==='TIKTOK20'?' Gilt bis Sonntag, 15.11., 23:59 Uhr.':'');if(c==='TIKTOK20'&&TTP)ttShow();ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;if(c!=='TIKTOK20')try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
 async function ccCheck(c,still){c=String(c||'').toUpperCase().replace(/[^A-Z0-9ÄÖÜ]/g,'').replace(/Ä/g,'AE').replace(/Ö/g,'OE').replace(/Ü/g,'UE').slice(0,12);if(c.length<3){if(!still){ccm.textContent='Bitte den Code eingeben.';ccm.className='ccm';ccm.hidden=false}return}
  try{const r=await fetch(PU,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'code',code:c})}).then(x=>x.json());
   if(r&&r.ok){ccSet(r.code,r.von,r.rabatt,r.preis);EV('Code eingelöst',r.code);return}
