@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -233,7 +233,8 @@ export default async function middleware(req, ctx) {
     // grundschulmax.de zieht um: alles außer der Lern-App (Logins im Browser bleiben erhalten), den Anzeigen-Landingpages (Google lehnt Weiterleitungen auf fremde Domains ab; die Seiten zeigen schon das neue Design) und der Search-Console-Datei geht dauerhaft auf missioninternet.de
     if (!MI && !/^\/(app|zahlen|google[0-9a-f]{16}|erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) return Response.redirect('https://missioninternet.de' + pfad + url.search, 301);
     let ziel = '';
-    if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
+    if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/index.html'; /* TikTok-Aktion: gleiche Seite, Code TIKTOK20 wird per JS eingelöst */
+    else if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
     else if (MI && pfad === '/pruefen') { ziel = '/grundschulmax/mi/pruefen.html'; }
     else if (MI && pfad === '/urkunde') { ziel = '/grundschulmax/mi/urkunde.html'; }
     else if (MI && pfad === '/internet-fuehrerschein') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); }

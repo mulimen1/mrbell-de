@@ -456,6 +456,8 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 .rm .cl li{opacity:1}.rm .st::after{transform:none;transition:none}
 .rm .rf{stroke-dashoffset:0;transition:none}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.ttb{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:-6px 0 26px;padding:10px 14px 10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(255,64,129,.10),rgba(0,200,255,.10));border:1px solid rgba(255,64,129,.28);font-size:14.5px;line-height:1.35;color:var(--ink)}
+.ttb b{font-weight:650}.ttb .ttc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:8px;background:#0a0a0b;color:#fff;font-size:13px}.ttb .ttt{font-variant-numeric:tabular-nums;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -471,6 +473,7 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 <section class="hero" aria-labelledby="h1">
  <div class="c">
   <p class="eye rv">Schutz vor Fremden im Netz · Klasse 4 bis 6</p>
+  <p class="ttb" id="ttb" hidden><span class="ttc">TIKTOK20</span><span><b>Nur 39 € mit Code</b> · gilt bis Sonntag, 22.11., 23:59 Uhr</span><span class="ttt" id="ttt"></span></p>
   <h1 class="h1" id="h1" data-split>Fremde schreiben Kindern. <span class="gr">Ihres weiß, was zu tun ist.</span></h1>
   <p class="hsub rv" style="--d:380ms">Fremde, die sich im Spiel-Chat als Kinder ausgeben. Erpressung mit Fotos. Stimmen, die per KI gefälscht sind. Wir schulen Ihr Kind an echten Szenen wie dieser, bis es die Maschen selbst erkennt.</p>
  </div>
@@ -1057,13 +1060,17 @@ let hq=0,hok=0;
 /* Creator-Code: 10 € Rabatt, Kauf zählt für die Creatorin (Prüfung gegen die Partnerliste) */
 let CODE='';const PU='https://hub.mrbell.de/n8n/webhook/mi-partner-c53197';
 const ccm=$('#ccm'),cci=$('#cci');
-function ccSet(c,von){CODE=c;$('#ppv').innerHTML='<s>59 €</s>49 €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen 10 €.';ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
+function ccSet(c,von,rb,pr){rb=+rb||10;pr=+pr||59-rb;CODE=c;$('#ppv').innerHTML='<s>59 €</s>'+pr+' €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen '+rb+' €.'+(c==='TIKTOK20'?' Gilt bis Sonntag, 22.11., 23:59 Uhr.':'');if(c==='TIKTOK20')ttShow();ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
 async function ccCheck(c,still){c=String(c||'').toUpperCase().replace(/[^A-Z0-9ÄÖÜ]/g,'').replace(/Ä/g,'AE').replace(/Ö/g,'OE').replace(/Ü/g,'UE').slice(0,12);if(c.length<3){if(!still){ccm.textContent='Bitte den Code eingeben.';ccm.className='ccm';ccm.hidden=false}return}
  try{const r=await fetch(PU,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'code',code:c})}).then(x=>x.json());
-  if(r&&r.ok){ccSet(r.code,r.von);EV('Code eingelöst',r.code);return}
+  if(r&&r.ok){ccSet(r.code,r.von,r.rabatt,r.preis);EV('Code eingelöst',r.code);return}
   if(!still){ccm.textContent='Diesen Code kennen wir leider nicht. Bitte nochmal prüfen.';ccm.className='ccm';ccm.hidden=false;EV('Code falsch',c)}}catch(e){if(!still){ccm.textContent='Das hat gerade nicht geklappt. Bitte nochmal versuchen.';ccm.className='ccm';ccm.hidden=false}}}
 $('#ccl').onclick=()=>{$('#ccf').hidden=false;cci.focus()};$('#ccg').onclick=()=>ccCheck(cci.value);cci.onkeydown=e=>{if(e.key==='Enter')ccCheck(cci.value)};
-setTimeout(()=>{let c='';try{c=(window.MIREF&&window.MIREF())||(location.search.match(/[?&]p=([A-Za-z0-9]{3,12})/)||[])[1]||sessionStorage.getItem('mi.ref')||''}catch(e){}if(c)ccCheck(c,true)},0);
+/* TikTok-Aktion: Code TIKTOK20 (39 €) bis So 22.11.2026 23:59, auf /tiktok automatisch eingelöst */
+const TTEND=Date.parse('2026-11-22T23:59:59+01:00'),TTP=/^\/tiktok\/?$/.test(location.pathname);let ttI=0;
+function ttTick(){const t=$('#ttt'),d=TTEND-Date.now();if(!t)return;if(d<=0){$('#ttb').hidden=true;clearInterval(ttI);return}const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4);t.textContent='noch '+(D?D+' Tag'+(D>1?'e':'')+' ':'')+H+' Std '+M+' Min'}
+function ttShow(){if(Date.now()>TTEND)return;const b=$('#ttb');if(!b||!b.hidden)return;b.hidden=false;ttTick();ttI=setInterval(ttTick,30000);$$('.trust li').forEach(li=>{if(/59 € einmalig/.test(li.textContent))li.lastChild.textContent='39 € mit Code TIKTOK20, kein Abo'})}
+setTimeout(()=>{let c='';try{c=(TTP&&Date.now()<=TTEND?'TIKTOK20':'')||(window.MIREF&&window.MIREF())||(location.search.match(/[?&]p=([A-Za-z0-9]{3,12})/)||[])[1]||sessionStorage.getItem('mi.ref')||''}catch(e){}if(TTP)ttShow();if(c)ccCheck(c,true)},0);
 /* Kauf */
 const go=$('#fsgo'),msg=$('#fsmsg');let busy=0;
 ['#fsa','#fsw'].forEach(id=>{const c=$(id);c.addEventListener('change',()=>c.closest('.ck').classList.remove('err'))});
