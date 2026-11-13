@@ -7874,6 +7874,67 @@ html.hxon{overflow:hidden}
 html[data-fxc=p] .hxe,html[data-fxc=p] .hxs i,html[data-fxc=p] .hxart button.on{color:#b0369a}
 html[data-fxc=p] .hxs i,html[data-fxc=p] .hxart button.on{background:#fbeef8}html[data-fxc=p] .hxart button.on,html[data-fxc=p] .hxfb textarea:focus{border-color:#b0369a}
 html[data-fxc=p] .hxsend{background:linear-gradient(135deg,#8a2bc2,#e0508f)}
+/* Fortschritt oben: schmale Leiste, Führerschein zum Aufklappen */
+.fxpb{position:relative;max-width:1100px;margin:18px auto 0;padding:14px 16px 12px;border-radius:22px;background:linear-gradient(135deg,#16181f,#262b42);color:#fff;box-shadow:0 18px 40px -24px rgba(10,15,40,.7);overflow:hidden}
+html[data-fxc=p] .fxpb{background:linear-gradient(135deg,#2a1033,#4a1d52)}
+.fxpb::before{content:'';position:absolute;inset:-40% -10% auto auto;width:60%;height:180%;background:radial-gradient(closest-side,rgba(91,109,255,.35),transparent);pointer-events:none}
+html[data-fxc=p] .fxpb::before{background:radial-gradient(closest-side,rgba(224,80,143,.35),transparent)}
+.fxpbh{position:relative;display:flex;align-items:center;gap:18px;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.fxpbl{flex:none;display:flex;align-items:center;gap:11px}.fxpbl>svg{width:36px;height:36px;color:#fff}
+.fxpbl small,.fxpbt small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.fxpbl b{display:block;font-size:16px;font-weight:700;letter-spacing:-.01em}
+.fxpbm{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.fxpbt b{font-size:15px;font-weight:700}.fxpbt small{text-transform:none;letter-spacing:0;font-size:13px;font-weight:600;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fxpbs{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.fxpbs>span{position:relative;height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.fxpbs u{position:absolute;inset:0 auto 0 0;border-radius:inherit;background:linear-gradient(90deg,#5b6dff,#33d1c4);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+html[data-fxc=p] .fxpbs u{background:linear-gradient(90deg,#b0369a,#ff9a5a)}
+.fxpbs>span.c{box-shadow:0 0 0 1.5px rgba(255,255,255,.55)}
+.fxpbs>span.d u{background:#3ddc97}
+.fxpbc{flex:none;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.1);font-size:13px;font-weight:700}
+.fxpbc small{font-size:13px}.fxpbc svg{width:15px;height:15px;transform:rotate(90deg);transition:transform .25s}
+.fxpb.open .fxpbc svg{transform:rotate(-90deg)}
+.fxpbh:hover .fxpbc{background:rgba(255,255,255,.18)}
+.fxpb .fxstats{position:relative;justify-content:flex-start;margin:12px 0 0;gap:8px}
+.fxpb .fxst{padding:5px 12px 5px 5px;background:rgba(255,255,255,.08);border:0;box-shadow:none;color:rgba(255,255,255,.75);font-size:13px}
+.fxpb .fxst b{color:#fff}.fxpb .fxst i{width:26px;height:26px}
+.fxpbx{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.2,.8,.2,1)}
+.fxpbx>div{overflow:hidden;min-height:0}
+.fxpb.open .fxpbx{grid-template-rows:1fr}
+.fxpbx .fxlic{margin:14px 0 4px;max-width:none;transform:none}
+@media (max-width:760px){.fxpbh{flex-wrap:wrap;gap:12px}.fxpbm{order:3;flex-basis:100%}.fxpbc{margin-left:auto}.fxpbc small{display:none}.fxpb .fxst{font-size:12px}.fxpb .fxstats{flex-wrap:wrap}}
+.fxpbx .fxstage{max-width:none;padding:14px 4px 6px}.fxpbx .fxstage .fxlic{animation:none;min-height:0}
+@media (max-width:760px){.fxpb .fxstats{display:flex;flex-wrap:nowrap;gap:6px}.fxpb .fxst{flex:1;flex-direction:row;justify-content:center;gap:5px;padding:5px 6px;border-radius:999px;white-space:nowrap;font-size:11.5px;line-height:1}.fxpb .fxst i{width:22px;height:22px}.fxpb .fxst i svg{width:12px;height:12px}.fxpb .fxst b{font-size:13.5px}}
+@media (max-width:400px){.fxpb .fxst{font-size:0}.fxpb .fxst b{font-size:13.5px}.fxpb .fxst::after{font-size:11px;color:rgba(255,255,255,.7)}.fxpb .fxst-f::after{content:"Serie"}.fxpb .fxst-u::after{content:"Einheiten"}.fxpb .fxst-b::after{content:"Abzeichen"}}
+/* Reset der alten globalen details-Optik für Hilfe und Simulator-Übersicht */
+.hxf details,.lvmore{background:none;border-radius:0;box-shadow:none;padding:0}
+.hxf summary::after,.lvmore summary::after{content:none!important}
+.hxf{margin-top:14px;display:grid;gap:8px}
+.hxf details{border:0!important;border-radius:16px;background:#f6f7fb;transition:background .2s,box-shadow .2s}
+.hxf details:hover{background:#f0f2f9}
+.hxf details[open]{background:#fff;box-shadow:0 0 0 1.5px #dfe3ff,0 14px 30px -20px rgba(45,75,240,.45)}
+.hxf summary{padding:15px 16px 15px 18px;font-size:15.5px}
+.hxf summary>span{flex:1;min-width:0}
+.hxf summary svg{width:30px;height:30px;padding:7px;box-sizing:border-box;border-radius:50%;background:#fff;color:#4a4f63;box-shadow:0 0 0 1px #e3e5ec}
+.hxf details[open] summary svg{background:#2d4bf0;color:#fff;box-shadow:none}
+.hxf details p{margin:-6px 0 0;padding:0 18px 16px}
+html[data-fxc=p] .hxf details[open]{box-shadow:0 0 0 1.5px #f3d3ea,0 14px 30px -20px rgba(176,54,154,.45)}
+html[data-fxc=p] .hxf details[open] summary svg{background:#b0369a}
+.lvmore summary>span{flex:1}
+/* Hilfe: Kopfbereich */
+.hxtop{margin-top:6px;padding:26px 24px;border-radius:24px;background:linear-gradient(135deg,#16181f,#2a2f45);color:#fff;position:relative;overflow:hidden}
+html[data-fxc=p] .hxtop{background:linear-gradient(135deg,#2a1033,#4a1d52)}
+.hxtop::before{content:'';position:absolute;right:-60px;top:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(closest-side,rgba(91,109,255,.45),transparent)}
+html[data-fxc=p] .hxtop::before{background:radial-gradient(closest-side,rgba(224,80,143,.45),transparent)}
+.hxtop>*{position:relative}
+.hxtop h1{margin:4px 0 0;font-size:28px;letter-spacing:-.02em}.hxtop p{margin:6px 0 0;color:rgba(255,255,255,.72);font-size:15px;line-height:1.5}
+.hxtop .hxe{color:#9fb0ff}html[data-fxc=p] .hxtop .hxe{color:#ffb3df}
+.hxq{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.hxq button{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:0;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:14px;font-weight:650;cursor:pointer;transition:background .15s}
+.hxq button:hover{background:rgba(255,255,255,.22)}.hxq svg{width:16px;height:16px}
+.hxm>section.hxtop{border:0;background:linear-gradient(135deg,#16181f,#2a2f45)}
+html[data-fxc=p] .hxm>section.hxtop{background:linear-gradient(135deg,#2a1033,#4a1d52)}
+.hxm .hxtop p{color:rgba(255,255,255,.72)}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8467,6 +8528,6 @@ html[data-fxc=p] .hxsend{background:linear-gradient(135deg,#8a2bc2,#e0508f)}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-e155101f.js"></script>
+<script defer src="/grundschulmax/gjs/app-1dfc779a.js"></script>
 </body>
 </html>
