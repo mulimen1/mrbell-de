@@ -7636,6 +7636,46 @@ body{background:#f4f5fb}
   .simfs .sfrc,.simfs .spc,.simfs .slc,.simfs .ssc,.simfs .spw2{zoom:1.18}
   .simfs .smm{font-size:18px}.simfs .svc{font-size:17px}
 }
+/* Live-Szene */
+.lc-o{gap:8px}
+.lc-h{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lc-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#ffe9ea;color:#d1243a;font:800 12px/1 G,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.lc-tag i{width:8px;height:8px;border-radius:50%;background:#e8273f;animation:lc-dot 1s infinite}
+@keyframes lc-dot{50%{opacity:.25}}
+.lc-hint{font:600 12.5px G,system-ui,sans-serif;color:#7a8098}
+.lc-q{margin:2px 2px 0;font:750 17px/1.3 G,system-ui,sans-serif;color:#16181f;min-height:22px}
+.lc-o.wait .lc-q::before{content:"Lies den Chat …";color:#9aa0b4;font-weight:600}
+.lc-r{display:flex;flex-direction:column;gap:7px}
+.lc-opt{display:flex;align-items:center;width:100%;min-height:46px;text-align:left;font:650 15.5px/1.3 G,system-ui,sans-serif;color:#16181f;background:#fff;border:2px solid #e4e7ef;border-radius:14px;padding:10px 14px;cursor:pointer;animation:simup .3s both}
+.lc-opt:hover{border-color:#c9cfdf}
+.lc-win span.nx{background:#fff4e5;color:#8a4b00}
+.lc-t{display:none;position:relative;height:26px;border-radius:999px;background:#fde7e7;overflow:hidden}
+.lc-t.on{display:block}
+.lc-t u{position:absolute;inset:0;background:linear-gradient(90deg,#ff5a5f,#ff9a3c);transform-origin:left;transition:transform .1s linear}
+.lc-t b{position:relative;display:block;text-align:center;font:800 13px/26px G,system-ui,sans-serif;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.lc-o.hot{box-shadow:0 0 0 3px #ff5a5f,0 18px 50px -12px rgba(200,30,40,.5);animation:lc-hot 1s infinite}
+@keyframes lc-hot{50%{box-shadow:0 0 0 6px rgba(255,90,95,.35),0 18px 50px -12px rgba(200,30,40,.5)}}
+.lc-s{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+.lc-b{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border:0;border-radius:14px;font:800 15px G,system-ui,sans-serif;cursor:pointer;transition:transform .12s}
+.lc-b svg{width:20px;height:20px;flex:none}
+.lc-b.blk{background:#16181f;color:#fff}
+.lc-b.adu{background:#1f9d63;color:#fff}
+.lc-b:active{transform:scale(.97)}
+.lc-o.fin .lc-s,.lc-o.fin .lc-r,.lc-o.fin .lc-t{display:none}
+.lc-win{display:flex;flex-direction:column;gap:6px}
+.lc-win span{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:12px;background:#e9f8f0;color:#0d5c2f;font:700 15px G,system-ui,sans-serif;animation:simup .4s both}
+.lc-win span:nth-child(2){animation-delay:.25s}.lc-win span:nth-child(3){animation-delay:.5s}
+.lc-win svg{width:18px;height:18px}
+.lc-m{margin:3px 0 0;animation:simup .3s both}
+.lc-m.me{opacity:.92}
+.lc-typ{margin:4px 0 0;color:#aab3d6;font-size:.85em;display:flex;align-items:center;gap:4px}
+.lc-typ i{width:6px;height:6px;border-radius:50%;background:#aab3d6;animation:lc-dot .9s infinite}
+.lc-typ i:nth-child(2){animation-delay:.15s}.lc-typ i:nth-child(3){animation-delay:.3s}
+.lc-sys{margin:8px 0 0;color:#ff8a8a;font-weight:700}
+.simfs.lc-buzz{animation:lc-buzz .42s}
+@keyframes lc-buzz{20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.simfs.lc-blk .sgchat{filter:grayscale(.5)}
+.simfs .sgm{overflow-y:auto}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8229,6 +8269,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-64e6bcf1.js"></script>
+<script defer src="/grundschulmax/gjs/app-f0524713.js"></script>
 </body>
 </html>
