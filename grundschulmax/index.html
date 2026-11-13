@@ -7828,6 +7828,52 @@ body{background:#f4f5fb}
 .lvmore summary i{display:grid;place-items:center;transition:transform .2s}.lvmore summary i svg{width:16px;height:16px}
 .lvmore[open] summary i{transform:rotate(90deg)}
 .lvmore .lvday{margin-top:8px}
+.lvhero .lvsnd{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:3px 9px 3px 7px;border-radius:999px;background:rgba(139,227,182,.16);color:#8be3b6;font-style:normal;font-size:12px;font-weight:700}.lvhero .lvsnd svg{width:14px;height:14px}
+.lk-snd{position:absolute;left:50%;top:calc(var(--st) + 6px);margin-left:calc(var(--sr) / -2);transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:7px 14px 7px 10px;border-radius:999px;background:#ffd34d;color:#16181f;font-size:14px;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);animation:lk-pulse 1.6s infinite;transition:opacity .3s}
+.lk-snd svg{width:18px;height:18px}.lk-snd b{font-weight:800}
+.lk-live .lk-snd,.lk-end .lk-snd{opacity:0;pointer-events:none;animation:none}
+.lk-fs .lk-hd{top:calc(var(--st) + 52px)}.lk-fs.lk-live .lk-hd,.lk-fs.lk-end .lk-hd{top:calc(var(--st) + 24px)}
+@media (max-width:899px){.lk-fs .lk-hd{top:calc(var(--st) + 44px)}.lk-fs.lk-live .lk-hd,.lk-fs.lk-end .lk-hd{top:calc(var(--st) + 8px)}}
+@keyframes lk-pulse{50%{transform:translateX(-50%) scale(1.05)}}
+/* Hilfe und Support */
+html.hxon{overflow:hidden}
+.hx{position:fixed;inset:0;z-index:2000;background:#f5f6fa;overflow-y:auto;opacity:0;transform:translateY(14px);transition:opacity .2s,transform .2s;font-family:G,system-ui,sans-serif;color:#16181f}
+.hx.in{opacity:1;transform:none}
+.hxw{max-width:760px;margin:0 auto;padding:0 16px 60px}
+.hxh{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:14px;padding:14px 0;background:#f5f6fa}
+.hxh>b{font-size:17px;font-weight:700}
+.hxb{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px 0 10px;border:1px solid #e3e5ec;border-radius:999px;background:#fff;font:inherit;font-weight:650;font-size:14.5px;color:#16181f;cursor:pointer}.hxb svg{width:18px;height:18px}
+.hxb:hover{border-color:#cfd2dc}
+.hxm>section{margin-top:14px;padding:22px;border-radius:22px;background:#fff;border:1px solid #ececf1}
+.hxe{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2d4bf0}
+.hxm h2{margin:6px 0 0;font-size:24px;letter-spacing:-.02em}.hxm h3{margin:6px 0 0;font-size:19px;letter-spacing:-.01em}
+.hxm p{margin:6px 0 0;font-size:15px;line-height:1.55;color:#5d6378}
+.hxs{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+.hxs li{display:flex;gap:14px;align-items:flex-start}
+.hxs i{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;background:#eef1ff;color:#2d4bf0;font-style:normal;font-weight:800}
+.hxs b{font-size:16px}.hxs p{margin-top:2px}
+.hxf{margin-top:10px}
+.hxf details{border-top:1px solid #ececf1}.hxf details:first-child{border-top:0}
+.hxf summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;list-style:none;cursor:pointer;font-weight:650;font-size:15.5px}
+.hxf summary::-webkit-details-marker{display:none}.hxf summary svg{flex:none;width:18px;height:18px;color:#8a8f9e;transition:transform .2s}
+.hxf details[open] summary svg{transform:rotate(180deg)}.hxf details p{margin:-4px 0 14px}
+.hxc{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.hxmail{display:inline-flex;align-items:center;gap:9px;padding:12px 18px;border-radius:14px;background:#16181f;color:#fff;text-decoration:none;font-weight:650;font-size:15px}.hxmail svg{width:19px;height:19px}
+.hxmail:hover{background:#2a2f45}
+.hxart{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hxart button{padding:8px 14px;border:1px solid #e3e5ec;border-radius:999px;background:#fff;font:inherit;font-size:14px;font-weight:650;color:#4a4f63;cursor:pointer}
+.hxart button.on{border-color:#2d4bf0;background:#eef1ff;color:#2d4bf0}
+.hxfb textarea,.hxfb input{display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:12px 14px;border:1px solid #e3e5ec;border-radius:14px;background:#fafbfd;font:inherit;font-size:15.5px;color:#16181f;resize:vertical}
+.hxfb textarea:focus,.hxfb input:focus{outline:none;border-color:#2d4bf0;background:#fff}
+.hxhp{position:absolute!important;left:-9999px;width:1px!important;height:1px}
+.hxfoot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}
+.hxsend{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:0;border-radius:14px;background:linear-gradient(135deg,#2d4bf0,#5b6dff);color:#fff;font:inherit;font-weight:700;font-size:15px;cursor:pointer}.hxsend svg{width:17px;height:17px}
+.hxsend.busy{opacity:.6;cursor:wait}
+.hxerr{font-size:13.5px;color:#c2410c}.hxerr a{color:inherit}
+.hxok{display:flex;align-items:center;gap:14px}.hxok>i{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#e9f8f0;color:#1f9d63}.hxok svg{width:22px;height:22px}
+html[data-fxc=p] .hxe,html[data-fxc=p] .hxs i,html[data-fxc=p] .hxart button.on{color:#b0369a}
+html[data-fxc=p] .hxs i,html[data-fxc=p] .hxart button.on{background:#fbeef8}html[data-fxc=p] .hxart button.on,html[data-fxc=p] .hxfb textarea:focus{border-color:#b0369a}
+html[data-fxc=p] .hxsend{background:linear-gradient(135deg,#8a2bc2,#e0508f)}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8421,6 +8467,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-cf6d9647.js"></script>
+<script defer src="/grundschulmax/gjs/app-e155101f.js"></script>
 </body>
 </html>
