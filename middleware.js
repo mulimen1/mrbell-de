@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/notfall', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -236,6 +236,7 @@ export default async function middleware(req, ctx) {
     if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/index.html'; /* TikTok-Aktion: gleiche Seite, Code TIKTOK20 wird per JS eingelöst */
     else if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
     else if (MI && pfad === '/pruefen') { ziel = '/grundschulmax/mi/pruefen.html'; }
+    else if (MI && pfad === '/notfall') { ziel = '/grundschulmax/mi/notfall.html'; /* Notfall-Pass und Erste-Hilfe-Poster zum Ausdrucken (Familien-Challenge Tag 1) */ }
     else if (MI && pfad === '/urkunde') { ziel = '/grundschulmax/mi/urkunde.html'; }
     else if (MI && pfad === '/internet-fuehrerschein') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); }
     else if (MI && (pfad === '/robots.txt' || pfad === '/sitemap.xml')) ziel = '/grundschulmax/mi' + pfad;
