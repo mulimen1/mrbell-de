@@ -7984,6 +7984,18 @@ html[data-fxc=p] .eltq a{color:#b0369a}
 .hxm .eltnote{margin-top:16px;font-size:12.5px;color:#9aa0b4}
 @media (max-width:620px){.eltk{grid-template-columns:repeat(2,1fr)}.eltart{padding:22px 18px}.eltart h1{font-size:25px}}
 @media (max-width:620px){.fx .fxtop .fxbrand b{display:none}.fxtop .fxhelp{margin-left:12px!important}}
+/* Fortschritt: Tagesbalken neu (ohne Rahmen, mit Beschriftung) */
+.fxpbs{gap:6px}
+.fxpbs>span,.fxpbs>span.c{height:auto;border-radius:0;background:none;box-shadow:none;overflow:visible;display:flex;flex-direction:column;gap:5px}
+.fxpbs>span>i{position:relative;display:block;height:7px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden}
+.fxpbs>span>i>u{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+.fxpbs>span.c>i{background:rgba(255,255,255,.2)}
+.fxpbs>span.c>i::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-100%);animation:fxpbsh 2.2s ease-in-out infinite}
+@keyframes fxpbsh{60%,100%{transform:translateX(100%)}}
+.fxpbs>span.d>i>u{background:#3ddc97}
+.fxpbs small{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.02em}
+.fxpbs>span.c small{color:#fff}.fxpbs>span.d small{color:#3ddc97}
+@media (prefers-reduced-motion:reduce){.fxpbs>span.c>i::after{animation:none}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8577,6 +8589,6 @@ html[data-fxc=p] .eltq a{color:#b0369a}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-a522077c.js"></script>
+<script defer src="/grundschulmax/gjs/app-34e95ca8.js"></script>
 </body>
 </html>
