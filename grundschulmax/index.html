@@ -7718,6 +7718,38 @@ body{background:#f4f5fb}
 .fxchm{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:16px;background:rgba(10,12,20,.55);backdrop-filter:blur(4px);animation:simup .25s both}
 .fxchmw{position:relative;width:min(460px,100%);background:#fff;border-radius:22px;padding:6px 16px 14px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
 .fxchx{position:absolute;top:8px;right:10px;width:34px;height:34px;border:0;border-radius:50%;background:#f2f2f5;font-size:22px;line-height:1;color:#555;cursor:pointer}
+/* Chat-Simulator */
+.fxsim{margin:34px 0 10px;padding:30px;border-radius:28px;background:#0a0a0b;color:#fff;font-family:G,system-ui,sans-serif}
+.fxsimh{display:grid;grid-template-columns:1fr auto;gap:10px 30px;align-items:end}
+.fxsimh .fxeye{color:#8b8b93}
+.fxsimh h2{margin:6px 0 0;font-size:clamp(26px,3.4vw,40px);line-height:1.02;letter-spacing:-.045em;font-weight:650;color:#fff}.fxsimh h2 span{color:#6c6c74}
+.fxsimh p{grid-column:1;margin:0;font-size:15.5px;line-height:1.5;color:#b4b4bb;max-width:560px}
+.fxsimp{grid-column:2;grid-row:1/3;text-align:right}.fxsimp b{display:block;font-size:30px;letter-spacing:-.04em;font-weight:650}.fxsimp small{font-size:13px;color:#8b8b93}
+.fxsimg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin-top:22px}
+.fxsc{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #26262b;border-radius:18px;background:#141417;color:#fff;font:inherit;text-align:left;cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+.fxsc:hover{transform:translateY(-2px);border-color:#3a3a42;background:#1a1a1e}
+.fxsc>i{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:#22222a;font-style:normal;font-size:22px}
+.fxsc>span{flex:1;min-width:0}.fxsc small{display:block;font-size:12px;color:#8b8b93;font-weight:600}.fxsc b{display:block;margin-top:2px;font-size:15.5px;line-height:1.25;font-weight:650}
+.fxsc em{flex:none;display:inline-flex;align-items:center;gap:4px;padding:5px 9px;border-radius:999px;background:#22222a;color:#b4b4bb;font-size:11.5px;font-weight:700;font-style:normal}
+.fxsc em svg{width:12px;height:12px}
+.fxsc.ok em{background:#123522;color:#7ee2a8}.fxsc.no em{background:#3a1d12;color:#ffb08a}.fxsc.neu em{background:#1d2a5c;color:#a9bbff}
+@media (max-width:699px){.fxsim{padding:22px 16px;border-radius:22px}.fxsimh{grid-template-columns:1fr}.fxsimp{grid-column:1;grid-row:auto;text-align:left;display:flex;align-items:baseline;gap:8px}.fxsimp b{font-size:22px}}
+/* Eltern-Bericht und Vorher/Nachher */
+.lvrep{margin:14px 0 4px;padding:16px;border-radius:18px;background:#f6f6f8;border:1.5px solid #e4e5ec;text-align:left;font-family:G,system-ui,sans-serif}
+.lvreph small{display:block;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#2d4bf0}
+.lvreph b{display:block;margin-top:2px;font-size:20px;letter-spacing:-.02em;font-weight:750;color:#16181f}
+.lvrepv{margin:8px 0 0;font-size:15px;line-height:1.45;color:#34384a}
+.lvrep ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.lvrep li{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:12px;background:#fff;font-size:14px;line-height:1.35;color:#4a4f63}
+.lvrep li i{flex:none;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-style:normal;font-weight:800;font-size:12px}
+.lvrep li.ok i{background:#e9f8f0;color:#1f9d63}.lvrep li.no i{background:#fff1e6;color:#c2410c}
+.lvrep li b{display:block;color:#16181f;font-weight:700}
+.lvask{margin-top:10px;padding:12px;border-radius:12px;background:#16181f;color:#fff}.lvask small{display:block;font-size:12px;font-weight:700;color:#a3a3ab;letter-spacing:.03em}.lvask p{margin:6px 0 0;font-size:14.5px;line-height:1.4}
+.lvask p::before{content:"→ ";color:#7ee2a8}
+.lvrepn{margin:10px 0 0;font-size:12.5px;line-height:1.4;color:#7a8098}
+.lvvn{margin:14px 0 4px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#effaf3,#fff);border:1.5px solid #bfe8cf;text-align:left;font-family:G,system-ui,sans-serif}
+.lvvn small{display:block;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1d7a4d}
+.lvvnr{display:flex;align-items:center;gap:12px;margin-top:8px}.lvvnr>div{flex:1;padding:10px 12px;border-radius:12px;background:#fff}.lvvnr b{display:block;font-size:22px;font-weight:750;letter-spacing:-.03em;color:#c2410c}.lvvnr .now b{color:#1f9d63}.lvvnr span{font-size:12.5px;color:#7a8098}.lvvnr>i{color:#1f9d63}.lvvnr>i svg{width:20px;height:20px}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8311,6 +8343,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-3ddaf1f4.js"></script>
+<script defer src="/grundschulmax/gjs/app-f2ddd97a.js"></script>
 </body>
 </html>
