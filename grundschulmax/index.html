@@ -8115,6 +8115,44 @@ html[data-fxc=p] .eltdays>div.c{box-shadow:0 0 0 2px #b0369a}html[data-fxc=p] .e
 .eltact>span{display:block}
 .hxm .eltbody{display:block!important}.hxm .eltbody h2{width:100%!important;box-sizing:border-box;float:none!important}.hxm .eltbody>p,.hxm .eltbody>ul,.hxm .eltbody>div{width:auto;float:none}
 .hxm .eltbody h2,.hxm .eltbody h2>span{transform:none!important;rotate:none!important;text-shadow:none!important;animation:none!important;filter:none!important;background:none;-webkit-text-fill-color:currentColor}
+/* ===== Kräftige Farben (Blau / Lila) für Fortschritt, Elternbereich, Hilfe, Simulator, Führerschein ===== */
+:root{--mv:linear-gradient(135deg,#3355ff 0%,#2f7bff 48%,#1ec6f0 100%);--mvc:51,85,255}
+:root[data-fxc=p]{--mv:linear-gradient(135deg,#7c3aed 0%,#a23de6 48%,#ec4899 100%);--mvc:150,60,230}
+.fxpb,html[data-fxc=p] .fxpb{background:var(--mv);box-shadow:0 22px 44px -26px rgba(var(--mvc),.85)}
+.fxpb::before,html[data-fxc=p] .fxpb::before{inset:-60% -20% auto auto;width:55%;background:radial-gradient(closest-side,rgba(255,255,255,.28),transparent)}
+.fxpbl small,.fxpbt small{color:rgba(255,255,255,.75)}
+.fxpbs>span>i,.fxpbs>span.c>i{background:rgba(255,255,255,.25)}
+.fxpbs u,html[data-fxc=p] .fxpbs u{background:#fff}
+.fxpbs>span.d>i>u{background:#fff}
+.fxpbs small{color:rgba(255,255,255,.6)}.fxpbs>span.d small{color:#fff}
+.fxpbc{background:rgba(255,255,255,.2)}.fxpbh:hover .fxpbc{background:rgba(255,255,255,.3)}
+.fxpb .fxst{background:rgba(255,255,255,.18);color:rgba(255,255,255,.9)}
+.fxpb .fxst-f:not(.on) i{background:rgba(255,255,255,.3);color:#fff}.fxpb .fxst-u i{background:rgba(255,255,255,.3)}
+.fxelt,html[data-fxc=p] .fxelt{background:var(--mv);box-shadow:0 10px 24px -12px rgba(var(--mvc),.9),inset 0 1px 0 rgba(255,255,255,.25)}
+.fxelt svg,html[data-fxc=p] .fxelt svg{color:#fff}
+.hxm>section.hxtop,html[data-fxc=p] .hxm>section.hxtop{background:var(--mv);box-shadow:0 24px 48px -28px rgba(var(--mvc),.9)}
+.hxtop::before,html[data-fxc=p] .hxtop::before{background:radial-gradient(closest-side,rgba(255,255,255,.3),transparent)}
+.hxm .hxtop .hxe,html[data-fxc=p] .hxm .hxtop .hxe{color:rgba(255,255,255,.85)}
+.hxm .hxtop p{color:rgba(255,255,255,.88)}
+.hxq button{background:rgba(255,255,255,.2)}.hxq button:hover{background:rgba(255,255,255,.32)}
+.eltk>div,.hxm .eltins{background:rgba(255,255,255,.18)}.eltk small,.eltring small{color:rgba(255,255,255,.8)}
+.eltring circle{stroke:rgba(255,255,255,.25)}.eltring circle.v{stroke:#fff}
+.elttabs button.on,html[data-fxc=p] .elttabs button.on{background:var(--mv);box-shadow:0 8px 18px -10px rgba(var(--mvc),.9)}
+.hxm .eltpane>section.eltsos{background:linear-gradient(135deg,#ff4d6d,#ff8a3d)}
+.eltsos .eltsh>i{background:rgba(255,255,255,.22);color:#fff}.eltsos .eltsh small{color:rgba(255,255,255,.85)}
+.eltnums a{background:rgba(255,255,255,.18)}.eltnums a:hover{background:rgba(255,255,255,.28)}.eltnums small{color:rgba(255,255,255,.8)}
+.eltsosb button,.eltsosb a{color:#e11d48}
+.lvhero,html[data-fxc=p] .lvhero{background:var(--mv);box-shadow:0 16px 32px -18px rgba(var(--mvc),.9)}
+.lvhero:hover{box-shadow:0 20px 38px -16px rgba(var(--mvc),.95)}
+.lvhero>i{background:rgba(255,255,255,.22)}.lvhero>i svg,.lvhero>i{color:#fff}
+.lvhero small,.lvhero.ok small,.lvhero.no small{color:rgba(255,255,255,.9)}
+.lvhero .lvsnd{background:rgba(255,255,255,.22);color:#fff}
+.lvhero>u{color:rgb(var(--mvc))}
+.fxstage .fxlic,.fxstage .fxlic.fxl-k,.fxstage .fxlic.fxl-s{background:var(--mv)!important;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 30px 56px -30px rgba(var(--mvc),.9)!important}
+/* Kein Aufblitzen der zugeklappten Führerschein-Karte beim Farbwechsel */
+.fxpbx .fxstage,.fxpbx .fxstage .fxlic{view-transition-name:none!important}
+.fxpb:not(.open) .fxpbx>div{visibility:hidden}
+.fxpb.open .fxpbx>div{visibility:visible}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
