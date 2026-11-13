@@ -8153,6 +8153,13 @@ html[data-fxc=p] .eltdays>div.c{box-shadow:0 0 0 2px #b0369a}html[data-fxc=p] .e
 .fxpbx .fxstage,.fxpbx .fxstage .fxlic{view-transition-name:none!important}
 .fxpb:not(.open) .fxpbx>div{visibility:hidden}
 .fxpb.open .fxpbx>div{visibility:visible}
+/* Header über die volle Breite, Marke größer */
+.fx .fxtop{padding:14px clamp(16px,2.6vw,40px)!important;min-height:72px;box-sizing:border-box}
+.fx .fxbrand{gap:12px;font-size:22px;letter-spacing:-.02em}
+.fx .fxbrand .fx-lg,.fx .fxbrand>svg{width:40px!important;height:40px!important}
+.fx .fxbrand b{font-weight:800}
+.fx .fxtop .fxwho{margin-left:auto}
+@media (max-width:620px){.fx .fxtop{min-height:62px;padding:10px 14px!important}.fx .fxbrand .fx-lg,.fx .fxbrand>svg{width:34px!important;height:34px!important}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
