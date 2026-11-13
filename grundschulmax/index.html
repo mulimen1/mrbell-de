@@ -7809,6 +7809,25 @@ body{background:#f4f5fb}
 .lk-sms{transform:translate(-50%,calc(-100% - var(--st) - 30px))}
 @media (max-width:899px){.lk-live .lk-hd,.lk-end .lk-hd{flex-direction:row;justify-content:center;gap:8px}.lk-live .lk-hd>b,.lk-end .lk-hd>b{font-size:15px;font-weight:650;color:rgba(255,255,255,.85)}}
 .lvhero>i svg{width:22px;height:22px;color:#8be3b6}
+/* Teaser: nächster Simulator und alle Tage */
+.lvday{display:block;width:100%;margin-top:12px;padding:14px 16px;border:1px solid #ececf1;border-radius:18px;background:#fff;font:inherit;text-align:left;cursor:pointer;color:#16181f}
+.lvday:not(.lk):hover{border-color:#d6d8e2;box-shadow:0 8px 20px -14px rgba(10,15,40,.35)}
+.lvdayh{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lvdayh small{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2d4bf0}
+.lvdayh em{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#f2f3f7;color:#4a4f63}.lvdayh em svg{width:14px;height:14px}
+.lvday>b{display:block;margin-top:6px;font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.lvdayx{display:block;margin-top:5px;font-size:14px;line-height:1.5;color:#5d6378}
+.lvdayt{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:12.5px;font-weight:650;color:#8a8f9e}.lvdayt i{font-style:normal}
+.lvday.lk{cursor:default;background:#fafbfd}
+.lvday.big{border:1.5px dashed #c9cff5;background:linear-gradient(180deg,#f6f7ff,#fff)}
+.lvday.big.lk .lvdayh small{color:#7a3fd6}
+.lvday.big.lk .lvdayh em{background:#efe9fb;color:#7a3fd6}
+.lvmore{margin-top:12px;border-top:1px solid #ececf1;padding-top:4px}
+.lvmore summary{display:flex;align-items:center;justify-content:space-between;padding:10px 2px;list-style:none;cursor:pointer;font-size:14.5px;font-weight:650;color:#2d4bf0}
+.lvmore summary::-webkit-details-marker{display:none}
+.lvmore summary i{display:grid;place-items:center;transition:transform .2s}.lvmore summary i svg{width:16px;height:16px}
+.lvmore[open] summary i{transform:rotate(90deg)}
+.lvmore .lvday{margin-top:8px}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8402,6 +8421,6 @@ body{background:#f4f5fb}
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-06ca3412.js"></script>
+<script defer src="/grundschulmax/gjs/app-cf6d9647.js"></script>
 </body>
 </html>
