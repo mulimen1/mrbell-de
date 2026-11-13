@@ -7935,6 +7935,55 @@ html[data-fxc=p] .hxtop::before{background:radial-gradient(closest-side,rgba(224
 .hxm>section.hxtop{border:0;background:linear-gradient(135deg,#16181f,#2a2f45)}
 html[data-fxc=p] .hxm>section.hxtop{background:linear-gradient(135deg,#2a1033,#4a1d52)}
 .hxm .hxtop p{color:rgba(255,255,255,.72)}
+/* Header: Elternbereich hervorgehoben, Farbwahl kompakt */
+.fxelt{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 16px 0 12px;margin-left:16px;border:0;border-radius:999px;background:linear-gradient(135deg,#16181f,#2f3550);color:#fff;font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 10px 24px -12px rgba(10,15,40,.7),inset 0 1px 0 rgba(255,255,255,.14);transition:transform .15s,box-shadow .15s}
+.fxelt svg{width:19px;height:19px;color:#8be3b6}
+.fxelt:hover{transform:translateY(-1px);box-shadow:0 14px 28px -12px rgba(10,15,40,.75),inset 0 1px 0 rgba(255,255,255,.14)}
+html[data-fxc=p] .fxelt{background:linear-gradient(135deg,#3a1240,#6a2160)}html[data-fxc=p] .fxelt svg{color:#ffb3df}
+.fxwho+.fxelt{margin-left:18px}
+.fxtop .fxfarbe{margin-left:12px!important;padding:3px!important;gap:2px}.fxtop .fxfarbe span{display:none}.fxtop .fxfarbe button{padding:0 3px!important}
+@media (max-width:620px){.fxelt{height:38px;padding:0 12px 0 10px;margin-left:auto;font-size:13.5px}.fxelt span{display:inline}.fxtop .fxwho{display:none}.fxtop .fxfarbe{margin-left:8px!important}}
+@media (max-width:380px){.fxelt span{display:none}.fxelt{padding:0 10px}}
+/* Elternbereich */
+.eltov h1{margin-bottom:4px}
+.eltring{display:flex;align-items:center;gap:18px;margin-top:16px}
+.eltring svg{width:96px;height:96px;transform:rotate(-90deg);flex:none}
+.eltring circle{fill:none;stroke:rgba(255,255,255,.12);stroke-width:11}
+.eltring circle.v{stroke:#3ddc97;stroke-linecap:round;stroke-dasharray:var(--p) 100;transition:stroke-dasharray .8s}
+.eltring b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em}.eltring small{color:rgba(255,255,255,.65);font-size:14px}
+.eltk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.eltk>div{padding:12px;border-radius:16px;background:rgba(255,255,255,.08)}
+.eltk b{display:block;font-size:20px;font-weight:800}.eltk small{display:block;margin-top:2px;font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.3}
+.hxm .eltins{margin-top:14px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85)}.eltins b{color:#fff}
+.hxm>section.eltrep{padding:0;border:0;background:none}.eltrep .lvrep{margin:0}
+.eltsims{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:14px}
+.eltsim{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;background:#f6f7fb}
+.eltsim>i{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#e7e8ef;color:#8a8f9e;font-style:normal;font-weight:800;font-size:13px}.eltsim>i svg{width:14px;height:14px}
+.eltsim.ok>i{background:#e9f8f0;color:#1f9d63}.eltsim.no>i{background:#fff1e6;color:#c2410c}
+.eltsim b{display:block;font-size:14px}.eltsim small{display:block;font-size:12.5px;color:#7a8098}
+.eltarts{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:16px}
+.eltac{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border:1px solid #ececf1;border-radius:18px;background:#fff;font:inherit;text-align:left;color:#16181f;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+.eltac:hover{transform:translateY(-2px);border-color:#d6d8e2;box-shadow:0 14px 30px -20px rgba(10,15,40,.45)}
+.eltat{padding:3px 9px;border-radius:999px;background:#eef1ff;color:#2d4bf0;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+html[data-fxc=p] .eltat{background:#fbeef8;color:#b0369a}
+.eltac b{font-size:16.5px;line-height:1.3}.eltac small{font-size:13.5px;line-height:1.45;color:#6a7088}
+.eltac em{display:inline-flex;align-items:center;gap:5px;margin-top:auto;padding-top:4px;font-style:normal;font-size:12.5px;font-weight:650;color:#8a8f9e}.eltac em svg{width:14px;height:14px}
+.eltart{margin-top:6px;padding:28px 26px;border-radius:24px;background:#fff;border:1px solid #ececf1}
+.eltart h1{margin:6px 0 0;font-size:30px;line-height:1.15;letter-spacing:-.02em}
+.hxm .eltlead{margin-top:10px;font-size:17px;color:#4a4f63}
+.eltart h2{margin:26px 0 0;font-size:19px;letter-spacing:-.01em}
+.hxm .eltart p{font-size:16px;line-height:1.65;color:#3a3f52}
+.eltart ul{margin:10px 0 0;padding-left:20px;font-size:16px;line-height:1.7;color:#3a3f52}
+.elttip{margin-top:24px;padding:16px 18px;border-radius:16px;background:linear-gradient(135deg,#eef1ff,#f6f7ff);font-size:15.5px;line-height:1.55;color:#2a2f45}
+.elttip b{display:block;margin-bottom:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#2d4bf0}
+html[data-fxc=p] .elttip{background:linear-gradient(135deg,#fbeef8,#fff6fb)}html[data-fxc=p] .elttip b{color:#b0369a}
+.eltq{margin-top:26px;padding-top:18px;border-top:1px solid #ececf1;display:grid;gap:8px}
+.eltq>b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a8f9e}
+.eltq a{display:flex;align-items:center;gap:8px;font-size:14.5px;color:#2d4bf0;text-decoration:none}.eltq a:hover{text-decoration:underline}.eltq a svg{flex:none;width:15px;height:15px}
+html[data-fxc=p] .eltq a{color:#b0369a}
+.hxm .eltnote{margin-top:16px;font-size:12.5px;color:#9aa0b4}
+@media (max-width:620px){.eltk{grid-template-columns:repeat(2,1fr)}.eltart{padding:22px 18px}.eltart h1{font-size:25px}}
+@media (max-width:620px){.fx .fxtop .fxbrand b{display:none}.fxtop .fxhelp{margin-left:12px!important}}
 </style>
 <script>if(/^#(lektion\/|hausaufgabe)/.test(location.hash))document.documentElement.classList.add("ublk")</script><style>.ublk body{visibility:hidden}.ublk .les{visibility:visible}</style>
 </head>
@@ -8528,6 +8577,6 @@ html[data-fxc=p] .hxm>section.hxtop{background:linear-gradient(135deg,#2a1033,#4
 </div>
 <div class="confetti" id="cf"></div>
 <script defer src="/grundschulmax/lib/gsap.min.js"></script><script defer src="/grundschulmax/lib/MotionPathPlugin.min.js"></script>
-<script defer src="/grundschulmax/gjs/app-1dfc779a.js"></script>
+<script defer src="/grundschulmax/gjs/app-a522077c.js"></script>
 </body>
 </html>
