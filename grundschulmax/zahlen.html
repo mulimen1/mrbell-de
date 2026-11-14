@@ -290,6 +290,14 @@ tr.hl td{background:#fff8ec}
     var h = '<div class="grid k6">' + k(Q === 'alle' ? 'Besuche' : 'Besuche · ' + KS[Q], fmt(b), 'Führerschein-Seiten, mind. 1 s zu sehen') + k('Sofort wieder weg', N.mitNr ? pc(N.sofort, N.mitNr) : pc(N.sofort, b), 'unter 10 Sekunden') + k('Verweildauer (Median)', zeit(N.med), N.mitNr ? 'nur sichtbare Zeit' : 'ab heute gemessen') + k('Testlektion', pc(g(3), b), fmt(g(3)) + ' begonnen · ' + fmt(g(4)) + ' fertig') + k('Zur Zahlung', pc(g(6), b), fmt(g(6)) + ' Klicks') + k('Gekauft', fmt(g(7)), pc(g(7), b) + ' der Besuche', g(7) ? 'ok' : '') + '</div>';
     h += '<div class="grid g21">' + card('Vom Besuch zum Kauf', KN[Q], funnel(st, b) + (N.alt ? '<p class="note">' + fmt(N.alt) + ' Besuche vor dem 9.11. hatten noch keine Aufruf-Nummer: bei ihnen fehlen Verweildauer, Preis- und Testlektion-Werte. Ab jetzt wird jeder Schritt pro Aufruf erfasst.</p>' : '')) +
       card('Nach dem Kauf', 'alle Kanäle', funnel([['Gekauft', X.umsatz.n || X.nach.alle.kaeufe, 'bezahlt']].concat(X.nach.alle.nach.map(function (x) { return [x[0], x[1], '']; }))) + '<p class="note">Antrag, Kurs, bestandene Prüfung und Bewertung kommen aus der App.</p>') + '</div>';
+    /* Testbereich: Gratis-Testlektion in der App */
+    var TB = X.testb;
+    if (TB) {
+      var tb0 = TB.steps[0][1] || TB.steps[1][1];
+      var tbt = TB.tage.length ? '<div class="tw h"><table><tr><th>Tag</th><th class="n">Geklickt</th><th class="n">Geöffnet</th><th class="n">Lektion</th><th class="n">Fertig</th><th class="n">Simulator</th><th class="n">Angebot</th><th class="n">Zahlung</th></tr>' + TB.tage.map(function (r) { var x = r[1]; return '<tr><td><b>' + esc(r[0]) + '</b></td>' + ['k', 'o', 'l', 'f', 's', 'p', 'z'].map(function (k) { return '<td class="n">' + fmt(x[k]) + '</td>'; }).join('') + '</tr>'; }).join('') + '</table></div>' : '<div class="empty">Noch keine Daten.</div>';
+      h += sec('Testbereich · Gratis-Testlektion') + '<div class="grid g21">' + card('Vom Klick zur Zahlung', 'alle Kanäle, seit 14.11.', funnel(TB.steps, tb0) + '<p class="note">Gesperrte Lektionen angetippt: ' + fmt(TB.gesperrt) + '×</p>') +
+        card('Woher die Klicks kommen', 'Knopf auf der Startseite', bars(TB.wo, 0, 'g') + sub('Warum das Angebot aufging') + bars(TB.warum, 0, 'n')) + '</div>' + '<div class="grid">' + card('Testbereich Tag für Tag', 'Anzahl', tbt) + '</div>';
+    }
     /* Kanäle nebeneinander */
     var cs = ['alle', 'meta', 'gads', 'org'];
     var t = '<table><tr><th>Schritt</th>' + cs.map(function (c) { return '<th class="n">' + (c === 'alle' ? 'Alle' : KS[c]) + '</th>'; }).join('') + '</tr>' + st.map(function (x, i) { return '<tr><td>' + esc(x[0]) + '</td>' + cs.map(function (c) { var s2 = X.nach[c].steps, v = s2[i][1], b0 = X.nach[c].besuche; return '<td class="n">' + fmt(v) + (i ? ' <span class="s">' + pc(v, b0) + '</span>' : '') + '</td>'; }).join('') + '</tr>'; }).join('') + '</table>';

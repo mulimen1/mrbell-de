@@ -112,7 +112,9 @@ const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'An
   'Hausaufgaben-Spiel fertig', 'Fortschritt zurückgesetzt', 'Bildschirm', 'Abgesprungen', 'Eltern-Hinweis gezeigt', 'Eltern-Hinweis geklickt',
   'Übungsseite geöffnet', 'Übung gestartet', 'Übung gelöst', 'Übung zur App', 'Arbeitsblatt gedruckt',
   'Testlektion gestartet', 'Testlektion Frage', 'Testlektion fertig', 'Bereich gesehen', 'Bestätigung fehlt', 'FAQ geöffnet', 'Testphase-Info geöffnet', 'Cookie-Banner gezeigt',
-  'Antrag geöffnet', 'Antrag ausgefüllt', 'E-Mail bestätigt', 'Kurs erstellt', 'Bewertung abgegeben', 'Führerschein bestanden', 'Aufruf Stand'];
+  'Antrag geöffnet', 'Antrag ausgefüllt', 'E-Mail bestätigt', 'Kurs erstellt', 'Bewertung abgegeben', 'Führerschein bestanden', 'Aufruf Stand',
+  'Testbereich geöffnet', 'Testbereich gesperrt angetippt', 'Testbereich Lektion gestartet', 'Testbereich Lektion fertig', 'Test-Simulator gestartet', 'Test-Simulator fertig',
+  'Freischalten-Fenster geöffnet', 'Freischalten-Fenster geschlossen', 'Gratis testen geklickt', 'Chat-Simulator', 'Garantie geöffnet', 'Garantie eingelöst', 'Analyse Seite'];
 function gsKennung(req) { const m = /(?:^|;\s*)gsm_analyse=(a[0-9a-f]{12})(?:;|$)/.exec(req.headers.get('cookie') || ''); return m ? m[1] : ''; }
 function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers.get('cookie') || '') || /^amsterdam$/i.test(dek(req.headers.get('x-vercel-ip-city')).trim()); }
 function gsQuelle(url, ref) {
@@ -217,6 +219,7 @@ export default async function middleware(req, ctx) {
     const EN = { '/': 'index', '/partner': 'partner', '/partner-area': 'partner-area', '/partner-terms': 'partner-terms', '/verify': 'verify', '/certificate': 'certificate', '/privacy': 'privacy', '/terms': 'terms', '/imprint': 'imprint', '/refund': 'refund' };
     let z = '';
     if (EN[p]) z = '/grundschulmax/mi/en/' + EN[p] + '.html';
+    else if (p === '/test' || p === '/try') return Response.redirect('https://getmissioninternet.com/app' + url.search + '#test', 302);
     else if (p === '/app') z = '/grundschulmax/index-en.html';
     else if (p === '/robots.txt' || p === '/sitemap.xml') z = '/grundschulmax/mi/en' + p;
     else if (p === '/favicon.ico') z = '/grundschulmax/mi/favicon.png';
@@ -235,6 +238,7 @@ export default async function middleware(req, ctx) {
     let ziel = '';
     if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/index.html'; /* TikTok-Aktion: gleiche Seite, Code TIKTOK20 wird per JS eingelöst */
     else if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
+    else if (MI && (pfad === '/test' || pfad === '/testen')) { return Response.redirect(new URL('/app' + url.search + '#test', url.origin).toString(), 302); /* Gratis-Testbereich */ }
     else if (MI && pfad === '/pruefen') { ziel = '/grundschulmax/mi/pruefen.html'; }
     else if (MI && pfad === '/notfall') { ziel = '/grundschulmax/mi/notfall.html'; /* Notfall-Pass und Erste-Hilfe-Poster zum Ausdrucken (Familien-Challenge Tag 1) */ }
     else if (MI && pfad === '/urkunde') { ziel = '/grundschulmax/mi/urkunde.html'; }
