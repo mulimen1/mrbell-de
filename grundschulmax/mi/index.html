@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de">
-<head>
+<head><script>window.MIP=Date.now()>=Date.parse('2026-11-16T00:00:00+01:00')?69:59;</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
@@ -1142,7 +1142,7 @@ let hq=0,hok=0;
 /* Creator-Code: 10 € Rabatt, Kauf zählt für die Creatorin (Prüfung gegen die Partnerliste) */
 let CODE='';const PU='https://hub.mrbell.de/n8n/webhook/mi-partner-c53197';
 const ccm=$('#ccm'),cci=$('#cci');
-function ccSet(c,von,rb,pr){rb=+rb||10;pr=+pr||59-rb;CODE=c;$('#ppv').innerHTML='<s>59 €</s>'+pr+' €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen '+rb+' €.'+(c==='TIKTOK20'?' Gilt bis Sonntag, 15.11., 23:59 Uhr.':'');if(c==='TIKTOK20'&&TTP)ttShow();ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;if(c!=='TIKTOK20')try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
+function ccSet(c,von,rb,pr){rb=+rb||10;pr=+pr||(window.MIP||59)-rb;CODE=c;$('#ppv').innerHTML='<s>'+(window.MIP||59)+' €</s>'+pr+' €';ccm.innerHTML='<b>Code '+c+' eingelöst</b>'+(von?' · Empfehlung von '+von.replace(/[<>&]/g,'')+'.':'.')+' Sie sparen '+rb+' €.'+(c==='TIKTOK20'?' Gilt bis Sonntag, 15.11., 23:59 Uhr.':'');if(c==='TIKTOK20'&&TTP)ttShow();ccm.className='ccm ok';ccm.hidden=false;$('#ccf').hidden=true;$('#ccl').hidden=true;if(c!=='TIKTOK20')try{sessionStorage.setItem('mi.ref',c)}catch(e){}}
 async function ccCheck(c,still){c=String(c||'').toUpperCase().replace(/[^A-Z0-9ÄÖÜ]/g,'').replace(/Ä/g,'AE').replace(/Ö/g,'OE').replace(/Ü/g,'UE').slice(0,12);if(c.length<3){if(!still){ccm.textContent='Bitte den Code eingeben.';ccm.className='ccm';ccm.hidden=false}return}
  try{const r=await fetch(PU,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:'code',code:c})}).then(x=>x.json());
   if(r&&r.ok){ccSet(r.code,r.von,r.rabatt,r.preis);EV('Code eingelöst',r.code);return}
@@ -1196,5 +1196,5 @@ d.fonts?.ready.then(measure);addEventListener('load',measure);measure();
 })();
 </script>
 <script src="/grundschulmax/mi/pbar.js?v=1"></script>
-</body>
+<script>(function(){if(window.MIP!==69)return;var re=/\b(49|59)([\u00a0 ])€/g,w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n,L=[];while(n=w.nextNode())L.push(n);L.forEach(function(n){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE)$/.test(p.nodeName))return;if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,function(m,a,s){return (a==='59'?'69':'59')+s+'€'})}re.lastIndex=0})})();</script></body>
 </html>
