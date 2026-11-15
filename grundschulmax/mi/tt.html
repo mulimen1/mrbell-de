@@ -38,6 +38,7 @@ h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
 .ax{display:flex;justify-content:space-between;color:var(--mu);font-size:11px;margin-top:4px}
 .err{background:#2a1418;border:1px solid #5a2430;color:#ffb3bb;padding:14px;border-radius:12px;margin:16px 0}
 .note{color:var(--mu);font-size:12px;margin-top:22px;line-height:1.55}
+.tw{overflow-x:auto}.tb{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}.tb th{text-align:left;font-weight:600;opacity:.6;padding:6px 10px 6px 0;border-bottom:1px solid rgba(255,255,255,.12)}.tb td{padding:7px 10px 7px 0;border-bottom:1px solid rgba(255,255,255,.06)}.tb tr.hi td{background:rgba(255,190,80,.10)}.tb .ok{color:#4ade80}
 </style>
 </head>
 <body>
@@ -70,7 +71,7 @@ h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
     var L={},A={},cnt={},det={};
     R.forEach(function(x){var e=x[1],d=x[2],s=x[3],pv=x[5]||('x'+Math.random());
       var land=/^ueben\//.test(s);(land?L:A)[pv]=(land?L:A)[pv]||{t:x[0],g:x[4],ev:{}};var o=(land?L:A)[pv];
-      (o.ev[e]=o.ev[e]||[]).push(d);cnt[e]=(cnt[e]||0)+1;});
+      (o.ev[e]=o.ev[e]||[]).push(d);(o.ls=o.ls||[]).push([x[0],e,d]);cnt[e]=(cnt[e]||0)+1;});
     var lv=Object.keys(L),N=lv.length;
     var has=function(map,e,f){return Object.keys(map).filter(function(k){var v=map[k].ev[e];return v&&(!f||v.some(f))}).length};
     /* Verweildauer */
@@ -104,6 +105,20 @@ h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
     var span=Math.max(1,Math.ceil((r[1]-r[0])/36e5)),hs=Math.min(span,72),start=new Date(r[1]-hs*36e5),bins=new Array(hs).fill(0);
     lv.forEach(function(k){var t=new Date(L[k].t);var i=Math.floor((t-start)/36e5);if(i>=0&&i<hs)bins[i]++});var mx=Math.max.apply(null,bins)||1;
     h+='<div class="c"><h2>Besuche pro Stunde'+(span>72?' (letzte 72 h)':'')+'</h2><div class="hrs">'+bins.map(function(v,i){var d=new Date(+start+i*36e5);return'<div style="height:'+Math.max(2,v/mx*100)+'%" data-t="'+d.toLocaleString('de-DE',{weekday:'short',hour:'2-digit'})+' Uhr: '+v+'"></div>'}).join('')+'</div><div class="ax"><span>'+start.toLocaleString('de-DE',{weekday:'short',hour:'2-digit',minute:'2-digit'})+'</span><span>jetzt</span></div></div>';
+    /* Jeder Besuch einzeln, neueste zuerst: Uhrzeit, Dauer, Scrolltiefe, Gratis testen (mit Uhrzeit) und was danach im Testbereich passiert ist */
+    var hm=function(t){var d=new Date(t),n=new Date();var s=d.toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});return d.toDateString()===n.toDateString()?s:d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+' '+s};
+    var av=Object.keys(A).map(function(k){return A[k]}),used={};
+    var vis=lv.map(function(k){var o=L[k],ls=(o.ls||[]).sort(function(x,y){return x[0]<y[0]?-1:1});
+      var st=o.ev['Aufruf Stand'],dur=null;if(st){var m=String(st[st.length-1]).match(/(\d+)\s*s/);if(m)dur=+m[1]}
+      if(dur==null&&ls.length)dur=Math.round((new Date(ls[ls.length-1][0])-new Date(ls[0][0]))/1000);
+      var sc=0;(o.ev['Startseite gescrollt']||[]).forEach(function(d){sc=Math.max(sc,parseInt(d)||0)});(o.ev['Aufruf Stand']||[]).forEach(function(d){var m=String(d).match(/(\d+)\s*%/);if(m)sc=Math.max(sc,+m[1])});
+      var g=ls.filter(function(x){return x[1]==='Gratis testen geklickt'})[0],app=null;
+      if(g){var tg=new Date(g[0]);av.forEach(function(x,i){if(used[i]||app)return;var dt=(new Date(x.t)-tg)/1000;if(dt>=-5&&dt<=90&&x.g===o.g){used[i]=1;app=x}})}
+      var at='';if(app){var al=(app.ls||[]).sort(function(x,y){return x[0]<y[0]?-1:1}),ad=Math.round((new Date(al[al.length-1][0])-new Date(al[0][0]))/1000);
+        var ls2=app.ev['Testbereich Lektion gestartet']||app.ev['Testlektion gestartet'],lf=app.ev['Testbereich Lektion fertig'],zz=app.ev['Zur Zahlung geklickt'];
+        at=(lf?'<b class="ok">Lektion fertig</b>':ls2?'<b class="ok">Lektion gestartet</b>':'keine Lektion')+' · '+ad+' s'+(zz?' · <b class="ok">Zahlung geklickt</b>':'')}
+      return{t:ls.length?ls[0][0]:o.t,g:o.g,dur:dur,sc:sc,gt:g?hm(g[0])+' ('+(g[2]||'')+')':'',app:at,ck:!!o.ev['Analyse erlaubt']}}).sort(function(x,y){return x.t<y.t?1:-1});
+    h+='<div class="c"><h2>Alle Besuche einzeln ('+vis.length+')</h2><div class="tw"><table class="tb"><thead><tr><th>Uhrzeit</th><th>Gerät</th><th>Dauer</th><th>Scroll</th><th>Gratis testen</th><th>Im Testbereich</th></tr></thead><tbody>'+vis.map(function(v){return'<tr'+(v.gt?' class="hi"':'')+'><td>'+hm(v.t)+'</td><td>'+esc(v.g||'?')+'</td><td>'+(v.dur==null?'–':v.dur<60?v.dur+' s':Math.round(v.dur/60)+' min')+'</td><td>'+v.sc+' %</td><td>'+(v.gt?'<b>'+esc(v.gt)+'</b>':'–')+'</td><td>'+(v.app||(v.gt?'nicht angekommen':'–'))+'</td></tr>'}).join('')+'</tbody></table></div></div><div style="height:12px"></div>';
     out.innerHTML=h;
   }
   function load(){
