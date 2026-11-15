@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<title>TikTok-Auswertung · Mission Internet</title>
+<style>
+:root{--bg:#0b0d12;--card:#141821;--line:#232a36;--tx:#e9edf3;--mu:#8a93a3;--ac:#3ddc97;--ac2:#4c8dff;--warn:#ffb547;--bad:#ff5d6c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif}
+.w{max-width:1100px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--mu);font-size:13px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0 18px}
+.bar button{background:var(--card);color:var(--tx);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:600 13px inherit;cursor:pointer}
+.bar button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.bar .st{margin-left:auto;color:var(--mu);font-size:12px}
+.g{display:grid;gap:12px}
+.k4{grid-template-columns:repeat(4,1fr)}
+.k2{grid-template-columns:1fr 1fr}
+@media(max-width:820px){.k4{grid-template-columns:1fr 1fr}.k2{grid-template-columns:1fr}}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.c h2{font-size:13px;color:var(--mu);font-weight:600;margin:0 0 10px;text-transform:uppercase;letter-spacing:.05em}
+.kpi .v{font-size:28px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi .l{color:var(--mu);font-size:12.5px;margin-top:2px}
+.row{display:grid;grid-template-columns:minmax(120px,1.4fr) 2fr 92px;gap:10px;align-items:center;padding:5px 0;font-size:13.5px}
+.row .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--tx)}
+.row .b{height:10px;background:#1c2230;border-radius:6px;overflow:hidden}
+.row .b i{display:block;height:100%;background:var(--ac2);border-radius:6px}
+.fun .row .b i{background:var(--ac)}
+.row .lb{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mut{color:var(--mu);font-size:12.5px}
+.hrs{display:flex;align-items:flex-end;gap:3px;height:110px;margin-top:6px}
+.hrs div{flex:1;background:var(--ac2);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.hrs div:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#000;color:#fff;font-size:11px;padding:2px 6px;border-radius:4px;white-space:nowrap}
+.ax{display:flex;justify-content:space-between;color:var(--mu);font-size:11px;margin-top:4px}
+.err{background:#2a1418;border:1px solid #5a2430;color:#ffb3bb;padding:14px;border-radius:12px;margin:16px 0}
+.note{color:var(--mu);font-size:12px;margin-top:22px;line-height:1.55}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>TikTok-Kampagne · Auswertung</h1>
+  <div class="sub">Nur Besuche über die TikTok-Anzeige (Landingpage und Gratis-Testlektion in der App). Anonym, ohne Kennung.</div>
+  <div class="bar" id="bar">
+    <button data-p="h">Heute</button><button data-p="g">Gestern</button><button data-p="24">Letzte 24 h</button><button data-p="a" class="on">Seit Start</button>
+    <span class="st" id="st">lädt …</span>
+  </div>
+  <div id="out"></div>
+  <p class="note">Ein „Besuch“ ist ein Aufruf der Landingpage (zufällige Nummer nur im Arbeitsspeicher der Seite). Wer die Seite neu lädt, zählt neu. Schritte in der App haben eigene Aufrufnummern; sie werden deshalb als eigene Zahlen gezeigt. Interne Besuche (Ben) sind ausgeschlossen. Aktualisiert sich jede Minute.</p>
+</div>
+<script>
+(function(){
+  var K=(location.hash.match(/k=([A-Za-z0-9_-]+)/)||[])[1]||'';
+  var URL_='https://hub.mrbell.de/n8n/webhook/mi-tt-auswertung?k='+encodeURIComponent(K);
+  var P='a',ROWS=[],out=document.getElementById('out'),st=document.getElementById('st');
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var SEC={stimmen:'Stimmen',training:'Training',koennen:'Was Ihr Kind kann',ablauf:'Ablauf',szenen:'Szenen',fuehrerschein:'Führerschein / Urkunde',datenschutz:'Datenschutz',preis:'Preis',fragen:'Fragen (FAQ)'},SO=Object.keys(SEC);
+  function rng(){var n=new Date(),d0=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+    if(P==='h')return[d0,n];if(P==='g')return[new Date(d0-864e5),d0];if(P==='24')return[new Date(n-864e5),n];return[new Date('2026-11-14T00:00:00+01:00'),n];}
+  function pct(a,b){return b?Math.round(a/b*100):0}
+  function rows(title,list,base,cls){if(!list.length)return'<div class="c '+(cls||'')+'"><h2>'+title+'</h2><div class="mut">Noch keine Daten.</div></div>';
+    var mx=Math.max.apply(null,list.map(function(x){return x[1]}))||1;
+    return'<div class="c '+(cls||'')+'"><h2>'+title+'</h2>'+list.map(function(x){var w=pct(x[1],base||mx);return'<div class="row"><div class="lb" title="'+esc(x[0])+'">'+esc(x[0])+'</div><div class="b"><i style="width:'+Math.min(100,base?w:pct(x[1],mx))+'%"></i></div><div class="n">'+x[1]+(base?' · '+w+' %':'')+'</div></div>'}).join('')+'</div>'}
+  function render(){
+    var r=rng(),a=r[0].toISOString(),b=r[1].toISOString();
+    var R=ROWS.filter(function(x){return x[0]>=a&&x[0]<b});
+    var L={},A={},cnt={},det={};
+    R.forEach(function(x){var e=x[1],d=x[2],s=x[3],pv=x[5]||('x'+Math.random());
+      var land=/^ueben\//.test(s);(land?L:A)[pv]=(land?L:A)[pv]||{t:x[0],g:x[4],ev:{}};var o=(land?L:A)[pv];
+      (o.ev[e]=o.ev[e]||[]).push(d);cnt[e]=(cnt[e]||0)+1;});
+    var lv=Object.keys(L),N=lv.length;
+    var has=function(map,e,f){return Object.keys(map).filter(function(k){var v=map[k].ev[e];return v&&(!f||v.some(f))}).length};
+    /* Verweildauer */
+    var secs=[];lv.forEach(function(k){var v=L[k].ev['Aufruf Stand'];if(v){var m=String(v[v.length-1]).match(/(\d+)\s*s/);if(m)secs.push(+m[1])}});
+    secs.sort(function(a,b){return a-b});var med=secs.length?secs[Math.floor(secs.length/2)]:0;
+    var gt=has(L,'Gratis testen geklickt'),sc50=has(L,'Startseite gescrollt',function(d){return parseInt(d)>=50});
+    var aT=has(A,'Testbereich Lektion gestartet')+has(A,'Testlektion gestartet'),aZ=has(A,'Zur Zahlung geklickt')+has(L,'Zur Zahlung geklickt'),aK=has(A,'Abo abgeschlossen');
+    var h='';
+    h+='<div class="g k4">'+[[N,'Besuche Landingpage'],[med?med+' s':'–','Verweildauer (Median)'],[pct(gt,N)+' %','klicken „Gratis testen“'],[aT,'Testlektionen gestartet (App)']].map(function(x){return'<div class="c kpi"><div class="v">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('')+'</div><div style="height:12px"></div>';
+    h+='<div class="g k2">';
+    h+=rows('Trichter',[['Besuche',N],['bis Hälfte gescrollt',sc50],['„Gratis testen“ geklickt',gt],['Testlektion gestartet (App)',aT],['Zur Zahlung geklickt',aZ],['Gekauft',aK]],N,'fun');
+    var buck=[['unter 5 s',0],['5–15 s',0],['15–30 s',0],['30–60 s',0],['1–3 min',0],['über 3 min',0]];secs.forEach(function(s){buck[s<5?0:s<15?1:s<30?2:s<60?3:s<180?4:5][1]++});
+    h+=rows('Verweildauer ('+secs.length+' gemessen)',buck,secs.length);
+    h+=rows('Scrolltiefe',[25,50,75,100].map(function(q){return[q+' % gelesen',has(L,'Startseite gescrollt',function(d){return parseInt(d)>=q})]}),N);
+    var sec={};lv.forEach(function(k){(L[k].ev['Bereich gesehen']||[]).forEach(function(d){sec[d]=(sec[d]||0)+1})});
+    h+=rows('Bereiche gesehen',Object.keys(sec).sort(function(a,b){return (SO.indexOf(a)+99)%99-(SO.indexOf(b)+99)%99}).map(function(k){return[SEC[k]||k,sec[k]]}),N);
+    var dev={};lv.forEach(function(k){var g=L[k].g||'?';dev[g]=(dev[g]||0)+1});
+    h+=rows('Geräte',Object.keys(dev).map(function(k){return[k,dev[k]]}).sort(function(a,b){return b[1]-a[1]}),N);
+    var gtd={};lv.forEach(function(k){(L[k].ev['Gratis testen geklickt']||[]).forEach(function(d){d=d||'?';gtd[d]=(gtd[d]||0)+1})});
+    h+=rows('„Gratis testen“ – welcher Knopf',Object.keys(gtd).map(function(k){return[k,gtd[k]]}).sort(function(a,b){return b[1]-a[1]}));
+    var qz=has(L,'Testlektion Frage'),qf=has(L,'Testlektion fertig');
+    h+=rows('Szenen-Quiz auf der Seite',[['mind. 1 Szene beantwortet',qz],['alle Szenen beantwortet',qf]],N);
+    var cl={};lv.forEach(function(k){(L[k].ev['Klick']||[]).forEach(function(d){cl[d]=(cl[d]||0)+1})});
+    h+=rows('Klicks (Top 10)',Object.keys(cl).map(function(k){return[k,cl[k]]}).sort(function(a,b){return b[1]-a[1]}).slice(0,10));
+    var fq={};lv.forEach(function(k){(L[k].ev['FAQ geöffnet']||[]).forEach(function(d){fq[d]=(fq[d]||0)+1})});
+    h+=rows('FAQ geöffnet',Object.keys(fq).map(function(k){return[k,fq[k]]}).sort(function(a,b){return b[1]-a[1]}));
+    h+=rows('Cookie-Abfrage',[['Banner gezeigt',has(L,'Cookie-Banner gezeigt')],['akzeptiert',has(L,'Analyse erlaubt')],['abgelehnt',has(L,'Analyse abgelehnt')]],has(L,'Cookie-Banner gezeigt')||N);
+    h+=rows('In der App (Gratis-Testbereich)',[['Testbereich geöffnet',has(A,'Testbereich geöffnet')],['Lektion gestartet',has(A,'Testbereich Lektion gestartet')],['Lektion fertig',has(A,'Testbereich Lektion fertig')],['Test-Simulator gestartet',has(A,'Test-Simulator gestartet')],['Test-Simulator fertig',has(A,'Test-Simulator fertig')],['Zur Zahlung geklickt',has(A,'Zur Zahlung geklickt')],['Gekauft',aK]]);
+    h+='</div><div style="height:12px"></div>';
+    /* Besuche pro Stunde */
+    var span=Math.max(1,Math.ceil((r[1]-r[0])/36e5)),hs=Math.min(span,72),start=new Date(r[1]-hs*36e5),bins=new Array(hs).fill(0);
+    lv.forEach(function(k){var t=new Date(L[k].t);var i=Math.floor((t-start)/36e5);if(i>=0&&i<hs)bins[i]++});var mx=Math.max.apply(null,bins)||1;
+    h+='<div class="c"><h2>Besuche pro Stunde'+(span>72?' (letzte 72 h)':'')+'</h2><div class="hrs">'+bins.map(function(v,i){var d=new Date(+start+i*36e5);return'<div style="height:'+Math.max(2,v/mx*100)+'%" data-t="'+d.toLocaleString('de-DE',{weekday:'short',hour:'2-digit'})+' Uhr: '+v+'"></div>'}).join('')+'</div><div class="ax"><span>'+start.toLocaleString('de-DE',{weekday:'short',hour:'2-digit',minute:'2-digit'})+'</span><span>jetzt</span></div></div>';
+    out.innerHTML=h;
+  }
+  function load(){
+    if(!K){out.innerHTML='<div class="err">Kein Zugang. Bitte den vollständigen Link verwenden.</div>';st.textContent='';return}
+    fetch(URL_,{cache:'no-store'}).then(function(r){if(r.status===403)throw'403';return r.json()}).then(function(j){ROWS=j.rows||[];st.textContent='Stand '+new Date(j.stand).toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'})+' · '+ROWS.length+' Ereignisse';render()})
+      .catch(function(e){out.innerHTML='<div class="err">'+(e==='403'?'Kein Zugang: Schlüssel im Link stimmt nicht.':'Daten gerade nicht erreichbar. Gleich nochmal versuchen.')+'</div>';st.textContent=''});
+  }
+  document.getElementById('bar').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;P=b.dataset.p;[].forEach.call(this.querySelectorAll('button'),function(x){x.classList.toggle('on',x===b)});render()});
+  load();setInterval(load,60000);
+})();
+</script>
+</body>
+</html>
