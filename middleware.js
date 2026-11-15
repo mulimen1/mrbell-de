@@ -259,7 +259,7 @@ export default async function middleware(req, ctx) {
     else if (/^\/ratgeber\/[a-z0-9-]{3,40}$/.test(pfad)) { const sl = pfad.slice(10); ziel = '/grundschulmax/ueben/rg-' + sl + '.html'; }
     else if (pfad === '/robots.txt' || pfad === '/sitemap.xml') ziel = '/grundschulmax' + pfad;
     else if (/^\/google[0-9a-f]{16}$/.test(pfad)) ziel = '/grundschulmax' + pfad + '.html';   /* Search-Console-Bestätigung */
-    if (ziel) return new Response(null, { headers: { 'x-middleware-rewrite': new URL(ziel, url).toString() } });
+    if (ziel) { const h = { 'x-middleware-rewrite': new URL(ziel, url).toString() }; if (/\/mi\/(en\/)?(index|fs-[a-z-]+)\.html$/.test(ziel)) h.Link = '</grundschulmax/sz/blockwelt-b.webp>; rel=preload; as=image; fetchpriority=high, </grundschulmax/geist-l.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin'; /* Hero-Bild und Schrift schon mit den Kopfzeilen anstoßen */ return new Response(null, { headers: h }); }
     return weiter();
   }
   // ---------- BWL Max (bwlmax.de und mrbell.de/tutor) — eigene Messung, getrennt von Mr. Bell ----------
