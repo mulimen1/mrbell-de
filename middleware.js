@@ -120,6 +120,7 @@ function gsIntern(req) { return /(?:^|;\s*)gsm_intern=1(?:;|$)/.test(req.headers
 function gsQuelle(url, ref) {
   const p = url.searchParams, utm = kurz(p.get('utm_source') || '', 20).toLowerCase();
   if (p.get('fbclid') || /^(facebook|fb|instagram|ig|meta)$/.test(utm)) return 'Facebook/Instagram Ads';
+  if (p.get('ttclid') || /^(tiktok|tt)$/.test(utm)) return 'TikTok Ads';
   if (p.get('gclid') || p.get('gbraid') || p.get('wbraid')) return 'Google Ads';
   if (utm) return 'Kampagne: ' + utm;
   if (p.get('ref')) return 'Link: ' + kurz(p.get('ref'), 24);
@@ -130,7 +131,7 @@ function gsMelden(d, req, ctx) {
   const id = gsKennung(req);
   d.sitzung = id;
   if (id) { d.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); d.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); d.land = kurz(req.headers.get('x-vercel-ip-country'), 4); }
-  else { d.quelle = /^(Facebook\/Instagram Ads|Google Ads)$/.test(d.quelle || '') ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
+  else { d.quelle = /^(Facebook\/Instagram Ads|Google Ads|TikTok Ads)$/.test(d.quelle || '') ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
   const p = fetch(GS_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-gsm': 'mw1' }, body: JSON.stringify(d) }).catch(function () {});
   if (ctx && typeof ctx.waitUntil === 'function') { ctx.waitUntil(p); return null; }
   return p;
