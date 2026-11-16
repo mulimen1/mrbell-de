@@ -238,7 +238,7 @@ export default async function middleware(req, ctx) {
     if (!MI && !/^\/(app|zahlen|google[0-9a-f]{16}|erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) return Response.redirect('https://missioninternet.de' + pfad + url.search, 301);
     let ziel = '';
     if (MI && pfad === '/tt') { const r = new Response(null, { headers: { 'x-middleware-rewrite': new URL('/grundschulmax/mi/tt.html', url).toString(), 'X-Robots-Tag': 'noindex, nofollow' } }); return r; } /* private TikTok-Auswertung; Zugang nur mit Schlüssel im Link (#k=…), der Schlüssel liegt nicht im Repo */
-    else if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/index.html'; /* TikTok-Aktion: gleiche Seite, Code TIKTOK20 wird per JS eingelöst */
+    else if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/start.html'; /* TikTok: leichte Einstiegsseite (Szene selbst spielen, Tag 1 gratis per E-Mail), Code TIKTOK10 per JS */
     else if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
     else if (MI && (pfad === '/test' || pfad === '/testen')) { return Response.redirect(new URL('/app' + url.search + '#test', url.origin).toString(), 302); /* Gratis-Testbereich */ }
     else if (MI && pfad === '/pruefen') { ziel = '/grundschulmax/mi/pruefen.html'; }
