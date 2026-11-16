@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/tt', '/notfall', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund', '/test', '/testen', '/try']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/tt', '/nl', '/notfall', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund', '/test', '/testen', '/try']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -222,6 +222,7 @@ export default async function middleware(req, ctx) {
     if (EN[p]) z = '/grundschulmax/mi/en/' + EN[p] + '.html';
     else if (p === '/test' || p === '/try') return Response.redirect('https://getmissioninternet.com/app' + url.search + '#test', 302);
     else if (p === '/app') z = '/grundschulmax/index-en.html';
+    else if (p === '/nl') z = '/grundschulmax/mi/nl.html'; /* Tipps-E-Mails bestätigen oder abbestellen */
     else if (p === '/robots.txt' || p === '/sitemap.xml') z = '/grundschulmax/mi/en' + p;
     else if (p === '/favicon.ico') z = '/grundschulmax/mi/favicon.png';
     else if (!/^\/grundschulmax\//.test(url.pathname)) return Response.redirect('https://getmissioninternet.com/' + url.search, 302);
@@ -238,9 +239,10 @@ export default async function middleware(req, ctx) {
     if (!MI && !/^\/(app|zahlen|google[0-9a-f]{16}|erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) return Response.redirect('https://missioninternet.de' + pfad + url.search, 301);
     let ziel = '';
     if (MI && pfad === '/tt') { const r = new Response(null, { headers: { 'x-middleware-rewrite': new URL('/grundschulmax/mi/tt.html', url).toString(), 'X-Robots-Tag': 'noindex, nofollow' } }); return r; } /* private TikTok-Auswertung; Zugang nur mit Schlüssel im Link (#k=…), der Schlüssel liegt nicht im Repo */
-    else if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/start.html'; /* TikTok: leichte Einstiegsseite (Szene selbst spielen, Tag 1 gratis per E-Mail), Code TIKTOK10 per JS */
+    else if (MI && pfad === '/tiktok') ziel = '/grundschulmax/mi/einstieg.html'; /* TikTok: leichte Einstiegsseite (Szene selbst spielen, Tag 1 gratis per E-Mail), Code TIKTOK10 per JS */
     else if (MI && pfad === '/') { ziel = '/grundschulmax/mi/index.html'; /* neue Startseite; alte App-Links (#…, ?abo=) leitet die Seite selbst nach /app weiter */ }
     else if (MI && (pfad === '/test' || pfad === '/testen')) { return Response.redirect(new URL('/app' + url.search + '#test', url.origin).toString(), 302); /* Gratis-Testbereich */ }
+    else if (MI && pfad === '/nl') { ziel = '/grundschulmax/mi/nl.html'; /* Tipps-E-Mails bestätigen oder abbestellen */ }
     else if (MI && pfad === '/pruefen') { ziel = '/grundschulmax/mi/pruefen.html'; }
     else if (MI && pfad === '/notfall') { ziel = '/grundschulmax/mi/notfall.html'; /* Notfall-Pass und Erste-Hilfe-Poster zum Ausdrucken (Familien-Challenge Tag 1) */ }
     else if (MI && pfad === '/urkunde') { ziel = '/grundschulmax/mi/urkunde.html'; }

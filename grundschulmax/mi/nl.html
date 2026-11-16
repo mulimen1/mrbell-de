@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mission Internet</title><meta name="robots" content="noindex,nofollow"><link rel="icon" type="image/svg+xml" href="/grundschulmax/mi/favicon.svg">
+<style>@font-face{font-family:Geist;src:url(/grundschulmax/geist-l.woff2) format("woff2");font-weight:100 900;font-display:swap}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f6f6f7;color:#0a0a0b;font:16px/1.55 Geist,system-ui,-apple-system,sans-serif;padding:16px;box-sizing:border-box}
+.c{max-width:440px;width:100%;background:#fff;border:1px solid #e7e7ea;border-radius:24px;padding:30px 24px;text-align:center}
+h1{margin:12px 0 8px;font-size:25px;letter-spacing:-.02em;line-height:1.2}p{margin:0;color:#3a3a42}
+.i{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#eff2ff;color:#2d4bf0}.i svg{width:26px;height:26px}
+a.b{display:inline-flex;margin-top:20px;padding:14px 22px;border-radius:999px;background:#2d4bf0;color:#fff;text-decoration:none;font-weight:600}</style></head>
+<body><div class="c"><span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg></span><h1 id="h">Einen Moment …</h1><p id="t"></p><a class="b" id="b" href="/app#fuehrerschein" hidden></a></div>
+<script>(function(){var EN=/getmissioninternet/.test(location.hostname);if(EN)document.documentElement.lang='en';
+var T=EN?{ok:['Confirmed, thank you!','You will get up to 3 emails with tips about the course. You can unsubscribe with one click in every email.'],ab:['Unsubscribed','You will not get any more tips emails from us. Your access and progress stay as they are.'],no:['This link does not work','It may be old or incomplete. Just write to us: ben@getmissioninternet.com'],b:'Go to the course'}
+:{ok:['Bestätigt, vielen Dank!','Sie bekommen bis zu 3 E-Mails mit Tipps zum Kurs. Abbestellen geht in jeder E-Mail mit einem Klick.'],ab:['Abgemeldet','Sie bekommen keine Tipps-E-Mails mehr von uns. Ihr Zugang und der Fortschritt bleiben, wie sie sind.'],no:['Dieser Link funktioniert nicht','Er ist vielleicht alt oder unvollständig. Schreiben Sie uns einfach: kontakt@missioninternet.de'],b:'Zum Führerschein'};
+var m=location.hash.match(/(ok|ab)=([a-f0-9]{32})\.([a-z0-9]{16})/),h=document.getElementById('h'),t=document.getElementById('t'),b=document.getElementById('b');
+function show(k){h.textContent=T[k][0];t.textContent=T[k][1];b.textContent=T.b;b.hidden=k==='no'}
+if(!m){show('no');return}history.replaceState(null,'',location.pathname);
+fetch('https://hub.mrbell.de/n8n/webhook/gsm-konto-6w3c',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:m[1]==='ok'?'nlok':'nlab',id:m[2],k:m[3],lang:EN?'en':''})}).then(function(r){return r.json()}).then(function(r){show(r&&r.ok?m[1]:'no')}).catch(function(){show('no')});})();</script></body></html>
