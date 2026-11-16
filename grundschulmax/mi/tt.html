@@ -81,6 +81,16 @@ h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
     var aT=has(A,'Testbereich Lektion gestartet')+has(A,'Testlektion gestartet'),aZ=has(A,'Zur Zahlung geklickt')+has(L,'Zur Zahlung geklickt'),aK=has(A,'Abo abgeschlossen');
     var h='';
     h+='<div class="g k4">'+[[N,'Besuche Landingpage'],[med?med+' s':'–','Verweildauer (Median)'],[pct(gt,N)+' %','klicken „Gratis testen“'],[aT,'Testlektionen gestartet (App)']].map(function(x){return'<div class="c kpi"><div class="v">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('')+'</div><div style="height:12px"></div>';
+    /* Neuer Einstieg seit 16.11.: Szene selbst spielen, Tag 1 gratis gegen E-Mail, Kauf nach Tag 1 */
+    var E=function(e,f){return has(L,e,f)},EA=function(e,f){return has(A,e,f)};
+    var nT=Object.keys(L).filter(function(k){return (L[k].ev['Übungsseite geöffnet']||[]).indexOf('tiktok')>=0}).length;
+    var eS=E('Einstieg Szene',function(d){return /^1 /.test(d)}),eR=E('Einstieg Ergebnis'),eF=E('Einstieg E-Mail angetippt'),eM=E('Einstieg E-Mail'),eO=E('Einstieg E-Mail',function(d){return /Tipps ja/.test(d)}),eH=E('Einstieg Start',function(d){return /^Hier/.test(d)}),eL=E('Einstieg Start',function(d){return /senden/.test(d)});
+    var t1L=EA('Lektion gestartet',function(d){return /Tag 1/.test(d)}),t1D=EA('Tag 1 geschafft'),t1Z=EA('Zur Zahlung geklickt',function(d){return /^Tag 1/.test(d)});
+    h+='<div class="g k2">';
+    h+=rows('Neuer Einstieg: Trichter (Startseite + /tiktok)',[['Besuche gesamt',N],['davon /tiktok',nT],['Szene 1 beantwortet',eS],['alle 3 Szenen',eR],['E-Mail-Feld angetippt',eF],['E-Mail eingetragen (Tag 1 frei)',eM],['… mit Tipps-Häkchen',eO],['Tag 1 hier gestartet',eH],['an Laptop/iPad gesendet',eL],['App: Tag-1-Lektion gestartet',t1L],['App: Tag 1 geschafft',t1D],['App: Zur Zahlung nach Tag 1',t1Z],['Gekauft',aK]],N,'fun');
+    var PA2={};Object.keys(L).forEach(function(k){var ad=((L[k].ev['Anzeige']||[])[0])||'ohne Anzeige';var o=PA2[ad]=PA2[ad]||{n:0,s:0,m:0};o.n++;if((L[k].ev['Einstieg Szene']||[]).length)o.s++;if((L[k].ev['Einstieg E-Mail']||[]).length)o.m++;});
+    h+='<div class="c"><h2>Neuer Einstieg pro Anzeige</h2><table><thead><tr><th>Anzeige</th><th>Besuche</th><th>Szene gespielt</th><th>E-Mail (Tag 1)</th></tr></thead><tbody>'+Object.keys(PA2).sort().map(function(k){var o=PA2[k];return'<tr><td>'+esc(k)+'</td><td>'+o.n+'</td><td>'+o.s+' · '+pct(o.s,o.n)+' %</td><td>'+o.m+' · '+pct(o.m,o.n)+' %</td></tr>'}).join('')+'</tbody></table></div>';
+    h+='</div><div style="height:12px"></div>';
     h+='<div class="g k2">';
     h+=rows('Trichter',[['Besuche',N],['bis Hälfte gescrollt',sc50],['„Gratis testen“ geklickt',gt],['Testlektion gestartet (App)',aT],['Zur Zahlung geklickt',aZ],['Gekauft',aK]],N,'fun');
     var buck=[['unter 5 s',0],['5–15 s',0],['15–30 s',0],['30–60 s',0],['1–3 min',0],['über 3 min',0]];secs.forEach(function(s){buck[s<5?0:s<15?1:s<30?2:s<60?3:s<180?4:5][1]++});
