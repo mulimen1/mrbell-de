@@ -411,7 +411,7 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
  .scr>.pzph{--sr:0px}
  #scr .sghud{display:none}
  #scr .sgchat{left:10px;right:10px;bottom:10px;width:auto;font-size:14px;padding:8px 11px 10px}
- .ask{position:relative;width:auto;margin:14px 0 0;padding:22px 18px 20px;border:1px solid var(--ln);border-radius:22px;background:#fff;opacity:1;transform:none;box-shadow:0 20px 40px -30px rgba(10,10,11,.35)}
+ .ask{position:relative;width:auto;margin:0 0 14px;padding:22px 18px 20px;border:1px solid var(--ln);border-radius:22px;background:#fff;opacity:1;transform:none;box-shadow:0 20px 40px -30px rgba(10,10,11,.35)}
  .aq{font-size:19px}
  .why{padding:130px 0 100px}
  .stats{grid-template-columns:minmax(0,1fr);gap:44px;margin-top:80px}
@@ -1052,7 +1052,7 @@ nx.onclick=()=>{if(nx.classList.contains('fdnx')){EV('Gratis testen geklickt','H
 let heroOn=false;const heroShow=()=>{if(heroOn)return;heroOn=true;stage.classList.add('on');scene.classList.add('go')};
 if(RM)heroShow();
 setTimeout(()=>{if(stage.getBoundingClientRect().top<innerHeight*.72){scene.classList.add('go');heroShow()}},900);
-const askEl=$('#ask'),scrEl=$('#scr'),ipadEl=$('.ipad'),mq=matchMedia('(max-width:899px)');const place=()=>{if(mq.matches){if(askEl.parentNode!==stage)ipadEl.after(askEl)}else if(askEl.parentNode!==scrEl)scrEl.append(askEl)};place();mq.addEventListener('change',()=>{place();measure()});
+const askEl=$('#ask'),scrEl=$('#scr'),ipadEl=$('.ipad'),mq=matchMedia('(max-width:899px)');const place=()=>{if(mq.matches){if(askEl.parentNode!==stage)ipadEl.before(askEl)}else if(askEl.parentNode!==scrEl)scrEl.append(askEl)};place();mq.addEventListener('change',()=>{place();measure()});
 
 /* Galerie-Dialog */
 const dlg=$('#dlg');
