@@ -554,7 +554,7 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
   <p class="eye rv">Internet- und KI-Führerschein · Klasse 4 bis 6</p>
   <p class="ttb" id="ttb" hidden><span class="ttc">TIKTOK20</span><span><b>Nur 39 € mit Code</b> · gilt bis Sonntag, 15.11., 23:59 Uhr</span><span class="ttt" id="ttt"></span></p>
   <h1 class="h1" id="h1" data-split>Ihr Kind ist online. <span class="gr">Die Täter auch.</span></h1>
-  <p class="hsub rv" style="--d:380ms">Fremde, die sich im Spiel-Chat als Kinder ausgeben. Erpressung mit Fotos. Stimmen, die per KI gefälscht sind. Wir schulen Ihr Kind an echten Szenen wie dieser, bis es die Maschen selbst erkennt.</p>
+  <p class="hsub rv" style="--d:380ms">Fremde im Spiel-Chat, Erpressung mit Fotos, gefälschte KI-Stimmen. Wir trainieren Ihr Kind an echten Szenen, bis es die Maschen selbst erkennt.</p>
  </div>
  <div class="stage" id="probe">
   <div class="ipad">
@@ -1117,8 +1117,8 @@ const ak=$('#ak'),ai=$('#ai'),aq=$('#aq'),nx=$('#nx');
 function hero(i){const q=HQ[i];ak.textContent='Echte Szene · '+q.t;ai.textContent=(i+1)+' / '+HQ.length;aq.textContent=q.q;
  quiz($('#ao'),$('#ae'),$('#aet'),q,r=>{hq++;if(r)hok++;EV('Testlektion Frage',hq+' · '+(r?'richtig':'falsch')+' · '+q.t);if(hq===HQ.length)EV('Testlektion fertig',hok+' von '+HQ.length);nx.innerHTML=(i<HQ.length-1?'Nächste Szene':'Weiter in der Gratis-Testlektion')+ARR;nx.classList.toggle('fdnx',i===HQ.length-1)})}
 /* Szene bleibt als Vorgeschmack, statt Quiz ein Knopf direkt in die echte Testlektion */
-ak.textContent='Echte Szene · Spiel-Chat';ai.textContent='';aq.textContent='Jemand sagt, er ist auch 12, und will sich treffen. Was würde Ihr Kind tun?';
-$('#ao').innerHTML='<a class="amo fdt" data-ft="Szene: antwortet" href="/app#test/los"><i>A</i><span>Es schreibt zurück</span></a><a class="amo fdt" data-ft="Szene: blockiert" href="/app#test/los"><i>B</i><span>Es blockiert und sagt es Ihnen</span></a><p class="asub">Tippen Sie eine Antwort an: Die Auflösung kommt in der Gratis-Testlektion. 6 Minuten, läuft direkt hier am Handy, am schönsten am Laptop oder iPad.</p>';
+ak.textContent='Echte Szene im Spiel-Chat: „hey ich bin auch 12 😊 wo wohnst du?“';ai.textContent='';aq.textContent='Würde Ihr Kind merken, dass hier kein Kind schreibt?';
+$('#ao').innerHTML='<a class="amo fdt" data-ft="Szene: sicher" href="/app#test/los"><i>A</i><span>Ja, ganz sicher</span></a><a class="amo fdt" data-ft="Szene: unsicher" href="/app#test/los"><i>B</i><span>Ich bin nicht sicher</span></a><p class="asub">Finden Sie es heraus: Gratis-Testlektion, 6 Minuten, ohne Anmeldung. Läuft direkt hier am Handy, am schönsten am Laptop oder iPad.</p>';
 nx.onclick=()=>{if(nx.classList.contains('fdnx')){EV('Gratis testen geklickt','Hero-Szenen');location.href='/app#test/los';return}hi=(hi+1)%HQ.length;scene.classList.add('out');setTimeout(()=>{scene.innerHTML=d.getElementById('t-'+HQ[hi].k).innerHTML;scene.classList.remove('go');void scene.offsetWidth;scene.classList.add('go');scene.classList.remove('out')},320);hero(hi);aq.focus?.()};
 let heroOn=false;const heroShow=()=>{if(heroOn)return;heroOn=true;stage.classList.add('on');scene.classList.add('go')};
 if(RM)heroShow();
