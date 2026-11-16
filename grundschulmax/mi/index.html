@@ -535,6 +535,7 @@ body .gsc button{border-color:var(--ln2)}body .gsc button.y{background:#0a0a0b;b
 
 .ttb{display:none!important}
 @media (max-width:899px){.hero{padding-top:86px}.hero .eye{margin-bottom:14px}.hero .h1{font-size:clamp(52px,14vw,64px);line-height:.93}.hero .hsub{margin-top:16px;font-size:18px}.stage{margin-top:24px}}
+.amo{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border:1.5px solid var(--ln);border-radius:16px;background:#fff;color:inherit;text-decoration:none;text-align:left;font-size:16px;line-height:1.3;font-weight:550;transition:border-color .2s,transform .2s,box-shadow .2s}.amo>i{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ffb347,#ff6a3d);color:#fff;font-style:normal;font-size:13px;font-weight:700}.amo:hover,.amo:active{border-color:#ff7a3d;transform:translate3d(0,-2px,0);box-shadow:0 10px 22px -16px rgba(255,106,61,.7)}
 .ascta{width:100%;justify-content:center}.asub{margin:10px 0 0;font-size:13px;line-height:1.4;color:var(--mut);text-align:center}
 </style>
 </head>
@@ -1117,7 +1118,7 @@ function hero(i){const q=HQ[i];ak.textContent='Echte Szene · '+q.t;ai.textConte
  quiz($('#ao'),$('#ae'),$('#aet'),q,r=>{hq++;if(r)hok++;EV('Testlektion Frage',hq+' · '+(r?'richtig':'falsch')+' · '+q.t);if(hq===HQ.length)EV('Testlektion fertig',hok+' von '+HQ.length);nx.innerHTML=(i<HQ.length-1?'Nächste Szene':'Weiter in der Gratis-Testlektion')+ARR;nx.classList.toggle('fdnx',i===HQ.length-1)})}
 /* Szene bleibt als Vorgeschmack, statt Quiz ein Knopf direkt in die echte Testlektion */
 ak.textContent='Echte Szene · Spiel-Chat';ai.textContent='';aq.textContent='Jemand sagt, er ist auch 12, und will sich treffen. Was würde Ihr Kind tun?';
-$('#ao').innerHTML='<a class="btn mag fdt fdbig ascta" data-ft="Szene" href="/app#test/los"><span class="fdpi" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path fill="#ffffff" d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span><span>Testlektion starten</span></a><p class="asub">Gratis · etwa 6 Minuten · am besten mit Ihrem Kind, geht aber auch allein. Gemacht für Laptop und iPad.</p>';
+$('#ao').innerHTML='<a class="amo fdt" data-ft="Szene: antwortet" href="/app#test/los"><i>A</i><span>Es schreibt zurück</span></a><a class="amo fdt" data-ft="Szene: blockiert" href="/app#test/los"><i>B</i><span>Es blockiert und sagt es Ihnen</span></a><p class="asub">Tippen Sie eine Antwort an: Die Auflösung kommt in der Gratis-Testlektion. 6 Minuten, läuft direkt hier am Handy, am schönsten am Laptop oder iPad.</p>';
 nx.onclick=()=>{if(nx.classList.contains('fdnx')){EV('Gratis testen geklickt','Hero-Szenen');location.href='/app#test/los';return}hi=(hi+1)%HQ.length;scene.classList.add('out');setTimeout(()=>{scene.innerHTML=d.getElementById('t-'+HQ[hi].k).innerHTML;scene.classList.remove('go');void scene.offsetWidth;scene.classList.add('go');scene.classList.remove('out')},320);hero(hi);aq.focus?.()};
 let heroOn=false;const heroShow=()=>{if(heroOn)return;heroOn=true;stage.classList.add('on');scene.classList.add('go')};
 if(RM)heroShow();
