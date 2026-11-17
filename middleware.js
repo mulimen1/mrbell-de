@@ -221,6 +221,7 @@ export default async function middleware(req, ctx) {
     let z = '';
     if (EN[p]) z = '/grundschulmax/mi/en/' + EN[p] + '.html';
     else if (p === '/test' || p === '/try') return Response.redirect('https://getmissioninternet.com/app' + url.search + '#test', 302);
+    else if (p === '/tiktok') { const q = url.search && url.search.length > 1 ? url.search : '?utm_source=tiktok'; return Response.redirect('https://getmissioninternet.com/app' + (/utm_source=/.test(q) ? q : q + '&utm_source=tiktok') + '#probe', 302); } /* TikTok USA: direkt in den Kurs (Probe-Einstieg) */
     else if (p === '/app') z = '/grundschulmax/index-en.html';
     else if (p === '/nl') z = '/grundschulmax/mi/nl.html'; /* Tipps-E-Mails bestätigen oder abbestellen */
     else if (p === '/robots.txt' || p === '/sitemap.xml') z = '/grundschulmax/mi/en' + p;
