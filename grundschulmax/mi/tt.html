@@ -89,6 +89,17 @@ h1{font-size:20px;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
     var PA2={};Object.keys(A).forEach(function(k){var v=A[k].ev['Probe geöffnet'];if(!v)return;var ad=v[0]||'?';var o=PA2[ad]=PA2[ad]||{n:0,s:0,m:0,d:0};o.n++;if(A[k].ev['Probe Lektion gestartet'])o.s++;if(A[k].ev['Probe: E-Mail eingetragen'])o.m++;if(A[k].ev['Tag 1 geschafft'])o.d++;});
     h+='<div class="c"><h2>Probe-Einstieg pro Anzeige</h2><table><thead><tr><th>Anzeige</th><th>Geöffnet</th><th>Tag 1 gestartet</th><th>E-Mail</th><th>Tag 1 geschafft</th></tr></thead><tbody>'+Object.keys(PA2).sort().map(function(k){var o=PA2[k];return'<tr><td>'+esc(k)+'</td><td>'+o.n+'</td><td>'+o.s+' · '+pct(o.s,o.n)+' %</td><td>'+o.m+'</td><td>'+o.d+'</td></tr>'}).join('')+'</tbody></table></div>';
     h+='</div><div style="height:12px"></div>';
+    /* Verhalten im Probe-Einstieg (seit 17.11.): jede Aufgabe, jede Szene, wo abgesprungen */
+    var PD=function(e,f){var o={};Object.keys(A).forEach(function(k){var ev=A[k].ev;if(!ev['Probe geöffnet'])return;var vs=ev[e]||[];var u={};vs.forEach(function(v){var x=f?f(v):v;if(x!=null&&!u[x]){u[x]=1;o[x]=(o[x]||0)+1;}});});return Object.keys(o).map(function(x){return[x,o[x]]}).sort(function(a,b){return b[1]-a[1]});};
+    var aufg=PD('Probe Aufgabe beantwortet',function(v){return 'Aufgabe '+String(v).split('/')[0]+' beantwortet'}).sort(function(a,b){return parseInt(a[0].slice(8))-parseInt(b[0].slice(8))});
+    h+='<div class="g k2">';
+    h+=rows('Testlektion: wie weit kommen Eltern?',aufg,pO,'fun');
+    h+=rows('Testlektion: Ergebnis je Szene',PD('Probe Szene Ergebnis',function(v){return String(v).split(' · ').slice(0,2).join(' · ')}),pO);
+    h+=rows('Probe: wo abgesprungen (weitester Schritt)',PD('Abgesprungen',function(v){return String(v).split(' · ')[0]}),pO);
+    h+=rows('Probe: Testlektion abgebrochen bei',PD('Lektion abgebrochen',function(v){return /^Testlektion/.test(v)?String(v).replace(/^Testlektion · /,''):null}),pO);
+    h+=rows('Probe: Zeit je Bildschirm',PD('Bildschirm'),pO);
+    h+=rows('Probe: alle Klicks',PD('Klick'),pO);
+    h+='</div><div style="height:12px"></div>';
     h+='<div class="g k2">';
     h+=rows('Trichter',[['Besuche',N],['bis Hälfte gescrollt',sc50],['„Gratis testen“ geklickt',gt],['Testlektion gestartet (App)',aT],['Zur Zahlung geklickt',aZ],['Gekauft',aK]],N,'fun');
     var buck=[['unter 5 s',0],['5–15 s',0],['15–30 s',0],['30–60 s',0],['1–3 min',0],['über 3 min',0]];secs.forEach(function(s){buck[s<5?0:s<15?1:s<30?2:s<60?3:s<180?4:5][1]++});
