@@ -101,7 +101,7 @@ function melden(daten, req, ctx) {
 // Ohne Einwilligung: nur das Ereignis und der Gerätetyp, keine Kennung, kein Ort, keine Herkunft.
 // Mit Einwilligung (Cookie gsm_analyse = Zufallskennung): zusätzlich Kennung, ungefährer Ort und Herkunft (Anzeige, Link).
 const GS_ZIEL = 'https://hub.mrbell.de/n8n/webhook/gsm-mess-84d470';
-const GS_EV = ['Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'Analyse abgelehnt', 'Ausprobieren geklickt', 'Einloggen geklickt', 'Klasse gewählt',
+const GS_EV = ['Probe-Karte: Fenster geöffnet', 'Probe-Karte: Fenster geschlossen', 'Probe-Karte: Tag 2 Fenster', 'Probe-Karte: Tag 2 gekauft geklickt', 'Probe-Karte: Kündigen-Fenster', 'Probe-Karte: gekündigt', 'Probe-Karte: direkt kaufen', 'Probe-Karte: hinterlegt', 'Seite geöffnet', 'Rechtstext geöffnet', 'Analyse erlaubt', 'Analyse abgelehnt', 'Ausprobieren geklickt', 'Einloggen geklickt', 'Klasse gewählt',
   'Tutorial', 'Lektion gestartet', 'Lektion fertig', 'Lektion abgebrochen', 'Erste Lektion gestartet', 'Erste Lektion fertig', 'Erste Lektion abgebrochen',
   'Spiel gestartet', 'Spiel fertig', 'Spiel abgebrochen', 'Erstes Spiel gestartet', 'Erstes Spiel fertig', 'Erstes Spiel abgebrochen',
   'Probe zu Ende', 'Abo-Fenster geöffnet', 'Abo-Fenster geschlossen', 'Tarif gewählt', 'Zur Zahlung geklickt', 'Abo abgeschlossen',
