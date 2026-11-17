@@ -1148,7 +1148,7 @@ go.addEventListener('click',()=>{msg.hidden=true;const miss=['#fsa','#fsw'].filt
 if(/[?&]abbruch=1/.test(location.search)){EV('Zahlung abgebrochen','Stripe zurück');msg.textContent='Die Zahlung wurde abgebrochen. Sie können es jederzeit nochmal versuchen.';msg.hidden=false;setTimeout(()=>$('#pc').scrollIntoView({block:'center'}),300)}
 /* Kunden: direkt zum Kurs */
 
-try{const a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[spk]$/.test(a.plan||'')){$$('.nav .btn, .hero .cta .btn:not(.gh), .end .cta .btn:not(.gh)').forEach(b=>{b.setAttribute('href','/app#fuehrerschein');const l=b.querySelector('.lb');if(l)l.textContent='Zum Kurs';else{const i=b.querySelector('.fdpi');b.innerHTML=(i?i.outerHTML:'')+'<span>Zum Kurs</span>'}})}}catch(e){}
+try{const a=JSON.parse(localStorage.getItem('gsm-abo')||'null');if(a&&a.paid&&/^f[spk]$/.test(a.plan||'')){$$('.nav .btn, .hero .cta .btn:not(.gh), .end .cta .btn:not(.gh)').forEach(b=>{b.setAttribute('href','/app#fuehrerschein');const l=b.querySelector('.lb');if(l)l.textContent='Zum Führerschein';else{const i=b.querySelector('.fdpi');b.innerHTML=(i?i.outerHTML:'')+'<span>Zum Führerschein</span>'}})}}catch(e){}
 /* Bereiche + Scrolltiefe */
 if('IntersectionObserver' in window){const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io2.unobserve(e.target);EV('Bereich gesehen',e.target.id||'?')}}),{threshold:.35});$$('main>section[id]').forEach(s=>io2.observe(s))}
 const sd={};addEventListener('scroll',()=>{const hh=h.scrollHeight-innerHeight;if(hh<50)return;const p=scrollY/hh*100;[25,50,75,100].forEach(q=>{if(p>=q-2&&!sd[q]){sd[q]=1;EV('Startseite gescrollt',q+' %')}})},{passive:true});
