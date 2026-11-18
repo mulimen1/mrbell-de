@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1d2a57">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="GSM Zahlen">
-<title>Zahlen · Grundschulmax</title>
+<title>Zahlen · Mission Internet</title>
 <link rel="icon" type="image/png" href="/grundschulmax/mail/gsm-profil.png">
 <link rel="apple-touch-icon" href="/grundschulmax/mail/gsm-profil.png">
 <style>
@@ -151,7 +151,7 @@ tr.hl td{background:#fff8ec}
 </head>
 <body>
 <div class="top"><div class="top-in">
-  <div class="brand"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><div><b>Grundschul<span>max</span> Zahlen</b><small>Nur für Ben</small></div></div>
+  <div class="brand"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><div><b>Mission <span>Internet</span> Zahlen</b><small>Nur für Ben</small></div></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
   <div class="seg qseg" id="qseg"><button data-q="alle">Alle</button><button data-q="meta">Meta</button><button data-q="gads">Google</button><button data-q="org">Ohne Anzeige</button></div>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
@@ -180,7 +180,7 @@ tr.hl td{background:#fff8ec}
   $('#reload').onclick = function () { load(); };
   function gate(t, x) { $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><h1>' + esc(t) + '</h1><p>' + esc(x) + '</p><a href="/app#anmelden">Anmelden</a></div>'; $('#stand').textContent = ''; }
   function load(extra) {
-    var tok = ls.get('gsm-token'); if (!tok) { gate('Bitte anmelden', 'Melde dich auf grundschulmax.de mit deinem Konto an und öffne dann diese Seite noch einmal.'); return; }
+    var tok = ls.get('gsm-token'); if (!tok) { gate('Bitte anmelden', 'Einmal mit bendeschler0@gmail.com anmelden (Code kommt per Mail), dann missioninternet.de/zahlen neu öffnen. Danach geht die Seite immer direkt auf.'); return; }
     if (busy) return; busy = true; $('#reload').textContent = '…';
     var body = { token: tok, zeit: Z, quelle: 'alle' }; if (extra) for (var k in extra) body[k] = extra[k];
     fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: JSON.stringify(body) }).then(function (r) { return r.json(); })
