@@ -118,10 +118,13 @@ tr:last-child td{border-bottom:0}
     var sent = 0; try { sent = +sessionStorage.getItem('miads.sent') || 0; } catch (e) {}
     var step = Date.now() - sent < 15 * 60 * 1000 ? 1 : 0;
     $('#main').innerHTML = '<div class="gate" id="gl"><img src="/grundschulmax/mi/favicon.svg" alt=""><h1>Bitte anmelden</h1><p>' + esc(msg || 'Einmal mit Code per Mail anmelden. Danach geht die Seite immer direkt auf.') + '</p>'
-      + '<input id="gm" type="email" autocomplete="email" value="bendeschler0@gmail.com"><input id="gc" inputmode="numeric" autocomplete="one-time-code" placeholder="6-stelliger Code aus der Mail"' + (step ? '' : ' hidden') + '>'
+      + '<div id="ggo" style="display:flex;justify-content:center;margin:18px 0 6px;min-height:44px"></div><p class="note" style="margin:4px 0 0">oder per E-Mail-Code</p>' + '<input id="gm" type="email" autocomplete="email" value="bendeschler0@gmail.com"><input id="gc" inputmode="numeric" autocomplete="one-time-code" placeholder="6-stelliger Code aus der Mail"' + (step ? '' : ' hidden') + '>'
       + '<button id="gb">' + (step ? 'Anmelden' : 'Code per Mail senden') + '</button><small id="ge"></small></div>';
     $('#st').textContent = '';
     var kr = function (b) { return fetch(KU, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }).catch(function () { return { ok: false, grund: 'Keine Verbindung.' }; }); };
+
+    (function () { var slot = document.getElementById('ggo'); if (!slot) return; var go = function () { google.accounts.id.initialize({ client_id: '968829387656-d9bsokr29gq374069dg9jrtto6qgpl9n.apps.googleusercontent.com', callback: function (resp) { kr({ mode: 'google', cred: resp.credential }).then(function (r) { if (r.ok && r.token) { ls.set('gsm-token', r.token); var z = document.getElementById('gl'); if (z) z.remove(); load(); } else { var e = document.getElementById('ge'); if (e) e.textContent = r.grund || 'Die Google-Anmeldung hat nicht geklappt.'; } }); } }); google.accounts.id.renderButton(slot, { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', locale: 'de', width: 320 }); };
+      if (window.google && google.accounts && google.accounts.id) go(); else { var sc = document.createElement('script'); sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true; sc.onload = go; document.head.appendChild(sc); } })();
     $('#gb').onclick = function () {
       var em = $('#gm').value.trim(), b = $('#gb'); $('#ge').textContent = '';
       if (!step) { b.textContent = '…'; kr({ mode: 'send', email: em }).then(function (r) { if (r.ok) { step = 1; try { sessionStorage.setItem('miads.sent', String(Date.now())); } catch (e) {} $('#gc').hidden = false; $('#gc').focus(); b.textContent = 'Anmelden'; } else { b.textContent = 'Code per Mail senden'; $('#ge').textContent = r.grund || 'Das hat nicht geklappt.'; } }); return; }
