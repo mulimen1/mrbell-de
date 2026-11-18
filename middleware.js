@@ -14,7 +14,7 @@
 
 export const config = {
   matcher: ['/', '/index.html', '/tutor', '/tutor/', '/tutor/index.html', '/bm', '/gs', '/impressum', '/impressum.html', '/datenschutz', '/datenschutz.html',
-    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/ads', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/tt', '/nl', '/notfall', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/refund', '/test', '/testen', '/try']
+    '/agb', '/agb.html', '/avv', '/avv.html', '/widerruf', '/widerruf.html', '/kuendigen', '/kuendigen.html', '/widerrufen', '/widerrufen.html', '/bewertung', '/bewertung.html', '/go/:ziel*', '/p', '/wa', '/zahlen', '/ads', '/lernen', '/lernen/:slug*', '/ueben', '/ueben/:slug*', '/internet-und-ki', '/internet-fuehrerschein', '/app', '/erstes-handy', '/kind-schuetzen', '/klassenchat', '/mediennutzungsvertrag', '/ki-fuer-kinder', '/ratgeber', '/ratgeber/:slug*', '/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt', '/pruefen', '/urkunde', '/favicon.ico', '/partner', '/partner-bedingungen', '/partnerbereich', '/partner-area', '/vorschau-b899cdb2db', '/partner-terms', '/tiktok', '/tt', '/nl', '/notfall', '/verify', '/certificate', '/privacy', '/terms', '/imprint', '/emergency', '/refund', '/test', '/testen', '/try']
 };
 
 const ZIEL = 'https://hub.mrbell.de/n8n/webhook/mb-ping';
@@ -217,7 +217,7 @@ export default async function middleware(req, ctx) {
     if (/^www\./i.test(url.hostname)) return Response.redirect('https://getmissioninternet.com' + url.pathname + url.search, 301);
     if (url.pathname === '/gs') return gsEreignis(req, ctx);
     const p = url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
-    const EN = { '/': 'index', '/partner': 'partner', '/partner-area': 'partner-area', '/partner-terms': 'partner-terms', '/verify': 'verify', '/certificate': 'certificate', '/privacy': 'privacy', '/terms': 'terms', '/imprint': 'imprint', '/refund': 'refund' };
+    const EN = { '/': 'index', '/partner': 'partner', '/partner-area': 'partner-area', '/partner-terms': 'partner-terms', '/verify': 'verify', '/certificate': 'certificate', '/privacy': 'privacy', '/terms': 'terms', '/imprint': 'imprint', '/refund': 'refund', '/notfall': 'emergency', '/emergency': 'emergency' };
     let z = '';
     if (EN[p]) z = '/grundschulmax/mi/en/' + EN[p] + '.html';
     else if (p === '/test' || p === '/try') return Response.redirect('https://getmissioninternet.com/app' + url.search + '#test', 302);
