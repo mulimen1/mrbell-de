@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1d2a57">
+<meta name="theme-color" content="#0b1a4a">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="GSM Zahlen">
+<meta name="apple-mobile-web-app-title" content="MI Zahlen">
 <title>Zahlen · Mission Internet</title>
-<link rel="icon" type="image/png" href="/grundschulmax/mail/gsm-profil.png">
-<link rel="apple-touch-icon" href="/grundschulmax/mail/gsm-profil.png">
+<link rel="icon" type="image/png" href="/grundschulmax/mi/favicon.svg">
+<link rel="apple-touch-icon" href="/grundschulmax/mi/favicon.svg">
 <style>
 @font-face{font-family:G;src:url(/grundschulmax/geist.woff2) format('woff2');font-weight:100 900;font-display:swap}
-:root{--bg:#f7f4ef;--card:#fff;--ln:#e8e1d5;--ln2:#ddd4c5;--ink:#16181f;--ink2:#383b46;--mut:#6b6f7b;--dim:#c9c1b3;--nv:#1d2a57;--nv2:#2b3a72;--or:#e5622a;--or2:#c2501c;--gd:#e3c67a;--gd2:#f5ead0;--ok:#1b9e63;--okb:#e5f5ec;--bad:#d64545;--badb:#fdeceb;--warn:#c98612;--warnb:#fdf3df;--r:22px;--gap:14px}
+:root{--bg:#f4f6fb;--card:#fff;--ln:#e2e7f0;--ln2:#d5dcea;--ink:#0f172a;--ink2:#334155;--mut:#64748b;--dim:#c3cbdb;--nv:#0b1a4a;--nv2:#1e3a8a;--or:#2563eb;--or2:#1d4ed8;--gd:#7dd3fc;--gd2:#e0f2fe;--ok:#1b9e63;--okb:#e5f5ec;--bad:#d64545;--badb:#fdeceb;--warn:#c98612;--warnb:#fdf3df;--r:22px;--gap:14px}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.45 G,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
 body{min-height:100dvh}
@@ -20,10 +20,10 @@ button,input,select{font:inherit;color:inherit}
 .n,td.n,.v,.tn{font-variant-numeric:tabular-nums}
 a{color:var(--or2)}
 /* Kopf */
-.top{position:sticky;top:0;z-index:20;background:var(--nv);color:#fff;box-shadow:0 10px 28px -18px rgba(13,20,50,.7)}
+.top{position:sticky;top:0;z-index:20;background:linear-gradient(120deg,#0b1a4a,#1e3a8a 60%,#2563eb);color:#fff;box-shadow:0 10px 28px -18px rgba(13,20,50,.7)}
 .top-in{max-width:1400px;margin:0 auto;padding:12px 20px 10px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:11px;min-width:0;margin-right:auto}
-.brand img{width:40px;height:40px;border-radius:12px;background:#fff}
+.brand img{width:40px;height:40px;border-radius:50%;background:#fff;padding:3px}
 .brand b{display:block;font-size:19px;font-weight:850;letter-spacing:-.02em}
 .brand b span{color:var(--gd)}
 .brand small{display:block;color:#aeb6d6;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700}
@@ -79,9 +79,9 @@ tr.hl td{background:#fff8ec}
 /* Balken */
 .bars{display:grid;gap:7px}
 .br{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px}
-.br .t{position:relative;padding:6px 10px;border-radius:9px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#f6f2ea}
+.br .t{position:relative;padding:6px 10px;border-radius:9px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#f3f6fb}
 .br .t i{position:absolute;inset:0 auto 0 0;background:var(--gd2);border-radius:9px}
-.br .t i.o{background:#fde0d2}.br .t i.n{background:#dfe4f4}.br .t i.g{background:#d9f0e4}
+.br .t i.o{background:#dbeafe}.br .t i.n{background:#dfe4f4}.br .t i.g{background:#d9f0e4}
 .br .t span{position:relative}
 .br .c{text-align:right;font-weight:800;white-space:nowrap}
 .br .c small{color:var(--mut);font-weight:600;font-size:11.5px;margin-left:4px}
@@ -105,12 +105,12 @@ tr.hl td{background:#fff8ec}
 .fr.fh .bar{background:none;height:auto}
 /* Kleinteile */
 .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.tri div{background:#f7f3ec;border-radius:14px;padding:10px 12px}
+.tri div{background:#f5f7fb;border-radius:14px;padding:10px 12px}
 .tri b{display:block;font-size:22px;letter-spacing:-.03em;color:var(--nv)}
 .tri small{color:var(--mut);font-weight:650;font-size:12px}
 .chip{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:99px;font-size:11.5px;font-weight:750;background:#f1ece2;color:var(--ink2);margin:2px 3px 2px 0;white-space:nowrap}
 .chip.m{background:#e7ecfb;color:#2b47a8}.chip.g{background:#fdf0d6;color:#8a5a06}.chip.o{background:#eef0f4;color:#4a5170}
-.chip.ok{background:var(--okb);color:#0f6e43}.chip.or{background:#fde7dc;color:#a8441a}.chip.bad{background:var(--badb);color:#a32b2b}
+.chip.ok{background:var(--okb);color:#0f6e43}.chip.or{background:#dbeafe;color:#a8441a}.chip.bad{background:var(--badb);color:#a32b2b}
 .hours{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;align-items:end;height:120px}
 .hours div{background:var(--gd);border-radius:4px 4px 0 0;min-height:2px;position:relative}
 .hours div.z{background:var(--or)}
@@ -126,9 +126,9 @@ tr.hl td{background:#fff8ec}
 .vi time{color:var(--mut);font-weight:650;font-size:12px;padding-top:2px}
 .vt{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:5px}.vt b{font-weight:750}
 .vm{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:5px;color:var(--ink2)}
-.vm i{flex:1;min-width:80px;max-width:220px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--or) var(--w),#efe9df var(--w))}
+.vm i{flex:1;min-width:80px;max-width:220px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--or) var(--w),#e8edf6 var(--w))}
 /* Kosten-Eingabe */
-.ko input,.ko select{width:100%;height:34px;border:1px solid var(--ln2);border-radius:10px;padding:0 8px;background:#fffdf9;font-size:13px}
+.ko input,.ko select{width:100%;height:34px;border:1px solid var(--ln2);border-radius:10px;padding:0 8px;background:#ffffff;font-size:13px}
 .ko td{padding:6px 4px}
 .ko .x{border:0;background:none;color:var(--bad);font-size:18px;cursor:pointer}
 .btn{height:40px;padding:0 18px;border:0;border-radius:12px;background:var(--or);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 3px 0 var(--or2)}
@@ -139,7 +139,7 @@ tr.hl td{background:#fff8ec}
 .gate h1{font-size:24px;letter-spacing:-.02em;margin:14px 0 6px;color:var(--nv)}
 .gate p{color:var(--ink2);margin:0 0 18px}
 .gate a{display:inline-flex;height:46px;align-items:center;padding:0 20px;border-radius:14px;background:var(--or);color:#fff;font-weight:800;text-decoration:none}
-.skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#efe9df,#f8f5ef,#efe9df);background-size:200% 100%;animation:sk 1.2s infinite}
+.skel{height:120px;border-radius:var(--r);background:linear-gradient(90deg,#e8edf6,#f6f8fc,#e8edf6);background-size:200% 100%;animation:sk 1.2s infinite}
 @keyframes sk{to{background-position:-200% 0}}
 .err{background:var(--badb);border:1px solid #f3c2bf;color:#8c1f1f;border-radius:14px;padding:10px 14px;font-size:13.5px;margin-top:var(--gap)}
 @media (max-width:1150px){.k6{grid-template-columns:repeat(3,minmax(0,1fr))}.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.g21,.g12{grid-template-columns:1fr}}
@@ -151,7 +151,7 @@ tr.hl td{background:#fff8ec}
 </head>
 <body>
 <div class="top"><div class="top-in">
-  <div class="brand"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><div><b>Mission <span>Internet</span> Zahlen</b><small>Nur für Ben</small></div></div>
+  <div class="brand"><img src="/grundschulmax/mi/favicon.svg" alt=""><div><b>Mission <span>Internet</span> Zahlen</b><small>Nur für Ben</small></div></div>
   <div class="seg" id="seg"><button data-z="alle">Gesamt</button><button data-z="30">30 Tage</button><button data-z="7">7 Tage</button><button data-z="heute">Heute</button></div>
   <div class="seg qseg" id="qseg"><button data-q="alle">Alle</button><button data-q="meta">Meta</button><button data-q="gads">Google</button><button data-q="org">Ohne Anzeige</button></div>
   <button class="ib" id="reload" aria-label="Neu laden">↻</button>
@@ -180,7 +180,7 @@ tr.hl td{background:#fff8ec}
   $('#reload').onclick = function () { load(); };
   function gate(t, x) {
     if (document.getElementById('zl')) return; /* Formular nicht neu zeichnen, sonst ist das Code-Feld wieder weg */
-    $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/mail/gsm-profil.png" alt=""><h1>' + esc(t) + '</h1><p>' + esc(x) + '</p>'
+    $('#main').innerHTML = '<div class="gate"><img src="/grundschulmax/mi/favicon.svg" alt=""><h1>' + esc(t) + '</h1><p>' + esc(x) + '</p>'
       + '<div id="zl" style="display:flex;flex-direction:column;gap:10px;max-width:340px;margin:18px auto 0"><input id="zlm" type="email" autocomplete="email" placeholder="E-Mail-Adresse" value="bendeschler0@gmail.com" style="padding:12px 14px;border:1px solid #ccd;border-radius:10px;font:inherit;font-size:16px">'
       + '<input id="zlc" inputmode="numeric" autocomplete="one-time-code" placeholder="6-stelliger Code aus der Mail" hidden style="padding:12px 14px;border:1px solid #ccd;border-radius:10px;font:inherit;font-size:16px;letter-spacing:2px">'
       + '<a href="#" id="zlb">Code per Mail senden</a><small id="zle" style="color:#b33"></small></div></div>';
