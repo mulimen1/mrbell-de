@@ -255,6 +255,7 @@ export default async function middleware(req, ctx) {
     else if (/^\/(erstes-handy|kind-schuetzen|klassenchat|mediennutzungsvertrag|ki-fuer-kinder)$/.test(pfad)) { ziel = '/grundschulmax/mi/fs-' + pfad.slice(1) + '.html'; /* Landingpages für Anzeigen */ }
     else if (pfad === '/app') { ziel = '/grundschulmax/index.html'; /* Lern-App; Besuch zählt die Seite selbst (gt.js) */ }
     else if (pfad === '/zahlen') ziel = '/grundschulmax/zahlen.html';
+    else if (MI && pfad === '/ads') ziel = '/grundschulmax/ads.html'; /* private Google-Ads-Übersicht (Login per Mail-Code) */
     else if (/^\/(impressum|datenschutz|agb|widerruf|kuendigen|widerrufen)$/.test(pfad)) { ziel = '/grundschulmax/legal' + pfad + '.html'; gsSeite(req, ctx, url, { impressum: 'Impressum', datenschutz: 'Datenschutz', agb: 'AGB', widerruf: 'Widerruf', kuendigen: 'Kündigen', widerrufen: 'Widerrufen' }[pfad.slice(1)]); }
     else if (pfad === '/ueben' || /^\/ueben\//.test(pfad)) { return Response.redirect(new URL((pfad === '/ueben/sicher-im-internet' ? '/' : '/ratgeber') + url.search + (pfad === '/ueben/sicher-im-internet' ? '#probe' : ''), url.origin).toString(), 301); /* alte Übungsseiten im alten Design: abgeschaltet */ }
     else if (pfad === '/internet-und-ki') { return Response.redirect(new URL('/' + url.search, url.origin).toString(), 301); /* alte Bit-Seite: jetzt der Führerschein (Anzeigen-Parameter bleiben erhalten) */ }
