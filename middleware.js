@@ -130,6 +130,8 @@ function gsMelden(d, req, ctx) {
   if (gsIntern(req)) return null;
   const id = gsKennung(req);
   d.sitzung = id;
+  /* Markt nach Domain: getmissioninternet.com = USA, sonst Deutschland */
+  try { d.markt = /getmissioninternet\./i.test(new URL(req.url).hostname) ? 'US' : 'DE'; } catch (e) { d.markt = 'DE'; }
   if (id) { d.stadt = kurz(dek(req.headers.get('x-vercel-ip-city')), 40); d.region = kurz(req.headers.get('x-vercel-ip-country-region'), 10); d.land = kurz(req.headers.get('x-vercel-ip-country'), 4); }
   else { d.quelle = /^(Facebook\/Instagram Ads|Google Ads|TikTok Ads)$/.test(d.quelle || '') ? d.quelle : ''; d.stadt = ''; d.region = ''; d.land = ''; }
   const p = fetch(GS_ZIEL, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-gsm': 'mw1' }, body: JSON.stringify(d) }).catch(function () {});
@@ -140,7 +142,8 @@ function gsSeite(req, ctx, url, recht) {
   const ua = req.headers.get('user-agent') || '';
   if (req.method !== 'GET' || BOT.test(ua) || !/text\/html/.test(req.headers.get('accept') || '')) return;
   if (/prefetch|prerender/i.test((req.headers.get('sec-purpose') || '') + (req.headers.get('purpose') || ''))) return;
-  gsMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht || '', seite: url.pathname.slice(0, 40), quelle: gsQuelle(url, req.headers.get('referer')), geraet: geraet(ua) }, req, ctx);
+  const q0 = gsQuelle(url, req.headers.get('referer')), th = q0 === 'Google Ads' ? kurz((url.searchParams.get('t') || '').replace(/[^a-z0-9-]/gi, ''), 20) : '';
+  gsMelden({ ereignis: recht ? 'Rechtstext geöffnet' : 'Seite geöffnet', detail: recht || (th ? 'Thema ' + th : ''), seite: url.pathname.slice(0, 40), quelle: q0, geraet: geraet(ua) }, req, ctx);
 }
 /* Übungsseiten: Aufruf zählt jetzt die Seite selbst (u.js), erst wenn sie 1 s sichtbar war. Funktion bleibt als Reserve. */
 function gsUeben(req, ctx, url, slug) {

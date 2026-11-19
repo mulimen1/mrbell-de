@@ -90,6 +90,7 @@ tr:last-child td{border-bottom:0}
 <body>
 <div class="top"><div class="ti">
   <div class="br"><img src="/grundschulmax/mi/favicon.svg" alt=""><div><b>Google Ads · Übersicht</b><small>Mission Internet · nur für Ben</small></div></div>
+  <div class="seg" id="mk"><button data-m="DE">Deutschland</button><button data-m="US">USA</button></div>
   <div class="seg" id="seg"><button data-z="heute">Heute</button><button data-z="gestern">Gestern</button><button data-z="7">7 Tage</button><button data-z="alle">Seit Start</button></div>
   <button class="rl" id="rl" title="Neu laden">↻</button>
   <div class="st" id="st"></div>
@@ -108,8 +109,9 @@ tr:last-child td{border-bottom:0}
   var tB = function (t) { return new Date(t).toLocaleTimeString('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit' }); };
   var dL = function (d) { var p = d.split('-'); return p[2] + '.' + p[1] + '.'; };
   document.cookie = 'gsm_intern=1; Max-Age=315360000; Path=/; SameSite=Lax; Secure';
-  var Z = ls.get('miads.z') || 'heute', D = null, busy = false, KT = ls.get('miads.kt') || 'i';
+  var MK = ls.get('miads.m') || 'DE', Z = ls.get('miads.z') || 'heute', D = null, busy = false, KT = ls.get('miads.kt') || 'i';
   $$('#seg button').forEach(function (b) { b.classList.toggle('on', b.dataset.z === Z); b.onclick = function () { Z = b.dataset.z; ls.set('miads.z', Z); $$('#seg button').forEach(function (x) { x.classList.toggle('on', x === b); }); if (D) draw(); }; });
+  $$('#mk button').forEach(function (b) { b.classList.toggle('on', b.dataset.m === MK); b.onclick = function () { MK = b.dataset.m; ls.set('miads.m', MK); $$('#mk button').forEach(function (x) { x.classList.toggle('on', x === b); }); if (D) draw(); }; });
   $('#rl').onclick = function () { load(); };
 
   /* ---------- Anmeldung (Code per Mail) ---------- */
@@ -191,18 +193,20 @@ tr:last-child td{border-bottom:0}
 
   /* ---------- Zeichnen ---------- */
   function draw() {
-    var R = range(), g = D.g || {}, hasG = !!(D.g && D.g.tage);
+    var R = range(), G0 = D.g || {}, g = (G0.m && G0.m[MK]) || (MK === 'DE' && !G0.m ? G0 : {}), hasG = !!(g.tage && g.camp && g.camp.length);
+    var EVM = (D.ev || []).filter(function (e) { return (e.m || 'DE') === MK; }), WERT = MK === 'US' ? 64 : 57, MKN = MK === 'US' ? 'USA (getmissioninternet.com)' : 'Deutschland (missioninternet.de)';
+    document.title = 'Google Ads ' + (MK === 'US' ? 'USA' : 'Deutschland') + ' · Mission Internet';
     var tage = (g.tage || []).filter(function (r) { return inR(r.d, R); }), S = sum(tage);
-    var ev = (D.ev || []).filter(function (e) { return inR(dB(e.t), R); }), V = visitors(ev);
+    var ev = EVM.filter(function (e) { return inR(dB(e.t), R); }), V = visitors(ev);
     var cnt = function (i) { return V.filter(function (v) { return v.step >= i; }).length; };
-    var camp = (g.camp || [])[0] || {};
+    var CL = g.camp || [], camp = CL.length === 1 ? CL[0] : CL.length ? { name: CL.map(function (c) { return c.name.replace(/^Mission Internet · /, ''); }).join(' + '), status: CL.some(function (c) { return c.status === 'ENABLED'; }) ? 'ENABLED' : CL[0].status, budget: CL.reduce(function (a, c) { return a + (c.status === 'ENABLED' ? c.budget || 0 : 0); }, 0), cap: null } : {};
     $('#st').innerHTML = '<span>Google-Daten: <b>' + (D.gt ? new Date(D.gt).toLocaleString('de-DE', { timeZone: 'Europe/Berlin', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : 'noch keine') + '</b> (stündlich)</span><span>Besucher-Messung: <b>live</b></span>' + (camp.name ? '<span>Kampagne: <b>' + esc(camp.name) + '</b> · ' + esc(camp.status === 'ENABLED' ? 'aktiv' : camp.status) + ' · Budget <b>' + eur(camp.budget) + '/Tag</b>' + (camp.cap ? ' · max. <b>' + eur(camp.cap) + '/Klick</b>' : '') + '</span>' : '');
     var h = '';
     /* Urteil */
     var kauf = cnt(6), karte = cnt(5), testl = cnt(1);
     var cpv = V.length ? S.c / V.length : null;
-    h += '<div class="c hero"><span class="pill">' + esc(R[2]) + '</span><h3>' + (hasG ? fmt(S.k) + ' Klicks für ' + eur(S.c) + ' → ' + V.length + ' Besucher, ' + testl + ' in der Testlektion, ' + karte + ' Konto erstellt, ' + kauf + ' gekauft.' : V.length + ' Besucher über Google ' + esc(R[2]) + ', ' + testl + ' in der Testlektion, ' + karte + ' Konto erstellt, ' + kauf + ' gekauft.') + '</h3><p>'
-      + (hasG ? 'Ein Kauf bringt rund 57 € (59 € minus Stripe). Bei ' + eur(S.k ? S.c / S.k : null) + ' pro Klick muss etwa jeder ' + (S.k && S.c ? Math.max(1, Math.round(57 / (S.c / S.k))) : '–') + '. Klick kaufen, damit es sich trägt. ' : 'Die Google-Zahlen (Kosten, Keywords, Suchbegriffe) kommen, sobald das Skript in Google Ads freigegeben ist. ')
+    h += '<div class="c hero"><span class="pill">' + esc(MKN) + '</span> <span class="pill">' + esc(R[2]) + '</span><h3>' + (hasG ? fmt(S.k) + ' Klicks für ' + eur(S.c) + ' → ' + V.length + ' Besucher, ' + testl + ' in der Testlektion, ' + karte + ' Konto erstellt, ' + kauf + ' gekauft.' : V.length + ' Besucher über Google ' + esc(R[2]) + ', ' + testl + ' in der Testlektion, ' + karte + ' Konto erstellt, ' + kauf + ' gekauft.') + '</h3><p>'
+      + (hasG ? (MK === 'US' ? 'Ein Kauf bringt rund ' + WERT + ' € (79 $ minus Stripe, umgerechnet). Bei ' : 'Ein Kauf bringt rund 57 € (59 € minus Stripe). Bei ') + eur(S.k ? S.c / S.k : null) + ' pro Klick muss etwa jeder ' + (S.k && S.c ? Math.max(1, Math.round(WERT / (S.c / S.k))) : '–') + '. Klick kaufen, damit es sich trägt. ' : 'Die Google-Zahlen (Kosten, Keywords, Suchbegriffe) kommen, sobald das Skript in Google Ads freigegeben ist. ')
       + 'Grundlage: echte Google-Daten + unsere eigene Messung auf der Seite (ohne deine eigenen Besuche).</p></div>';
     /* KPIs */
     var k = function (l, v, s) { return '<div class="c kp"><small>' + l + '</small><b class="n">' + v + '</b><i>' + (s || '&nbsp;') + '</i></div>'; };
@@ -230,7 +234,7 @@ tr:last-child td{border-bottom:0}
       h += '</div></div>';
     });
     /* Konten und E-Mails (alle Quellen) */
-    var KT = (D.kt || []).filter(function (x) { return !x.ben; }), ktR = KT.filter(function (x) { return inR(dB(x.an), R); });
+    var KT = (D.kt || []).filter(function (x) { return !x.ben && (MK === 'US' ? x.en : !x.en); }), ktR = KT.filter(function (x) { return inR(dB(x.an), R); });
     var zug = function (c) { return /^FT/.test(c) ? ['Tag 1 gratis', 'wa'] : /^FX/.test(c) ? ['Probe mit Karte (alt)', 'mu'] : c ? ['GEKAUFT', 'ok'] : ['ohne Zugang', 'mu']; };
     var dt = function (t) { if (!t) return '–'; var d = typeof t === 'number' ? new Date(t) : new Date(t); return dL(dB(d)) + ' ' + tB(d); };
     var her = function (x) { var s = x.src || {}; return [s.ref ? 'Code ' + s.ref : '', s.ad ? 'Anzeige ' + s.ad : '', s.w === 'handy' ? 'Handy' : s.w === 'gross' ? 'Laptop/iPad' : ''].filter(Boolean).join(' · ') || '–'; };
@@ -251,12 +255,26 @@ tr:last-child td{border-bottom:0}
     /* Verlauf pro Tag */
     var allT = (g.tage || []).slice().sort(function (a, b) { return a.d < b.d ? -1 : 1; });
     h += '<h2>Verlauf pro Tag</h2><div class="c chart">' + barChart(allT) + '<div class="lg"><span><i style="background:#2563eb"></i>Kosten</span><span><i style="background:#06b6d4"></i>Klicks</span></div><div class="tw" style="margin-top:12px"><table><tr><th class="l">Tag</th><th>Impr.</th><th>Klicks</th><th>CTR</th><th>Kosten</th><th>Ø Klick</th><th>Besucher</th><th>Testlektion</th><th>Konto</th><th>Kauf</th><th>Anteil gezeigt</th><th>verloren: Budget</th><th>verloren: Gebot</th></tr>';
-    var VA = visitors(D.ev || []);
+    var VA = visitors(EVM);
     allT.slice().reverse().forEach(function (r) {
       var vv = VA.filter(function (v) { return dB(v.first) === r.d; }); var c = function (i) { return vv.filter(function (v) { return v.step >= i; }).length; };
       h += '<tr><td>' + dL(r.d) + '</td><td class="n">' + fmt(r.i) + '</td><td class="n">' + fmt(r.k) + '</td><td class="n">' + pc(r.k, r.i) + '</td><td class="n">' + eur(r.c) + '</td><td class="n">' + (r.k ? eur(r.c / r.k) : '–') + '</td><td class="n">' + vv.length + '</td><td class="n">' + c(1) + '</td><td class="n">' + c(5) + '</td><td class="n">' + c(6) + '</td><td class="n">' + (r.is != null ? pc(r.is, 1) : '–') + '</td><td class="n">' + (r.lb != null ? pc(r.lb, 1) : '–') + '</td><td class="n">' + (r.lr != null ? pc(r.lr, 1) : '–') + '</td></tr>';
     });
     h += '</table></div><p class="note">„Anteil gezeigt“: bei wie vielen passenden Suchen die Anzeige kam. „verloren: Gebot“ = zu niedriges Höchstgebot oder Anzeigenrang, „verloren: Budget“ = Tagesbudget leer.</p></div>';
+    /* Kampagnen und Anzeigengruppen */
+    if (g.cpd || g.ag) {
+      var cpS = grp((g.cpd || []).filter(function (r) { return inR(r.d, R); }), function (r) { return r.cp; }), cpM = {}; cpS.forEach(function (x) { cpM[x.key] = x; });
+      var agS = grp((g.ag || []).filter(function (r) { return inR(r.d, R); }), function (r) { return r.cp + '|' + r.name; }).sort(function (a, b) { return b.c - a.c || b.k - a.k; });
+      var cN = {}; CL.forEach(function (c) { cN[c.id] = c; });
+      var row = function (l, x, sub) { return '<tr><td' + (sub ? ' style="padding-left:22px"' : '') + '>' + l + '</td><td class="n">' + fmt(x.i) + '</td><td class="n">' + fmt(x.k) + '</td><td class="n">' + pc(x.k, x.i) + '</td><td class="n">' + eur(x.c) + '</td><td class="n">' + (x.k ? eur(x.c / x.k) : '–') + '</td></tr>'; };
+      h += '<h2>Kampagnen und Anzeigengruppen</h2><div class="c"><div class="tw"><table><tr><th class="l">Kampagne / Anzeigengruppe</th><th>Impr.</th><th>Klicks</th><th>CTR</th><th>Kosten</th><th>Ø Klick</th></tr>';
+      CL.forEach(function (c) {
+        var x = cpM[c.id] || { i: 0, k: 0, c: 0 };
+        h += row('<b>' + esc(c.name.replace(/^Mission Internet · /, '')) + '</b> <span class="pill ' + (c.status === 'ENABLED' ? 'ok' : 'mu') + '">' + (c.status === 'ENABLED' ? 'aktiv' : 'pausiert') + '</span> <span class="pill mu">' + eur(c.budget) + '/Tag' + (c.cap ? ' · max. ' + eur(c.cap) : '') + '</span>', x);
+        agS.filter(function (a) { return a.key.split('|')[0] === c.id; }).forEach(function (a) { h += row(esc(a.key.split('|').slice(1).join('|')), a, 1); });
+      });
+      h += '</table></div><p class="note">Zeitraum oben gewählt. Besucher je Anzeigengruppe stehen unten bei jedem Besucher („Thema …“ beim Seitenaufruf).</p></div>';
+    }
     /* Uhrzeiten */
     var hs = grp((g.std || []).filter(function (r) { return inR(r.d, R); }), function (r) { return r.h; }), hm = {}; hs.forEach(function (x) { hm[x.key] = x; });
     var hx = Math.max.apply(null, [1].concat(hs.map(function (x) { return x.i; })));
