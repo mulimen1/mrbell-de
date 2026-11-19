@@ -186,6 +186,7 @@ tr:last-child td{border-bottom:0}
       var ab = v.ev.filter(function (e) { return e.e === 'Abgesprungen'; }).pop(); v.weg = ab ? ab.d : '';
       v.klicks = v.ev.filter(function (e) { return /geklickt$|^Klick$|^Probe-Karte: direkt kaufen$/.test(e.e); }).length;
       v.dauer = Math.round((v.last - v.first) / 1000);
+      var th = v.ev.map(function (e) { var m = /Thema ([a-z0-9-]+)/.exec(e.d || ''); return m ? m[1] : ''; }).filter(Boolean)[0]; v.th = th || '';
     });
     return V;
   }
@@ -227,7 +228,7 @@ tr:last-child td{border-bottom:0}
     if (!V.length) h += '<div class="c"><p class="note" style="margin:0">Noch keine Google-Besucher ' + esc(R[2]) + '.</p></div>';
     V.slice().reverse().forEach(function (v, j) {
       var stp = STEPS[v.step][1], cls = v.step >= 5 ? 'ok' : v.step >= 3 ? '' : v.step >= 1 ? 'wa' : 'mu';
-      h += '<div class="vis"><div class="vh"><b>' + dL(dB(v.first)) + ' ' + tB(v.first) + '</b><span class="pill ' + cls + '">' + esc(stp) + '</span><span class="pill mu">' + esc(v.g || 'Gerät ?') + '</span>' + (v.o ? '<span class="pill mu">' + esc(v.o) + '</span>' : '')
+      h += '<div class="vis"><div class="vh"><b>' + dL(dB(v.first)) + ' ' + tB(v.first) + '</b><span class="pill ' + cls + '">' + esc(stp) + '</span>' + (v.th ? '<span class="pill">Anzeige: ' + esc(v.th) + '</span>' : '') + '<span class="pill mu">' + esc(v.g || 'Gerät ?') + '</span>' + (v.o ? '<span class="pill mu">' + esc(v.o) + '</span>' : '')
         + (v.res ? '<span class="pill ' + (/reingefallen/.test(v.res) ? 'bad' : 'ok') + '">Testfrage: ' + esc(/reingefallen/.test(v.res) ? 'reingefallen' : 'erkannt') + '</span>' : '')
         + '<span class="sp">' + dau(v.dauer) + (v.scroll != null ? ' · ' + v.scroll + ' % gescrollt' : '') + ' · ' + v.klicks + ' Klicks · ' + v.ev.length + ' Aktionen' + (v.weg ? ' · raus: ' + esc(v.weg) : '') + ' ▾</span></div><div class="vt">';
       v.ev.forEach(function (e) { if (HIDE[e.e]) return; h += '<div class="ev' + (HI.test(e.e) ? ' hi' : '') + '"><time>' + tB(e.t) + '</time><span><b>' + esc(NAME[e.e] || e.e) + '</b>' + (e.d && e.d !== '/' ? ' <u>· ' + esc(e.d) + '</u>' : '') + (e.s ? ' <u>(' + esc(e.s) + ')</u>' : '') + '</span></div>'; });
