@@ -821,7 +821,7 @@ main>section:not(.hero){content-visibility:auto;contain-intrinsic-size:auto 1100
   /* Aufruf erst zählen, wenn die Seite 1 Sekunde wirklich zu sehen war (vorgeladene Seiten aus Facebook zählen nicht) */
   var seen1 = false, visT = 0, t0 = Date.now(), left = false;
   var bucket = function (s) { return s < 10 ? 'unter 10 s' : s < 30 ? '10–30 s' : s < 60 ? '30–60 s' : s < 180 ? '1–3 min' : s < 600 ? '3–10 min' : 'über 10 min'; };
-  function seenChk() { if (seen1) return; if (d.hidden) { clearTimeout(visT); visT = 0; return; } if (!visT) visT = setTimeout(function () { visT = 0; if (seen1 || d.hidden) return; seen1 = true; t0 = Date.now() - 1000; ev('Übungsseite geöffnet', (C.slug && C.slug !== 'hub' ? C.slug : 'Übersicht')); }, 1000); }
+  function seenChk() { if (seen1) return; if (d.hidden) { clearTimeout(visT); visT = 0; return; } if (!visT) visT = setTimeout(function () { visT = 0; if (seen1 || d.hidden) return; seen1 = true; t0 = Date.now() - 1000; ev('Übungsseite geöffnet', (C.slug && C.slug !== 'hub' ? C.slug : 'Übersicht') + (function () { var m = GA && /[?&]t=([a-z0-9-]{1,20})/i.exec(location.search); return m ? ' · Thema ' + m[1].toLowerCase() : ''; })()); }, 1000); }
   d.addEventListener('visibilitychange', seenChk); seenChk();
   function bye() { if (left || !seen1) return; left = true; ev('Seite verlassen', 'ueben/' + (C.slug || 'Übersicht') + ' · ' + bucket((Date.now() - t0) / 1000)); }
   addEventListener('pagehide', bye); d.addEventListener('visibilitychange', function () { if (d.hidden) bye(); });
