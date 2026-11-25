@@ -77,7 +77,8 @@ export async function bibAntwort(text, opt = {}) {
   const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
   const html = String(b.antwort).split(/\n{2,}/).map(p => '<p>' + esc(p).replace(/\n/g, '<br>') + '</p>').join('');
   const quellen = [...new Set(b.belege.map(x => x.quelle && x.quelle.name).filter(Boolean))].slice(0, 3).join(' · ');
-  const raw = 'Hier die geprüfte Antwort aus unserer Wissensbasis – steht an der Tafel. Frag gern nach, wenn du es anders erklärt haben willst.\n```tafel ' + b.frage.replace(/\n/g, ' ').slice(0, 90) + '\n' + html + (quellen ? '<div class="source">Quellen: ' + esc(quellen) + '</div>' : '') + '\n```';
+  // Max unten rechts (Chat): die Antwort steht direkt im Chat – eine Tafel gibt's erst auf „Tafel erstellen“
+  const raw = opt.chat ? String(b.antwort).trim() : 'Hier die geprüfte Antwort aus unserer Wissensbasis – steht an der Tafel. Frag gern nach, wenn du es anders erklärt haben willst.\n```tafel ' + b.frage.replace(/\n/g, ' ').slice(0, 90) + '\n' + html + (quellen ? '<div class="source">Quellen: ' + esc(quellen) + '</div>' : '') + '\n```';
   try { if (window.BM) window.BM.track('Antwort-Bibliothek', b.slug); } catch (e) {}
   return { ok: true, text: raw, model: 'bibliothek', tools: [], bibliothek: true,
     rechenpruefung: { rechnungen: 0, korrigiert: 0, offen: 0, fakten: [], belege: b.belege, db: { ok: true, geprueft: b.belege.length, widersprueche: [] }, bibliothek: true } };

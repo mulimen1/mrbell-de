@@ -591,3 +591,12 @@ html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn { background: linear-gradient(
 html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn.lock { filter: saturate(.85); opacity: .85 !important; }
 html[data-nv] .tafel .m-ladc:nth-child(7) .m-ladn .ico { color: #141414 !important; stroke: #141414 !important; }
 html[data-nv] .tafel .m-ladl:nth-child(6) i { background: linear-gradient(90deg, #5b3fc4, #c99a1b) !important; }
+/* Schmale Tafel (Max unten rechts, auch am Desktop): Titel bekommt Platz, Cursor/Download/Löschen ins „…“-Menü, Zähler kompakt zwischen den Pfeilen */
+.ai-board { container: aiboard / inline-size; }
+@container aiboard (max-width: 560px) {
+  .asst .ai-bh .ai-btour, .asst .ai-bh .ai-bdl, .asst .ai-bh .ai-bdel { display: none !important; }
+  .asst .ai-bh .m-bmore { display: inline-grid !important; }
+  .asst .ai-bh { gap: 2px; }
+  .asst .ai-bh b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 14.5px; line-height: 1.25; overflow-wrap: break-word; }
+  .asst .ai-bh .cnt { order: 0; margin: 0 2px; font-size: 11.5px; }
+}

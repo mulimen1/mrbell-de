@@ -342,7 +342,7 @@ export function mountAssistant() {
   const bArea = h('div', { class: 'ai-ba dots' });
   const bGrab = h('div', { class: 'ai-grab', 'aria-hidden': 'true' }, h('i'));
   const board = h('section', { class: 'ai-board', role: 'region', 'aria-label': L('Max’ Tafel', 'Max’s board') },
-    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bCount, bPrev, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
+    bGrab, h('div', { class: 'ai-bh' }, h('span', { html: ico('board') }), bTitle, bPrev, bCount, bNext, bTour, bDl, bDel, bFs, bMore, bMin, bClose), bMenu, bAsk, bArea, bSay);
   const bTab = h('button', { class: 'ai-btab', type: 'button', 'aria-label': L('Tafel aufklappen', 'Open board') }, h('span', { html: ico('board') }), h('span', { class: 'm-btl' }, L('Tafel öffnen', 'Open board')), h('span', { class: 'm-btm' }, L('Zurück zur Tafel', 'Back to the board')),
     h('span', { class: 'ai-btx', role: 'button', tabindex: '0', 'aria-label': L('Schließen – bleibt in deiner Bibliothek', 'Close – stays in your library'), title: L('Schließen – bleibt in deiner Bibliothek', 'Close – stays in your library'), html: ico('x'), onclick: e => { e.stopPropagation(); closeBoard(); toast(L('Tafel liegt in deiner Bibliothek.', 'The board is in your library.'), 2400); } }));
   let park = false;   // nur wer selbst auf „–“ tippt, parkt die Tafel am Rand – sonst wird sie geschlossen (liegt in der Bibliothek)
@@ -968,11 +968,16 @@ export function mountAssistant() {
     t.style.setProperty('--tf-d', Math.round(40 + i * step * .7) + 'ms');
     t.classList.add('tf-in');
   }
-  function goBoard(d) { if (!boards.length) return; bIdx = clamp(bIdx + d, 0, boards.length - 1); drawBoard(false); }
+  // Erklärung + Klausurfragen sind EIN Thema (Umschalter auf der Tafel) – Zähler und Pfeile laufen über Themen, nicht über einzelne Tafeln
+  const topOf = b => (b && b.exam && b.pair && boards.includes(b.pair)) ? b.pair : b;
+  const tops = () => boards.filter(x => topOf(x) === x);
+  function goBoard(d) { const T = tops(); if (!T.length) return; const n = T[clamp(T.indexOf(topOf(boards[bIdx])) + d, 0, T.length - 1)]; const i = boards.indexOf(n); if (i < 0 || i === bIdx) return; bIdx = i; drawBoard(false); }
   function drawBoard(write) {
     const b = boards[bIdx]; if (!b) return;
-    bTitle.textContent = b.title; bCount.textContent = boards.length > 1 ? `${bIdx + 1} / ${boards.length}` : '';
-    bPrev.hidden = bNext.hidden = boards.length < 2;
+    bTitle.textContent = b.title;
+    { const T = tops(), ti = T.indexOf(topOf(b)), many = T.length > 1 && ti >= 0;
+      bCount.textContent = many ? `${ti + 1} / ${T.length}` : ''; bCount.title = many ? L(`Tafel ${ti + 1} von ${T.length} in diesem Gespräch`, `Board ${ti + 1} of ${T.length} in this chat`) : '';
+      bPrev.hidden = bNext.hidden = !many; bPrev.disabled = ti <= 0; bNext.disabled = ti >= T.length - 1; }
     const t = h('div', { class: 'tafel' }, h('h2', { class: 'tt' }, b.title));
     t.appendChild(polishBoard(sanitize(b.html)));
     { const f = t.children[1], nz = x => String(x || '').toLowerCase().replace(/[^a-zäöüß0-9]+/g, ''); if (f && /^H[1-4]$/.test(f.tagName) && nz(f.textContent) === nz(b.title)) f.remove(); }   // KI wiederholt den Tafel-Titel als erste Überschrift → nur einmal zeigen
@@ -1289,8 +1294,8 @@ export function mountAssistant() {
         }
         if (c.target) { ls.set('tutor.target', c.target); try { const cr = await import('./create.js'); cr.setCreate(c.target, '*', cr.quickOpts(c.target)); } catch (e) {} if (!STAGE && open) closeAnimated(); const m = await import('./app.js'); m.startTopic(c.v); }   // Werkzeug (Quiz, Podcast …) braucht ein Skript
         else { const q = L(`Erklär mir „${c.v}“ von Grund auf – mit Beispiel an der Tafel.`, `Explain “${c.v}” to me from scratch – with an example on the whiteboard.`);
-        if (STAGE) setTimeout(() => submit(q), 300);
-        else { ls.set('tutor.pendingAsk', q); if (open) closeAnimated(); location.hash = '#/app/tutor'; } }
+        // Auch außerhalb des Tutor-Raums: Max erklärt gleich hier unten rechts, ohne die Seite zu wechseln
+        const lq0 = (([...hist].reverse().find(m => m.role === 'user') || {}).content || '').replace(/^\[[^\]]*\]\n/, '').trim(); if (lq0 !== q) setTimeout(() => submit(q), 300); }
       }
       else if (c.k === 'excel') {   // Max führt direkt in den Excel-Helfer: Vorlage, Generator (mit der Aufgabe, läuft sofort los) oder Trainer
         if (c.v === 'generator') { await nav('#/app/excel'); }
@@ -1376,6 +1381,11 @@ export function mountAssistant() {
       let XL = '';
       if (/ex[ck]?[ce]?l|xls|tabell|vorlage|spreadsheet|sheet|formel/i.test(text)) { try { const m = await import('./xl/templates.js'); XL = L(`[Excel in BWL Max: Es gibt den Excel-Helfer mit ${m.TEMPLATES.length} geprüften Vorlagen (echte .xlsx mit Formeln zum Herunterladen), und einen Excel-Trainer (Excel lernen mit Kürzeln). Will der Nutzer eine Excel-Datei: Passt eine Vorlage, öffne sie mit [[excel:ID]] und sag in 1–2 Sätzen, was er dort eintragen muss. Passt keine, rechne die Aufgabe an der Tafel vor und sag ehrlich, dass es dafür keine fertige Vorlage gibt. Will er Excel lernen: [[excel:trainer]]. Öffnest du eine Vorlage oder den Trainer, wechselt die Seite – dann keine Tafel dazu und nicht auf die Tafel verweisen. Vorlagen-IDs: ${m.TEMPLATES.map(t => t.id).join(', ')}]`, `[Excel in BWL Max: open a matching template with [[excel:ID]], otherwise solve it on the whiteboard, to learn Excel [[excel:trainer]]. Templates: ${m.TEMPLATES.map(t => t.id + ': ' + t.title).join('; ')}]`); } catch (e) {} }
       const PFLICHT = SEITE ? '' : L('[Tafel-Regel (immer): Will der Nutzer etwas erklärt bekommen, eine Übersicht, eine Zusammenfassung, Hilfe bei einer Aufgabe oder ein Thema lernen, antwortest du SOFORT mit einer Tafel (```tafel Titel … ```) – nicht erst fragen, ob du es an die Tafel schreiben sollst, und kein Kurzskript anlegen ([[topic:…]] nur zusammen mit Karteikarten, Quiz oder Podcast). Ist wirklich unklar, was gemeint ist, frag EINMAL ganz kurz zurück und hänge die Auswahl an: [[wahl:Option A|Option B|Option C]] (2–4 kurze Optionen, die jeweils als vollständiger Wunsch funktionieren, z. B. „Erklär mir die Vollkostenrechnung“). Auch kurze Wissensfragen („Was ist X?“, „Unterschied zwischen X und Y?“, „und Z?“ als Folgefrage) bekommen eine kompakte Tafel – im Chat dann nur 1–2 Sätze. Keine Tafel nur bei Karteikarten, Podcast, Lernpfad, Quiz, Smalltalk oder einer reinen Ja/Nein-Frage.]', '[Board rule (always): if the user wants an explanation, overview, summary, help with a task or to learn a topic, answer IMMEDIATELY with a board (```tafel Title … ```) – do not ask whether to use the board and do not create a short script ([[topic:…]] only together with flashcards, quiz or podcast). If it is genuinely unclear, ask ONE short question and append the choices: [[wahl:Option A|Option B|Option C]] (2–4 short options, each a complete request). No board only for flashcards, podcast, study path, quiz, small talk or a plain yes/no question.]');
+      // Max unten rechts (nicht im Tutor-Raum): erst eine kurze Chat-Antwort wie in einem guten Chat – eine Tafel nur,
+      // wenn der Nutzer sie will („Tafel erstellen“, „Erkläre mir mehr“, „… an der Tafel“) oder die Seite sie braucht (Themen-Einstieg)
+      const CHATMODE = !STAGE && !SEITE && !o.tafel && !o.fs && !o.entry && !o.board && !o.exam && !o.examSlug && !/\btafel\b|whiteboard/i.test(text);
+      if (ex) ex.chat = CHATMODE;
+      const CHATR = L('[Chat-Regel (Max unten rechts, gilt für diese Antwort): Antworte direkt im Chat – kurz, klar und fachlich sauber wie ein sehr guter Chat (meist 2–6 Sätze, bei Rechnungen die Schritte knapp untereinander, Formeln wie gewohnt gesetzt). KEINE Tafel (kein ```tafel-Block), auch nicht bei Erklär- oder Wissensfragen. Der Nutzer kann darunter selbst „Tafel erstellen“ oder „Erkläre mir mehr“ wählen – darauf nicht hinweisen.]', '[Chat rule (Max bottom right, for this reply): answer right in the chat – short, clear and correct like a very good chat (usually 2–6 sentences, calculations as brief steps, formulas typeset as usual). NO board (no ```tafel block), even for explanation questions. The user can pick “Create board” or “Explain more” below – don’t mention it.]');
       // Der Server kürzt jede Nachricht auf 6000 Zeichen (von hinten) – damit die eigentliche Frage nie abgeschnitten wird,
       // werden Seitenkontext und Wissen gekürzt, nicht die Regeln und nie die Frage.
       // Der Server kürzt JEDE Nachricht auf rund 4.000 Zeichen. Darum: Regeln als eigene Nachricht(en) vor der Frage
@@ -1385,7 +1395,7 @@ export function mountAssistant() {
       if (older.length) { const parts = []; older.forEach(m => { if (m.role === 'user') parts.push(L('Nutzer: ', 'User: ') + m.content.replace(/\s+/g, ' ').slice(0, 110)); else { const t = (m.content.match(/```tafel[ \t]*([^\n]*)/) || [])[1]; parts.push(L('Max: ', 'Max: ') + (t ? L('Tafel „', 'board “') + t.trim().slice(0, 60) + L('“', '”') : m.content.replace(/```[\s\S]*?```/g, '').replace(/\s+/g, ' ').slice(0, 80))); } }); let sum = parts.join(' · '); if (sum.length > 1500) sum = '…' + sum.slice(-1500); FRUEHER = L('[Früher in diesem Gespräch (ältere Nachrichten, zur Orientierung): ', '[Earlier in this conversation: ') + sum + ']'; }
       const FEAT = L('[Was BWL Max alles kann (nutze es aktiv, sag nie, etwas davon ginge nicht): Erklären an der Tafel; Mitschrift im Füller-Look aus Tipp-Notizen oder Foto ([[seite:mitschrift]]); YouTube-Video → Transkript mit Zeitstempeln, daraus Lernzettel, Mitschrift, Karteikarten, Quiz oder Podcast ([[seite:video]], hat der Nutzer schon einen Link: [[seite:video:LINK]] – dann läuft es sofort los); Excel-Helfer mit 60 Vorlagen und Excel-Trainer; Karteikarten, Quiz, Podcast, Lernpfad, Lernzettel und Klausurplan aus Skript oder Thema; BWL-Trainer mit endlosen Aufgaben ([[seite:trainer]]); Rechner mit Rechenweg ([[seite:rechner]]); Fächer & Noten mit Notenziel ([[seite:faecher]]); Stundenplan ([[seite:stundenplan]]); Bibliothek mit allem Erstellten ([[seite:bibliothek]]). Fragt jemand, was du kannst, nenn kurz: Tafel, Mitschrift, YouTube-Video → Lernzettel, Excel-Helfer und Karteikarten/Quiz/Podcast. Bekommst du einen YouTube-Link, sag nicht, du könntest ihn nicht ansehen – sag, dass du das Video jetzt abschreibst, und setz [[seite:video:LINK]].]', '[What BWL Max can do: board explanations, notes ([[seite:mitschrift]]), YouTube video → transcript → study sheet, flashcards, quiz, podcast ([[seite:video:LINK]]), Excel helper, flashcards/quiz/podcast/study path/exam plan, trainer ([[seite:trainer]]), calculators ([[seite:rechner]]), subjects & grades ([[seite:faecher]]), library ([[seite:bibliothek]]).]');
       const VD = (curDoc() || {}).video ? L('[Der verbundene Stoff ist das Transkript eines Videos. Sprich vom Video, nie von Seiten, Folien oder einem Skript; nenne Stellen mit Zeitstempel (z. B. „bei 1:20“) statt (S. x).]', '[The linked material is a video transcript. Talk about the video, never pages or slides; cite timestamps (e.g. “at 1:20”) instead of (p. x).]') : '';
-      const RULES = [FRUEHER, JETZT, FEAT, VD, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, PFLICHT, TAFEL].filter(Boolean);
+      const RULES = [FRUEHER, JETZT, FEAT, VD, GESPROCHEN, KURZ, maxPrompt(), MM.on() ? MM.prompt() : '', XL, CHATMODE ? CHATR : PFLICHT, CHATMODE ? '' : TAFEL].filter(Boolean);
       const packs = []; let cur = '';
       for (const r of RULES) { const r2 = r.length > 3300 ? r.slice(0, 3300) + '…]' : r; if (cur && (cur + '\n' + r2).length > 3400) { packs.push(cur); cur = r2; } else cur = cur ? cur + '\n' + r2 : r2; }
       if (cur) packs.push(cur);
@@ -1394,7 +1404,7 @@ export function mountAssistant() {
       const SEITE2 = fit(SEITE), ctx2 = fit(ctxLine), KNOW2 = fit(KNOW);
       // Erklär-/Wissensfrage: Tafel-Pflicht direkt an der Frage (Regeln weiter oben gehen sonst unter)
       const ASKB = !SEITE && !/karteikart|podcast|lernpfad|quiz|abfrag|excel|vorlage/i.test(text) && /^(was (ist|sind|bedeutet|heißt|macht|versteht)|wie (funktioniert|rechne|berechne|geht|bilde|buche|ermittle)|warum|wieso|weshalb|erklär|erkläre|unterschied|und (was|wie)|kannst du (mir )?(das |die |den )?.{0,40}erklär)|\b(unterschied zwischen|was ist der unterschied|erklär mir|vs\.?)\b|^und [^?]{2,40}\?$/i.test(text.trim());
-      const TAFNOW = ASKB ? L('[Das ist eine Erklär-/Wissensfrage: Antworte mit einer kompakten Tafel (```tafel Titel … ```) und im Chat nur 1–2 Sätzen.]', '[This is an explanation question: answer with a compact board (```tafel Title … ```) and only 1–2 sentences in chat.]') : '';
+      const TAFNOW = CHATMODE ? CHATR : o.tafel ? L('[Der Nutzer will das jetzt an der Tafel: Antworte mit einer Tafel (```tafel Titel … ```), Schritt für Schritt mit Beispiel, und im Chat nur 1–2 Sätzen.]', '[The user wants this on the board now: answer with a board (```tafel Title … ```), step by step with an example, and only 1–2 sentences in chat.]') : ASKB ? L('[Das ist eine Erklär-/Wissensfrage: Antworte mit einer kompakten Tafel (```tafel Titel … ```) und im Chat nur 1–2 Sätzen.]', '[This is an explanation question: answer with a compact board (```tafel Title … ```) and only 1–2 sentences in chat.]') : '';
       const pre = [ctx2, KNOW2, WECHSEL, REF, SEITE2, TAFNOW].filter(Boolean).join('\n');
       const q1 = text.length > 1200 ? text.slice(0, 1200) + ' …' : text;
       messages[messages.length - 1].content = L('[Aktuelle Nachricht des Nutzers – darauf antwortest du:]', '[Current user message – answer this:]') + '\n' + q1 + (pre ? '\n\n' + pre : '') + '\n' + L('[Nachricht des Nutzers (dieselbe wie oben):]', '[User message (same as above):]') + '\n' + text;
@@ -1423,7 +1433,7 @@ export function mountAssistant() {
       // >>> Sofort-Tafel (boards.js): Themen-Einstieg mit gespeicherter Tafel → kein KI-Aufruf, sonst live
       let r = inst ? await instantReply(o) : o.examSlug ? await examReply(o.examSlug) : null;
       // Antwort-Bibliothek: typische Fragen mit geprüfter, gespeicherter Antwort – ohne KI-Aufruf (nur ohne Skript/Material/Einstieg, nur Deutsch)
-      if (!r && !inst && !o.examSlug && !o.entry && !d && !mat && !pasted && !payload.material && L('de', 'en') === 'de') { try { const { bibAntwort } = await import('./antwortbib.js'); r = await bibAntwort(text, { verlauf: hist.filter(m => m.role === 'user').length - 1 }); } catch (e) { r = null; } }
+      if (!r && !inst && !o.examSlug && !o.entry && !d && !mat && !pasted && !payload.material && L('de', 'en') === 'de') { try { const { bibAntwort } = await import('./antwortbib.js'); r = await bibAntwort(text, { verlauf: hist.filter(m => m.role === 'user').length - 1, chat: CHATMODE }); } catch (e) { r = null; } }
       if (!r) { if ((inst || o.examSlug) && o.board) showBuilding(String(o.board)); r = await ask('chat', payload, { signal: ctrl.signal }); }
       // <<< Sofort-Tafel
       if (my !== gen) return;
@@ -1481,7 +1491,7 @@ export function mountAssistant() {
       const lastQ = [...hist].reverse().find(m => m.role === 'user')?.content || '';
       const asPage = MOB.matches && !!(ex && ex.entry);   // Themenseite am Handy: steht sofort da, ohne Einblenden und ohne Hinweis
       if (!ex.sketch) keepBoards(p.boards, { doc: curDoc(), question: lastQ, answer: p.text, quiet: asPage });
-      boards = boards.concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length;
+      { const same = (x, y) => x.title === y.title && x.html === y.html; boards = boards.filter(x => !p.boards.some(y => same(x, y))).concat(p.boards).slice(-12); bIdx = boards.length - p.boards.length; }
       t = drawBoard(!asPage); openBoard(); whenWritten(t);
       root.classList.toggle('ai-wide', !!(ex && ex.fs && !MOB.matches));   // aus der Übersicht: Erklärung groß, wie eine eigene Seite
     }
@@ -1499,6 +1509,11 @@ export function mountAssistant() {
       const CP = '<svg class="ico" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>';
       const RG = '<svg class="ico" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.6"/><path d="M20 4v7h-7"/></svg>';
       const plainAns = txt.replace(/[*_#`]/g, '');
+      // Chat-Antwort ohne Tafel: zuerst die zwei Wege zur Tafel
+      if (ex.a) ex.a.classList.toggle('chat', !!(ex.chat && !p.boards.length));   // Chat-Antwort ohne Tafel: steht komplett da, nicht auf 3 Zeilen gekürzt
+      if (ex.chat && !p.boards.length) extras.push(h('div', { class: 'ai-tafgo' },
+        h('button', { class: 'ai-tg primary', type: 'button', onclick: () => submit(L('Erstelle mir dazu eine Tafel – kompakt, Schritt für Schritt, mit Beispiel.', 'Make me a board on this – compact, step by step, with an example.'), { tafel: true, show: L('Tafel erstellen', 'Create board') }) }, h('span', { html: ico('board') }), L('Tafel erstellen', 'Create board')),
+        h('button', { class: 'ai-tg', type: 'button', onclick: () => submit(L('Erkläre mir das ausführlicher an der Tafel – Schritt für Schritt, mit Beispiel und den typischen Klausurfehlern.', 'Explain this in more detail on the board – step by step, with an example and the typical exam mistakes.'), { tafel: true, show: L('Erkläre mir mehr', 'Explain more') }) }, h('span', { html: ico('bulb') }), L('Erkläre mir mehr', 'Explain more'))));
       extras.push(h('div', { class: 'ai-acts' },
         qb(CP, L('Kopieren', 'Copy'), e => { try { navigator.clipboard.writeText(plainAns); const b = e.currentTarget; b.classList.add('ok'); b.querySelector('.ai-actl').textContent = L('Kopiert', 'Copied'); setTimeout(() => { b.classList.remove('ok'); b.querySelector('.ai-actl').textContent = L('Kopieren', 'Copy'); }, 1600); } catch (x) {} }),
         qb(RG, L('Nochmal anders', 'Try differently'), () => submit(L('Erklär das bitte nochmal anders – anderer Ansatz, anderes Beispiel.', 'Explain that again differently – another approach, another example.'))),

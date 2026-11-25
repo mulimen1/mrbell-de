@@ -30,7 +30,7 @@ function note() {
     h('div', { class: 'sk-cmp' },
       shot('/tutor/img/design-neu.webp', L('Neu', 'New'), L('Das siehst du gerade', 'What you see now'), true),
       shot('/tutor/img/design-alt.webp', L('Alt', 'Old'), L('So sah es vorher aus', 'How it looked before'), false)),
-    h('p', {}, L('Vier Bereiche oben (Tutor, Fächer & Bibliothek, Lernen, Klausur-Tools), mehr Farbe, Fortschritt mit Lernkurve und Max im neuen Look. Deine Skripte und alles, was du erstellt hast, bleiben gleich.', 'Four areas at the top (Tutor, Subjects & library, Learn, Exam tools), more colour, progress with a learning curve and Max in a new look. Your slides and everything you created stay the same.')),
+    h('p', {}, L('Vier Bereiche oben (Tutor, Meine Klausuren, Lernen & Bibliothek, Tools), mehr Farbe, Fortschritt mit Lernkurve und Max im neuen Look. Deine Skripte und alles, was du erstellt hast, bleiben gleich.', 'Four areas at the top (Tutor, Subjects & library, Learn, Exam tools), more colour, progress with a learning curve and Max in a new look. Your slides and everything you created stay the same.')),
     h('p', { class: 'sk-sub' }, L('Umschalten geht jederzeit im Menü oben rechts.', 'You can switch any time in the menu top right.')),
     h('button', { class: 'sk-fb', type: 'button', onclick: () => { track('Design-Feedback', 'Text'); fb(); } }, L('Feedback geben', 'Give feedback')));
   modal({ cls: 'sk-modal sk-cmpm', eyebrow: L('Neues Design', 'New design'), title: L('BWL Max sieht neu aus', 'BWL Max has a new look'), body,

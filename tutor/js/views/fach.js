@@ -59,7 +59,7 @@ export function render(root, { id } = {}) {
   const draw = () => {
     if (!wrap.isConnected) return;
     const f = M.getMe().faecher.find(x => x.id === id);
-    if (!f) { location.replace('#/app/faecher'); return; }
+    if (!f) { location.replace(document.documentElement.dataset.nv ? '#/app/klausuren' : '#/app/faecher'); return; }
     document.title = f.name + ' · BWL Max';
     const c = PAL[f.farbe] || PAL.orange;
     wrap.style.setProperty('--c1', c[0]); wrap.style.setProperty('--c2', c[1]);
@@ -89,7 +89,7 @@ export function render(root, { id } = {}) {
       h('div', {}, h('b', {}, rf.hasData ? rf.score + ' %' : '–'), h('small', {}, L('Prüfungsreife', 'Readiness'))));
     return h('section', { class: 'fsx-hero' },
       h('div', { class: 'fsx-top' },
-        h('a', { class: 'fsx-back', href: '#/app/faecher' }, h('span', { html: ico('left') }), L('Alle Fächer', 'All subjects')),
+        h('a', { class: 'fsx-back', href: document.documentElement.dataset.nv ? '#/app/klausuren' : '#/app/faecher' }, h('span', { html: ico('left') }), document.documentElement.dataset.nv ? L('Meine Klausuren', 'My exams') : L('Alle Fächer', 'All subjects')),
         h('button', { class: 'fsx-edit', type: 'button', onclick: () => editFach(f) }, h('span', { html: ico('tune') }), L('Fach bearbeiten', 'Edit subject'))),
       h('div', { class: 'fsx-main' },
         f.icon ? h('span', { class: 'fsx-badge', html: ico(f.icon) }) : h('span', { class: 'fsx-badge' }, (f.kurz || f.name).slice(0, 3).toUpperCase()),

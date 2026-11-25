@@ -4,7 +4,7 @@ import { h, ico, ls } from '../util.js';
 import { L, getOutLang } from '../i18n.js';
 import { S, save } from '../state.js';
 const fromTools = () => { try { sessionStorage.setItem('tutor.backTo', 'tools'); } catch (e) {} };
-export const toolsBack = () => h('a', { class: 'kt-back', href: '#/app/tools' }, h('span', { html: ico('left') }), L('Zurück zu Klausur-Tools', 'Back to exam tools'));
+export const toolsBack = () => h('a', { class: 'kt-back', href: '#/app/tools' }, h('span', { html: ico('left') }), L('Zurück zu Tools', 'Back to tools'));
 
 const XLS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 1.5h8.3l5.3 5.3v13.7a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V3.5a2 2 0 0 1 2-2z" fill="#1D6F42"/><path d="M14.5 1.5v3.6a1.7 1.7 0 0 0 1.7 1.7h3.6z" fill="#8fd1ac"/><text x="12" y="17.6" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="6.6" font-weight="700" fill="#fff">XLS</text></svg>';
 
@@ -34,7 +34,7 @@ export function render(root, { sub = '' } = {}) {
     card('calc', L('Rechner', 'Calculators'), L('Kapitalwert, Break-even, Abschreibung & Co. – mit Rechenweg zum Abschreiben.', 'NPV, break-even, depreciation & more – with the full working.'), L('Rechner öffnen', 'Open calculators'), '#/app/rechner', 'calc'),
     card('book', L('BWL-Lexikon', 'Glossary'), L('Über 1.000 Fachbegriffe, kurz und klausurtauglich erklärt.', 'Over 1,000 terms, explained briefly and exam-ready.'), L('Lexikon öffnen', 'Open glossary'), '#/app/tools/lexikon', 'lex'));
   wrap.append(
-    h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Klausur-Tools', 'Exam tools')), h('h1', {}, L('Alles für die Klausur. ', 'Everything for the exam. '), h('span', {}, L('An einem Ort.', 'In one place.')))),
+    h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Tools', 'Tools')), h('h1', {}, L('Alles für die Klausur. ', 'Everything for the exam. '), h('span', {}, L('An einem Ort.', 'In one place.')))),
     hero, grid);
 }
 

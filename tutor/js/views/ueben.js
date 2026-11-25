@@ -2,6 +2,7 @@
 // dazu Excel-Trainer, alle Themen einzeln und Prüfen & Wettkampf.
 import { h, ico, ls } from '../util.js';
 import { L } from '../i18n.js';
+import { libSwitch } from '../msswitch.js';
 import { face } from '../face.js';
 
 // Reihenfolge des geführten Wegs: von den Grundlagen des Rechnungswesens bis zur VWL
@@ -22,6 +23,7 @@ export async function render(root, { sub = '' } = {}) {
   if (sub === 'pfad') return guided(root);
   if (['tafel', 'zettel', 'karten', 'podcast', 'lernpfad', 'quiz', 'simulator'].includes(sub)) { const m = await import('./tools.js'); return m.learnPick(root, sub); }
   const wrap = h('div', { class: 'view-in ub' }); root.appendChild(wrap);
+  { const sw = libSwitch('lernen'); if (sw) root.insertBefore(sw, wrap); }
   if (document.documentElement.dataset.nv) root.insertBefore(h('div', { class: 'view-in kt-headrow' }, h('div', { class: 'kt-head' }, h('div', { class: 'eyebrow' }, L('Lernen', 'Learn')), h('h1', {}, L('Üben, prüfen, gewinnen. ', 'Practise, check, win. '), h('span', {}, L('Bis es sitzt.', 'Until it sticks.'))))), wrap);   // Test: klare Überschrift
   const T = await trainers(); if (!wrap.isConnected) return;
   const BEN = !!document.documentElement.dataset.nv;

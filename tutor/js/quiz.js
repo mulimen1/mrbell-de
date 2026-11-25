@@ -354,7 +354,7 @@ export function explainPrompt(q, r = {}, intro = L('Ich habe diese Quizfrage fal
   if (q.type === 'num') P.push(`${L('Lösung', 'Solution')}: ${fmt(q.answer)}${q.unit ? ' ' + q.unit : ''}${q.solution ? '\n' + L('Rechenweg', 'Working') + ': ' + String(q.solution).replace(/<br\s*\/?>/g, '\n') : ''}`);
   if (r.skipped || !r.given) P.push(L('Ich wusste es nicht.', 'I didn’t know.'));
   else P.push((q.type === 'match' || q.type === 'order' ? L('Meine Antwort:\n', 'My answer:\n') : L('Meine Antwort: ', 'My answer: ')) + r.given);
-  P.push(L('Erklär mir kurz an der Tafel, wo mein Denkfehler liegt – und woran ich das nächste Mal denke.', 'Briefly explain on the whiteboard where my thinking went wrong – and what to remember next time.'));
+  P.push(L('Erkläre mir kurz, wo mein Denkfehler liegt – und woran ich das nächste Mal denken muss.', 'Briefly explain where my thinking went wrong – and what to remember next time.'));
   return P.join('\n');
 }
 
