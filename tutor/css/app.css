@@ -9934,3 +9934,6 @@ html:root[data-nv] body .qcard.compact, .bms .qcard.compact { border: 0 !importa
 /* Max unten rechts im Chat-Modus: die Antwort ist der Inhalt – nie auf ein paar Zeilen kürzen (nur bei Antworten neben einer Tafel) */
 .asst .ai-bub.max.chat .ai-a { display: block !important; -webkit-line-clamp: unset !important; overflow: visible !important; }
 .asst:not(.feed-open) .ai-bub.max.last.chat { cursor: auto; }
+/* „Klausur anlegen“ im Fenster: derselbe orange Hauptknopf wie auf der Seite (nicht das blasse Blau der Standard-Fenster) */
+html:root body .modal.kl-modal .btn.primary, html:root[data-nv][data-nv][data-nv][data-nv] body .modal.kl-modal .btn.primary { background: linear-gradient(110deg, #c2500f, #e0681f 45%, #f39b52) !important; color: #fff !important; border: 0 !important; font-weight: 750 !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 12px 24px -12px #d9601c !important; }
+html:root body .modal.kl-modal .btn.primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
